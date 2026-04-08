@@ -1,0 +1,40 @@
+{
+   "title": "",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "",
+   "media": [
+      ""
+   ],
+   "parts": [
+      {
+         "statement": "",
+         "response": {
+            "mode": "Numeric",
+            "showUnits": true,
+            "grading": "toler_perc",
+            "perc": 5,
+            "answer": {
+               "num": "",
+               "units": ""
+            }
+         },
+		 "final_answer": {
+            "text": ""
+         },
+         "worked_solutions": [
+            {
+               "text": ""
+            }
+         ]
+      }
+   ],
+   "algorithm": "",
+   "uid": ""
+}

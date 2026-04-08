@@ -39,6 +39,21 @@ def get_sheet_data_from_xml(xml, report=None):
 
 def get_question_from_xml(question_xml, report=None):
     question = get_question_html_properties(question_xml, report)
+    if "title" not in question:
+        name_xml = question_xml.find("name", recursive=False)
+        if name_xml and name_xml.text:
+            question_name = name_xml.text.strip()
+            number_match = re.match(r"^(?P<number>\d+(?:\.\d+)*)\s+(?P<title>.+)$", question_name)
+            if number_match:
+                question["title"] = number_match.group("title").strip()
+                question.setdefault("number", number_match.group("number"))
+            else:
+                question["title"] = question_name
+            report_warning(
+                report,
+                "Question title could not be recovered from data-propname markup; using Mobius question name.",
+                question_name,
+            )
     question.update(get_algorithm(question_xml))
     question.update(get_ids(question_xml))
     
@@ -195,7 +210,10 @@ def compare_properties(mutable_dict, immutable_dict):
             del mutable_dict[key]
 
 def get_sheet_info(xml, report=None):
-    group_xml = xml.find("questionGroups").find("group")
+    group_xml = get_sheet_container(xml)
+
+    if group_xml is None:
+        raise ValueError("Could not find a supported sheet container in the Mobius export.")
 
     info = get_sheet_name(group_xml.find("name").text, report)
     description_xml = group_xml.find("description")
@@ -204,6 +222,22 @@ def get_sheet_info(xml, report=None):
     info.update(get_ids(group_xml))
 
     return info
+
+
+def get_sheet_container(xml):
+    question_groups = xml.find("questionGroups")
+    if question_groups is not None:
+        group = question_groups.find("group")
+        if group is not None:
+            return group
+
+    assignment_units = xml.find("assignmentUnits")
+    if assignment_units is not None:
+        unit = assignment_units.find("unit")
+        if unit is not None:
+            return unit
+
+    return None
 
 def get_questions(xml):
     return xml.find_all("question", {"uid": True})
@@ -264,20 +298,23 @@ def get_prop_value(prop_xml):
         return cast_prop_string(prop_xml.string)
 
 def add_deeper_nest(prop_xml):
-    children = prop_xml.find_all(recursive=False)
+    children = get_tag_children(prop_xml)
     if all_same_name(children):
         return add_nested_list(prop_xml)
     else:
         return add_nested_dictionary(prop_xml)
 
+def get_tag_children(prop_xml):
+    return [child for child in prop_xml.children if isinstance(child, bs4.element.Tag)]
+
 def all_same_name(li):
     return len(li) > 0 and all(x.name == li[0].name for x in li)
 
 def add_nested_list(prop_xml):
-    return [get_prop_value(child) for child in prop_xml]
+    return [get_prop_value(child) for child in get_tag_children(prop_xml)]
 
 def add_nested_dictionary(prop_xml):
-    return {child.name:get_prop_value(child) for child in prop_xml}
+    return {child.name:get_prop_value(child) for child in get_tag_children(prop_xml)}
 
 def cast_prop_string(prop_string):
     if not prop_string:

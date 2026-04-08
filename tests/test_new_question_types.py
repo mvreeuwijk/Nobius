@@ -131,6 +131,22 @@ def test_document_upload_response_normalizes_and_round_trips(tmp_path):
     assert response["notGraded"] is True
 
 
+def test_authored_uploads_sheet_round_trips_document_upload_and_media(uploads_sheet, tmp_path):
+    render_result = render_sheet(uploads_sheet, "master.xml", make_render_settings())
+    imported = tmp_path / "uploads_imported"
+
+    generate_json_file(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
+    question = load_question_by_title(imported, "Hydrostatic Forces on a Curved Plate")
+    response = question["parts"][2]["response"]
+
+    assert (imported / "media" / "Semicircle.jpg").exists()
+    assert response["mode"] == "Document Upload"
+    assert response["fileExtensions"] == ["jpg", "pdf", "png", "txt"]
+    assert response["uploadMode"] == "code"
+    assert response["codeType"] == "numeric"
+    assert response["notGraded"] is False
+
+
 def test_adaptive_questions_reject_document_upload_components(tmp_path):
     question = build_document_upload_question()
     question["adaptive"] = {"enabled": True}
@@ -182,6 +198,14 @@ def test_render_normalization_preserves_legacy_document_upload_forceupload_seman
 
     assert response["forceUpload"] is False
     assert response["codeType"] == 2
+
+
+def test_render_normalization_splits_legacy_document_upload_extensions_string():
+    response = {"mode": "Document Upload", "fileExtensions": "jpg,pdf,png,txt"}
+
+    normalize_response_area_for_render(response)
+
+    assert response["fileExtensions"] == ["jpg", "pdf", "png", "txt"]
 
 
 def test_normalize_response_reports_html_field_renaming():

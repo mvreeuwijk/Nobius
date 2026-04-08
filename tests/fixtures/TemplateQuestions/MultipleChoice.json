@@ -1,0 +1,31 @@
+{
+   "title": "Multiple Choice (Q2.2)",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "A stagnant reservoir is stably stratified with two immiscible liquids of density \\(\\rho_{1}\\)and \\(\\rho_{2}\\) where \\(\\rho_{1} > \\rho_{2}\\), respectively. Which graph below depicts correctly the distribution of gauge pressure along a vertical line through the liquids.",
+   "media": [
+      "ResevoirGaugePressure.png"
+   ],
+   "parts": [
+      {
+         "statement": "",
+         "response": {
+            "mode": "Non Permuting Multiple Choice",
+            "answer": 2,
+            "choices": [
+               "i",
+               "ii",
+               "iii",
+               "iv"
+            ]
+         }
+      }
+   ],
+   "uid": "003e659f-eb4a-4500-ba21-9afef9a2f110"
+}

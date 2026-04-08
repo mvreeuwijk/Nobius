@@ -1,0 +1,68 @@
+{
+   "title": "Triangular Prism",
+   "icon_data": {
+      "difficulty": 3,
+      "par_time": [
+         45,
+         60
+      ],
+      "statement": ""
+   },
+   "master_statement": "Using volume integrals, determine the volume and mass of a fluid of constant density \\(\\rho\\) in the following container filled up to the top. Determine the integrals by summing thin slices of height d\\(z\\) over the \\(z\\)-direction.",   "media": [
+      "TriangularPrism.png"
+   ],
+   "parts": [
+      {
+         "statement": "",
+         "responses": [
+            {
+               "pre_response_text": "V = ",
+               "response": {
+                  "mode": "Maple",
+                  "mapleAnswer": "(1/2)*w*b*h"
+               }
+            },
+			{
+               "pre_response_text": "m = ",
+               "response": {
+                  "mode": "Maple",
+                  "mapleAnswer": "(rho/2)*w*b*h"
+               }
+            }
+         ],
+		 "input_symbols":[
+          [
+            "\\(\\rho\\)",
+            "rho"
+          ]
+		 ],
+         "final_answer": {
+            "text": "\\(V=\\frac{1}{2}wbh\\), \\(m=\\frac{\\rho}{2}wbh\\)"
+         },
+         "worked_solutions": [
+            {
+               "text": "The volume can be determined by: \\(V=\\int_{D}^{}dV\\)"
+            },
+            {
+               "text": "Taking a horizontal slice of thickness \\(dz\\): <br>\\(dV=WB(z)dz\\)"
+            },
+            {
+               "text": "Using congruence of triangles : <br>\\(\\frac{B(z)}{z}=\\frac{b}{h}\\)"
+            },
+            {
+               "text": "The mass can be determined by:<br>\\(m=\\int_{D}^{}dm\\), where \\(dm\\) is element of mass defined by \\(dm=\\rho dV\\)"
+            },
+            {
+               "text": "Since \\(\\rho\\) is constant , \\(m=\\rho\\int_{D}^{}dV=\\rho V\\)"
+            },
+            {
+               "text": "Substitute in volume equation from earlier"
+            },
+            {
+               "text": "\\(m=\\frac{\\rho}{2}wbh\\)"
+            }
+         ]
+      }
+   ],
+   "uid": ""
+}

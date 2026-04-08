@@ -1,0 +1,34 @@
+{
+   "title": "Identify The Mistakes 2 (Q4.2)",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         1,
+         2
+      ],
+      "statement": ""
+   },
+   "master_statement": "The following diagram represents left to right flow within a gas pipeline. What, if anything, is wrong with it?",
+   "media": [
+      "Streamlines02.png"
+   ],
+   "parts": [
+      {
+         "id": "Make into multiple selection with correct answers 2 and 5",
+         "statement": "",
+         "response": {
+            "mode": "Non Permuting Multiple Choice",
+            "answer": 2,
+            "choices": [
+               "Streamlines have seperated too far",
+               "The eddies are in the wrong direction",
+               "Streamlines cannot come from a wall",
+               "Streamlines cannot be drawn along walls",
+               "Streamlines cannot cross",
+               "None of the above"
+            ]
+         }
+      }
+   ],
+   "uid": "482fd4a6-2376-432f-a534-b3489699d1d4"
+}

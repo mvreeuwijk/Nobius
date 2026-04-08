@@ -1,0 +1,78 @@
+{
+   "title": "Algorithmic Answer 2 (Q7.2)",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "The flow in a rectangular open channel (up-stream depth \\(h_{1}=\\) $h1 m and channel width $w m) passes under a vertical plate sluice gate. The volume flow rate Q=$Q \\(m^{3}/s\\) and the downstream depth \\(h_{2}\\)=$h2 m",
+   "media": [
+      "SluiceGate.png"
+   ],
+   "parts": [
+      {
+         "statement": "Draw a diagram of the flow showing an appropriate control volume and the forces acting on the fluid. Note the pressure distribution is hydrostatic sufficiently far away from the sluice gate (why is the flow near the sluice gate not hydrostatic?)",
+         "response": {
+            "mode": "List",
+            "display": {
+               "display": "text",
+               "permute": false
+            },
+            "grader": "regex",
+            "answers": [
+               "~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~",
+               ".*"
+            ],
+            "credits": [
+               1,
+               0.9999999
+            ]
+         },
+         "final_answer": {
+            "text": "Streamlines are curved near the gate, therefore the pressure is not hydrostatic."
+         },
+         "worked_solutions": [
+            {
+               "media": [
+                  "SluiceGateForces.png"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Add the slgorithm each time this gets updated",
+         "statement": "Using the momentum equation, calculate the force on the gate. Give your answer to 3 significant figures.",
+         "response": {
+            "mode": "Numeric",
+            "showUnits": true,
+            "grading": "exact_sigd",
+            "digit": 3,
+            "answer": {
+               "num": "$F",
+               "units": "N"
+            }
+         },
+         "final_answer": {
+            "text": "$F N"
+         },
+         "worked_solutions": [
+            {
+               "text": "Applying momentum conservation over the CV:<br>\\(\\rho Q\\left(u_{2}-u_{1}\\right)=F_{p_{1}}-F_{p_{2}}-F_{G}\\)"
+            },
+            {
+               "text": "Hydrostatic pressure distributions:<br>\\(F_{p 1}=w h_{1} \\cdot \\rho_{g} \\frac{h_{1}}{2}, \\quad F_{p 2}=w h_{2} \\cdot \\rho g \\frac{h_{2}}{2}\\)"
+            },
+            {
+               "text": "Using continuity \\(Q=u_{1} w h_{1}=u_{2} w h_{2}\\), we can now calculate the Force"
+            },
+            {
+               "is_final_answer": true
+            }
+         ]
+      }
+   ],
+   "uid": "8b322638-ca45-4e51-a271-cb729956cc49"
+}

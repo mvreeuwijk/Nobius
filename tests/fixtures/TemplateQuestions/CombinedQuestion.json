@@ -1,0 +1,95 @@
+{
+   "title": "Combined Question",
+   "icon_data": {
+      "difficulty": 3,
+      "par_time": [
+         45,
+         60
+      ],
+      "statement": ""
+   },
+   "master_statement": "Las Vegas is a city that is growing quickly. Its main supply of water is Lake Meade, but this lake will be unable to provide all of the city's water in the near future. The government is currently looking for alternatives. One such alternative is to use pump groundwater from Eastern Nevada over a large distance (540 km) to the city. It is estimated that the pipeline will need to provide 1.04 x 108 m3 of water per year. The pipe has a diameter of 1.8 m and a friction factor f=0.01. For simplicity, it may be assumed that there are no differences in elevation over the entire length of the pipe.",
+   "media": [
+      "LasVegasPump.png"
+   ],
+   "parts": [
+      {
+         "statement": "An A-level student states that when a fluid flow experiences friction inside a pipe it must slow down on its way through the pipe. What, if anything, is the wrong with the student\u00e2\u20ac\u2122s thinking?",
+		 "response": {
+			"mode": "Non Permuting Multiple Choice",
+			"answer": 1,
+			"choices": [
+				"The velocity into a pipe must be the same as the velocity out of the pipe",
+				"Frictional forces do not act on fluids",
+				"\\(F_{max}\\) of the pipeline is negligible",
+				"The student is correct"
+			]
+         },
+         "final_answer": {
+			"media": [
+                "VegasGradeLine.png"
+            ],
+            "text": "The velocity into a pipe must be the same as the velocity out of the pipe"
+         },
+         "worked_solutions": [
+            {
+               "text": "By conservation of mass, it follows for a pipe of constant cross-sectional area that:<br>\\(\\rho A U_{in}=\\rho A U_{out}\\)"
+            },
+            {
+               "text": "For constant density flow, we have \\(U_{in} = U_{out}\\); and it is therefore impossible for the flow to slow down inside of the pipe."
+            }
+         ]
+      },
+      {
+         "statement": "The energy head at section 2 is H2 = 10 m and minor losses may be ignored. Plot the energy grade line, giving the values at appropriate locations. Explain why there is little added value in plotting the hydraulic grade line. ",
+         "response": {
+            "mode": "List",
+            "display": {
+               "display": "text",
+               "permute": false
+            },
+            "grader": "regex",
+            "answers": [
+               "~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~",
+               ".*"
+            ],
+            "credits": [
+               1,
+               0.9999999
+            ]
+         },
+         "final_answer": {
+            "text": "The hydraulic grade line is perfectly linear."
+         },
+         "worked_solutions": [
+            {
+               "text": "Pipe cross-sectional area::\\(A=\\frac{\\pi}{4} D^{2}=2.5 m^{2}\\)"
+            },
+            {
+               "text": "\\(\\begin{aligned} Q &=1.04 x 10^{8} \\mathrm{~m}^{3} / \\mathrm{yr} \\\\&=\\frac{1.04 x 10^{8}}{365 \\cdot 3600 \\cdot 24}=3.3 \\mathrm{~m}^{3} / \\mathrm{s}\\end{aligned}\\)"
+            },
+            {
+               "text": "\\(U=\\frac{Q}{A}=1.3^{\\mathrm{m} / \\mathrm{s}}\\)"
+            },
+            {
+               "text": "\\(f \\frac{L}{D} \\frac{U^{3}}{2 g}=0.01 \\cdot \\frac{540 \\cdot 10^{3}}{1 \\cdot 8} \\frac{(1.3)^{2}}{2 \\cdot 9.81}=257 m\\)"
+            },
+            {
+               "text": "\\(H_{1}=H_{2}+f \\frac{L}{D} \\frac{U^{2}}{2 g}=10+257=267 \\mathrm{~m}\\)"
+            },
+            {
+               "text": "Velocity head: \\(\\frac{U^{2}}{2 g}=0.09 m\\)"
+            },
+            {
+               "text": "\\(\\therefore H_{1} = h_{1} \\text{and} \\therefore H_{2} = h_{2}\\) (because velocity head negligibly small)"
+            },
+            {
+               "media": [
+                  "VegasGradeLine.png"
+               ]
+            }
+         ]
+      }
+   ],
+   "uid": "973969a2-45f5-44e4-b891-666dd2e455fe"
+}

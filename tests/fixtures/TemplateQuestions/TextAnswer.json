@@ -1,0 +1,81 @@
+{
+   "title": "Text Answer",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "",
+   "parts": [
+      {
+         "statement": " Define (unambiguously) a fluid.",
+         "response": {
+            "mode": "List",
+            "display": {
+               "display": "text",
+               "permute": false
+            },
+            "grader": "regex",
+            "answers": [
+               "~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~",
+               ".*"
+            ],
+            "credits": [
+               1,
+               0.9999999
+            ]
+         },
+         "final_answer": {
+            "text": "A substance that deforms continuously under the application of shear stress"
+         }
+      },
+      {
+         "statement": "Fluids are all around you in everyday life, give examples.",
+         "response": {
+            "mode": "List",
+            "display": {
+               "display": "text",
+               "permute": false
+            },
+            "grader": "regex",
+            "answers": [
+               "~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~",
+               ".*"
+            ],
+            "credits": [
+               1,
+               0.9999999
+            ]
+         },
+         "final_answer": {
+            "text": "Air, water, yogurt, petrol, diesel, oil, natural gas(methane), beer, wine, beverages in general, helium, treacle, blood, sweat, tears, sperm, snake poison, vacinations, etc"
+         }
+      },
+      {
+         "statement": "How do the fluids identified above differ? Contrast by comparing their physical properties, e.g.viscosity, density. [Give units in each case]",
+         "response": {
+            "mode": "List",
+            "display": {
+               "display": "text",
+               "permute": false
+            },
+            "grader": "regex",
+            "answers": [
+               "~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~",
+               ".*"
+            ],
+            "credits": [
+               1,
+               0.9999999
+            ]
+         },
+         "final_answer": {
+            "text": "- density differ: \\([\\rho ]=\\frac{M}{{L}^{3}}\\) <br> - viscosity differ: \\([\\mathcal{M}]=\\frac{M}{LT}\\)<br> - composition differs: e.g. air is composed of nitrogen(78%), oxygen(21%), Argon(0.4%), Carbon Dioxide(0.04%), etc."
+         }
+      }
+   ],
+   "uid": "81c66c25-db01-4f81-8407-29ff6f6d903e"
+}

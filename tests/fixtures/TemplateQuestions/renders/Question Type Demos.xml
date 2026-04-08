@@ -1,0 +1,3489 @@
+
+<courseModule>
+
+  <module>
+    <autoModule>true</autoModule>
+  </module>
+
+    <questionGroups>
+      <group uid="ce750ea8-92dd-44dc-8d0b-05e2b674f161" weight="1.0">
+        <name>
+          <![CDATA[ Sheet #5 - Question Type Demos ]]>
+        </name>
+        <description>
+          <![CDATA[ !!! Empty Description from TexConverter !!! ]]>
+        </description>
+        <privacy>10</privacy>
+
+        <questions>
+            <qRef uid="81c66c25-db01-4f81-8407-29ff6f6d903e" weight="1.0"/>
+            <qRef uid="003e659f-eb4a-4500-ba21-9afef9a2f110" weight="2.0"/>
+            <qRef uid="b6762ba3-fff7-4397-84e3-230024811e18" weight="3.0"/>
+            <qRef uid="482fd4a6-2376-432f-a534-b3489699d1d4" weight="4.0"/>
+            <qRef uid="c566aa5c-7258-4d6b-9976-110b0ab58cb2" weight="5.0"/>
+            <qRef uid="8b322638-ca45-4e51-a271-cb729956cc49" weight="6.0"/>
+            <qRef uid="3b8b78d8-3368-440b-ae47-0b5ba1cd4563" weight="7.0"/>
+            <qRef uid="f88c18b4-f352-4fb6-aacb-d056709abfba" weight="8.0"/>
+            <qRef uid="c29f85bf-b48c-4a41-b4ab-9eae8d3d4490" weight="9.0"/>
+            <qRef uid="973969a2-45f5-44e4-b891-666dd2e455fe" weight="10.0"/>
+        </questions>
+      </group>
+    </questionGroups>
+
+  <questions>
+        <question uid="81c66c25-db01-4f81-8407-29ff6f6d903e">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 1 Text Answer ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.1</span>
+                <span data-propname="title">Text Answer</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">1</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star " points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star " points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[10, 15]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 8.660254037844386,4.999999999999999"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 10.0,9.999999999999996"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">10-15</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              
+            </p>
+
+
+          </header>
+
+          <ul class="tabs-container">
+
+            <li class="tab active" id="tab1" style="max-width: 15rem;">
+              <p>(a)</p>
+            </li>
+            <li class="tab " id="tab2" style="max-width: 15rem;">
+              <p>(b)</p>
+            </li>
+            <li class="tab " id="tab3" style="max-width: 15rem;">
+              <p>(c)</p>
+            </li>
+
+            <li class="tab-end-line"></li>
+
+          </ul>
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                 Define (unambiguously) a fluid.
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn1">
+                    <p>Show Answer</p>
+                </div>
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+            <div class="final-answer" id="fa1">
+                <p data-propname="parts.1.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                A substance that deforms continuously under the application of shear stress
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part2">
+              <p class="part-statement" data-propname="parts.2.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Fluids are all around you in everyday life, give examples.
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.2.response">
+
+
+          <2>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn2">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn2">
+                    <p>Show Answer</p>
+                </div>
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+            <div class="final-answer" id="fa2">
+                <p data-propname="parts.2.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                Air, water, yogurt, petrol, diesel, oil, natural gas(methane), beer, wine, beverages in general, helium, treacle, blood, sweat, tears, sperm, snake poison, vacinations, etc
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part3">
+              <p class="part-statement" data-propname="parts.3.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                How do the fluids identified above differ? Contrast by comparing their physical properties, e.g.viscosity, density. [Give units in each case]
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.3.response">
+
+
+          <3>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn3">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn3">
+                    <p>Show Answer</p>
+                </div>
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+            <div class="final-answer" id="fa3">
+                <p data-propname="parts.3.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                - density differ: \([\rho ]=\frac{M}{{L}^{3}}\) <br> - viscosity differ: \([\mathcal{M}]=\frac{M}{LT}\)<br> - composition differs: e.g. air is composed of nitrogen(78%), oxygen(21%), Argon(0.4%), Carbon Dioxide(0.04%), etc.
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q1 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1,1,1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <display >text</display>
+              <grader><![CDATA[ regex ]]></grader>
+              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+              <credits><credit>1</credit><credit>0.9999999</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <display >text</display>
+              <grader><![CDATA[ regex ]]></grader>
+              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+              <credits><credit>1</credit><credit>0.9999999</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <display >text</display>
+              <grader><![CDATA[ regex ]]></grader>
+              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+              <credits><credit>1</credit><credit>0.9999999</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="003e659f-eb4a-4500-ba21-9afef9a2f110">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 2 Multiple Choice (Q2.2) ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.2</span>
+                <span data-propname="title">Multiple Choice (Q2.2)</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">1</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star " points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star " points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[10, 15]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 8.660254037844386,4.999999999999999"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 10.0,9.999999999999996"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">10-15</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              A stagnant reservoir is stably stratified with two immiscible liquids of density \(\rho_{1}\)and \(\rho_{2}\) where \(\rho_{1} > \rho_{2}\), respectively. Which graph below depicts correctly the distribution of gauge pressure along a vertical line through the liquids.
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="ResevoirGaugePressure" src="__BASE_URI__Question%20Type%20Demos/ResevoirGaugePressure.png">
+        </div>
+
+          </header>
+
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q2 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
+              <answer>2</answer>
+              <choices><choice><![CDATA[ i ]]></choice><choice><![CDATA[ ii ]]></choice><choice><![CDATA[ iii ]]></choice><choice><![CDATA[ iv ]]></choice></choices>
+              <name><![CDATA[ responseNan ]]></name>
+              <display>vertical</display>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="b6762ba3-fff7-4397-84e3-230024811e18">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 3 Identify The Mistakes (Q4.2) ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.3</span>
+                <span data-propname="title">Identify The Mistakes (Q4.2)</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">1</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star " points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star " points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[1, 2]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 1.0452846326765346,0.0547810463172671"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 2.079116908177593,0.2185239926619431"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">1-2</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Gas is transported in a horizontal pipeline that has a change in cross-sectional area as depicted. One of the engineers working on the project drew up the following diagram for right to left flow within the pipeline. What, if anything, is wrong with it?
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="Streamlines01" src="__BASE_URI__Question%20Type%20Demos/Streamlines01.png">
+        </div>
+
+          </header>
+
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q3 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
+              <answer>3</answer>
+              <choices><choice><![CDATA[ Streamlines have seperated too far ]]></choice><choice><![CDATA[ The eddies are in the wrong direction ]]></choice><choice><![CDATA[ Streamlines cannot come from a wall ]]></choice><choice><![CDATA[ Streamlines cannot be drawn along walls ]]></choice><choice><![CDATA[ Streamlines cannot cross ]]></choice><choice><![CDATA[ None of the above ]]></choice></choices>
+              <name><![CDATA[ responseNan ]]></name>
+              <display>vertical</display>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="482fd4a6-2376-432f-a534-b3489699d1d4">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 4 Identify The Mistakes 2 (Q4.2) ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.4</span>
+                <span data-propname="title">Identify The Mistakes 2 (Q4.2)</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">1</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star " points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star " points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[1, 2]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 1.0452846326765346,0.0547810463172671"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 2.079116908177593,0.2185239926619431"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">1-2</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              The following diagram represents left to right flow within a gas pipeline. What, if anything, is wrong with it?
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="Streamlines02" src="__BASE_URI__Question%20Type%20Demos/Streamlines02.png">
+        </div>
+
+          </header>
+
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q4 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
+              <answer>2</answer>
+              <choices><choice><![CDATA[ Streamlines have seperated too far ]]></choice><choice><![CDATA[ The eddies are in the wrong direction ]]></choice><choice><![CDATA[ Streamlines cannot come from a wall ]]></choice><choice><![CDATA[ Streamlines cannot be drawn along walls ]]></choice><choice><![CDATA[ Streamlines cannot cross ]]></choice><choice><![CDATA[ None of the above ]]></choice></choices>
+              <name><![CDATA[ responseNan ]]></name>
+              <display>vertical</display>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="c566aa5c-7258-4d6b-9976-110b0ab58cb2">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 5 Algorithmic Answer (Q6.2) ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.5</span>
+                <span data-propname="title">Algorithmic Answer (Q6.2)</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">1</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star " points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star " points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[10, 15]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 8.660254037844386,4.999999999999999"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 10.0,9.999999999999996"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">10-15</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              A hydraulic jump is in place downstream of a spillway as shown below. Upstream of the jump, the depth of the stream is $d m and the average flow velocity is $u m/s. Just downstream of the jump, the average velocity is $v m/s. Calculate the water depth h just downstream of the jump. Give your answer to 3 significant figures.
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="HydraulicJump" src="__BASE_URI__Question%20Type%20Demos/HydraulicJump.png">
+        </div>
+
+          </header>
+
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn1">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn1">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="worked-solutions" id="ws1">
+                
+        <div class="sbs-step active">
+          <div class="media-container" data-propname="parts.1.worked_solutions.1.media">
+          <img alt="HydraulicJumpCV" src="__BASE_URI__Question%20Type%20Demos/HydraulicJumpCV.png">
+        </div>
+        </div>
+        <div class="sbs-nav" id="sbs-nav1">
+          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up1">⬆ Previous Step ⬆</div>
+          <div class="btn btn-default sbs-step-down" id="sbs-step-down1">⬇ Next Step ⬇</div>
+          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all1">Show All</div>
+        </div>
+        <div class="sbs-step second">
+          <p data-propname="parts.1.worked_solutions.2.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Assume the spillway has width w. Volume conservation in CV:<br> \(\frac{d V}{d t}=Q_{1}-Q_{2}=u_{1} h_{1} w-u_{2} h_{2} w\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.3.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Hydraulic jump is in place so V=constant : <br>\(\therefore Q_{1}=Q_{2} \Rightarrow u_{1} h_{1}=u_{2} h_{2}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.4.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Thus, \(h_{2}=\frac{u_{1}}{u_{2}} h_{1}\)
+          </p>
+        </div>
+        <div class="sbs-step last">
+          <p data-propname="parts.1.worked_solutions.5.is_final_answer">
+            <p>$h m</p>
+          </p>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa1">
+                <p data-propname="parts.1.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                $h m
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q5 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <showUnits>True</showUnits>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num><![CDATA[ $h ]]></num><units><![CDATA[ m ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="8b322638-ca45-4e51-a271-cb729956cc49">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 6 Algorithmic Answer 2 (Q7.2) ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.6</span>
+                <span data-propname="title">Algorithmic Answer 2 (Q7.2)</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">1</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star " points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star " points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[10, 15]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 8.660254037844386,4.999999999999999"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 10.0,9.999999999999996"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">10-15</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              The flow in a rectangular open channel (up-stream depth \(h_{1}=\) $h1 m and channel width $w m) passes under a vertical plate sluice gate. The volume flow rate Q=$Q \(m^{3}/s\) and the downstream depth \(h_{2}\)=$h2 m
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="SluiceGate" src="__BASE_URI__Question%20Type%20Demos/SluiceGate.png">
+        </div>
+
+          </header>
+
+          <ul class="tabs-container">
+
+            <li class="tab active" id="tab1" style="max-width: 15rem;">
+              <p>(a)</p>
+            </li>
+            <li class="tab " id="tab2" style="max-width: 15rem;">
+              <p>(b)</p>
+            </li>
+
+            <li class="tab-end-line"></li>
+
+          </ul>
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Draw a diagram of the flow showing an appropriate control volume and the forces acting on the fluid. Note the pressure distribution is hydrostatic sufficiently far away from the sluice gate (why is the flow near the sluice gate not hydrostatic?)
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn1">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn1">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="worked-solutions" id="ws1">
+                
+        <div class="sbs-step active last">
+          <div class="media-container" data-propname="parts.1.worked_solutions.1.media">
+          <img alt="SluiceGateForces" src="__BASE_URI__Question%20Type%20Demos/SluiceGateForces.png">
+        </div>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa1">
+                <p data-propname="parts.1.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                Streamlines are curved near the gate, therefore the pressure is not hydrostatic.
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part2">
+              <p class="part-statement" data-propname="parts.2.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Using the momentum equation, calculate the force on the gate. Give your answer to 3 significant figures.
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.2.response">
+
+
+          <2>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn2">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn2">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn2">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="worked-solutions" id="ws2">
+                
+        <div class="sbs-step active">
+          <p data-propname="parts.2.worked_solutions.1.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Applying momentum conservation over the CV:<br>\(\rho Q\left(u_{2}-u_{1}\right)=F_{p_{1}}-F_{p_{2}}-F_{G}\)
+          </p>
+        </div>
+        <div class="sbs-nav" id="sbs-nav2">
+          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up2">⬆ Previous Step ⬆</div>
+          <div class="btn btn-default sbs-step-down" id="sbs-step-down2">⬇ Next Step ⬇</div>
+          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all2">Show All</div>
+        </div>
+        <div class="sbs-step second">
+          <p data-propname="parts.2.worked_solutions.2.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Hydrostatic pressure distributions:<br>\(F_{p 1}=w h_{1} \cdot \rho_{g} \frac{h_{1}}{2}, \quad F_{p 2}=w h_{2} \cdot \rho g \frac{h_{2}}{2}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.3.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Using continuity \(Q=u_{1} w h_{1}=u_{2} w h_{2}\), we can now calculate the Force
+          </p>
+        </div>
+        <div class="sbs-step last">
+          <p data-propname="parts.2.worked_solutions.4.is_final_answer">
+            <p>$F N</p>
+          </p>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa2">
+                <p data-propname="parts.2.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                $F N
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q6 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1,1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <display >text</display>
+              <grader><![CDATA[ regex ]]></grader>
+              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+              <credits><credit>1</credit><credit>0.9999999</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <showUnits>True</showUnits>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num><![CDATA[ $F ]]></num><units><![CDATA[ N ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="3b8b78d8-3368-440b-ae47-0b5ba1cd4563">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 7 Algorithmic Answer 3 (Q9.4) ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.7</span>
+                <span data-propname="title">Algorithmic Answer 3 (Q9.4)</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">1</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star " points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star " points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[10, 15]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 8.660254037844386,4.999999999999999"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 10.0,9.999999999999996"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">10-15</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              You are asked to design a pipeline between two reservoirs, of which the first is $h m higher than the second. The reservoirs are $s km far apart and should carry a discharge of $Q \(m^{3}/s\). Calculate the design diameter D of the pipe. Assume that the pipe roughness is such that the friction coefficient f=0.02. Hint: neglect the exit loss. Verify afterwards if thisassumption was justified.
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn1">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn1">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="worked-solutions" id="ws1">
+                
+        <div class="sbs-step active">
+          <div class="media-container" data-propname="parts.1.worked_solutions.1.media">
+          <img alt="HydraulicJumpCV" src="__BASE_URI__Question%20Type%20Demos/HydraulicJumpCV.png">
+        </div>
+        </div>
+        <div class="sbs-nav" id="sbs-nav1">
+          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up1">⬆ Previous Step ⬆</div>
+          <div class="btn btn-default sbs-step-down" id="sbs-step-down1">⬇ Next Step ⬇</div>
+          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all1">Show All</div>
+        </div>
+        <div class="sbs-step second">
+          <p data-propname="parts.1.worked_solutions.2.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Apply Bernoulli along a streamline between 1 and 3, including frictional losses but neglecting the exit loss:<br> \(H_{1}=H_{3}+\Delta H_{1}=H_{3}+f \frac{U_{2}^{2}}{2 g} \frac{L}{D}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.3.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(\overbrace{H_{1}-H_{3}}^{\Delta H}=\frac{U_{2}^{2}}{2 g} f \frac{L}{D}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.4.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Using that \(Q=U_{2} A_{2}=U_{2} \frac{1}{4} \pi D^{2}\) and thus \(U_{2}=\frac{4 Q}{\pi D^{2}}\) results in:<br>\(\Delta H=\frac{16 f L Q^{2}}{2 \pi^{2} g D^{5}}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.5.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(D=\sqrt[5]{\frac{8 f L Q^{2}}{\pi^{2} g \Delta H}}\)
+          </p>
+        </div>
+        <div class="sbs-step last">
+          <p data-propname="parts.1.worked_solutions.6.is_final_answer">
+            <p>$d m</p>
+          </p>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa1">
+                <p data-propname="parts.1.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                $d m
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q7 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <showUnits>True</showUnits>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num><![CDATA[ $d ]]></num><units><![CDATA[ m ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="f88c18b4-f352-4fb6-aacb-d056709abfba">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 8 Symbolic Equations (Q1.6/7) ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.8</span>
+                <span data-propname="title">Symbolic Equations (Q1.6/7)</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">3</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star active" points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star active" points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[45, 60]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 1,1 -10.0,10.000000000000002"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 1,1 -1.1331077795295958e-14,0.0"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">45-60</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Using volume integrals, determine the mass of a fluid of constant desity \(\rho\) in the following containers filled up to the top. Determine the integrals by summing thin slices of height d\(z\) over the \(z\)-direction.
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="Volumes" src="__BASE_URI__Question%20Type%20Demos/Volumes.png">
+        </div>
+
+          </header>
+
+          <ul class="tabs-container">
+
+            <li class="tab active" id="tab1" style="max-width: 15rem;">
+              <p>(a)</p>
+            </li>
+            <li class="tab " id="tab2" style="max-width: 15rem;">
+              <p>(b)</p>
+            </li>
+            <li class="tab " id="tab3" style="max-width: 15rem;">
+              <p>(c)</p>
+            </li>
+
+            <li class="tab-end-line"></li>
+
+          </ul>
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                The triangular prism:
+              </p>
+
+
+
+
+              <div class="response-wrapper" data-propname="parts.1.responses.1.response">
+
+          <div class="pre-response-text">
+            <p data-propname="parts.1.responses.1.pre_response_text">
+              <!-- CHANGE PRE RESPONSE TEXT HERE -->
+              m = 
+            </p>
+          </div>
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+              <table class="input-symbols-table">
+          <tr class="code">
+            <th>Code</th>
+            <td><p>rho</p></td>
+          </tr>
+          <tr class="symbols">
+            <th>Symbol</th>
+            <td><p>\(\rho\)</p></td>
+          </tr>
+        </table>
+        <!--
+        <style media="screen">
+        .imput-symbols-table {
+          color: grey;
+        }
+
+        .input-symbols-table th {
+          font-size: 1.5rem;
+          padding-right: 0.7rem;
+        }
+        </style>
+        -->
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+                <div class="answers-nav-button equation-help-button" id="eh-btn1">
+                    <p>Equation Help</p>
+                </div>
+
+                <div class="study-technical-help-separator"></div>
+
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn1">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn1">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="equation-help">
+                <div class="header">
+                    <h2>How to input expressions</h2>
+                </div>
+                <div class="body">
+                    <p>
+                        The equation questions use Maple syntax to evaluate expressions. As with Python, basic operators use the symbols 
+                            <span class="code">+</span>
+                            <span class="code">-</span>
+                            <span class="code">*</span>
+                            <span class="code">/</span>
+                            <span class="code">^</span>
+                        and parentheses can be used to structure your expressions.
+
+                        Some common functions can also be used such as 
+                            <span class="code">sqrt()</span>, 
+                            <span class="code">sin()</span> and 
+                            <span class="code">arcsin()</span>.
+
+                        To get the natural exponential, use 
+                            <span class="code">exp()</span> as 
+                            <span class="code">e</span> 
+                        is not intepreted as Euler's number.
+                    </p>
+                    <p>
+                        For Greek letters, type the full name of the letter. For example 
+                            <span class="code">mu*U</span> 
+                        will render \( \mu U \) (there is no need to use a back slash).
+                    </p>
+                    <p>
+                        Click the
+                            <svg class="maple-preview-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+                                <circle cx="13" cy="13" r="10"></circle>
+                                <text x="13" y="13">Ω</text>
+                            </svg>
+                        to preview your expressions.
+                    </p>
+                    <p>
+                        For example, writing 
+                            <span class="code">exp(i*pi) - 1</span> 
+                        will produce:
+                    </p>
+                    <p class="latex">
+                        \( \text{e}^{i \pi} - 1 \)
+                    </p>
+                </div>
+            </div>
+            <div class="worked-solutions" id="ws1">
+                
+        <div class="sbs-step active">
+          <p data-propname="parts.1.worked_solutions.1.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            The volume can be determined by: \(V=\int_{D}^{}dV\)
+          </p>
+        </div>
+        <div class="sbs-nav" id="sbs-nav1">
+          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up1">⬆ Previous Step ⬆</div>
+          <div class="btn btn-default sbs-step-down" id="sbs-step-down1">⬇ Next Step ⬇</div>
+          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all1">Show All</div>
+        </div>
+        <div class="sbs-step second">
+          <p data-propname="parts.1.worked_solutions.2.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Taking a horizontal slice of thickness \(dz\): <br>\(dV=WB(z)dz\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.3.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Using convergence of triangles : <br>\(\frac{B(z)}{z}=\frac{b}{h}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.4.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            The mass can be determined by:<br>\(m=\int_{D}^{}dm\), where \(dm\) is element of mass defined by \(dm=\rho dV\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.5.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Since \(\rho\) is constant , \(m=\rho\int_{D}^{}dV=\rho V\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.1.worked_solutions.6.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Substitute in volume equation from earlier
+          </p>
+        </div>
+        <div class="sbs-step last">
+          <p data-propname="parts.1.worked_solutions.7.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(m=\frac{\rho}{2}wbh\)
+          </p>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa1">
+                <p data-propname="parts.1.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                \(m=\frac{\rho}{2}wbh\)
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part2">
+              <p class="part-statement" data-propname="parts.2.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                The truncated cone:
+              </p>
+
+
+
+
+              <div class="response-wrapper">
+                <p><table><tr><td><span>\(m=\)</span></td><td><div class="inline-resp"><2></div></td><td><span>\(\{ \frac{1}{3} \pi \)</span></td><td><div class="inline-resp"><3></div></td><td><span>\(^{2}h+\frac{1}{3} \pi h R_{t} \)</span></td><td><div class="inline-resp"><4></div></td><td><span>\(+\frac{1}{3} \pi \)</span></td><td><div class="inline-resp"><5></div></td><td><span>\(R_{t}^{2}\}\)</span></td><tr></table><style media="screen"> .inline-resp { padding: 2px; width: 50px; } .inline-resp .select2 { width: 50px; height: 25px; } .inline-resp .select2-container--bootstrap .select2-selection--single { padding: 3px 24px 3px 6px; }</style><script type="text/javascript"> /* We need to change the widths of the dropdown lists */ jQuery(document).ready(function() { jQuery(".doInPreview, .doInSession").click(function () { jQuery(".part.active .dropdowns .inline-resp .response").css("width", "52px"); console.log(this); });});</script></p>
+                <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn2">
+                <p>Help</p>
+            </div>
+        </div>
+
+              </div>
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn2">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn2">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="worked-solutions" id="ws2">
+                
+        <div class="sbs-step active">
+          <p data-propname="parts.2.worked_solutions.1.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Again consider a horizontal slice of thickness \(dz\). An element of volume is given by:<br>\(dV=\pi R(z)^{2}dz\)
+          </p>
+        </div>
+        <div class="sbs-nav" id="sbs-nav2">
+          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up2">⬆ Previous Step ⬆</div>
+          <div class="btn btn-default sbs-step-down" id="sbs-step-down2">⬇ Next Step ⬇</div>
+          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all2">Show All</div>
+        </div>
+        <div class="sbs-step second">
+          <p data-propname="parts.2.worked_solutions.2.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            To find R(z) we use that \(R(0)=R_{0}\) and \(R(h)=R_{t}\) and the fact that R grows linearly, implying that:<br>\(R(z)=R_{0}+\frac{R_{t}-R_{0}}{h} z\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.3.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            The volume can be determined by:<br>\(\begin{aligned}V &=\pi \int_{0}^{h}\left\{\frac{R_{t}-R_{0}}{h} z+R_{0} \right\}^{2} d z \\&=\pi \int_{0}^{h}\left\{\left(\frac{R_{t}-R_{0}}{h}\right)^{2} z^{2}+2 \frac{R_{0}}{h}\left(R_{t}-R_{0}\right) z+R_{0}^{2}\right\} d z \\&=\pi\left\{\frac{1}{3}\left(\frac{R_{t}-R_{0}}{h}\right)^{2} z^{3}+\frac{R_{0}}{h}\left(R_{t}-R_{0}\right) z^{2}+\left.R_{0}^{2} z\right|_{0} ^{h}\right\} \\V &=\frac{1}{3} \pi R_{0}^{2} h+\frac{1}{3} \pi h R_{t} R_{0}+\frac{1}{3} \pi h R_{t}^{2} \quad \cdots \quad E q .(3)\end{aligned}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.4.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Multiplying Eq(3) with \(\frac{R_{t}-R_{0}}{R_{t}-R_{0}}\) gives us a different form of the equation:<br>\(\begin{aligned}&V=\frac{1}{3} \pi R_{t}^{2} h\left(\frac{R_{t}}{R_{t-} R_{0}}\right)-\frac{1}{3} \pi R_{0}^{2} h\left(\frac{R_{0}}{R_{t}-R_{0}}\right) \\&V=\frac{1}{3} \pi R_{t}^{2}\left\{h+\frac{h R_{0}}{R_{t}-R_{0}}\right\}-\frac{1}{3} \pi R_{0}^{2}\left\{\frac{h}{R_{t}-R_{t}}\right\} \quad \cdots \quad E q .(4)\end{aligned}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.5.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            This equation (4) is equivalent to the subtraction of volume of cone 1 with volume of cone 2<br>\(\begin{aligned}&V_{\text {cone } 1}=\int_{-h^{*}}^{h^{*}+h} \pi R(z)^{2} d z \\&V_{\text {cone } 2}=\int_{-h^{*}}^{0} \pi R(z)^{2} d z, \text { where } h^{*}=\frac{h R_{0}}{R_{t}-R_{0}}\end{aligned}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.6.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            In the same way to determine the mass of the fluid in the container of problem 6a and as the density of the fluid is constant, the mass is given by:<br>\(m=\rho \int d v\)
+          </p>
+        </div>
+        <div class="sbs-step last">
+          <p data-propname="parts.2.worked_solutions.7.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(m=\rho\left\{\frac{1}{3} \pi R_{0}{ }^{2} h+\frac{1}{3} \pi h R_{t} R_{0}+\frac{1}{3} \pi h R_{t}^{2}\right\}\)
+          </p>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa2">
+                <p data-propname="parts.2.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                \(V=\frac{1}{3} \pi R_{t}^{2}\left\{h+\frac{h R_{0}}{R_{t}-R_{0}}\right\}-\frac{1}{3} \pi R_{0}^{2}\left\{\frac{h}{R t-R_{i}}\right\} \\ m=\rho\left\{\frac{1}{3} \pi R_{0}{ }^{2} h+\frac{1}{3} \pi h R_{t} R_{0}+\frac{1}{3} \pi h R_{t}^{2}\right\}\)
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part3">
+              <p class="part-statement" data-propname="parts.3.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Using the geometries of the previous question, calculate the mass of the fluid if the fluid density varies linearly according to \(\rho(z)=\rho_{0}-a z\)
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.3.response">
+
+
+          <6>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn3">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn3">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn3">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="worked-solutions" id="ws3">
+                
+        <div class="sbs-step active">
+          <p data-propname="parts.3.worked_solutions.1.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            If the density of the fluid varies linearly according to : <br>\(\rho(z)=\rho_{0}-a z\)
+          </p>
+        </div>
+        <div class="sbs-nav" id="sbs-nav3">
+          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up3">⬆ Previous Step ⬆</div>
+          <div class="btn btn-default sbs-step-down" id="sbs-step-down3">⬇ Next Step ⬇</div>
+          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all3">Show All</div>
+        </div>
+        <div class="sbs-step second">
+          <p data-propname="parts.3.worked_solutions.2.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            a) The weight of the fluid in the container of problem 6. a is given as: <br>\(\begin{aligned}W &=\int \rho(z) g d V \\&=\int_{0}^{h}\left(\rho_{0}-a z\right) g \frac{b w}{h} z d z \\&= g w b h \left\{\frac{1}{2} \rho_{0} z^{2}-\left.\frac{a}{3} z^{3}\right|_{0} ^{h}\right\} \\W &=g w b h\left\{\frac{1}{2} \rho_{0}-\frac{a}{3} h\right\} \text { where a is the gravitational acceleration }\end{aligned}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.3.worked_solutions.3.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            b) The weight of the fluid in the container of problem 6.b is given as: <br>\(\begin{aligned}W &=\int_{0}^{h}\left(\rho_{0}-a z\right) g \pi\left\{\frac{R_{t}-R_{0}}{h} z+R_{0}\right\}^{2} d z \\&=\rho_{0} g \pi \int_{0}^{h}\left\{\left(\frac{R_{t}-R_{0}}{h}\right)^{2} z^{2}+2 \frac{R_{0}}{h}\left(R_{t}-R_{0}\right) z+R_{0}^{2}\right\} d z\\&-a g \pi \int_{0}^{h}\left\{\left(\frac{R_{t}-R_{0}}{h}\right)^{2} z^{3}+2 \frac{R_{0}}{h}\left(R_{t}-R_{0}\right) z^{2}+R_{0}^{2} z\right\} d z\\&=\rho_{0} g \pi\left\{\left(\frac{R_{t}-R_{0}}{h}\right)^{2} \frac{1}{3} z^{3}+\frac{R_{0}}{h}\left(R_{t}-R_{0}\right) z^{2}+\left.R_{0}^{2} z\right|_{0} ^{h}\right\}\&-a g \pi\left\{\frac{1}{4}\left(\frac{R_{t}-R_{0}}{h}\right)^{2} z^{4}+\frac{2}{3} \frac{R_{0}}{h}\left(R_{t}-R_{0}\right) z^{3}+\left.\frac{R_{0}^{2}}{2} z^{2}\right|_{0} ^{h}\right\}\&W=\rho_{0} g \pi h\left\{\frac{1}{3} R_{t}^{2}+\frac{1}{3} R_{t} R_{0}+\frac{1}{3} R_{0}^{2}\right\}-a g \pi h^{2}\left\{\frac{1}{4} R_{t}^{2}+\frac{1}{6} R_{t} R_{0}+\frac{1}{12} R_{0}^{2}\right\}\end{aligned}\)
+          </p>
+        </div>
+        <div class="sbs-step last">
+          <p data-propname="parts.3.worked_solutions.4.is_final_answer">
+            <p>\(W=\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}-\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}-\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}\)</p>
+          </p>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa3">
+                <p data-propname="parts.3.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                \(W=\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}-\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}-\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}\)
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q8 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1,1,1,1,1,1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Maple ]]></mode>
+              <mapleAnswer><![CDATA[ (rho/2)*w*b*h ]]></mapleAnswer>
+              <name><![CDATA[ responseNan ]]></name>
+              <type><![CDATA[ maple ]]></type>
+              <plot><![CDATA[  ]]></plot>
+              <allow2d>0</allow2d>
+              <mathConversionMode>0</mathConversionMode>
+              <maple><![CDATA[ evalb(($ANSWER)-($RESPONSE)=0); ]]></maple>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+              <custompreview><![CDATA[  ]]></custompreview>
+        </part>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
+              <credits><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>1</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <display permute="true">menu</display>
+              <grader><![CDATA[ exact ]]></grader>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
+              <credits><credit>1</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <display permute="true">menu</display>
+              <grader><![CDATA[ exact ]]></grader>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
+              <credits><credit>1</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <display permute="true">menu</display>
+              <grader><![CDATA[ exact ]]></grader>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
+              <credits><credit>0</credit><credit>0</credit><credit>1</credit><credit>0</credit><credit>0</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <display permute="true">menu</display>
+              <grader><![CDATA[ exact ]]></grader>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
+              <answer>3</answer>
+              <choices><choice><![CDATA[ <p>\(W=\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}+\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}+\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)-\left(R_{t}+R_{0}\right)^{2}\right\}-\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}-\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}-\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}-\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}-\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}\)</p> ]]></choice></choices>
+              <name><![CDATA[ responseNan ]]></name>
+              <display>vertical</display>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="c29f85bf-b48c-4a41-b4ab-9eae8d3d4490">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 9 Matrix Response (Q10.2) ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.9</span>
+                <span data-propname="title">Matrix Response (Q10.2)</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">1</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star " points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star " points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[10, 15]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 8.660254037844386,4.999999999999999"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 10.0,9.999999999999996"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">10-15</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              You wish to pump water from reservoir A to reservoir B. Reservoir B is 10m higher than reservoir A. The reservoirs are 200m apart, the pipe diameter is 20cm and the friction coefficient f=0.02. You have a 5kW pump which has an efficiency of 85%. You want to calculate the discharge Q. In order to calculate a solution, you can make a guess for the head loss terms, after which the discharge Q can be calculated. With this estimation of Q we can improve our guess for the head loss term. If we repeat this procedure often enough, the guessed head loss will become identical to the refined guess.
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Complete the following table:
+              </p>
+
+
+
+
+              <div class="response-wrapper">
+                <p><table><thead> <tr><th>Iteration</th><th>Guess \(\Delta H_{f}[m]\)</th><th>\(Q[m^{3}/s]\)</th><th>\(U[m/s]\)</th><th>Refined Guess</th> </tr></thead><tbody> <tr><td>1</td><td><1></td><td><2></td><td><3></td><td><4></td> </tr> <tr><td>2</td><td><5></td><td><6></td><td><7></td><td><8></td> </tr> <tr><td>3</td><td><9></td><td><10></td><td><11></td><td><12></td> </tr> <tr><td>4</td><td><13></td><td><14></td><td><15></td><td><16></td> </tr> <tr><td>5</td><td><17></td><td><18></td><td><19></td><td><20></td> </tr> <tr><td>6</td><td><21></td><td><22></td><td><23></td><td><24></td> </tr></tbody></table><style media="screen"> .inline-resp { padding: 2px; width: 50px; } .inline-resp .select2 { width: 50px; height: 25px; } .inline-resp .select2-container--bootstrap .select2-selection--single { padding: 3px 24px 3px 6px; } table {border-collapse: collapse; } tr {border: 2px solid black; } th {padding: 3px; } td {padding: 3px; }</style><script type="text/javascript"> /* We need to change the widths of the dropdown lists */ jQuery(document).ready(function() { jQuery(".doInPreview, .doInSession").click(function () { jQuery(".part.active .dropdowns .inline-resp .response").css("width", "52px"); console.log(this); });});</script></p>
+              </div>
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q9 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>0</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>0.043</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.38</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>2.05</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>2.05</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>0.036</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.15</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.41</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.41</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>0.038</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.21</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.57</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.57</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>0.038</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.19</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.53</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.53</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>0.038</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.20</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.54</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.54</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>0.038</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.20</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <grading><![CDATA[ exact_sigd ]]></grading>
+              <digit>3</digit>
+              <answer><num>1.54</num><units><![CDATA[  ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <showUnits>False</showUnits>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="973969a2-45f5-44e4-b891-666dd2e455fe">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 10 Combined Question ]]>
+    </name>
+    <editing>useHTML</editing>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">5.10</span>
+                <span data-propname="title">Combined Question</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">3</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star active" points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star active" points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[45, 60]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 1,1 -10.0,10.000000000000002"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 1,1 -1.1331077795295958e-14,0.0"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">45-60</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Las Vegas is a city that is growing quickly. Its main supply of water is Lake Meade, but this lake will be unable to provide all of the city's water in the near future. The government is currently looking for alternatives. One such alternative is to use pump groundwater from Eastern Nevada over a large distance (540 km) to the city. It is estimated that the pipeline will need to provide 1.04 x 108 m3 of water per year. The pipe has a diameter of 1.8 m and a friction factor f=0.01. For simplicity, it may be assumed that there are no differences in elevation over the entire length of the pipe.
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="LasVegasPump" src="__BASE_URI__Question%20Type%20Demos/LasVegasPump.png">
+        </div>
+
+          </header>
+
+          <ul class="tabs-container">
+
+            <li class="tab active" id="tab1" style="max-width: 15rem;">
+              <p>(a)</p>
+            </li>
+            <li class="tab " id="tab2" style="max-width: 15rem;">
+              <p>(b)</p>
+            </li>
+
+            <li class="tab-end-line"></li>
+
+          </ul>
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                An A-level student states that when a fluid flow experiences friction inside a pipe it must slow down on its way through the pipe. What, if anything, is the wrong with the studentâ€™s thinking?
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn1">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn1">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="worked-solutions" id="ws1">
+                
+        <div class="sbs-step active">
+          <p data-propname="parts.1.worked_solutions.1.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            By conservation of mass, it follows for a pipe of constant cross-sectional area that:<br>\(\rho A U_{in}=\rho A U_{out}\)
+          </p>
+        </div>
+        <div class="sbs-nav" id="sbs-nav1">
+          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up1">⬆ Previous Step ⬆</div>
+          <div class="btn btn-default sbs-step-down" id="sbs-step-down1">⬇ Next Step ⬇</div>
+          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all1">Show All</div>
+        </div>
+        <div class="sbs-step second last">
+          <p data-propname="parts.1.worked_solutions.2.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            For constant density flow, we have \(U_{in} = U_{out}\); and it is therefore impossible for the flow to slow down inside of the pipe.
+          </p>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa1">
+                <p data-propname="parts.1.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                The velocity into a pipe must be the same as the velocity out of the pipe
+                </p>
+                <div class="media-container" data-propname="parts.1.final_answer.media">
+          <img alt="VegasGradeLine" src="__BASE_URI__Question%20Type%20Demos/VegasGradeLine.png">
+        </div>
+            </div>
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part2">
+              <p class="part-statement" data-propname="parts.2.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                The energy head at section 2 is H2 = 10 m and minor losses may be ignored. Plot the energy grade line, giving the values at appropriate locations. Explain why there is little added value in plotting the hydraulic grade line. 
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.2.response">
+
+
+          <2>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn2">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+                <div class="answers-nav-button final-answer-button" id="fa-btn2">
+                    <p>Show Answer</p>
+                </div>
+
+                <div class="answers-nav-button worked-solutions-button" id="ws-btn2">
+                    <p>Worked Solutions</p>
+                </div>
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="worked-solutions" id="ws2">
+                
+        <div class="sbs-step active">
+          <p data-propname="parts.2.worked_solutions.1.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Pipe cross-sectional area::\(A=\frac{\pi}{4} D^{2}=2.5 m^{2}\)
+          </p>
+        </div>
+        <div class="sbs-nav" id="sbs-nav2">
+          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up2">⬆ Previous Step ⬆</div>
+          <div class="btn btn-default sbs-step-down" id="sbs-step-down2">⬇ Next Step ⬇</div>
+          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all2">Show All</div>
+        </div>
+        <div class="sbs-step second">
+          <p data-propname="parts.2.worked_solutions.2.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(\begin{aligned} Q &=1.04 x 10^{8} \mathrm{~m}^{3} / \mathrm{yr} \\&=\frac{1.04 x 10^{8}}{365 \cdot 3600 \cdot 24}=3.3 \mathrm{~m}^{3} / \mathrm{s}\end{aligned}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.3.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(U=\frac{Q}{A}=1.3^{\mathrm{m} / \mathrm{s}}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.4.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(f \frac{L}{D} \frac{U^{3}}{2 g}=0.01 \cdot \frac{540 \cdot 10^{3}}{1 \cdot 8} \frac{(1.3)^{2}}{2 \cdot 9.81}=257 m\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.5.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(H_{1}=H_{2}+f \frac{L}{D} \frac{U^{2}}{2 g}=10+257=267 \mathrm{~m}\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.6.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            Velocity head: \(\frac{U^{2}}{2 g}=0.09 m\)
+          </p>
+        </div>
+        <div class="sbs-step">
+          <p data-propname="parts.2.worked_solutions.7.text">
+            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
+            \(\therefore H_{1} = h_{1} \text{and} \therefore H_{2} = h_{2}\) (because velocity head negligibly small)
+          </p>
+        </div>
+        <div class="sbs-step last">
+          <div class="media-container" data-propname="parts.2.worked_solutions.8.media">
+          <img alt="VegasGradeLine" src="__BASE_URI__Question%20Type%20Demos/VegasGradeLine.png">
+        </div>
+        </div>
+
+            </div>
+
+            <div class="final-answer" id="fa2">
+                <p data-propname="parts.2.final_answer.text">
+                <!-- CHANGE FINAL ANSWER TEXT HERE -->
+                The hydraulic grade line is perfectly linear.
+                </p>
+            </div>
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q10 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1,1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
+              <answer>1</answer>
+              <choices><choice><![CDATA[ The velocity into a pipe must be the same as the velocity out of the pipe ]]></choice><choice><![CDATA[ Frictional forces do not act on fluids ]]></choice><choice><![CDATA[ \(F_{max}\) of the pipeline is negligible ]]></choice><choice><![CDATA[ The student is correct ]]></choice></choices>
+              <name><![CDATA[ responseNan ]]></name>
+              <display>vertical</display>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ List ]]></mode>
+              <display >text</display>
+              <grader><![CDATA[ regex ]]></grader>
+              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+              <credits><credit>1</credit><credit>0.9999999</credit></credits>
+              <name><![CDATA[ responseNan ]]></name>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+  </questions>
+
+  <webResources>
+    <folder id="0">
+      <name>
+        <![CDATA[  web_folders  ]]>
+      </name>
+      <description>
+        <![CDATA[    ]]>
+      </description>
+      <uri>
+        <![CDATA[  web_folders  ]]>
+      </uri>
+    </folder>
+  </webResources>
+
+</courseModule>

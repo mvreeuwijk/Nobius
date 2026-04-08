@@ -15,7 +15,8 @@ python -m ruff check .
 
 The tests use only public, non-exam fixtures:
 
-- tutorial sheets under `Questions/t01` and `Questions/t02`
+- repo-local authored sheet fixtures under `tests/fixtures/t01` and `tests/fixtures/t02`
+- a real Mobius export fixture at `tests/fixtures/mobius_exports/QuestionTypesDemo.zip`
 - the bundled XML fixture at `xml_scraper/tests/experimental_sheet.xml`
 
 This keeps the public repo free of private assessment material while still testing:
@@ -33,4 +34,4 @@ This keeps the public repo free of private assessment material while still testi
 
 ## Temporary files
 
-The test suite creates temporary working copies under `tests_work/` inside the repo and deletes them after each test. The folder is ignored by git.
+The test suite creates temporary working copies under the system temporary directory (for example `%TEMP%` on Windows) inside a `nobius_pytest/` folder and deletes them after each test.

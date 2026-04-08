@@ -1,3 +1,5 @@
+import zipfile
+
 from generateJSON import gather_media_references, generate_json_file, resolve_manifest_path, safe_question_basename
 from render_common import render_sheet
 from xml_scraper.get_xml_data import normalize_response
@@ -128,6 +130,54 @@ def test_import_report_for_exam_style_round_trip_records_warning_for_nonstandard
     report = generate_json_file(render_result["zip_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
 
     assert any("Sheet name did not match" in warning["message"] for warning in report.warnings)
+
+
+def test_generate_json_imports_real_question_types_demo_zip(question_types_demo_zip, tmp_path):
+    destination = tmp_path / "question-types-demo"
+
+    report = generate_json_file(str(question_types_demo_zip), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
+    sheet_info = load_json(destination / "SheetInfo.json")
+
+    assert report.source_type == "zip"
+    assert sheet_info["name"] == "Question types demo"
+    assert sheet_info["questions"] == [
+        "Units",
+        "Text Entry",
+        "Symbolic",
+        "Multiple Choice",
+        "Numeric Answer",
+        "Symbolic 2",
+    ]
+    assert load_question_by_title(destination, "Text Entry")["parts"][0]["response"]["mode"] == "List"
+    assert load_question_by_title(destination, "Units")["parts"][0]["response"]["mode"] == "Numeric"
+
+
+def test_real_question_types_demo_zip_surfaces_import_warnings_explicitly(question_types_demo_zip, tmp_path):
+    destination = tmp_path / "question-types-demo-report"
+
+    report = generate_json_file(str(question_types_demo_zip), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
+
+    assert any("Question title could not be recovered" in warning["message"] for warning in report.warnings)
+    assert any("Response area tag couldn't be found" in warning["message"] for warning in report.warnings)
+
+
+def test_template_questions_zip_round_trip_imports_successfully_and_omits_hidden_media(template_questions_sheet, tmp_path):
+    render_result = render_sheet(template_questions_sheet, "master.xml", make_render_settings())
+    destination = tmp_path / "template-questions-imported"
+
+    report = generate_json_file(render_result["zip_path"], str(destination), False, load_json(REPO_ROOT / "nobius.json"))
+
+    assert report.source_type == "zip"
+
+    with zipfile.ZipFile(render_result["zip_path"], "r") as zip_file:
+        members = set(zip_file.namelist())
+
+    assert "manifest.xml" in members
+    assert "web_folders/Question Type Demos/.tex" not in members
+    assert "web_folders/Question Type Demos/Fundamentals.tex" not in members
+    assert "web_folders/Question Type Demos/Tutorial 01 - Fundamentals.tex" not in members
+    assert "web_folders/Question Type Demos/Volumes.png" in members
+    assert (destination / "SheetInfo.json").exists()
 
 
 def test_normalize_response_wraps_legacy_list_display_string():

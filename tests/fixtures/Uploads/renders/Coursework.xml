@@ -1,0 +1,924 @@
+
+<courseModule>
+
+  <module>
+    <autoModule>true</autoModule>
+  </module>
+
+    <questionGroups>
+      <group uid="f3263249-b77d-4496-97f9-1761261d5bde" weight="1.0">
+        <name>
+          <![CDATA[ Sheet #1 - Coursework ]]>
+        </name>
+        <description>
+          <![CDATA[ !!! Empty Description from TexConverter !!! ]]>
+        </description>
+        <privacy>10</privacy>
+
+        <questions>
+            <qRef uid="8fc12f28-a85d-49ee-8520-7f089ba754a9" weight="1.0"/>
+            <qRef uid="04d29c0c-18eb-4de7-8031-771072ee2ded" weight="2.0"/>
+        </questions>
+      </group>
+    </questionGroups>
+
+  <questions>
+        <question uid="8fc12f28-a85d-49ee-8520-7f089ba754a9">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 1 Lock ]]>
+    </name>
+    <editing>useHTML</editing>
+      <algorithm>
+        <![CDATA[ $g=9.81;$rho=1000;$L=range(30,50,1);$w=range(6,12,1);$thdeg=range(65,80,1);$thrad=$thdeg*pi/180;$h1=range(2.5,4,0.1);$h2=2;$fx=(1/4)*$rho*$g*$w*($h1^2-$h2^2);$fy=(1/4)*$rho*$g*$w*($h1^2-$h2^2)*tan($thrad)(1-0.5/sin($thrad)^2); ]]>
+      </algorithm>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.1</span>
+                <span data-propname="title">Lock</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">3</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star active" points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star active" points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[20, 30]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 8.660254037844387,14.999999999999998"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 1,1 5.665538897647979e-15,20.0"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">20-30</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Consider a lock with a chamber of length \(L=\) $L m and width \(w=\) $w m. The lock gates are labeled A and B. The depth \(h_{1}\) upstream of gate A is $h1 m, and the initial water depth in the lock chamber \(h_{2}=\) $h2 m. The angle between the gate and the wall \(\theta=\) $thdeg<sup>o</sup><br>All the valves are closed and the fluid is in static equilibrium.
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="lock" src="__BASE_URI__Coursework/lock.png">
+        </div>
+
+          </header>
+
+          <ul class="tabs-container">
+
+            <li class="tab active" id="tab1" style="">
+              <p>(a)</p>
+            </li>
+            <li class="tab " id="tab2" style="">
+              <p>(b)</p>
+            </li>
+            <li class="tab " id="tab3" style="">
+              <p>(c)</p>
+            </li>
+            <li class="tab " id="tab4" style="">
+              <p>(d)</p>
+            </li>
+
+            <li class="tab-end-line"></li>
+
+          </ul>
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                On the supplementary sheet, draw all the forces acting on a door of gate A. Shear forces between the gate doors can be neglected, and the connection of the door with the wall does not support any bending moments. When you are done, select the correct diagram for the gate below.
+              </p>
+
+              <div class="media-container" data-propname="parts.1.media">
+          <img alt="Q4_a_op1" src="__BASE_URI__Coursework/Q4_a_op1.png">
+          <img alt="Q4_a_op2" src="__BASE_URI__Coursework/Q4_a_op2.png">
+          <img alt="Q4_a_op3" src="__BASE_URI__Coursework/Q4_a_op3.png">
+          <img alt="Q4_a_op4" src="__BASE_URI__Coursework/Q4_a_op4.png">
+        </div>
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part2">
+              <p class="part-statement" data-propname="parts.2.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Calculate the \(x\)-component of the force exerted by the wall
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.2.response">
+
+          <div class="pre-response-text">
+            <p data-propname="parts.2.pre_response_text">
+              <!-- CHANGE PRE RESPONSE TEXT HERE -->
+              \(F_{w,x}=\)
+            </p>
+          </div>
+
+          <2>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn2">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part3">
+              <p class="part-statement" data-propname="parts.3.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                By taking moments or otherwise, calculate the \(y\)-component of the force exerted by the wall
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.3.response">
+
+          <div class="pre-response-text">
+            <p data-propname="parts.3.pre_response_text">
+              <!-- CHANGE PRE RESPONSE TEXT HERE -->
+              \(F_{w,y}=\)
+            </p>
+          </div>
+
+          <3>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn3">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part4">
+              <p class="part-statement" data-propname="parts.4.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Upload scans or pictures of any working you have done.
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.4.response">
+
+
+          <4>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn4">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q1 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Cive4000004/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1,1,1,1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <weighting>1</weighting>
+              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
+              <answer>1</answer>
+              <choices><choice><![CDATA[ Figure 1 ]]></choice><choice><![CDATA[ Figure 2 ]]></choice><choice><![CDATA[ Figure 3 ]]></choice><choice><![CDATA[ Figure 4 ]]></choice></choices>
+              <name><![CDATA[ responseNan ]]></name>
+              <display>vertical</display>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <weighting>2</weighting>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <showUnits>True</showUnits>
+              <grading><![CDATA[ toler_perc ]]></grading>
+              <perc>5</perc>
+              <answer><num><![CDATA[ $fx ]]></num><units><![CDATA[ N ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <weighting>2</weighting>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <showUnits>True</showUnits>
+              <grading><![CDATA[ toler_perc ]]></grading>
+              <perc>5</perc>
+              <answer><num><![CDATA[ $fy ]]></num><units><![CDATA[ N ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Document Upload ]]></mode>
+              <fileExtensions><![CDATA[ jpg,pdf,png,txt ]]></fileExtensions>
+              <codeType>0</codeType>
+              <forceUpload>False</forceUpload>
+              <nonGradeable>False</nonGradeable>
+              <name><![CDATA[ responseNan ]]></name>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+        <question uid="04d29c0c-18eb-4de7-8031-771072ee2ded">
+    <mode>Inline</mode>
+    <name>
+      <![CDATA[ 2 Hydrostatic Forces on a Curved Plate ]]>
+    </name>
+    <editing>useHTML</editing>
+      <algorithm>
+        <![CDATA[ $h=range(0.5,1.2,0.05);$H=range(1,4,0.2);$W=range(10,40,1);$rho=1000;$g=9.81;$d=$h+$H;$FH=0.5*$rho*$g*$W*$d^2;$FV=$rho*$g*$W*($h*$H+Pi*$H^2/4); ]]>
+      </algorithm>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>true</attributeAuthor>
+    <modifiedIn>15.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.2</span>
+                <span data-propname="title">Hydrostatic Forces on a Curved Plate</span>
+              </h1>
+
+              <div class="icons">
+            <div class="icons-flexbox">
+                <svg class="icon" id="difficulty-rating-svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 5 42 22">
+                    <text class="skill-text" x="26" y="23">Skill Level</text>
+                    <!-- CHANGE DIFFICULTY LEVEL BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.difficulty" style="visibility:hidden">3</text>
+                    <polygon class="star active" points="11,10.74 7.9,20.24 16,14.4 6,14.4 14.1,20.24"></polygon>
+                    <polygon class="star active" points="26,10.74 22.9,20.24 31,14.4 21,14.4 29.1,20.24"></polygon>
+                    <polygon class="star active" points="41,10.74 37.9,20.24 46,14.4 36,14.4 44.1,20.24"></polygon>
+                </svg>
+                <svg class="icon" id="par-time-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0.5 1 24.5 24">
+                    <!-- CHANGE PAR TIMES BELOW. THESE CHANGES WILL BE REFLECTED IN THE NEXT RENDER -->
+                    <text data-propname="icon_data.par_time" style="visibility:hidden">[10, 15]</text>
+                    <circle class="clock" id="clock-circle" cx="13" cy="13" r="10"></circle>
+                    <path class="clock lb" d="M 13,3 a 10,10 90 0,1 8.660254037844386,4.999999999999999"></path>
+                    <path class="clock ub" d="M 13,3 a 10,10 90 0,1 10.0,9.999999999999996"></path>
+                    <!-- DON'T CHANGE THE PAR TIMES BELOW. USE THE LIST FOUR LINES ABOVE -->
+                    <text class="number" x="13" y="13">10-15</text>
+                    <text class="mins" x="13" y="15.5">mins</text>
+                    <path class="tick" d="M 13.0,5.5 L 13.0,5.0"></path>
+                    <path class="tick" d="M 16.75,6.50480947161671 L 17.0,6.07179676972449"></path>
+                    <path class="tick" d="M 19.49519052838329,9.25 L 19.928203230275507,9.0"></path>
+                    <path class="tick" d="M 20.5,12.999999999999998 L 21.0,12.999999999999998"></path>
+                    <path class="tick" d="M 19.49519052838329,16.75 L 19.92820323027551,17.0"></path>
+                    <path class="tick" d="M 16.75,19.49519052838329 L 17.0,19.92820323027551"></path>
+                    <path class="tick" d="M 13.000000000000004,20.5 L 13.000000000000005,21.0"></path>
+                    <path class="tick" d="M 9.250000000000002,19.49519052838329 L 9.000000000000002,19.92820323027551"></path>
+                    <path class="tick" d="M 6.504809471616712,16.750000000000004 L 6.071796769724492,17.000000000000004"></path>
+                    <path class="tick" d="M 5.5,13.000000000000002 L 5.0,13.000000000000002"></path>
+                    <path class="tick" d="M 6.504809471616711,9.25 L 6.071796769724491,9.0"></path>
+                    <path class="tick" d="M 9.250000000000004,6.504809471616709 L 9.000000000000004,6.0717967697244895"></path>
+                </svg>
+            </div>
+        </div>
+        <style>
+            .icons:hover {
+                max-width: 18rem;
+            }
+            
+            .icons text {
+                fill: #007393;
+            }
+
+            .icons #difficulty-rating-svg .star {
+                fill: #007393;
+            }
+
+            .icons #par-time-svg .clock {
+                stroke: #007393;
+            }
+            
+            .icons #par-time-svg .tick {
+                stroke: #007393;
+            }
+        </style>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              A curved plate, shown in elevation below consists of a quarter-circle extended by a vertical section. The vertical extent of the quarter-circle is \(H=\) $H m and the plate has a width \(W=\) $W m. The water has density \(\rho=\) $rho kg/m\(^{2}\) and the total waterdepth is $d m.
+            </p>
+
+            <div class="media-container" data-propname="media">
+          <img alt="Semicircle" src="__BASE_URI__Coursework/Semicircle.jpg">
+        </div>
+
+          </header>
+
+          <ul class="tabs-container">
+
+            <li class="tab active" id="tab1" style="max-width: 15rem;">
+              <p>(a)</p>
+            </li>
+            <li class="tab " id="tab2" style="max-width: 15rem;">
+              <p>(b)</p>
+            </li>
+            <li class="tab " id="tab3" style="max-width: 15rem;">
+              <p>(c)</p>
+            </li>
+
+            <li class="tab-end-line"></li>
+
+          </ul>
+
+          <div class="parts-container">
+
+
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Calculate the horizontal force the water exerts on the plate.
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+          <div class="pre-response-text">
+            <p data-propname="parts.1.pre_response_text">
+              <!-- CHANGE PRE RESPONSE TEXT HERE -->
+              \(F_{H}=\)
+            </p>
+          </div>
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part2">
+              <p class="part-statement" data-propname="parts.2.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Calculate the vertical force the water exerts on the plate.
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.2.response">
+
+          <div class="pre-response-text">
+            <p data-propname="parts.2.pre_response_text">
+              <!-- CHANGE PRE RESPONSE TEXT HERE -->
+              \(F_{V}=\)
+            </p>
+          </div>
+
+          <2>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn2">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+
+            <div class="part " id="part3">
+              <p class="part-statement" data-propname="parts.3.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                Upload scans or pictures of any working you have done.
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.3.response">
+
+
+          <3>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn3">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+        </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q2 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Cive4000004/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script> ]]>
+    </text>
+    <weighting>1,1,1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <showUnits>True</showUnits>
+              <grading><![CDATA[ toler_perc ]]></grading>
+              <perc>5</perc>
+              <answer><num><![CDATA[ $FH ]]></num><units><![CDATA[ N ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Numeric ]]></mode>
+              <showUnits>True</showUnits>
+              <grading><![CDATA[ toler_perc ]]></grading>
+              <perc>5</perc>
+              <answer><num><![CDATA[ $FV ]]></num><units><![CDATA[ N ]]></units></answer>
+              <name><![CDATA[ responseNan ]]></name>
+              <negStyle><![CDATA[ minus ]]></negStyle>
+              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+        <part>
+              <mode><![CDATA[ Document Upload ]]></mode>
+              <fileExtensions><![CDATA[ jpg,pdf,png,txt ]]></fileExtensions>
+              <codeType>0</codeType>
+              <forceUpload>False</forceUpload>
+              <nonGradeable>False</nonGradeable>
+              <name><![CDATA[ responseNan ]]></name>
+              <weighting>1</weighting>
+              <comment><![CDATA[  ]]></comment>
+        </part>
+    </parts>
+  </question>
+
+  </questions>
+
+  <webResources>
+    <folder id="0">
+      <name>
+        <![CDATA[  web_folders  ]]>
+      </name>
+      <description>
+        <![CDATA[    ]]>
+      </description>
+      <uri>
+        <![CDATA[  web_folders  ]]>
+      </uri>
+    </folder>
+  </webResources>
+
+</courseModule>

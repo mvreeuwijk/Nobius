@@ -1,0 +1,57 @@
+{
+   "title": "Hydrostatic Forces on a Curved Plate",
+   "icon_data": {
+      "difficulty": 3,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "A curved plate, shown in elevation below consists of a quarter-circle extended by a vertical section. The vertical extent of the quarter-circle is \\(H=\\) $H m and the plate has a width \\(W=\\) $W m. The water has density \\(\\rho=\\) $rho kg/m\\(^{2}\\) and the total waterdepth is $d m.",
+   "media": [
+      "Semicircle.jpg"
+   ],
+   "parts": [
+      {
+         "statement": "Calculate the horizontal force the water exerts on the plate.",
+         "pre_response_text": "\\(F_{H}=\\)",
+         "response": {
+            "mode": "Numeric",
+            "showUnits": true,
+            "grading": "toler_perc",
+            "perc": 5,
+            "answer": {
+               "num": "$FH",
+               "units": "N"
+            }
+         }
+      },
+      {
+         "statement": "Calculate the vertical force the water exerts on the plate.",
+         "pre_response_text": "\\(F_{V}=\\)",
+         "response": {
+            "mode": "Numeric",
+            "showUnits": true,
+            "grading": "toler_perc",
+            "perc": 5,
+            "answer": {
+               "num": "$FV",
+               "units": "N"
+            }
+         }
+      },
+      {
+         "statement": "Upload scans or pictures of any working you have done.",
+         "response": {
+            "mode": "Document Upload",
+            "fileExtensions": "jpg,pdf,png,txt",
+            "codeType": 0,
+            "forceUpload": false,
+            "nonGradeable": false
+         }
+      }
+   ],
+   "algorithm": "$h=range(0.5,1.2,0.05);$H=range(1,4,0.2);$W=range(10,40,1);$rho=1000;$g=9.81;$d=$h+$H;$FH=0.5*$rho*$g*$W*$d^2;$FV=$rho*$g*$W*($h*$H+Pi*$H^2/4);",
+   "uid": "04d29c0c-18eb-4de7-8031-771072ee2ded"
+}

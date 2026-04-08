@@ -1,6 +1,7 @@
 import json
 import re
 import shutil
+import tempfile
 from pathlib import Path
 from uuid import uuid4
 
@@ -9,7 +10,10 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = REPO_ROOT.parent
-QUESTIONS_ROOT = PROJECT_ROOT / "Questions"
+FIXTURES_ROOT = REPO_ROOT / "tests" / "fixtures"
+QUESTIONS_ROOT = FIXTURES_ROOT if FIXTURES_ROOT.exists() else PROJECT_ROOT / "Questions"
+MOBIUS_EXPORTS_ROOT = FIXTURES_ROOT / "mobius_exports"
+BASELINES_ROOT = FIXTURES_ROOT / "baselines"
 TEST_RENDER_CONFIG = {
     "render": {
         "theme_location": "/themes/test-theme",
@@ -32,7 +36,10 @@ def write_json(path, payload):
 
 def copy_sheet_fixture(source_name, target_root):
     source = QUESTIONS_ROOT / source_name
-    destination = target_root / source_name
+    return copy_directory_fixture(source, target_root / source_name)
+
+
+def copy_directory_fixture(source, destination):
     destination.mkdir(parents=True, exist_ok=True)
 
     for child in source.iterdir():
@@ -138,7 +145,7 @@ def make_config_payload(
 
 @pytest.fixture
 def tmp_path():
-    base_dir = REPO_ROOT / "tests_work"
+    base_dir = Path(tempfile.gettempdir()) / "nobius_pytest"
     base_dir.mkdir(exist_ok=True)
     path = base_dir / f"pytest_{uuid4().hex}"
     path.mkdir(parents=True, exist_ok=False)
@@ -157,5 +164,30 @@ def t02_sheet(tmp_path):
 
 
 @pytest.fixture
+def uploads_sheet(tmp_path):
+    return copy_sheet_fixture("Uploads", tmp_path)
+
+
+@pytest.fixture
+def template_questions_sheet(tmp_path):
+    return copy_sheet_fixture("TemplateQuestions", tmp_path)
+
+
+@pytest.fixture
+def example_sheet(tmp_path):
+    return copy_directory_fixture(REPO_ROOT / "example", tmp_path / "example")
+
+
+@pytest.fixture
 def experimental_xml_path():
     return REPO_ROOT / "xml_scraper" / "tests" / "experimental_sheet.xml"
+
+
+@pytest.fixture
+def question_types_demo_zip():
+    return MOBIUS_EXPORTS_ROOT / "QuestionTypesDemo.zip"
+
+
+@pytest.fixture
+def experimental_sheet_v2_baseline_xml():
+    return BASELINES_ROOT / "Experimental Sheet V2__6e6882e.xml"

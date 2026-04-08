@@ -1,0 +1,33 @@
+{
+   "title": "Free Body Diagram 1",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         2,
+         5
+      ],
+      "statement": ""
+   },
+   "master_statement": "Draw a free body force diagram for a dam of constant width \\(w\\) that supports a still body of water of depth \\(h\\) and uniform density \\(\\rho\\) as seen below.",
+   "media": [
+      "FreeBody01.png"
+   ],
+   "parts": [
+      {
+         "statement": "",
+         "response": {
+            "mode": "Non Permuting Multiple Choice",
+            "answer": 1,
+            "choices": [
+               "<p>Done</p>"
+            ]
+         },
+         "final_answer": {
+            "media": [
+               "FreeBodyAnswer01.png"
+            ]
+         }
+      }
+   ],
+   "uid": "aafd9250-47ce-470d-94f6-ba46d6af1733"
+}

@@ -1,0 +1,57 @@
+{
+   "title": "Pressure and Density",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         5,
+         10
+      ],
+      "statement": ""
+   },
+   "master_statement": "Consider 2 containers of height \\(h\\)=1.5m filled with different liquids of density \\(\\rho_{1}\\) and \\(\\rho_{2}\\) respectively.",
+   "media": [
+      "PressureDensity.png"
+   ],
+   "parts": [
+      {
+         "statement": "The (gauge) pressure at the base of the containers is \\(p_{1} =\\)$p Pa \\(p_{2} =\\)$P Pa respectively. Calculate the densities \\(\\rho_{1}\\) and \\(\\rho_{2}\\).<br>Please give your answer as an integer.",
+         "responses": [
+            {
+			   "pre_response_text": "\\(\\rho_{1} =\\)",
+               "response": {
+                  "mode": "Numeric",
+                  "showUnits": true,
+                  "answer": {
+                     "num": "$d",
+                     "units": "kg/m^3"
+                  }
+               }
+            }, 
+            {
+               "pre_response_text": "\\(\\rho_{2} =\\)",
+			   "response": {
+                  "mode": "Numeric",
+                  "showUnits": true,
+                  "answer": {
+                     "num": "$D",
+                     "units": "kg/m^3"
+                  }
+               }
+            }
+         ],
+         "final_answer": {
+            "text": "\\(\\rho_{1} =\\)$d \\(kg/m^{3}\\), \\(\\rho_{2} =\\)$D \\(kg/m^{3}\\)"
+         },
+         "worked_solutions": [
+            {
+               "text": "Rearrange the equation \\(p = \\rho g h\\) to get \\(\\rho = \\frac{p}{g h}\\)"
+            },
+            {
+               "text": "\\(\\rho_{1} =\\)$d, and \\(\\rho_{2} =\\)$D"
+            }
+         ]
+      }
+   ],
+   "algorithm": "$p=range(12000,14750,1);$P=range(14751,22000,1);$g=9.81;$t=($p/($g*1.5));$T=($P/($g*1.5));$d=int($t);$D=int($T);",
+   "uid": "e11e0dc8-aa6d-43ae-82e4-55db8a916f06"
+}

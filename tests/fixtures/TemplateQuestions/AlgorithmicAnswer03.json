@@ -1,0 +1,53 @@
+{
+   "title": "Algorithmic Answer 3 (Q9.4)",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "You are asked to design a pipeline between two reservoirs, of which the first is $h m higher than the second. The reservoirs are $s km far apart and should carry a discharge of $Q \\(m^{3}/s\\). Calculate the design diameter D of the pipe. Assume that the pipe roughness is such that the friction coefficient f=0.02. Hint: neglect the exit loss. Verify afterwards if thisassumption was justified.",
+   "parts": [
+      {
+         "statement": "",
+         "response": {
+            "mode": "Numeric",
+            "showUnits": true,
+            "grading": "exact_sigd",
+            "digit": 3,
+            "answer": {
+               "num": "$d",
+               "units": "m"
+            }
+         },
+		 "final_answer": {
+            "text": "$d m"
+         },
+         "worked_solutions": [
+            {
+               "media": [
+					"HydraulicJumpCV.png"
+				]
+            },
+            {
+               "text": "Apply Bernoulli along a streamline between 1 and 3, including frictional losses but neglecting the exit loss:<br> \\(H_{1}=H_{3}+\\Delta H_{1}=H_{3}+f \\frac{U_{2}^{2}}{2 g} \\frac{L}{D}\\)"
+            },
+            {
+               "text": "\\(\\overbrace{H_{1}-H_{3}}^{\\Delta H}=\\frac{U_{2}^{2}}{2 g} f \\frac{L}{D}\\)"
+            },
+            {
+               "text": "Using that \\(Q=U_{2} A_{2}=U_{2} \\frac{1}{4} \\pi D^{2}\\) and thus \\(U_{2}=\\frac{4 Q}{\\pi D^{2}}\\) results in:<br>\\(\\Delta H=\\frac{16 f L Q^{2}}{2 \\pi^{2} g D^{5}}\\)"
+            },
+			{
+               "text": "\\(D=\\sqrt[5]{\\frac{8 f L Q^{2}}{\\pi^{2} g \\Delta H}}\\)"
+            },
+			{
+				"is_final_answer": true
+			}
+         ]
+      }
+   ],
+   "uid": "3b8b78d8-3368-440b-ae47-0b5ba1cd4563"
+}

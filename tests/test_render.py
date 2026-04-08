@@ -1,4 +1,5 @@
 import json
+import re
 import subprocess
 import sys
 import zipfile
@@ -7,7 +8,22 @@ import pytest
 
 from render_common import NobiusRenderError, load_json_file, make_matrix, process_custom_response, render_sheet
 
-from .conftest import REPO_ROOT, load_question_by_title, make_config_payload, make_render_settings, write_json
+from .conftest import (
+    REPO_ROOT,
+    load_question_by_title,
+    make_config_payload,
+    make_render_settings,
+    write_json,
+)
+
+
+def canonicalize_export_xml(xml_text):
+    xml_text = xml_text.replace("\r\n", "\n")
+    return re.sub(
+        r"-?\d+\.\d{13,}",
+        lambda match: format(round(float(match.group(0)), 12), ".12f").rstrip("0").rstrip("."),
+        xml_text,
+    )
 
 
 def test_render_sheet_standard_creates_xml_and_zip_for_tutorial_fixture(t01_sheet):
@@ -82,6 +98,20 @@ def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tm
 
     assert "/themes/unit-test-exam" in rendered_xml
     assert "/web/unit-test/exam.js" in rendered_xml
+
+
+def test_example_export_matches_historical_6e6882e_baseline(example_sheet, experimental_sheet_v2_baseline_xml):
+    legacy_settings = {
+        "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
+        "scripts_location": "/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt",
+    }
+
+    result = render_sheet(example_sheet, "master.xml", legacy_settings)
+    current_xml = canonicalize_export_xml((example_sheet / "renders" / "Experimental Sheet V2.xml").read_text(encoding="utf-8"))
+    baseline_xml = canonicalize_export_xml(experimental_sheet_v2_baseline_xml.read_text(encoding="utf-8"))
+
+    assert result["xml_path"].endswith("Experimental Sheet V2.xml")
+    assert current_xml == baseline_xml
 
 
 def test_make_matrix_numeric_expands_into_scalar_numeric_responses():

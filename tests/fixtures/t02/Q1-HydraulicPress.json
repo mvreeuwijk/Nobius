@@ -1,0 +1,49 @@
+{
+   "title": "Hydraulic Press",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         2,
+         5
+      ],
+      "statement": ""
+   },
+   "master_statement": " In a hydraulic press, a force of $f N is exerted on the small piston (area $a cm\\(^{2}\\)). What is the force exerted by the large piston (area $A cm \\(^{2}\\)) if the two pistons are at the same height?",
+   "media": [
+		"PressDiagram.png"
+	],
+   "parts": [
+      {
+         "statement": "",
+         "response": {
+            "mode": "Numeric",
+            "showUnits": true,
+            "answer": {
+               "num": "$F",
+               "units": "kN"
+            }
+         },
+         "final_answer": {
+            "text": "$F kN"
+         },
+         "worked_solutions": [
+            {
+               "media": [
+					"PressDiagram.png"
+				]
+            },
+            {
+               "text": "Pressures inside press are equal"
+            },
+            {
+               "text": "\\(\\begin{aligned} \\frac{F_{1}}{A_{1}} = \\frac{F_{2}}{A_{2}} \\Leftrightarrow F_{2} &= \\frac{A_{2}}{A_{1}} F_{1} \\end{aligned}\\)"
+            },
+            {
+               "is_final_answer": true
+            }
+         ]
+      }
+   ],
+   "algorithm":"$f=range(100,300,1);$a=range(5,15,1);$A=range(90,120,1);$t=($A/$a)*$f;$F=maple(\"convert($t, float, 4)\");",
+   "uid": "3d7c076a-ddbc-4cf2-931e-fd97f4af6f02"
+}

@@ -1,0 +1,215 @@
+{
+   "title": "Matrix Response (Q10.2)",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "You wish to pump water from reservoir A to reservoir B. Reservoir B is 10m higher than reservoir A. The reservoirs are 200m apart, the pipe diameter is 20cm and the friction coefficient f=0.02. You have a 5kW pump which has an efficiency of 85%. You want to calculate the discharge Q. In order to calculate a solution, you can make a guess for the head loss terms, after which the discharge Q can be calculated. With this estimation of Q we can improve our guess for the head loss term. If we repeat this procedure often enough, the guessed head loss will become identical to the refined guess.",
+   "parts": [
+      {
+         "statement": "Complete the following table:",
+         "custom_response": {
+            "layout": "<table><thead> <tr><th>Iteration</th><th>Guess \\(\\Delta H_{f}[m]\\)</th><th>\\(Q[m^{3}/s]\\)</th><th>\\(U[m/s]\\)</th><th>Refined Guess</th> </tr></thead><tbody> <tr><td>1</td><td><1></td><td><2></td><td><3></td><td><4></td> </tr> <tr><td>2</td><td><5></td><td><6></td><td><7></td><td><8></td> </tr> <tr><td>3</td><td><9></td><td><10></td><td><11></td><td><12></td> </tr> <tr><td>4</td><td><13></td><td><14></td><td><15></td><td><16></td> </tr> <tr><td>5</td><td><17></td><td><18></td><td><19></td><td><20></td> </tr> <tr><td>6</td><td><21></td><td><22></td><td><23></td><td><24></td> </tr></tbody></table><style media=\"screen\"> .inline-resp { padding: 2px; width: 50px; } .inline-resp .select2 { width: 50px; height: 25px; } .inline-resp .select2-container--bootstrap .select2-selection--single { padding: 3px 24px 3px 6px; } table {border-collapse: collapse; } tr {border: 2px solid black; } th {padding: 3px; } td {padding: 3px; }</style><script type=\"text/javascript\"> /* We need to change the widths of the dropdown lists */ jQuery(document).ready(function() { jQuery(\".doInPreview, .doInSession\").click(function () { jQuery(\".part.active .dropdowns .inline-resp .response\").css(\"width\", \"52px\"); console.log(this); });});</script>",
+            "responses": [
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "0"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "0.043"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.38"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "2.05"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "2.05"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "0.036"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.15"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.41"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.41"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "0.038"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.21"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.57"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.57"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "0.038"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.19"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.53"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.53"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "0.038"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.20"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.54"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.54"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "0.038"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.20"
+                  }
+               },
+               {
+                  "mode": "Numeric",
+                  "grading": "exact_sigd",
+                  "digit": 3,
+                  "answer": {
+                     "num": "1.54"
+                  }
+               }
+            ]
+         }
+      }
+   ],
+   "uid": "c29f85bf-b48c-4a41-b4ab-9eae8d3d4490"
+}

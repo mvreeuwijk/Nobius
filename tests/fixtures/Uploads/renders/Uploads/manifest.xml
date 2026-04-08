@@ -1,0 +1,123 @@
+<courseModule>
+
+  <module>
+    <name><![CDATA[  Uploads  ]]></name>
+    <description><![CDATA[  Course Module  ]]></description>
+    <uri><![CDATA[  400376b3-1869-4cf2-8773-ad7137a62175  ]]></uri>
+    <privacy>0</privacy>
+    <autoModule>true</autoModule>
+    <exportedFrom>98ed3b22-3f07-437d-8eb5-ca23f0fe1fc0</exportedFrom>
+  </module>
+
+  <questions>
+
+    <question uid="400376b3-1869-4cf2-8773-ad7137a62175" modifiedBy="347c34bc-d2e7-4666-bae7-946afa901409" school="20ce8c22-f096-4877-9f6c-bcaa95f1d968">
+      <mode>Inline</mode>
+      <chainId><![CDATA[  0  ]]></chainId>
+      <name><![CDATA[  Uploads  ]]></name>
+      <editing>useHTML</editing>
+      <numberOfAttempts>1</numberOfAttempts>
+      <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+      <numberOfTryAnother>0</numberOfTryAnother>
+      <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+      <privacy>10</privacy>
+      <allowRepublish>false</allowRepublish>
+      <attributeAuthor>true</attributeAuthor>
+      <modifiedIn>16.1000004</modifiedIn>
+      <difficulty>0.0</difficulty>
+      <text><![CDATA[  <p><1><span>&nbsp;</span></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><2><span>&nbsp;</span></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><span><3><span>&nbsp;</span></span></p>  ]]></text>
+      <width>0.0</width>
+      <weighting>1,1,1</weighting>
+      <numbering>alpha</numbering>
+
+      <parts>
+
+        <part>
+          <mode>Scanned Document</mode>
+          <name><![CDATA[  responseNaN  ]]></name>
+          <editing>useHTML</editing>
+          <numberOfAttempts>1</numberOfAttempts>
+          <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+          <numberOfTryAnother>0</numberOfTryAnother>
+          <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+          <allowRepublish>false</allowRepublish>
+          <attributeAuthor>false</attributeAuthor>
+          <difficulty>0.0</difficulty>
+          <width>0.0</width>
+          <fileExtensions>jpg,pdf,png,txt</fileExtensions>
+          <codeType>0</codeType>
+          <forceUpload>false</forceUpload>
+          <nonGradable>false</nonGradable>
+        </part>
+
+        <part>
+          <mode>Document Upload</mode>
+          <name><![CDATA[  responseNaN  ]]></name>
+          <editing>useHTML</editing>
+          <numberOfAttempts>1</numberOfAttempts>
+          <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+          <numberOfTryAnother>0</numberOfTryAnother>
+          <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+          <allowRepublish>false</allowRepublish>
+          <attributeAuthor>false</attributeAuthor>
+          <difficulty>0.0</difficulty>
+          <width>0.0</width>
+          <fileExtensions>jpg,pdf,png,txt</fileExtensions>
+          <codeType>0</codeType>
+          <forceUpload>false</forceUpload>
+          <nonGradable>false</nonGradable>
+        </part>
+
+        <part>
+          <mode>Numeric</mode>
+          <name><![CDATA[  responseNaN  ]]></name>
+          <editing>useHTML</editing>
+          <numberOfAttempts>1</numberOfAttempts>
+          <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+          <numberOfTryAnother>0</numberOfTryAnother>
+          <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+          <allowRepublish>false</allowRepublish>
+          <attributeAuthor>false</attributeAuthor>
+          <difficulty>0.0</difficulty>
+          <text><![CDATA[    ]]></text>
+          <answer>
+            <num><![CDATA[  12  ]]></num>
+            <units><![CDATA[  N  ]]></units>
+          </answer>
+          <width>0.0</width>
+          <grading>toler_perc</grading>
+          <perc>5.0</perc>
+          <showUnits>true</showUnits>
+          <negStyle>minus</negStyle>
+          <numStyle>thousands scientific  arithmetic</numStyle>
+        </part>
+      </parts>
+    </question>
+  </questions>
+
+  <authors>
+
+    <author uid="347c34bc-d2e7-4666-bae7-946afa901409" instanceUid="98ed3b22-3f07-437d-8eb5-ca23f0fe1fc0" defaultSchool="20ce8c22-f096-4877-9f6c-bcaa95f1d968">
+      <displayName><![CDATA[  Jasper Koenig  ]]></displayName>
+    </author>
+  </authors>
+
+  <schools>
+
+    <school uid="20ce8c22-f096-4877-9f6c-bcaa95f1d968">
+      <name><![CDATA[  Imperial College London  ]]></name>
+    </school>
+  </schools>
+</courseModule>

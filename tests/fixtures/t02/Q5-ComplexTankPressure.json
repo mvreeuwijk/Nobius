@@ -1,0 +1,79 @@
+{
+   "title": "Tank Pressure",
+   "icon_data": {
+      "difficulty": 2,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "Find the maximum gauge pressure in the storage tank shown below. What is the pressure force acting on top of the CD of the last chamber on the RHS. The tank has a constant width (into the page) of 1m.",
+   "media": [
+      "ComplexTankPressure.png"
+   ],
+   "parts": [
+      {
+         "statement": "Calculate the pressure at each of i and ii",
+		 "responses": [
+            {
+               "pre_response_text": "\\(P_{i}=\\)",
+               "response": {
+                  "mode": "Numeric",
+                  "showUnits": false,
+                  "answer": {
+                     "num": "4"
+                  }
+               },
+			   "post_response_text": "\\(\\rho g\\)"
+            },
+            {
+               "pre_response_text": "\\(P_{ii}=\\)",
+               "response": {
+                  "mode": "Numeric",
+                  "showUnits": false,
+                  "answer": {
+                     "num": "10"
+                  }
+               },
+			   "post_response_text": "\\(\\rho g\\)"
+            }
+         ],
+         "final_answer": {
+            "media": [
+               "ComplexTankPressureAnswer.png"
+            ]
+         },
+         "worked_solutions": [
+            {
+               "media": [
+                  "ComplexTankPressureAnswer.png"
+               ]
+            },
+            {
+               "text": "The pressures can be found using repeated application of the hydrostatic pressure distribution. For air, the pressure is assumed constant because \\(\\rho_{\\text{air}} < < \\rho_{\\text{water}}\\)."
+            }
+         ]
+      },
+      {
+         "statement": "Calculate the pressure force at CD.",
+         "response": {
+            "mode": "Numeric",
+            "showUnits": false,
+            "answer": {
+               "num": "10"
+            }
+         },
+         "post_response_text": "\\(\\rho g\\) \\(N\\)",
+         "final_answer": {
+            "text": "\\(10 \\rho g\\) \\(N\\)"
+         },
+         "worked_solutions": [
+            {
+               "text": "The pressure force on top of the CD is:<br>\\(F_{C D}=10 \\rho \\mathrm{g}(1 \\times 1)=10 \\rho \\mathrm{gN}\\)"
+            }
+         ]
+      }
+   ],
+   "uid": "c916bdbd-dacf-47df-b546-1e45b6197fee"
+}

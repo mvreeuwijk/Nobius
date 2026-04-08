@@ -241,6 +241,13 @@ def normalize_response_area_for_render(response):
         if "notGraded" in response and "nonGradeable" not in response:
             response["nonGradeable"] = response["notGraded"]
 
+        if isinstance(response.get("fileExtensions"), str):
+            response["fileExtensions"] = [
+                extension.strip()
+                for extension in response["fileExtensions"].split(",")
+                if extension.strip()
+            ]
+
         if "uploadMode" in response:
             upload_mode = response["uploadMode"]
         elif "forceUpload" in response:
@@ -265,6 +272,29 @@ def normalize_response_area_for_render(response):
             response["questionJavaScript"] = response.pop("javascript")
         if "grading_code" in response and "gradingCode" not in response:
             response["gradingCode"] = response.pop("grading_code")
+
+
+def iter_render_media_files(media_path):
+    for media_file in os.listdir(media_path):
+        if media_file.startswith("."):
+            continue
+        yield media_file
+
+
+def collect_question_media_references(node):
+    references = set()
+
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if key == "media" and isinstance(value, list):
+                references.update(value)
+            else:
+                references.update(collect_question_media_references(value))
+    elif isinstance(node, list):
+        for item in node:
+            references.update(collect_question_media_references(item))
+
+    return references
 
 
 def render_sheet(work_dir, template_name, render_settings, reset_uid=False, write_missing_uids=False, output_dir=None):
@@ -353,12 +383,23 @@ def render_sheet(work_dir, template_name, render_settings, reset_uid=False, writ
 
     media_path = os.path.join(work_dir, "media")
     zip_path = None
-    if os.path.isdir(media_path) and os.listdir(media_path):
+    referenced_media = set()
+    for question in questions:
+        referenced_media.update(collect_question_media_references(question))
+
+    media_files = []
+    if os.path.isdir(media_path):
+        media_files = [
+            media_file
+            for media_file in iter_render_media_files(media_path)
+            if media_file in referenced_media
+        ]
+    if media_files:
         print("[LOADING] Detected Media folder -> bundling media files and .xml")
         zip_path = os.path.join(renders_dir, f"{sheet_info['name']}.zip")
         with ZipFile(zip_path, "w") as zip_file:
             zip_file.write(xml_path, arcname="manifest.xml")
-            for media_file in os.listdir(media_path):
+            for media_file in media_files:
                 zip_file.write(
                     os.path.join(media_path, media_file),
                     arcname=os.path.join("web_folders", f"{sheet_info['name']}", media_file),
@@ -369,7 +410,7 @@ def render_sheet(work_dir, template_name, render_settings, reset_uid=False, writ
             if os.path.exists(output_media_path):
                 shutil.rmtree(output_media_path)
             os.mkdir(output_media_path)
-            for media_file in os.listdir(media_path):
+            for media_file in media_files:
                 shutil.copy(os.path.join(media_path, media_file), output_media_path)
 
     print("[DONE]")

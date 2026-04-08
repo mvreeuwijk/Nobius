@@ -1,0 +1,64 @@
+{
+   "title": "Tank Level",
+   "icon_data": {
+      "difficulty": 2,
+      "par_time": [
+         10,
+         15
+      ],
+      "statement": ""
+   },
+   "master_statement": "A tank is fitted with a manometer on the side as depicted. Find the position of the liquid surface in the manometer using absolute pressures, and using gauge pressures.<br>\\(S\\)(specific gravity)=$S, \\(h_{1}\\)=$h1 m.",
+   "parts": [
+      {
+         "statement": "",
+         "response": {
+            "mode": "Numeric",
+            "showUnits": true,
+            "answer": {
+               "num": "$h",
+               "units": "cm"
+            }
+         },
+		 "media": [
+			"TankLevel.png"
+		 ],
+         "final_answer": {
+            "text": "\\(\\Delta h =\\)$h cm"
+         },
+         "worked_solutions": [
+            {
+				"media": [
+					"TankLevelAnswer.png"
+				]
+            },
+            {
+               "text": "Use hydrostatic pressure distribution for \\(P_{A} : P_{A} = P_{0} + \\rho_{1} g h_{1}\\)"
+            },
+            {
+               "text": "Use hydrostatic pressure distribution for \\(P_{B} : P_{B} = P_{0} + \\rho_{2} g \\Delta h\\)"
+            },
+            {
+               "text": "In a static fluid, the pressure inside a single fluid layer is independant of \\(x\\),\\(y\\)"
+            },
+            {
+               "text": "\\(\\therefore P_{A}=P_{B} \\Leftrightarrow\\)"
+            },
+            {
+               "text": "\\(P_{0}+\\rho_{1} g h_{1}=\\rho_{0}+\\rho_{2} g \\Delta h \\Leftrightarrow\\)"
+            },
+            {
+               "text": "\\(\\begin{aligned}&\\rho_{1}=\\rho_{w} \\\\&\\rho_{2}=S \\rho_{w}\\end{aligned}\\)"
+            },
+            {
+               "text": "\\(\\Delta h=\\frac{\\rho_{1}}{\\rho_{2}} h_{1}=\\frac{\\rho_{w}}{S \\rho_{w}} h_{1}\\)"
+            },
+            {
+               "text": "\\(\\Delta h =\\)$h cm"
+            }
+         ]
+      }
+   ],
+   "algorithm": "$h1=range(5,10,1);$S=range(2,4,1);$h=(1/$S)*$h1;",
+   "uid": "d2b312ed-c9f6-4e15-b045-8cc83b683373"
+}

@@ -1,0 +1,33 @@
+{
+   "title": "Identify The Mistakes (Q4.2)",
+   "icon_data": {
+      "difficulty": 1,
+      "par_time": [
+         1,
+         2
+      ],
+      "statement": ""
+   },
+   "master_statement": "Gas is transported in a horizontal pipeline that has a change in cross-sectional area as depicted. One of the engineers working on the project drew up the following diagram for right to left flow within the pipeline. What, if anything, is wrong with it?",
+   "media": [
+		"Streamlines01.png"
+   ],
+   "parts": [
+      {
+         "statement": "",		 
+         "response": {
+            "mode": "Non Permuting Multiple Choice",
+            "answer": 3,
+            "choices": [
+               "Streamlines have seperated too far",
+               "The eddies are in the wrong direction",
+               "Streamlines cannot come from a wall",
+               "Streamlines cannot be drawn along walls",
+               "Streamlines cannot cross",
+               "None of the above"
+            ]
+         }
+      }
+   ],
+   "uid": ""
+}
