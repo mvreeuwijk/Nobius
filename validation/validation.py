@@ -7,7 +7,7 @@ import os
 Main methods
 """
 
-def validate_response_areas(response_areas, r_schema, r_defaults, path=[]):
+def validate_response_areas(response_areas, r_schema, r_defaults, path=None):
     """
     Method to validate a list of response areas.
     ---
@@ -21,10 +21,11 @@ def validate_response_areas(response_areas, r_schema, r_defaults, path=[]):
     - The defaults for a response area
     - (Optional) A list showing the path to the part containing the response areas
     """
+    path = path or []
     for response_area in response_areas:
         validate_response_area(response_area, r_schema, r_defaults, path)
 
-def validate_response_area(response_area, r_schema, r_defaults, path=[]):
+def validate_response_area(response_area, r_schema, r_defaults, path=None):
     """
     Method to validate a response area.
     ---
@@ -38,6 +39,7 @@ def validate_response_area(response_area, r_schema, r_defaults, path=[]):
     - The defaults for a response area
     - (Optional) A list showing the path to the question
     """
+    path = path or []
     add_response_area_defaults(response_area, r_defaults, path)
     validate(response_area, r_schema, path=path)
 
@@ -56,6 +58,20 @@ def validate_question(filepath, question, q_schema):
     """
     filename = os.path.basename(filepath)
     validate(question, q_schema, path=[filename], ignores=["response", "responses"])
+    validate_adaptive_constraints(question, path=[filename])
+
+
+def validate_adaptive_constraints(question, path=None):
+    path = path or []
+    adaptive = question.get("adaptive", {})
+    if not adaptive.get("enabled"):
+        return
+
+    forbidden_modes = {"Essay", "Document Upload"}
+    for response_path, response_area in iter_question_response_areas(question):
+        if response_area.get("mode") in forbidden_modes:
+            message = "Adaptive questions cannot contain manually graded essay or document upload response areas."
+            raise_validation_error(ValueError, path + response_path, message, response_area.get("mode"))
 
 def validate_sheet_info(filepath, sheet_info, schema):
     """
@@ -85,13 +101,40 @@ def add_response_area_defaults(response_area, defaults, path):
     arguments and will throw an error if the mode value is not in the set of defaults.
     """
     if "mode" not in response_area or response_area["mode"] not in defaults:
-        print()
-        sys.tracebacklimit = 0
-        
         invalid_mode_msg = "'mode' in response area either doesn't exist or is invalid."
-        raise ValueError(json_traceback(path, invalid_mode_msg))
+        raise_validation_error(ValueError, path, invalid_mode_msg)
 
     recursively_add_defaults(response_area, defaults[response_area["mode"]])
+
+
+def iter_question_response_areas(question):
+    for i, part in enumerate(question.get("parts", [])):
+        yield from iter_part_response_areas(part, ["parts", i])
+
+
+def iter_part_response_areas(part, path):
+    if "response" in part and isinstance(part["response"], dict):
+        yield path + ["response"], part["response"]
+
+    for response_index, response_entry in enumerate(part.get("responses", [])):
+        if isinstance(response_entry, dict) and "response" in response_entry and isinstance(response_entry["response"], dict):
+            yield path + ["responses", response_index, "response"], response_entry["response"]
+
+    custom_response = part.get("custom_response")
+    if isinstance(custom_response, dict):
+        responses = custom_response.get("responses", [])
+        if isinstance(responses, list):
+            for response_index, response in enumerate(responses):
+                if isinstance(response, dict):
+                    yield path + ["custom_response", "responses", response_index], response
+        elif isinstance(responses, dict):
+            for response_name, response in responses.items():
+                if isinstance(response, dict):
+                    yield path + ["custom_response", "responses", response_name], response
+
+    for item_index, item in enumerate(part.get("structured_tutorial", [])):
+        if isinstance(item, dict):
+            yield from iter_part_response_areas(item, path + ["structured_tutorial", item_index])
 
 def recursively_add_defaults(instance, defaults):
     """
@@ -133,12 +176,9 @@ def validate(instance, schema, **kwargs):
     try:
         jsonschema.validate(instance, schema)
     except jsonschema.ValidationError as error:
-        print()
-        sys.tracebacklimit = 0
-
         full_error_path = path + list(error.path)
         validation_msg = "The validator raised the following exception:"
-        raise jsonschema.ValidationError(json_traceback(full_error_path, validation_msg, error.message))
+        raise_validation_error(jsonschema.ValidationError, full_error_path, validation_msg, error.message)
 
     unused_props = check_unused_props(instance, schema, ignores)
 
@@ -168,6 +208,12 @@ def json_traceback(path, msg, *args):
         main_string += f"{item_string}\n"
 
     return main_string
+
+
+def raise_validation_error(error_type, path, msg, *args):
+    print()
+    sys.tracebacklimit = 0
+    raise error_type(json_traceback(path, msg, *args))
     
 def get_path_string(path):
     """
@@ -203,7 +249,7 @@ def get_path_string(path):
 
     return "\n".join(lines)
 
-def check_unused_props(instance, schema, ignores=[]):
+def check_unused_props(instance, schema, ignores=None):
     """
     Method to check for properties in an instance that aren't required in the schema
     ---
@@ -219,6 +265,7 @@ def check_unused_props(instance, schema, ignores=[]):
     Alternatively, if a property holds an array, its items will be checked and returned
     to the property in the first call.
     """
+    ignores = ignores or []
     defined_props = get_all_defined_properties(instance, schema)
     
     if type(instance) != dict:

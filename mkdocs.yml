@@ -19,6 +19,7 @@ nav:
       - generateGroup.py: "Usage/generateGroup.md"
       - generateJSON.py: "Usage/generateJSON.md"
       - generateAll.py: "Usage/generateAll.md"
+      - Testing: "Usage/testing.md"
   - Sheet Files:
       - Sheet File Structure: "SheetFiles/SheetFileStructure.md"
       - SheetInfo.json: "SheetFiles/SheetInfo.md"
@@ -26,15 +27,18 @@ nav:
       - Parts: "SheetFiles/Parts.md"
   - Response areas:
       - Vanilla:
+          - Document Upload: "ResponseAreas/Vanilla/document_upload.md"
           - List: "ResponseAreas/Vanilla/list.md"
           - Maple Graded: "ResponseAreas/Vanilla/maple.md"
           - Multiple Choice: "ResponseAreas/Vanilla/multiple_choice.md"
           - True False: "ResponseAreas/Vanilla/true_false.md"
           - Numeric: "ResponseAreas/Vanilla/numeric.md"
       - Advanced:
+          - HTML: "ResponseAreas/Advanced/html.md"
           - Matrix: "ResponseAreas/Advanced/matrix.md"
           - Custom: "ResponseAreas/Advanced/custom.md"
   - Customization and Resources:
+      - Configuration: "CustomizationAndResources/Configuration.md"
       - QuestionJavascript: "CustomizationAndResources/QuestionJavascript.md"
       - Templates and Jinja: "CustomizationAndResources/TemplatesAndJinja.md"
   - Addons/Features:

@@ -1,4 +1,4 @@
-{% from 'questionText.html' import questionText %}
+{% from 'questionText_exam.html' import questionText %}
 {% from 'parseParams.xml' import addParameter,
 addListParameter,
 addDisplayParameter %}
@@ -27,8 +27,8 @@ addDisplayParameter %}
       {% endfilter %}
     </text>
     <weighting>
-      {%- for ra in question.response_areas -%}
-        {{- ra.weighting -}}{{- "," if not loop.last else "" -}}
+      {%- for area in question.response_areas -%}
+        {{- area.weighting if area.weighting else "1" -}}{{- "," if not loop.last else "" -}}
       {%- endfor -%}
     </weighting>
     <numbering>alpha</numbering>
@@ -39,7 +39,7 @@ addDisplayParameter %}
         <part>
           {# Add each key-value pair from the response area parameters #}
           {% for key, value in response_area.items() %}
-            {% if key in["choices", "credits", "answers", "fileExtensions", "keywords"] %}
+            {% if key in["choices", "credits", "answers"] %}
               {{ addListParameter(key, value) }}
             {% elif key == "display" %}
               {{ addDisplayParameter(value) }}

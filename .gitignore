@@ -1,5 +1,7 @@
 __pycache__
 venv
+.pytest_cache
+tests_work
 
 *.zip
 *.log

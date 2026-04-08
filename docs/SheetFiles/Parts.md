@@ -88,6 +88,13 @@ When both the `response` and `responses` modules aren't enough, you can include 
 
 [11]: ../ResponseAreas/Advanced/custom.md
 
+### Importing an HTML response component
+If the student interaction itself needs to be a custom HTML/CSS/JavaScript widget, use the `HTML` response mode rather than `custom_response`.
+
+`custom_response` is for arranging standard response areas in custom layouts. `HTML` is for authoring a distinct custom component with JavaScript hooks and grading behaviour. [Take me to the `HTML` response docs][13].
+
+[13]: ../ResponseAreas/Advanced/html.md
+
 ## `media`
 Optional, This parameter has the same syntax as the one used at the master statement question level. It will include any media referenced at part-level. [Take me to its docs][12].
 

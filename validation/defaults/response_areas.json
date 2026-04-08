@@ -53,6 +53,17 @@
     "Essay": {
         "name": "responseNan",
         "keywords": [],
+        "maxWordcount": 0,
+        "weighting": 1,
+        "comment": ""
+    },
+    "HTML": {
+        "name": "responseNan",
+        "gradingType": "auto",
+        "html": "<div id=\"nobius-html-response\"></div>",
+        "css": "",
+        "javascript": "function initialize(interactiveMode) {}\nfunction setFeedback(response, answer) {}\nfunction getResponse() { return \"\"; }",
+        "grading_code": "evalb(($ANSWER)-($RESPONSE)=0);",
         "weighting": 1,
         "comment": ""
     },
@@ -63,10 +74,13 @@
     },
     "Document Upload": {
         "name": "responseNan",
+        "uploadMode": "direct",
         "fileExtensions": ["jpg", "pdf", "png", "txt"],
         "codeType": 0,
-        "forceUpload": false,
+        "forceUpload": true,
         "nonGradeable": false,
+        "notGraded": false,
+        "weighting": 1,
         "comment": ""
     }
 }

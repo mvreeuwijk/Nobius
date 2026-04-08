@@ -1,14 +1,22 @@
 import urllib.parse
 import json
 import html
-import bs4
 import re
+
+
+def report_warning(report, message, context=None):
+    if report is not None:
+        report.warn(message, context)
+    if context:
+        print(f"{message} [{context}]")
+    else:
+        print(message)
 
 """
 Main Method
 """
 
-def get_question_data(html):
+def get_question_data(html, report=None):
     """
     Method to scrape question data from its html using the data-propname attribute.
     ---
@@ -63,32 +71,30 @@ def get_question_data(html):
         properties = get_properties(element['data-propname'])
         if properties:
             # Get its value from the html
-            value = get_element_value(properties, element)
+            value = get_element_value(properties, element, report)
             # Nest the value into the question dictionary
-            error = nest_dictionary(question, properties, value)
+            error = nest_dictionary(question, properties, value, report)
             if error:
                 missed_properties += 1
-                print("A problem occurred trying to nest the following property:")
-                print(element['data-propname'], "\n")
+                report_warning(report, "A problem occurred trying to nest the following property.", element['data-propname'])
             elif value == None or type(value) == list and None in value:
                 missed_properties += 1
-                print("A problem occured trying to get the value of the following property:")
-                print(element['data-propname'], "\n")
+                report_warning(report, "A problem occured trying to get the value of the following property.", element['data-propname'])
         else:
             missed_properties += 1
-            print("No property names found for element:\n")
-            print(element.prettify())
+            report_warning(report, "No property names found for element.", element.prettify())
     
     question_name = question["title"] if "title" in question else "Question"
 
     if not data_propname_elements:
-        print("No properties found in question.")
-        print("This is likely because the file has not been generated using templating toolset.")
+        report_warning(report, "No properties found in question.")
+        report_warning(report, "This is likely because the file has not been generated using templating toolset.")
     elif missed_properties:
         print(f"'{question_name}' converted successfully except for {missed_properties} properties.")
     else:
         print(f"'{question_name}' converted successfully.")
     
+    add_input_symbols(question, html, report)
     return question
 
 """
@@ -102,6 +108,38 @@ def get_elements_with_data_propname_attribute(html):
     Returns a list of the html elements as BeautifulSoup instances.
     """
     return html.find_all(attrs={"data-propname": True})
+
+
+def add_input_symbols(question, html, report=None):
+    if "parts" not in question:
+        return
+
+    part_divs = html.find_all("div", class_="part")
+    for index, part_div in enumerate(part_divs):
+        if index >= len(question["parts"]):
+            break
+
+        table = part_div.find("table", class_="input-symbols-table")
+        if table is None:
+            continue
+
+        code_row = table.find("tr", class_="code")
+        symbol_row = table.find("tr", class_="symbols")
+
+        if code_row is None or symbol_row is None:
+            report_warning(report, "Input symbols table could not be parsed cleanly.", f"part {index + 1}")
+            continue
+
+        codes = [cell.get_text(strip=True) for cell in code_row.find_all("td")]
+        symbols = [cell.get_text(strip=True) for cell in symbol_row.find_all("td")]
+
+        if len(codes) != len(symbols):
+            report_warning(report, "Input symbols table has mismatched symbol/code counts.", f"part {index + 1}")
+            continue
+
+        question["parts"][index]["input_symbols"] = [
+            [symbol, code] for symbol, code in zip(symbols, codes)
+        ]
  
 def get_properties(propname):
     """
@@ -114,7 +152,7 @@ def get_properties(propname):
     """
     return [int(x) - 1 if x.isdigit() else x for x in propname.split(".") if x != ""]
 
-def get_element_value(properties, element):
+def get_element_value(properties, element, report=None):
     """
     Method to get the value of an html element to be nested into the question dictionary.
     ---
@@ -138,15 +176,15 @@ def get_element_value(properties, element):
     - If it is a final answer label (for worked solutions), it will always return True.
     """
     if properties[-1] == "response":
-        return get_response(element)
+        return get_response(element, report)
     elif properties[-1] == "custom_response":
-        return get_custom_response(element)
+        return get_custom_response(element, report)
     elif properties[-1] == "media":
-        return get_media(element)
+        return get_media(element, report)
     elif properties[-1] == "h5p_link":
-        return get_h5p_link(element)
+        return get_h5p_link(element, report)
     elif properties[-1] == "par_time":
-        return get_par_time(element)
+        return get_par_time(element, report)
     elif properties[-1] == "difficulty":
         return int(element.text) if element.text.isdigit() else None
     elif properties[-1] == "is_final_answer":
@@ -154,7 +192,7 @@ def get_element_value(properties, element):
     else:
         return element.text.strip()
 
-def get_response(response_html):
+def get_response(response_html, report=None):
     """
     Method to return the index of a response area in a list of response areas using its html tag and regex.
     ---
@@ -164,18 +202,16 @@ def get_response(response_html):
     if response_tag_match:
         return int(response_tag_match.group(1))
     else:
-        print("\nResponse area tag couldn't be found in element:\n")
-        print(response_html.prettify())
+        report_warning(report, "Response area tag couldn't be found in element.", response_html.prettify())
         return None
 
-def get_custom_response(custom_response_html):
+def get_custom_response(custom_response_html, report=None):
     inner_html = custom_response_html.p.decode_contents()
 
     tag_matches = re.findall(r"<(\d+)\s*\/?\s*>", html.unescape(str(inner_html)))
 
     if not tag_matches:
-        print("\nCustom response area tags couldn't be found in element:\n")
-        print(inner_html.prettify())
+        report_warning(report, "Custom response area tags couldn't be found in element.", str(inner_html))
         return None
 
     starting_value = int(min(tag_matches, key=lambda x: int(x))) - 1
@@ -189,7 +225,7 @@ def get_custom_response(custom_response_html):
         "numberof_tags": len(tag_matches)
     }    
 
-def get_media(medias_html):
+def get_media(medias_html, report=None):
     """
     Method to return a list of filenames from img and video elements within some html.
     ---
@@ -204,13 +240,12 @@ def get_media(medias_html):
         if 'src' in media.attrs:
             media_list.append(get_filename(media['src']))
         else:
-            print("\n'src' attribute couldn't be found for media element:\n")
-            print(media.prettify())
+            report_warning(report, "'src' attribute couldn't be found for media element.", media.prettify())
             media_list.append(None)
 
     return media_list
 
-def get_h5p_link(tutorial_html):
+def get_h5p_link(tutorial_html, report=None):
     """
     Method to return the full link to a structured tutorial embedded in an iframe.
     ---
@@ -219,16 +254,14 @@ def get_h5p_link(tutorial_html):
     if tutorial_html.iframe and 'src' in tutorial_html.iframe.attrs:
         return tutorial_html.iframe['src']
     else:
-        print("\niframe element or its src attribute couldn't be found:\n")
-        print(tutorial_html.prettify())
+        report_warning(report, "iframe element or its src attribute couldn't be found.", tutorial_html.prettify())
         return None
 
-def get_par_time(par_time_html):
+def get_par_time(par_time_html, report=None):
     try:
         par_time = json.loads(par_time_html.text)
     except json.JSONDecodeError as error:
-        print("\nPar time data could not be loaded due to an error:\n")
-        print(error.msg)
+        report_warning(report, "Par time data could not be loaded due to an error.", error.msg)
         return None
 
     return par_time
@@ -250,7 +283,7 @@ def get_filename(filepath_string):
 JSON Nesting Methods
 """
 
-def nest_dictionary(data, props, value):
+def nest_dictionary(data, props, value, report=None):
     """
     Method to recusively nest a variable in a dictionary using its property names.
     ---
@@ -267,14 +300,14 @@ def nest_dictionary(data, props, value):
     The process continues up the chain of property names by calling next_nest().
     """
     if len(props) == 1:
-        return set_value(data, props[0], value)
+        return set_value(data, props[0], value, report)
     else:
         if props[0] not in data:
             add_nest(data, props)
 
-        return next_nest(data, props, value)
+        return next_nest(data, props, value, report)
 
-def nest_list(data, props, value):
+def nest_list(data, props, value, report=None):
     """
     Method to recusively nest a variable in a list using its property names.
     ---
@@ -299,15 +332,15 @@ def nest_list(data, props, value):
         if len(data) <= props[0]:
             fill_null_list(data, props[0] + 1)
         
-        return set_value(data, props[0], value)
+        return set_value(data, props[0], value, report)
     else:
         if len(data) <= props[0]:
             fill_null_list(data, props[0] + 1)
             add_nest(data, props)
 
-        return next_nest(data, props, value) 
+        return next_nest(data, props, value, report) 
 
-def next_nest(data, props, value):
+def next_nest(data, props, value, report=None):
     """
     Method to handle the next nest type in the list of property names.
     ---
@@ -329,16 +362,16 @@ def next_nest(data, props, value):
     variable name. When this happens, the nesting process stops and the value is set.
     """
     if type(data[props[0]]) == dict and type(props[1]) == str:
-        return nest_dictionary(data[props[0]], props[1:], value)
+        return nest_dictionary(data[props[0]], props[1:], value, report)
     elif type(data[props[0]]) == list and type(props[1]) == int:
-        return nest_list(data[props[0]], props[1:], value)
+        return nest_list(data[props[0]], props[1:], value, report)
     else:
         expected_type = "list" if type(props[1]) == int else "dict"
-        print(f"\nExpected property \'{props[0]}\' to be {expected_type} but has type {type(data[props[0]]).__name__}")
-        print("Nesting property aborted.\n")
+        report_warning(report, f"Expected property '{props[0]}' to be {expected_type} but has type {type(data[props[0]]).__name__}")
+        report_warning(report, "Nesting property aborted.")
         return 1
 
-def set_value(data, prop, value):
+def set_value(data, prop, value, report=None):
     """
     Method to set the value of a property
     ---
@@ -348,8 +381,8 @@ def set_value(data, prop, value):
     Else the exit code returned is 0.
     """
     if prop in data:
-        print(f"\nProperty \'{prop}\' already exists.")
-        print("Nesting property aborted.\n")
+        report_warning(report, f"Property '{prop}' already exists.")
+        report_warning(report, "Nesting property aborted.")
         return 1
     else:
         data[prop] = value
