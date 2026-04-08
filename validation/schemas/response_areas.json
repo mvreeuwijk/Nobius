@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft/2019-09/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Schema for response property in a question.json file.",
     "type": "object",
     "properties": {
@@ -24,6 +24,7 @@
                 "Formula List",
                 "Ntuple",
                 "Essay",
+                "HTML",
                 "Multiple Selection",
                 "Document Upload"
             ]
@@ -281,6 +282,58 @@
         },
         {
             "if": {
+                "properties": {"mode": {"const": "HTML"}}
+            },
+            "then": {
+                "properties": {
+                    "gradingType": {
+                        "type": "string",
+                        "enum": ["auto", "manual"]
+                    },
+                    "answer": {"type": "string"},
+                    "gradingCode": {"type": "string"},
+                    "grading_code": {"type": "string"},
+                    "questionHTML": {"type": "string"},
+                    "questionCSS": {"type": "string"},
+                    "questionJavaScript": {"type": "string"},
+                    "html": {"type": "string"},
+                    "css": {"type": "string"},
+                    "javascript": {"type": "string"}
+                },
+                "allOf": [
+                    {
+                        "anyOf": [
+                            {
+                                "required": ["html", "css", "javascript"]
+                            },
+                            {
+                                "required": ["questionHTML", "questionCSS", "questionJavaScript"]
+                            }
+                        ]
+                    },
+                    {
+                        "if": {
+                            "properties": {"gradingType": {"const": "auto"}}
+                        },
+                        "then": {
+                            "anyOf": [
+                                {
+                                    "required": ["answer", "gradingCode"]
+                                },
+                                {
+                                    "required": ["answer", "grading_code"]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "required": [
+                    "gradingType"
+                ]
+            }
+        },
+        {
+            "if": {
                 "properties": {"mode": {"const": "Multiple Selection"}}
             },
             "then": {
@@ -304,25 +357,32 @@
             },
             "then": {
                 "properties": {
+                    "uploadMode": {
+                        "type": "string",
+                        "enum": ["direct", "code"]
+                    },
                     "fileExtensions": {
                         "type": "array",
                         "minItems": 1,
                         "items": {"type": "string"}
                     },
                     "codeType": {
-                        "type": "integer",
-                        "const": 0
+                        "type": ["integer", "string"],
+                        "enum": [0, 1, 2, "numeric", "alphabetic", "alphanumeric"]
                     },
                     "forceUpload": {
                         "type": "boolean"
                     },
                     "nonGradeable": {
                         "type": "boolean"
+                    },
+                    "notGraded": {
+                        "type": "boolean"
                     }
                 },
                 "required": [
+                    "uploadMode",
                     "fileExtensions",
-                    "codeType",
                     "forceUpload",
                     "nonGradeable"
                 ]

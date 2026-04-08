@@ -76,6 +76,18 @@ This parameter holds information about each part of a question, it is a list of 
 [3]: Questions.md#
 [4]: Parts.md
 
+### `adaptive`
+Optional metadata used by Nobius validation to flag constraints relevant to adaptive questions.
+
+```json
+"adaptive": {
+  "enabled": true,
+  "notes": "Reserved for future adaptive authoring support."
+}
+```
+
+At present this does not enable full adaptive rendering in Nobius. It exists so the validator can block response types that Möbius does not allow in adaptive sections, such as `Essay` and `Document Upload`.
+
 ## Best Practices
 
 !!! info

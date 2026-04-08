@@ -1,10 +1,13 @@
 # List of features
 
-- Icons (with par time and notes from the teacher)
-- Native mobius response areas (Vanilla)
-- Advanced response areas 
+- Icons with par time and teacher notes
+- Native Mobius response areas
+- Advanced response areas
+- Standard and exam rendering from one `generateGroup.py` workflow via render profiles
+- First-class `HTML` response mode for custom interactive widgets
+- Mobius ZIP/XML import back into Nobius JSON
 - Media support
-- Tabular layout
-- Step by step layouts for worked solutions and structured tutorials
-- H5P Support for interactive video tutorials
+- Tabular layouts
+- Step-by-step layouts for worked solutions and structured tutorials
+- H5P support for interactive tutorial content
 - Comments

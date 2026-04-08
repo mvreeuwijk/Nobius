@@ -20,18 +20,38 @@ In order to use this tool, python 3.6 or higher is required. The main modules us
 To use this tool, you should navigate to its location (the `Sheet Generator` folder), and call it using python as so:
 
 ```unix
-python generateGroup.py FILEPATH [--reset-uid or -uid] [-h]
+python generateGroup.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [--config CONFIG] [--render-profile {standard,exam}] [-h]
 ```
 
 - `FILEPATH` is a required positional argument corresponding to the absolute or relative path to where you have stored the sheet folder you'd like to render.
     * *Note: if the path is susceptible to have spaces in folder names (like with certain OneDrive paths), be sure to encapsulate it in double quotes as shown in the example command*
 - `--reset-uid` or `-uid` is an optional flag that will cause all the UIDs from your sheet files to be re-generated (both sheetInfo.json and question files). Use this flag when you've already uploaded a version of the sheet you're rendering to mobius, and you don't want to override it.
     * *Note: if you have changed the order, or names of some of the questions it's a good idea to set this flag and delete the previous version of that sheet from mobius*.
+- `--write-missing-uids` is an optional flag that initializes and persists missing UIDs into the source JSON files. This is intended for first-time setup of a sheet.
+- `--config` is an optional path to a Nobius config file. By default the tool looks for `nobius.json` in the repo root.
+- `--render-profile` selects the render template/resource profile. Use `standard` for tutorial-style sheets and `exam` for exam-style rendering.
+
+!!! warning
+    Rendering now requires stable UIDs. If `uid` values are missing, the script will fail unless you explicitly pass `--write-missing-uids`.
 
 !!! tip
     If you ever forget which arguments are accepted, and what they mean you can run `python generateGroup.py -h` to bring up the help menu for this script!
 
 ### Example command
 ```unix
-python generateGroup.py "C:\Users\bob\Desktop\My new sheet" -uid
+python generateGroup.py "C:\Users\bob\Desktop\My new sheet" --write-missing-uids
 ```
+
+### Exam rendering
+
+Exam rendering now uses the same workflow with a different render profile:
+
+```unix
+python generateGroup.py "C:\Users\bob\Desktop\My exam sheet" --render-profile exam --write-missing-uids
+```
+
+## Configuration
+
+`generateGroup.py` now reads Mobius resource paths from `nobius.json` by default. See [Nobius Configuration][2] for the full configuration structure and override behaviour.
+
+[2]: ../CustomizationAndResources/Configuration.md

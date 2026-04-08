@@ -1,4 +1,4 @@
-from .get_html_data import get_question_data
+from .get_html_data import get_question_data, report_warning
 
 import json
 import bs4
@@ -8,35 +8,48 @@ import re
 Main Methods
 """
 
-def get_sheet_data_from_xml(xml):
-    sheet = get_sheet_info(xml)
+def get_sheet_data_from_xml(xml, report=None):
+    sheet = get_sheet_info(xml, report)
     sheet["questions"] = []
     questions_list = []
 
     for question_xml in get_questions(xml):
-        question = get_question_from_xml(question_xml)
+        question = get_question_from_xml(question_xml, report)
         sheet["questions"].append(question["title"])
-        
-        if question["number"]:
+
+        if question.get("number"):
+            if "number" not in sheet:
+                try:
+                    sheet["number"] = int(str(question["number"]).split(".")[0])
+                except (ValueError, IndexError):
+                    report_warning(report, "Could not infer sheet number from question numbering.", str(question["number"]))
             del question["number"]
 
         questions_list.append(question)
 
+    if "name" not in sheet:
+        sheet["name"] = "Imported Sheet"
+        report_warning(report, "Sheet name could not be parsed cleanly; using fallback name.", "Imported Sheet")
+
+    if "number" not in sheet:
+        sheet["number"] = 1
+        report_warning(report, "Sheet number could not be parsed cleanly; using fallback number.", "1")
+
     return {"info": sheet, "questions": questions_list}
 
-def get_question_from_xml(question_xml):
-    question = get_question_html_properties(question_xml)
+def get_question_from_xml(question_xml, report=None):
+    question = get_question_html_properties(question_xml, report)
     question.update(get_algorithm(question_xml))
     question.update(get_ids(question_xml))
     
     parts = get_list_of_part_properties(question_xml)
-    add_parts_to_question(question, parts)
+    add_parts_to_question(question, parts, report)
     
     return question
 
-def get_question_html_properties(question_xml):
+def get_question_html_properties(question_xml, report=None):
     html = get_question_html(question_xml)
-    return get_question_data(html)
+    return get_question_data(html, report)
 
 """
 BeautifulSoup Methods
@@ -45,32 +58,78 @@ BeautifulSoup Methods
 def get_list_of_part_properties(question_xml):
     return [get_part_properties(p) for p in get_parts(question_xml)]
 
-def add_parts_to_question(question, parts):
+def add_parts_to_question(question, parts, report=None):
     for p in question["parts"]:
-        link_response_answers(p, parts)
+        link_response_answers(p, parts, report)
 
         if "structured_tutorial" in p:
             for st in p["structured_tutorial"]:
-                link_response_answers(st, parts)
+                link_response_answers(st, parts, report)
 
 
-def link_response_answers(p, parts):
+def link_response_answers(p, parts, report=None):
     if "matrix_response" in p:
-        p["response"] = link_matrix_answers(p["matrix_response"], parts)
+        p["response"] = link_matrix_answers(p["matrix_response"], parts, report)
         del p["matrix_response"]
     elif "custom_response" in p:
         p["custom_response"] = link_custom_answers(p["custom_response"], parts)
     elif "responses" in p and len(p["responses"]) != 0:
         for r in p["responses"]:
-            link_response_answers(r, parts)
+            link_response_answers(r, parts, report)
     elif "response" in p and p["response"] is not None:
-        p["response"] = parts[p["response"] - 1]
+        p["response"] = normalize_response(parts[p["response"] - 1], report)
 
-def link_matrix_answers(matrix_response, parts):
+def normalize_response(response, report=None):
+    normalized = response.copy()
+
+    if normalized.get("mode") == "List" and isinstance(normalized.get("display"), str):
+        report_warning(
+            report,
+            "Normalized List response display from legacy scalar form to Nobius object form.",
+            normalized.get("display"),
+        )
+        normalized["display"] = {
+            "display": normalized["display"],
+            "permute": False
+        }
+    elif normalized.get("mode") == "Document Upload":
+        code_type = normalized.get("codeType", 0)
+        report_warning(
+            report,
+            "Normalized Document Upload response into Nobius authoring fields.",
+            normalized.get("name", "responseNan"),
+        )
+        normalized["uploadMode"] = "direct" if normalized.get("forceUpload") else "code"
+        normalized["notGraded"] = normalized.get("nonGradeable", False)
+        normalized["codeType"] = {
+            0: "numeric",
+            1: "alphabetic",
+            2: "alphanumeric"
+        }.get(code_type, code_type)
+    elif normalized.get("mode") == "HTML":
+        report_warning(
+            report,
+            "Normalized HTML response field names into Nobius authoring fields.",
+            normalized.get("name", "responseNan"),
+        )
+        if "questionHTML" in normalized:
+            normalized["html"] = normalized.pop("questionHTML")
+        if "questionCSS" in normalized:
+            normalized["css"] = normalized.pop("questionCSS")
+        if "questionJavaScript" in normalized:
+            normalized["javascript"] = normalized.pop("questionJavaScript")
+        if "gradingCode" in normalized:
+            normalized["grading_code"] = normalized.pop("gradingCode")
+        if "answer" in normalized and normalized["answer"] is not None and not isinstance(normalized["answer"], str):
+            normalized["answer"] = str(normalized["answer"])
+
+    return normalized
+
+def link_matrix_answers(matrix_response, parts, report=None):
     tags = json.loads(matrix_response)
 
     if is_empty_matrix(tags):
-        print("Empty Matrix")
+        report_warning(report, "Encountered an empty matrix response during import.")
         return None
 
     properties = get_all_same_properties(tags, parts)
@@ -81,10 +140,10 @@ def link_matrix_answers(matrix_response, parts):
         elif properties["mode"] == "Maple":
             answer_key = "mapleAnswer"
         else:
-            print("Mode not supported for Matrix expansion.")
+            report_warning(report, "Matrix response mode not supported for Nobius matrix expansion.", properties["mode"])
             return None
     else:
-        print("Matrix has conflicting modes.")
+        report_warning(report, "Matrix response parts had conflicting properties and could not be reconstructed.")
         return None
     
     answers = []
@@ -122,7 +181,7 @@ def is_empty_matrix(m):
     return True
 
 def get_all_same_properties(tags, parts):
-    properties = parts[tags[0][0]].copy()
+    properties = parts[tags[0][0] - 1].copy()
 
     for tags_row in tags:
         for tag in tags_row:
@@ -135,11 +194,12 @@ def compare_properties(mutable_dict, immutable_dict):
         if key not in immutable_dict or immutable_dict[key] != mutable_dict[key]:
             del mutable_dict[key]
 
-def get_sheet_info(xml):
+def get_sheet_info(xml, report=None):
     group_xml = xml.find("questionGroups").find("group")
 
-    info = get_sheet_name(group_xml.find("name").text)
-    info["description"] = group_xml.find("description").text.strip()
+    info = get_sheet_name(group_xml.find("name").text, report)
+    description_xml = group_xml.find("description")
+    info["description"] = description_xml.text.strip() if description_xml and description_xml.text else ""
     
     info.update(get_ids(group_xml))
 
@@ -166,12 +226,14 @@ def get_part_properties(part_xml):
 JSON Nesting Methods
 """
 
-def get_sheet_name(name_string):
+def get_sheet_name(name_string, report=None):
     name_match = re.match(r"^\s+Sheet #(?P<number>\d+) - (?P<name>.+)\b\s+$", name_string)
-    sheet_name = name_match.groupdict() if name_match else {}
+    sheet_name = name_match.groupdict() if name_match else {"name": name_string.strip()}
     
     if "number" in sheet_name:
         sheet_name["number"] = int(sheet_name["number"])
+    elif report is not None:
+        report_warning(report, "Sheet name did not match the standard 'Sheet #N - Name' pattern.", name_string.strip())
     
     return sheet_name
 

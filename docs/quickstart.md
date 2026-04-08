@@ -1,8 +1,6 @@
 # Quickstart Guide
 ## Download
-You can download the Nobius package at the link below, it includes a suite of rendering scripts, as well as an example tutorial sheet.
-
-[Download the latest release :material-download-circle:](https://github.com/RabidSheep55/NobiusDocs/releases/tag/v1.0){ .md-button .md-button--primary }
+Clone or download the Nobius repository, which includes the rendering scripts, docs, tests, and example/tutorial fixtures.
 
 
 ## Prerequisites
@@ -35,20 +33,53 @@ Now, the Nobius rendering scripts need to be setup to correctly reference the fi
 !!! Example
     An example URL might look like this: `/web/username/Public_Html/Scripts/QuestionJavaScript.txt`
 
-- Once you have grabbed that URL, open the `generateGroup.py` file from the Nobius toolset in a text editor. Navigate to line 23, or where the `SCRIPTS_LOCATION` is defined, and paste in your URL.
+- Once you have grabbed that URL, open the `nobius.json` file from the Nobius toolset in a text editor and paste it into `render.scripts_location`. If your exam rendering profile uses a different script path, also update `render.exam_scripts_location`.
+
+- If your Mobius theme URI is different, set `render.theme_location` and optionally `render.exam_theme_location` in the same `nobius.json` file.
+
+!!! warning
+    The default `nobius.json` values are placeholders. Rendering will fail until you replace them with real Mobius paths for your deployment.
 
 Nobius is now all setup!
 
-## Getting started
-Our tools come packaged with an example sheet you can render on your end in order to test your installation. Once you have completed the setup, simply run the command below. Detailed information for each of the scripts in Nobius are available in the [Usage][2] section of this documentation.
+## Verify the installation
 
-```unix
-python generateGroup.py "C:\path\to\example\sheet\folder\Example set"
+Once the dependencies are installed, you can verify that the local Nobius toolchain is healthy by running:
+
+```bash
+python -m pytest -q
 ```
 
-Once you've done this, a new `renders` folder will appear under the `Example set` folder you just rendered. This contains a *.zip* file containing all the questions and media that pertain to this test sheet, nicely bundled and ready to be uploaded to Mobius!
+This executes the public regression suite against tutorial fixtures and importer fixtures bundled with the repo.
 
-In the same way you uploaded the `ResourcesBundle.zip`, you can upload the `Example set.zip` file directly to your Mobius Content Repository (in your browser). A new folder within the content repository will appear, containing all the questions from the sheet you just uploaded, in the Mobius format.
+## Getting started
+Our tools come packaged with public tutorial sheets you can render to test your installation. Once you have completed the setup, simply run the command below. Detailed information for each of the scripts in Nobius are available in the [Usage][2] section of this documentation.
+
+```unix
+python generateGroup.py "C:\path\to\Nobius\Questions\t01" --write-missing-uids
+```
+
+## UIDs and first render
+
+Nobius expects question and sheet `uid` values to be stable. By default, rendering refuses to proceed if they are missing.
+
+For first-time setup of a new sheet, initialize and persist missing UIDs explicitly:
+
+```bash
+python generateGroup.py "C:\path\to\sheet" --write-missing-uids
+```
+
+For exam-style rendering, use the same command with the exam render profile:
+
+```bash
+python generateGroup.py "C:\path\to\sheet" --render-profile exam --write-missing-uids
+```
+
+After that, normal renders should be read-only with respect to the source JSON files.
+
+Once you've done this, a new `renders` folder will appear under the tutorial sheet folder you just rendered. This contains a *.zip* file containing all the questions and media that pertain to this test sheet, nicely bundled and ready to be uploaded to Mobius!
+
+In the same way you uploaded the `ResourcesBundle.zip`, you can upload the generated tutorial-sheet `.zip` file directly to your Mobius Content Repository (in your browser). A new folder within the content repository will appear, containing all the questions from the sheet you just uploaded, in the Mobius format.
 
 You are now ready to start making your own sheets! have a look at the different sections of this documentation for more help, below are a few suggestions:
 

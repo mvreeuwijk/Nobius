@@ -39,7 +39,7 @@ addDisplayParameter %}
         <part>
           {# Add each key-value pair from the response area parameters #}
           {% for key, value in response_area.items() %}
-            {% if key in["choices", "credits", "answers"] %}
+            {% if key in["choices", "credits", "answers", "fileExtensions", "keywords"] %}
               {{ addListParameter(key, value) }}
             {% elif key == "display" %}
               {{ addDisplayParameter(value) }}
