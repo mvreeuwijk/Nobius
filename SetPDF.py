@@ -27,7 +27,6 @@ import tempfile
 import shutil
 import subprocess
 from subprocess import PIPE
-from PyPDF2 import PdfFileMerger, PdfFileReader
 
 def load_json_file(filepath):
     # Copied from Pierre/Louis
@@ -77,6 +76,65 @@ def clean_algorithm(input,PDF_values):
         # Otherwise e.g. $TAD would be recognised as $TA.
     output=input
     return output
+
+def format_algorithm(input):
+    replacements = [
+        (r'\$', r''),
+        (r';', r';}\\newline\\text{')
+    ]
+
+    for pattern, repl in replacements:
+        input = re.sub(pattern, repl, input)
+    return input
+
+def apply_algorithm_values(text, content):
+    if 'algorithm' in content.keys() and 'PDF_values' in content.keys():
+        return clean_algorithm(text, content['PDF_values'])
+    return text
+
+def write_media_block(file_obj, media):
+    if not media:
+        return
+
+    file_obj.write(r'\begin{center}')
+    for pic in media:
+        if pic[-3:] in ['jpg', 'png', 'pdf']:
+            file_obj.write('\\includegraphics[clip=true,height=0.5\\textwidth]{'+pic+'}\\\\')
+    file_obj.write(r'\end{center}')
+
+def write_choice_block(file_obj, part, content):
+    if 'response' not in part.keys():
+        return
+
+    mode = part['response']['mode']
+    if 'Non Permuting Multiple Choice' not in mode and 'Non Permuting Multiple Selection' not in mode:
+        return
+
+    file_obj.write('\\begin{itemize}')
+    for choice in part['response']['choices']:
+        choice_tex = html_to_tex(re.sub('<p>', '', choice))
+        choice_tex = apply_algorithm_values(choice_tex, content)
+        file_obj.write('\\item ' + choice_tex)
+    file_obj.write('\\end{itemize}')
+
+def write_worked_solutions(file_obj, part):
+    if 'worked_solutions' not in part.keys():
+        return
+
+    file_obj.write(r'Worked Solution:\\')
+    for step in part['worked_solutions']:
+        write_media_block(file_obj, step.get('media', []))
+        if 'text' in step.keys():
+            file_obj.write(html_to_tex(step['text']) + '\\\\\\\\')
+
+def write_final_answer(file_obj, part, label):
+    if 'final_answer' not in part.keys():
+        return
+
+    file_obj.write(label)
+    write_media_block(file_obj, part['final_answer'].get('media', []))
+    if 'text' in part['final_answer'].keys():
+        file_obj.write(html_to_tex(part['final_answer']['text']))
 
 '''
 Generate a PDF file from TeX, this uses a command (pdflatex) part of the TeX distribution
@@ -132,7 +190,11 @@ def generate_pdf_output(tex_path, pdf_path):
     # Jump back to the initial directory
     os.chdir(initDir)
 
-def generate_tex_output(sheetDir, no_pdf, pages_acc=None, tmp_merge_folder=None):
+def import_pypdf2():
+    from PyPDF2 import PdfFileMerger, PdfFileReader
+    return PdfFileMerger, PdfFileReader
+
+def generate_tex_output(sheetDir, no_pdf, content_mode, pages_acc=None, tmp_merge_folder=None):
     # Templates should be in same place relative to sheet generating scripts
     header_file=os.path.abspath('templates/header.tex') # LaTeX header
 
@@ -144,12 +206,19 @@ def generate_tex_output(sheetDir, no_pdf, pages_acc=None, tmp_merge_folder=None)
     os.makedirs(os.path.join(sheetDir, 'media'), exist_ok=True)
 
     # Both output files
-    outputfile_tex = os.path.join(sheetDir, 'media', sheetInfo['name']+'.tex')
+    suffix_map = {
+        "questions": "",
+        "review": "_review",
+        "solutions": "_solutions"
+    }
+    suffix = suffix_map[content_mode]
+
+    outputfile_tex = os.path.join(sheetDir, 'media', sheetInfo['name'] + suffix + '.tex')
     if tmp_merge_folder:
         # When batch rendering, we send the pdf to a separate temporary dir, to be merged later. We shouldn't render them to their respecive 'media' folders as they have modified page numbers
-        outputfile_pdf = os.path.join(tmp_merge_folder, sheetInfo['name']+'.pdf')
+        outputfile_pdf = os.path.join(tmp_merge_folder, sheetInfo['name'] + suffix + '.pdf')
     else:
-        outputfile_pdf = os.path.join(sheetDir, 'media', sheetInfo['name']+'.pdf')
+        outputfile_pdf = os.path.join(sheetDir, 'media', sheetInfo['name'] + suffix + '.pdf')
 
     with open(outputfile_tex, 'w') as f: #output tex file
         # Header of LaTeX file
@@ -181,48 +250,43 @@ def generate_tex_output(sheetDir, no_pdf, pages_acc=None, tmp_merge_folder=None)
             f.write(content["title"])
             f.write('}\n')
 
-            #Master statement
-            new_master=html_to_tex(content["master_statement"]) # Clean HTML
-            if 'algorithm' in content.keys(): #Clean algorithmic variables
-                new_master=clean_algorithm(new_master,content['PDF_values'])
-            f.write(new_master)
+            if content_mode in ["questions", "review"]:
+                new_master = html_to_tex(content["master_statement"])
+                new_master = apply_algorithm_values(new_master, content)
+                f.write(new_master)
+                write_media_block(f, content.get('media', []))
 
-            if 'media' in content.keys():   # If there is media
-                f.write(r'\begin{center}')
-                for pic in content['media']:# Loop over all media
-                    # Insert graphics
-                    if pic[-3:] in ['jpg','png','pdf']:  # Only accept these file types
-                        f.write('\\includegraphics[clip=true,height=0.5\\textwidth]{'+pic+'}\\\\')
-                f.write(r'\end{center}')
             nparts=len(content['parts']);       # Initialise number of parts
             if nparts>1:    # For multiple parts
                 f.write(r'\begin{enumerate}[(a)]')  # Generate part names (a), (b) etc.)
             for i in range(0,nparts):           # Loop over all parts
                 if nparts>1:
                     f.write('\\item ')              # Add label (a) etc.
-                #Enter content with HTML removed
-                new_content=html_to_tex(content['parts'][i]['statement']) # Clean HTML
-                if 'algorithm' in content.keys(): #Clean algorithmic variables
-                    new_content=clean_algorithm(new_content,content['PDF_values'])
-                f.write(new_content)
-                # Any content encoded especially for LaTeX
-                if 'latex_only' in content['parts'][i].keys():
-                    f.write(content['parts'][i]['latex_only'])
-                #Any extra content in the response areas
-                if 'response' in content['parts'][i].keys():
-                    if 'Non Permuting Multiple Choice' in content['parts'][i]['response']['mode'] or 'Non Permuting Multiple Selection' in content['parts'][i]['response']['mode']:
-                        f.write('\\begin{itemize}')
-                        for choice in content['parts'][i]['response']['choices']:
-                            # The usual clean and sheen routine ...
-                            new_content=html_to_tex(re.sub('<p>', '', choice)) # Clean HTML
-                            # Additional catch for any <p> after \item
-                            if 'algorithm' in content.keys(): #Clean algorithmic variables
-                                new_content=clean_algorithm(new_content,content['PDF_values'])
-                            f.write('\\item '+new_content)
-                        f.write('\\end{itemize}')
+                part = content['parts'][i]
+
+                if content_mode in ["questions", "review"]:
+                    new_content = html_to_tex(part['statement'])
+                    new_content = apply_algorithm_values(new_content, content)
+                    f.write(new_content)
+                    if 'latex_only' in part.keys():
+                        f.write(part['latex_only'])
+                    write_choice_block(f, part, content)
+
+                if content_mode == "review":
+                    f.write(r'\\\\')
+                    write_worked_solutions(f, part)
+                    f.write(r'\\\\')
+                    write_final_answer(f, part, r'Final Answer:\\')
+
+                elif content_mode == "solutions":
+                    write_worked_solutions(f, part)
+                    write_final_answer(f, part, r'Solution:\\')
 
             if nparts>1:
                 f.write('\\end{enumerate}')         # Close labels
+
+            if content_mode == "review" and 'algorithm' in content.keys():
+                f.write('\\text{' + format_algorithm(content['algorithm']) + '}\\newline')
 
         # Footer of LaTeX file
         f.write('\\ETrule\\end{document}')
@@ -237,16 +301,18 @@ parser = argparse.ArgumentParser(description="Problem Set PDF compiler based on 
 parser.add_argument("--sheet-path", "-s", help="Path to the Sheet folder (if the -batch flag is set, this is interpreted as a directory containing multiple sheet folders)", required=True)
 parser.add_argument("--no-pdf", help="Set this flag to disable converting the rendered .tex file into a PDF", action="store_true")
 parser.add_argument("--batch-mode", "-b", help="Set this flag to render multiple sheets at once", action="store_true")
+parser.add_argument("--content-mode", choices=["questions", "review", "solutions"], default="questions", help="Select whether to render normal question sheets, review sheets, or solutions sheets")
 args = parser.parse_args()
 
 # Just render out one sheet
 if not args.batch_mode:
-    print(f"[INIT] Starting SetPDF with sheet {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=False)")
-    generate_tex_output(args.sheet_path, args.no_pdf)
+    print(f"[INIT] Starting SetPDF with sheet {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=False) (content_mode={args.content_mode})")
+    generate_tex_output(args.sheet_path, args.no_pdf, args.content_mode)
 
 # Batch mode
 elif not args.no_pdf:
-    print(f"[INIT] Starting SetPDF with sheets in {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=True)")
+    print(f"[INIT] Starting SetPDF with sheets in {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=True) (content_mode={args.content_mode})")
+    PdfFileMerger, PdfFileReader = import_pypdf2()
 
     # Get all directories inside the sheets path given
     sheets = [i for i in os.listdir(args.sheet_path) if os.path.isfile(os.path.join(args.sheet_path, i, "SheetInfo.json"))]
@@ -262,7 +328,7 @@ elif not args.no_pdf:
         rendered_pdfs = []
         pages_acc = 0
         for sheet in sheets:
-            new_pdf = generate_tex_output(os.path.join(args.sheet_path, sheet), args.no_pdf, pages_acc, tmp_merge_folder)
+            new_pdf = generate_tex_output(os.path.join(args.sheet_path, sheet), args.no_pdf, args.content_mode, pages_acc, tmp_merge_folder)
             pages_acc += PdfFileReader(new_pdf).numPages # add however many pages we just rendered
             rendered_pdfs.append(new_pdf)
 
@@ -273,7 +339,8 @@ elif not args.no_pdf:
         for pdf in rendered_pdfs:
             mergedFile.append(PdfFileReader(pdf, 'rb'))
 
-    mergedFile.write(os.path.join(args.sheet_path, "MergedSheets.pdf"))
+    merged_suffix = "" if args.content_mode == "questions" else f"_{args.content_mode}"
+    mergedFile.write(os.path.join(args.sheet_path, f"MergedSheets{merged_suffix}.pdf"))
     print(f"\033[92m[PDF Merge] Merged all rendered PDFs Successfully! ({len(sheets)} accross {pages_acc} pages)\033[0m")
 
 else:
@@ -290,4 +357,4 @@ else:
 
         # Render out each of the individual sheets
         for sheet in sheets:
-            generate_tex_output(os.path.join(args.sheet_path, sheet), args.no_pdf)
+            generate_tex_output(os.path.join(args.sheet_path, sheet), args.no_pdf, args.content_mode)
