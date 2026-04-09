@@ -7,17 +7,17 @@
 ## Prerequisites
 
 !!! info
-    A list of requirements is available in the requirements.txt file - to install them simply type `pip install -r requirements.txt` in your commandline
+    A list of requirements is available in `requirements.txt`. Install them with `pip install -r requirements.txt`.
 
-In order to use this tool, python 3.6 or higher is required. The main modules used by this script are:
+In order to use this tool, Python 3.6 or higher is required. The main modules used by this script are:
 
- - `jinja2` - This is the templating engine used by the script to generate the html and xml mobius content. For more information on templating, you can visit [Templating and Jinja][1].
- - `jsonschema` - This package is used to check the format and structure of data coming into the templating engine will be rendered properly and most importantly won't crash Mobius.
+- `jinja2` - This is the templating engine used by the script to generate the HTML and XML Mobius content. For more information on templating, you can visit [Templating and Jinja][1].
+- `jsonschema` - This package is used to check the format and structure of data coming into the templating engine so it renders properly and, most importantly, does not crash Mobius.
 
  [1]: ../CustomizationAndResources/TemplatesAndJinja.md
 
 ## Usage
-To use this tool, you should navigate to its location (the `Sheet Generator` folder), and call it using python as so:
+To use this tool, run it from the Nobius repository root or from inside the `Nobius/` directory:
 
 ```unix
 python export_mobius.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [--config CONFIG] [--render-profile {standard,exam}] [-h]
@@ -25,8 +25,8 @@ python export_mobius.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [-
 
 - `FILEPATH` is a required positional argument corresponding to the absolute or relative path to where you have stored the sheet folder you'd like to render.
     * *Note: if the path is susceptible to have spaces in folder names (like with certain OneDrive paths), be sure to encapsulate it in double quotes as shown in the example command*
-- `--reset-uid` or `-uid` is an optional flag that will cause all the UIDs from your sheet files to be re-generated (both sheetInfo.json and question files). Use this flag when you've already uploaded a version of the sheet you're rendering to mobius, and you don't want to override it.
-    * *Note: if you have changed the order, or names of some of the questions it's a good idea to set this flag and delete the previous version of that sheet from mobius*.
+- `--reset-uid` or `-uid` is an optional flag that will cause all the UIDs from your sheet files to be re-generated (`SheetInfo.json` and question files). Use this flag when you've already uploaded a version of the sheet to Mobius and you do not want the new render to overwrite it.
+    * *If you have changed the order or names of some of the questions, it is usually a good idea to set this flag and delete the previous version of that sheet from Mobius.*
 - `--write-missing-uids` is an optional flag that initializes and persists missing UIDs into the source JSON files. This is intended for first-time setup of a sheet.
 - `--config` is an optional path to a Nobius config file. By default the tool looks for `nobius.json` in the repo root.
 - `--render-profile` selects the render template/resource profile. Use `standard` for tutorial-style sheets and `exam` for exam-style rendering.
@@ -52,6 +52,6 @@ python export_mobius.py "C:\Users\bob\Desktop\My exam sheet" --render-profile ex
 
 ## Configuration
 
-`export_mobius.py` now reads Mobius resource paths from `nobius.json` by default. See [Nobius Configuration][2] for the full configuration structure and override behaviour.
+`export_mobius.py` now reads Mobius resource paths from `nobius.json` by default. See [Nobius Configuration][2] for the full configuration structure and override behavior.
 
 [2]: ../CustomizationAndResources/Configuration.md

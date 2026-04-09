@@ -2,14 +2,14 @@
 
 Nobius supports two different levels of import fidelity:
 
-- **Plain Möbius import**: import a normal Möbius XML or ZIP export and recover a usable Nobius JSON sheet.
-- **High-fidelity Nobius round-trip**: export from Nobius, re-export from Möbius, then import back into Nobius with most authored structure preserved.
+- **Plain Mobius import**: import a normal Mobius XML or ZIP export and recover a usable Nobius JSON sheet.
+- **High-fidelity Nobius round-trip**: export from Nobius, re-export from Mobius, then import back into Nobius with most authored structure preserved.
 
-The difference is not whether the export is “from Möbius” or “from Nobius”. Both are Möbius exports. The difference is whether the question HTML still contains the extra structural annotations that Nobius embeds for reconstruction.
+The difference is not whether the export is "from Mobius" or "from Nobius". Both are Mobius exports. The difference is whether the question HTML still contains the extra structural annotations that Nobius embeds for reconstruction.
 
-## Möbius-generated mechanics
+## Mobius-generated mechanics
 
-These are part of normal Möbius question structure. Nobius uses them, but does not define them.
+These are part of normal Mobius question structure. Nobius uses them, but does not define them.
 
 - Response placeholders such as `<1>`, `<2>`, ...
 - The `<parts>` definitions in question XML
@@ -26,7 +26,7 @@ These are the structural markers that allow `import_mobius.py` to reconstruct ri
 - help/solution/tutorial containers used by the HTML scraper
 - media containers carrying `data-propname`-addressable content
 
-If these markers are removed from a template, the package may still render correctly in Möbius, but import fidelity will drop.
+If these markers are removed from a template, the package may still render correctly in Mobius, but import fidelity will drop.
 
 ## Safe vs unsafe template edits
 
@@ -51,4 +51,4 @@ If you want a template to remain round-trippable:
 - keep `data-propname` markup intact
 - preserve the authored-content container structure
 
-If you only need a Möbius-valid export and do not care about high-fidelity re-import, the template can be much freer.
+If you only need a Mobius-valid export and do not care about high-fidelity re-import, the template can be much freer.

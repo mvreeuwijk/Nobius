@@ -48,7 +48,8 @@ Nobius is now set up.
 Once the dependencies are installed, you can verify that the local Nobius toolchain is healthy by running:
 
 ```bash
-python -m pytest -q
+pytest -q tests
+python -m ruff check Nobius
 ```
 
 This executes the public regression suite against tutorial fixtures and importer fixtures bundled with the repo.
@@ -82,6 +83,8 @@ After that, normal renders should be read-only with respect to the source JSON f
 Once you've done this, a new `renders` folder will appear under the tutorial sheet folder you just rendered. This contains a `.zip` file containing all the questions and media that pertain to this sheet, ready to be uploaded to Mobius.
 
 In the same way you uploaded `ResourcesBundle.zip`, you can upload the generated sheet `.zip` file directly to the Mobius Content Repository. A new folder will appear, containing all the questions from the sheet in the Mobius format.
+
+If you later export edited content back out of Mobius, `import_mobius.py` can import that ZIP back into Nobius JSON. For course-module packages, the importer now reconstructs `assignmentUnits` as folders and keeps multiple assignments as nested subfolders.
 
 You are now ready to start making your own sheets. A few useful starting points are:
 

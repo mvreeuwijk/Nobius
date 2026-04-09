@@ -1,12 +1,12 @@
 # Course Module Package
 
-Nobius now targets an inferred Möbius course-module package format based on real exported content from Möbius.
+Nobius now targets an inferred Mobius course-module package format based on real exported content from Mobius.
 
 ## Important limitation
 
-DigitalEd does not publish a full external schema for hand-authored Möbius content ZIP files. The package structure in Nobius is therefore based on:
+DigitalEd does not publish a full external schema for hand-authored Mobius content ZIP files. The package structure in Nobius is therefore based on:
 
-- real Möbius-exported course-module ZIP files
+- real Mobius-exported course-module ZIP files
 - observed importer behavior
 - round-trip regression tests in this repo
 
@@ -50,13 +50,31 @@ The batch skeleton lives in:
 
 This keeps batch package structure aligned with the main render templates instead of duplicating XML inline in Python.
 
+## Import-side reconstruction
+
+`import_mobius.py` reconstructs folder hierarchy from the same manifest structure:
+
+- `assignmentUnits` become top-level folders
+- if a unit contains exactly one assignment, that unit folder contains the imported question set directly
+- if a unit contains multiple assignments, the importer creates one nested subfolder per assignment inside the unit folder
+
+This preserves the distinction between a single sheet and a larger unit containing multiple question banks such as separate pipe-flow or open-channel sets.
+
+When the export does not provide a clean name:
+
+- unnamed units fall back to `Default Unit`
+- unnamed assignments fall back to `set1`, `set2`, and so on
+
+The importer preserves assignment order when reconstructing those nested folders.
+
 ## Regression coverage
 
 The repo includes regression coverage for:
 
 - manifest shape for rendered example content
 - TemplateQuestions ZIP structure
-- real Möbius-exported package import
+- real Mobius-exported package import
 - media and document-upload round trips
+- assignment-unit and multi-assignment import hierarchy
 
-If Möbius importer behavior changes again, update the package generation logic using a newly exported known-good course-module ZIP as the comparison baseline.
+If Mobius importer behavior changes again, update the package generation logic using a newly exported known-good course-module ZIP as the comparison baseline.

@@ -4,12 +4,24 @@ Nobius includes a pytest regression suite covering the shared renderer, the Mobi
 
 ## Running the suite
 
-From the repo root:
+From the Nobius repo root:
 
 ```bash
-python -m pytest -q
+pytest -q tests
+python -m ruff check Nobius
+```
+
+If you are already inside the `Nobius/` directory, the equivalent commands are:
+
+```bash
+pytest -q tests
 python -m ruff check .
 ```
+
+The recommended local validation before pushing changes is:
+
+- `python -m ruff check Nobius` from the outer repo root, or `python -m ruff check .` from `Nobius/`
+- `pytest -q tests` from `Nobius/`
 
 ## Fixture policy
 
@@ -25,12 +37,13 @@ This keeps the public repo free of private assessment material while still testi
 - exam-template rendering
 - ZIP round-trips
 - XML import
+- assignment-unit and multi-assignment import hierarchy
 - config overrides
 - custom responses
 - algorithmic questions
 - batch rendering
 - PDF exporter error handling
-- report generation
+- report generation and warning formatting
 
 ## Temporary files
 

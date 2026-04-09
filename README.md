@@ -1,6 +1,6 @@
 # Nobius (_Mobius Sheet Generator_)
 
-Python package to generate tutorial sheets for the EdTech Mobius platform given a json file (June 2020).
+Python package to generate tutorial sheets for the EdTech Mobius platform from local JSON source files.
 
 Configuration is driven by the repo-level `nobius.json` file rather than editing hardcoded URLs in the generator source.
 
@@ -12,7 +12,8 @@ Primary workflows:
 - create local HTML previews with `preview_html.py`
 - create LaTeX and PDF outputs with `export_pdf.py`
 - import Mobius XML/ZIP exports with `import_mobius.py`
-- run the regression suite with `python -m pytest -q`
+- run the regression suite with `pytest -q tests`
+- run lint checks with `python -m ruff check Nobius`
 
 ## First render and stable UIDs
 
