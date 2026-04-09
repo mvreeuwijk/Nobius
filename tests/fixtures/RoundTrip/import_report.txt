@@ -1,0 +1,50 @@
+Nobius Import Report
+Source: .\tmp\Moodledemo20260408220141.zip
+Source type: zip
+Destination: .\Nobius\tests\fixtures\RoundTrip
+Strip UIDs: False
+Warnings: 27
+Copied media: 0
+Missing media: 0
+
+Warnings:
+- Sheet name did not match the standard 'Sheet #N - Name' pattern. [moodle_demo-20260408_220141]
+- No properties found in question.
+- This is likely because the file has not been generated using templating toolset.
+- Question title could not be recovered from data-propname markup; using Mobius question name. [Multiple Choice-20260408_220141]
+- No properties found in question.
+- This is likely because the file has not been generated using templating toolset.
+- Question title could not be recovered from data-propname markup; using Mobius question name. [Text Entry-20260408_220141]
+- Normalized List response display from legacy scalar form to Nobius object form. [text]
+- No properties found in question.
+- This is likely because the file has not been generated using templating toolset.
+- Question title could not be recovered from data-propname markup; using Mobius question name. [Numerical-20260408_220141]
+- No properties found in question.
+- This is likely because the file has not been generated using templating toolset.
+- Question title could not be recovered from data-propname markup; using Mobius question name. [True False-20260408_220141]
+- No properties found in question.
+- This is likely because the file has not been generated using templating toolset.
+- Question title could not be recovered from data-propname markup; using Mobius question name. [Essay-20260408_220141]
+- No properties found in question.
+- This is likely because the file has not been generated using templating toolset.
+- Question title could not be recovered from data-propname markup; using Mobius question name. [Matching-20260408_220141]
+- No properties found in question.
+- This is likely because the file has not been generated using templating toolset.
+- Question title could not be recovered from data-propname markup; using Mobius question name. [Numerical]
+- No properties found in question.
+- This is likely because the file has not been generated using templating toolset.
+- Question title could not be recovered from data-propname markup; using Mobius question name. [Symbolic]
+- Sheet number could not be parsed cleanly; using fallback number. [1]
+
+Outputs:
+- .\Nobius\tests\fixtures\RoundTrip\SheetInfo.json
+- .\Nobius\tests\fixtures\RoundTrip\Multiple Choice-20260408_220141.json
+- .\Nobius\tests\fixtures\RoundTrip\Text Entry-20260408_220141.json
+- .\Nobius\tests\fixtures\RoundTrip\Numerical-20260408_220141.json
+- .\Nobius\tests\fixtures\RoundTrip\True False-20260408_220141.json
+- .\Nobius\tests\fixtures\RoundTrip\Essay-20260408_220141.json
+- .\Nobius\tests\fixtures\RoundTrip\Matching-20260408_220141.json
+- .\Nobius\tests\fixtures\RoundTrip\Numerical.json
+- .\Nobius\tests\fixtures\RoundTrip\Symbolic.json
+- .\Nobius\tests\fixtures\RoundTrip\import_report.json
+- .\Nobius\tests\fixtures\RoundTrip\import_report.txt

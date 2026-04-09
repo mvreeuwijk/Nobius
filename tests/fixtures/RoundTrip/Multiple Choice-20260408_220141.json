@@ -1,0 +1,22 @@
+{
+    "title": "Multiple Choice-20260408_220141",
+    "uid": "a4b14fba-9e3a-4cb7-a81b-f55bac70837d",
+    "master_statement": "What is Newton's Third Law?",
+    "parts": [
+        {
+            "statement": "",
+            "response": {
+                "mode": "Non Permuting Multiple Choice",
+                "name": "sro_id_1",
+                "answer": 3,
+                "display": "vertical",
+                "choices": [
+                    "<div>An object at rest stays at rest unless acted on by a net force.</div>",
+                    "<div>Force equals mass times acceleration.</div>",
+                    "<div>If object A exerts a force on object B, then B exerts an equal and opposite force on A.</div>"
+                ],
+                "comment": ""
+            }
+        }
+    ]
+}

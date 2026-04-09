@@ -1,0 +1,24 @@
+{
+    "title": "Multiple selection problem.",
+    "uid": "6d96d137-7f24-4fad-a362-f32399b72857",
+    "master_statement": "Which one of these is true?",
+    "parts": [
+        {
+            "statement": "",
+            "response": {
+                "mode": "Multiple Selection",
+                "name": "responseNaN",
+                "answer": "1,3,5",
+                "display": "vertical",
+                "choices": [
+                    "<p>Option A</p>",
+                    "<p>Option B</p>",
+                    "<p>Option C</p>",
+                    "<p>Option D</p>",
+                    "<p>Option E</p>"
+                ],
+                "comment": ""
+            }
+        }
+    ]
+}

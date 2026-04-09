@@ -6,12 +6,20 @@ from render_common import render_sheet
 
 RENDER_PROFILES = {
     "standard": {
-        "template_name": "master.xml",
+        "template_name": "manifests/assignment.xml",
+        "layout_profile": "exam",
+        "theme_key": "theme_location",
+        "scripts_key": "scripts_location",
+    },
+    "exercise": {
+        "template_name": "manifests/questionbank.xml",
+        "layout_profile": "default",
         "theme_key": "theme_location",
         "scripts_key": "scripts_location",
     },
     "exam": {
-        "template_name": "master_exam.xml",
+        "template_name": "manifests/assignment.xml",
+        "layout_profile": "exam",
         "theme_key": "exam_theme_location",
         "scripts_key": "exam_scripts_location",
     },
@@ -64,6 +72,7 @@ def resolve_render_profile(config, profile_name):
         "render_settings": {
             "theme_location": config["render"][profile["theme_key"]],
             "scripts_location": config["render"][profile["scripts_key"]],
+            "layout_profile": profile["layout_profile"],
         },
     }
 

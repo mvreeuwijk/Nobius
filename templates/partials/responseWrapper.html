@@ -1,5 +1,5 @@
-{% from 'matrixResponse.html' import matrixResponse %}
-{% from 'answerHelpButton.html' import answerHelpButton %}
+{% from 'partials/matrixResponse.html' import matrixResponse %}
+{% from 'partials/answerHelpButton.html' import answerHelpButton %}
 
 {% macro responseWrapper(response, part_index, propname, add_help=True) %}
 {% if response is iterable and response.response is not iterable %}

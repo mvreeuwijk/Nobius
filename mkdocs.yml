@@ -39,6 +39,7 @@ nav:
           - Custom: "ResponseAreas/Advanced/custom.md"
   - Customization and Resources:
       - Configuration: "CustomizationAndResources/Configuration.md"
+      - Course Module Package: "CustomizationAndResources/CourseModulePackage.md"
       - QuestionJavascript: "CustomizationAndResources/QuestionJavascript.md"
       - Templates and Jinja: "CustomizationAndResources/TemplatesAndJinja.md"
   - Addons/Features:

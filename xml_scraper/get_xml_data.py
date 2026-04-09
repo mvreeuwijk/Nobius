@@ -3,6 +3,39 @@ from .get_html_data import get_question_data, report_warning
 import json
 import bs4
 import re
+from html import unescape
+
+
+def serialize_html_payload(value):
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    if isinstance(value, list):
+        return "".join(serialize_html_payload(item) for item in value)
+    if hasattr(value, "get_text"):
+        return value.get_text()
+    if isinstance(value, dict):
+        items = list(value.items())
+        if not items:
+            return ""
+        tag_name, tag_value = items[0]
+        attributes = "".join(
+            f' {key}="{attribute_value}"'
+            for key, attribute_value in items[1:]
+            if attribute_value is not None
+        )
+        inner_html = serialize_html_payload(tag_value)
+        return f"<{tag_name}{attributes}>{inner_html}</{tag_name}>"
+    return str(value)
+
+
+def simplify_matching_html(value):
+    if value is None:
+        return ""
+    decoded = unescape(str(value))
+    soup = bs4.BeautifulSoup(decoded, "html.parser")
+    return soup.get_text(" ", strip=True)
 
 """
 Main Methods
@@ -58,6 +91,8 @@ def get_question_from_xml(question_xml, report=None):
     question.update(get_ids(question_xml))
     
     parts = get_list_of_part_properties(question_xml)
+    if "parts" not in question or not question["parts"]:
+        question.update(build_minimal_question_structure(question_xml, parts, report))
     add_parts_to_question(question, parts, report)
     
     return question
@@ -65,6 +100,45 @@ def get_question_from_xml(question_xml, report=None):
 def get_question_html_properties(question_xml, report=None):
     html = get_question_html(question_xml)
     return get_question_data(html, report)
+
+
+def build_minimal_question_structure(question_xml, parts, report=None):
+    text_xml = question_xml.find("text", recursive=False)
+    raw_text = text_xml.text if text_xml and text_xml.text else ""
+    split_tokens = re.split(r"<(\d+)\s*\/?\s*>", raw_text)
+    placeholder_matches = [int(token) for token in split_tokens[1::2]]
+
+    prompt_html = split_tokens[0] if split_tokens else ""
+    prompt_soup = bs4.BeautifulSoup(prompt_html, features="html.parser")
+    prompt_text = prompt_soup.get_text(" ", strip=True)
+
+    minimal_parts = []
+    if placeholder_matches:
+        for index, placeholder in enumerate(placeholder_matches):
+            part_statement = ""
+            if index > 0:
+                statement_html = split_tokens[index * 2]
+                statement_soup = bs4.BeautifulSoup(statement_html, features="html.parser")
+                part_statement = statement_soup.get_text(" ", strip=True).replace("\xa0", " ").strip()
+
+            minimal_parts.append({
+                "statement": part_statement,
+                "response": placeholder,
+            })
+    elif parts:
+        minimal_parts.append({
+            "statement": "",
+            "response": 1,
+        })
+
+    if not minimal_parts:
+        report_warning(report, "Could not reconstruct any parts from raw question text.", raw_text[:120])
+        minimal_parts = [{"statement": ""}]
+
+    return {
+        "master_statement": prompt_text,
+        "parts": minimal_parts,
+    }
 
 """
 BeautifulSoup Methods
@@ -96,6 +170,57 @@ def link_response_answers(p, parts, report=None):
 
 def normalize_response(response, report=None):
     normalized = response.copy()
+    for ignored_key in [
+        "editing",
+        "chainId",
+        "numberOfAttempts",
+        "numberOfAttemptsLeft",
+        "numberOfTryAnother",
+        "numberOfTryAnotherLeft",
+        "privacy",
+        "allowRepublish",
+        "attributeAuthor",
+        "modifiedIn",
+        "difficulty",
+        "text",
+        "width",
+        "fixed",
+    ]:
+        normalized.pop(ignored_key, None)
+
+    if normalized.get("mode") == "Multiple Choice":
+        report_warning(
+            report,
+            "Normalized Möbius Multiple Choice mode into Nobius authoring mode.",
+            normalized.get("name", "responseNan"),
+        )
+        normalized["mode"] = "Non Permuting Multiple Choice"
+    elif normalized.get("mode") == "Multiple Response":
+        report_warning(
+            report,
+            "Normalized Möbius Multiple Response mode into Nobius authoring mode.",
+            normalized.get("name", "responseNan"),
+        )
+        normalized["mode"] = "Non Permuting Multiple Selection"
+
+    if normalized.get("mode") in {"Non Permuting Multiple Choice", "True False"}:
+        answer_value = normalized.get("answer")
+        if isinstance(answer_value, str) and answer_value.strip().isdigit():
+            normalized["answer"] = int(answer_value.strip())
+    elif normalized.get("mode") == "Numeric":
+        answer_value = normalized.get("answer")
+        if isinstance(answer_value, list) and answer_value:
+            normalized["answer"] = {
+                "num": answer_value[0],
+                "units": "",
+            }
+        elif isinstance(answer_value, (str, int, float)):
+            normalized["answer"] = {
+                "num": answer_value,
+                "units": "",
+            }
+        elif isinstance(answer_value, dict):
+            answer_value.setdefault("units", "")
 
     if normalized.get("mode") == "List" and isinstance(normalized.get("display"), str):
         report_warning(
@@ -135,8 +260,19 @@ def normalize_response(response, report=None):
             normalized["javascript"] = normalized.pop("questionJavaScript")
         if "gradingCode" in normalized:
             normalized["grading_code"] = normalized.pop("gradingCode")
+        if "html" in normalized and not isinstance(normalized["html"], str):
+            normalized["html"] = serialize_html_payload(normalized["html"])
         if "answer" in normalized and normalized["answer"] is not None and not isinstance(normalized["answer"], str):
             normalized["answer"] = str(normalized["answer"])
+    elif normalized.get("mode") == "Matching":
+        for matching in normalized.get("matchings", []):
+            if "term" in matching:
+                matching["term"] = simplify_matching_html(matching["term"])
+            if "defs" in matching:
+                matching["defs"] = [simplify_matching_html(definition) for definition in matching["defs"]]
+
+    if normalized.get("comment") is None:
+        normalized["comment"] = ""
 
     return normalized
 

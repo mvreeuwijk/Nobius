@@ -1,0 +1,125 @@
+{% from 'questions/question_template.xml' import makeQuestion with context %}
+
+<courseModule>
+
+  <module>
+    <name><![CDATA[ {{ CourseModule.module.name }} ]]></name>
+    <description><![CDATA[ {{ CourseModule.module.description }} ]]></description>
+    <uri><![CDATA[ {{ CourseModule.module.uri }} ]]></uri>
+    <privacy>{{ CourseModule.module.privacy }}</privacy>
+    <autoModule>{{ "true" if CourseModule.module.autoModule else "false" }}</autoModule>
+    <exportedFrom>{{ CourseModule.module.exportedFrom }}</exportedFrom>
+  </module>
+
+  <assignmentUnits>
+    <unit uid="{{ CourseModule.unit.uid }}" modifiedBy="{{ CourseModule.unit.modifiedBy }}">
+      <weight>{{ CourseModule.unit.weight }}</weight>
+      <name><![CDATA[ {{ CourseModule.unit.name }} ]]></name>
+      <description><![CDATA[ {{ CourseModule.unit.description }} ]]></description>
+      <privacy>{{ CourseModule.unit.privacy }}</privacy>
+      <assignments>
+        <aRef uid="{{ CourseModule.unit.assignment_uid }}" weight="1.0"/>
+      </assignments>
+    </unit>
+  </assignmentUnits>
+
+  <questions>
+    {% for question in questions %}
+      {{ makeQuestion(question) }}
+    {% endfor %}
+  </questions>
+
+  <assignments>
+    <assignment uid="{{ CourseModule.assignment.uid }}">
+      <name><![CDATA[ {{ CourseModule.assignment.name }} ]]></name>
+      <description><![CDATA[ {{ CourseModule.assignment.description }} ]]></description>
+      <privacy>{{ CourseModule.assignment.privacy }}</privacy>
+      <category>{{ CourseModule.assignment.category }}</category>
+      <questionGroups>
+        {% for group in CourseModule.assignment.question_groups %}
+        <aqGroup>
+          <name>{{ group.name }}</name>
+          <shortName></shortName>
+          <weighting>{{ group.weighting }}</weighting>
+          <select>{{ group.select }}</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="{{ group.question_uid }}"><name></name></qRef>
+          </questions>
+        </aqGroup>
+        {% endfor %}
+      </questionGroups>
+      <policies>
+        <mode>{{ CourseModule.assignment.policies.mode }}</mode>
+        <reworkable>{{ CourseModule.assignment.policies.reworkable }}</reworkable>
+        <reuseAlgorithmicVariables>{{ CourseModule.assignment.policies.reuseAlgorithmicVariables }}</reuseAlgorithmicVariables>
+        <targeted>{{ CourseModule.assignment.policies.targeted }}</targeted>
+        <scramble>{{ CourseModule.assignment.policies.scramble }}</scramble>
+        <printable>{{ CourseModule.assignment.policies.printable }}</printable>
+        <preAuthorized>{{ CourseModule.assignment.policies.preAuthorized }}</preAuthorized>
+        <gradeAuthorizationRequired>{{ CourseModule.assignment.policies.gradeAuthorizationRequired }}</gradeAuthorizationRequired>
+        <useLockdown>{{ CourseModule.assignment.policies.useLockdown }}</useLockdown>
+        <isVisibleAdvancedPolicy>{{ CourseModule.assignment.policies.isVisibleAdvancedPolicy }}</isVisibleAdvancedPolicy>
+        <passingScore>{{ CourseModule.assignment.policies.passingScore }}</passingScore>
+        <showPassFailFeedback>{{ CourseModule.assignment.policies.showPassFailFeedback }}</showPassFailFeedback>
+        <timeLimit>{{ CourseModule.assignment.policies.timeLimit }}</timeLimit>
+        <quPerPage>{{ CourseModule.assignment.policies.quPerPage }}</quPerPage>
+        <presentationMode>{{ CourseModule.assignment.policies.presentationMode }}</presentationMode>
+        <completionMode>{{ CourseModule.assignment.policies.completionMode }}</completionMode>
+        <isVisibleTimeRange>{{ CourseModule.assignment.policies.isVisibleTimeRange }}</isVisibleTimeRange>
+        <isVisible>{{ CourseModule.assignment.policies.isVisible }}</isVisible>
+        <forceGrade>{{ CourseModule.assignment.policies.forceGrade }}</forceGrade>
+        <allowSubmitLesson>{{ CourseModule.assignment.policies.allowSubmitLesson }}</allowSubmitLesson>
+        <showLaunchPage>{{ CourseModule.assignment.policies.showLaunchPage }}</showLaunchPage>
+        <showAdaptiveProgress>{{ CourseModule.assignment.policies.showAdaptiveProgress }}</showAdaptiveProgress>
+        <hintsShown>{{ CourseModule.assignment.policies.hintsShown }}</hintsShown>
+        <showOneHint>{{ CourseModule.assignment.policies.showOneHint }}</showOneHint>
+        <showCurrentGrade>{{ CourseModule.assignment.policies.showCurrentGrade }}</showCurrentGrade>
+        <allowResubmitQuestion>{{ CourseModule.assignment.policies.allowResubmitQuestion }}</allowResubmitQuestion>
+        <inSessionGradeReported>{{ CourseModule.assignment.policies.inSessionGradeReported }}</inSessionGradeReported>
+        <inSessionAnswer>{{ CourseModule.assignment.policies.inSessionAnswer }}</inSessionAnswer>
+        <inSessionComment>{{ CourseModule.assignment.policies.inSessionComment }}</inSessionComment>
+        <gradeReported>{{ CourseModule.assignment.policies.gradeReported }}</gradeReported>
+        <showAnswer>{{ CourseModule.assignment.policies.showAnswer }}</showAnswer>
+        <showComment>{{ CourseModule.assignment.policies.showComment }}</showComment>
+        <emailNotified>{{ CourseModule.assignment.policies.emailNotified }}</emailNotified>
+        <delayedFeedback>{{ CourseModule.assignment.policies.delayedFeedback }}</delayedFeedback>
+        <maxAttempts>{{ CourseModule.assignment.policies.maxAttempts }}</maxAttempts>
+      </policies>
+    </assignment>
+  </assignments>
+
+  {% if CourseModule.authors %}
+  <authors>
+    {% for author in CourseModule.authors %}
+    <author defaultSchool="{{ author.defaultSchool }}" instanceUid="{{ author.instanceUid }}" uid="{{ author.uid }}">
+      <displayName>{{ author.displayName }}</displayName>
+    </author>
+    {% endfor %}
+  </authors>
+  {% endif %}
+
+  {% if CourseModule.schools %}
+  <schools>
+    {% for school in CourseModule.schools %}
+    <school uid="{{ school.uid }}">
+      <name>{{ school.name }}</name>
+    </school>
+    {% endfor %}
+  </schools>
+  {% endif %}
+
+  <webResources>
+    {% for folder in CourseModule.web_resource_folders %}
+    <folder id="0">
+      <name>{{ folder.name }}</name>
+      <description></description>
+      <uri>{{ folder.uri }}</uri>
+    </folder>
+    {% endfor %}
+  </webResources>
+
+</courseModule>

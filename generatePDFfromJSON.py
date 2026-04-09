@@ -196,7 +196,7 @@ def import_pypdf2():
 
 
 def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_merge_folder=None):
-    header_file = os.path.abspath("templates/header.tex")
+    header_file = os.path.join(os.path.dirname(__file__), "resources", "latex", "header.tex")
 
     sheet_info = load_json_file(os.path.join(sheet_dir, "SheetInfo.json"))
     print(

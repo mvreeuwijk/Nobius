@@ -1,0 +1,120 @@
+{
+  "source_path": ".\\tmp\\Moodledemo20260408220141.zip",
+  "source_type": "zip",
+  "destination": ".\\Nobius\\tests\\fixtures\\RoundTrip",
+  "strip_uids": false,
+  "created_at": "2026-04-08T22:12:47.681528Z",
+  "warnings": [
+    {
+      "message": "Sheet name did not match the standard 'Sheet #N - Name' pattern.",
+      "context": "moodle_demo-20260408_220141"
+    },
+    {
+      "message": "No properties found in question."
+    },
+    {
+      "message": "This is likely because the file has not been generated using templating toolset."
+    },
+    {
+      "message": "Question title could not be recovered from data-propname markup; using Mobius question name.",
+      "context": "Multiple Choice-20260408_220141"
+    },
+    {
+      "message": "No properties found in question."
+    },
+    {
+      "message": "This is likely because the file has not been generated using templating toolset."
+    },
+    {
+      "message": "Question title could not be recovered from data-propname markup; using Mobius question name.",
+      "context": "Text Entry-20260408_220141"
+    },
+    {
+      "message": "Normalized List response display from legacy scalar form to Nobius object form.",
+      "context": "text"
+    },
+    {
+      "message": "No properties found in question."
+    },
+    {
+      "message": "This is likely because the file has not been generated using templating toolset."
+    },
+    {
+      "message": "Question title could not be recovered from data-propname markup; using Mobius question name.",
+      "context": "Numerical-20260408_220141"
+    },
+    {
+      "message": "No properties found in question."
+    },
+    {
+      "message": "This is likely because the file has not been generated using templating toolset."
+    },
+    {
+      "message": "Question title could not be recovered from data-propname markup; using Mobius question name.",
+      "context": "True False-20260408_220141"
+    },
+    {
+      "message": "No properties found in question."
+    },
+    {
+      "message": "This is likely because the file has not been generated using templating toolset."
+    },
+    {
+      "message": "Question title could not be recovered from data-propname markup; using Mobius question name.",
+      "context": "Essay-20260408_220141"
+    },
+    {
+      "message": "No properties found in question."
+    },
+    {
+      "message": "This is likely because the file has not been generated using templating toolset."
+    },
+    {
+      "message": "Question title could not be recovered from data-propname markup; using Mobius question name.",
+      "context": "Matching-20260408_220141"
+    },
+    {
+      "message": "No properties found in question."
+    },
+    {
+      "message": "This is likely because the file has not been generated using templating toolset."
+    },
+    {
+      "message": "Question title could not be recovered from data-propname markup; using Mobius question name.",
+      "context": "Numerical"
+    },
+    {
+      "message": "No properties found in question."
+    },
+    {
+      "message": "This is likely because the file has not been generated using templating toolset."
+    },
+    {
+      "message": "Question title could not be recovered from data-propname markup; using Mobius question name.",
+      "context": "Symbolic"
+    },
+    {
+      "message": "Sheet number could not be parsed cleanly; using fallback number.",
+      "context": "1"
+    }
+  ],
+  "copied_media": [],
+  "missing_media": [],
+  "outputs": [
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\SheetInfo.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\Multiple Choice-20260408_220141.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\Text Entry-20260408_220141.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\Numerical-20260408_220141.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\True False-20260408_220141.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\Essay-20260408_220141.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\Matching-20260408_220141.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\Numerical.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\Symbolic.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\import_report.json",
+    ".\\Nobius\\tests\\fixtures\\RoundTrip\\import_report.txt"
+  ],
+  "metadata": {
+    "manifest_path": "manifest.xml",
+    "referenced_media": []
+  }
+}

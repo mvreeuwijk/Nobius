@@ -1,5 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
-from uuid import uuid4
+from uuid import NAMESPACE_URL, uuid4, uuid5
 import json
 import os
 import re
@@ -12,6 +12,13 @@ import validation
 
 
 BASE_DIR = os.path.dirname(__file__)
+RESOURCES_DIR = os.path.join(BASE_DIR, "resources")
+PACKAGED_SCRIPT_NAME = "QuestionJavaScript.txt"
+PACKAGED_SCRIPT_ARCNAME = os.path.join("web_folders", "Scripts", PACKAGED_SCRIPT_NAME)
+PACKAGED_SCRIPT_URI = "__BASE_URI__Scripts/QuestionJavaScript.txt"
+PACKAGED_THEME_URI = "__BASE_URI__QuestionTheme.css"
+PACKAGED_MAPLE_LIBRARY_NAME = "Nobius4.mla"
+PACKAGED_MAPLE_LIBRARY_ARCNAME = os.path.join("web_folders", PACKAGED_MAPLE_LIBRARY_NAME)
 DOCUMENT_UPLOAD_CODE_TYPES = {
     "numeric": 0,
     "alphabetic": 1,
@@ -20,13 +27,18 @@ DOCUMENT_UPLOAD_CODE_TYPES = {
 
 
 class RenderConsts:
-    def __init__(self, scripts_location, theme_location):
+    def __init__(self, scripts_location, theme_location, layout_profile="default"):
         self.SCRIPTS_LOCATION = scripts_location
         self.THEME_LOCATION = theme_location
+        self.LAYOUT_PROFILE = layout_profile
 
 
 class NobiusRenderError(ValueError):
     pass
+
+
+def deterministic_uuid(seed):
+    return str(uuid5(NAMESPACE_URL, seed))
 
 
 def load_json_file(filepath):
@@ -119,11 +131,16 @@ def import_question(question_path, sheet_number, question_number, q_schema, r_sc
             if res_in_part and res_in_struct:
                 print("\n[WARNING] Response areas both in main part statement and structured tutorial\n\t- All are marked when check button is pressed\n")
 
+    for response_index, response_area in enumerate(question["response_areas"], start=1):
+        response_area.setdefault("uid", deterministic_uuid(f"{question['uid']}:part:{response_index}"))
+        response_area.setdefault("language", "en")
+
     return question
 
 
 def process_response(identifier, part, q_title, i, r_schema, r_defaults):
     normalize_response_area_for_render(part["response"])
+    part["response_mode"] = part["response"]["mode"]
     is_maple = ("Maple" in part["response"]["mode"])
 
     if part["response"]["mode"] in ["Matrix Numeric", "Matrix Maple"]:
@@ -272,6 +289,9 @@ def normalize_response_area_for_render(response):
             response["questionJavaScript"] = response.pop("javascript")
         if "grading_code" in response and "gradingCode" not in response:
             response["gradingCode"] = response.pop("grading_code")
+    elif mode == "Essay":
+        if response.get("keywords") is None:
+            response["keywords"] = []
 
 
 def iter_render_media_files(media_path):
@@ -297,8 +317,121 @@ def collect_question_media_references(node):
     return references
 
 
+def build_course_module_context(sheet_info, questions, media_files, exam=False):
+    assignment_uid = deterministic_uuid(f"{sheet_info['uid']}:assignment")
+    instance_uid = deterministic_uuid("nobius:instance")
+    author_uid = deterministic_uuid("nobius:author")
+
+    question_groups = [
+        {
+            "name": sheet_info["name"],
+            "uid": sheet_info["uid"],
+            "weight": "1.0",
+            "questions": [
+                {
+                    "uid": question["uid"],
+                    "weight": f"{float(index):.1f}",
+                }
+                for index, question in enumerate(questions, 1)
+            ],
+        }
+    ]
+
+    web_resource_folders = [{
+        "name": "web_folders/Scripts",
+        "uri": "web_folders/Scripts",
+    }]
+
+    return {
+        "module": {
+            "name": sheet_info["name"],
+            "description": "Course Module",
+            "uri": sheet_info["uid"],
+            "privacy": 0,
+            "autoModule": True,
+            "exportedFrom": instance_uid,
+        },
+        "unit": {
+            "uid": sheet_info["uid"],
+            "modifiedBy": author_uid,
+            "weight": f"{float(sheet_info['number']):.1f}",
+            "name": sheet_info["name"],
+            "description": sheet_info.get("description", ""),
+            "privacy": 10,
+            "assignment_uid": assignment_uid,
+        },
+        "question_groups": question_groups,
+        "assignment": {
+            "uid": assignment_uid,
+            "name": sheet_info["name"],
+            "description": sheet_info.get("description", ""),
+            "privacy": 10,
+            "category": "REGULAR",
+            "presentationMode": 0,
+            "question_groups": [
+                {
+                    "name": question["title"],
+                    "weighting": 1,
+                    "select": 1,
+                    "question_uid": question["uid"],
+                }
+                for index, question in enumerate(questions, 1)
+            ],
+            "policies": {
+                "mode": 1,
+                "reworkable": "true",
+                "reuseAlgorithmicVariables": "false",
+                "targeted": "false",
+                "scramble": 0,
+                "printable": "false",
+                "preAuthorized": "false",
+                "gradeAuthorizationRequired": "false",
+                "useLockdown": "false",
+                "isVisibleAdvancedPolicy": "false",
+                "passingScore": -1,
+                "showPassFailFeedback": 4,
+                "timeLimit": -1,
+                "quPerPage": 1,
+                "presentationMode": 0,
+                "completionMode": 3,
+                "isVisibleTimeRange": "false",
+                "isVisible": "true",
+                "forceGrade": "false",
+                "allowSubmitLesson": "false",
+                "showLaunchPage": "true",
+                "showAdaptiveProgress": "false",
+                "hintsShown": "false",
+                "showOneHint": "false",
+                "showCurrentGrade": "false",
+                "allowResubmitQuestion": "true",
+                "inSessionGradeReported": "false",
+                "inSessionAnswer": 3,
+                "inSessionComment": 3,
+                "gradeReported": "true",
+                "showAnswer": 2,
+                "showComment": 0,
+                "emailNotified": "false",
+                "delayedFeedback": "false",
+                "maxAttempts": -1,
+            },
+        },
+        "authors": [],
+        "schools": [],
+        "web_resource_folders": web_resource_folders,
+        "sheet_display_name": sheet_info["name"] if exam else f"Sheet #{sheet_info['number']} - {sheet_info['name']}",
+    }
+
+
+def resolve_template_name_and_layout(template_name, render_settings):
+    layout_profile = render_settings.get("layout_profile")
+    if layout_profile:
+        return template_name, layout_profile
+    return template_name, "default"
+
+
 def render_sheet(work_dir, template_name, render_settings, reset_uid=False, write_missing_uids=False, output_dir=None):
     print("[LOADING] Fetching sheet data")
+    template_name, layout_profile = resolve_template_name_and_layout(template_name, render_settings)
 
     si_schema = load_json_file(os.path.join(BASE_DIR, "validation", "schemas", "sheet_info.json"))
     q_schema = load_json_file(os.path.join(BASE_DIR, "validation", "schemas", "question.json"))
@@ -358,28 +491,21 @@ def render_sheet(work_dir, template_name, render_settings, reset_uid=False, writ
     )
 
     env.globals.update(
-        consts=RenderConsts(render_settings["scripts_location"], render_settings["theme_location"]),
+        consts=RenderConsts(
+            render_settings["scripts_location"],
+            PACKAGED_THEME_URI if template_name == "manifests/assignment.xml" else render_settings["theme_location"],
+            layout_profile=layout_profile,
+        ),
+        packaged_scripts_location=PACKAGED_SCRIPT_URI,
         sheetName=sheet_info["name"],
         alphabet="abcdefghijklmnopqrstuvwxyz",
         arc=filters.get_arc_path,
         ticks=filters.get_ticks,
     )
 
-    master = env.get_template(template_name)
-    rendered_xml = master.render(questions=questions, SheetInfo=sheet_info)
-    print("[LOADING] XML Rendered Successfully")
-
     renders_dir = os.path.join(work_dir, "renders")
     if not os.path.exists(renders_dir):
         os.mkdir(renders_dir)
-
-    xml_path = os.path.join(renders_dir, f"{sheet_info['name']}.xml")
-    with open(xml_path, "w", encoding="utf-8") as file:
-        file.write(rendered_xml)
-
-    if output_dir:
-        with open(os.path.join(output_dir, "xml", f"{sheet_info['name']}.xml"), "w", encoding="utf-8") as file:
-            file.write(rendered_xml)
 
     media_path = os.path.join(work_dir, "media")
     zip_path = None
@@ -394,18 +520,53 @@ def render_sheet(work_dir, template_name, render_settings, reset_uid=False, writ
             for media_file in iter_render_media_files(media_path)
             if media_file in referenced_media
         ]
+
+    course_module = build_course_module_context(
+        sheet_info,
+        questions,
+        media_files,
+        exam=(layout_profile == "exam"),
+    )
+
+    master = env.get_template(template_name)
+    rendered_xml = master.render(questions=questions, SheetInfo=sheet_info, CourseModule=course_module)
+    print("[LOADING] XML Rendered Successfully")
+
+    xml_path = os.path.join(renders_dir, f"{sheet_info['name']}.xml")
+    with open(xml_path, "w", encoding="utf-8") as file:
+        file.write(rendered_xml)
+
+    if output_dir:
+        with open(os.path.join(output_dir, "xml", f"{sheet_info['name']}.xml"), "w", encoding="utf-8") as file:
+            file.write(rendered_xml)
+
+    script_path = os.path.join(RESOURCES_DIR, PACKAGED_SCRIPT_NAME)
+    maple_library_path = os.path.join(RESOURCES_DIR, PACKAGED_MAPLE_LIBRARY_NAME)
+    zip_path = os.path.join(renders_dir, f"{sheet_info['name']}.zip")
+    include_packaged_script = PACKAGED_SCRIPT_URI in rendered_xml or template_name == "manifests/questionbank.xml"
+    include_packaged_maple_library = template_name == "manifests/questionbank.xml" and os.path.exists(maple_library_path)
     if media_files:
         print("[LOADING] Detected Media folder -> bundling media files and .xml")
-        zip_path = os.path.join(renders_dir, f"{sheet_info['name']}.zip")
-        with ZipFile(zip_path, "w") as zip_file:
-            zip_file.write(xml_path, arcname="manifest.xml")
-            for media_file in media_files:
-                zip_file.write(
-                    os.path.join(media_path, media_file),
-                    arcname=os.path.join("web_folders", f"{sheet_info['name']}", media_file),
-                )
+    with ZipFile(zip_path, "w") as zip_file:
+        zip_file.write(xml_path, arcname="manifest.xml")
+        if include_packaged_script and os.path.exists(script_path):
+            zip_file.write(script_path, arcname=PACKAGED_SCRIPT_ARCNAME)
+        if include_packaged_maple_library:
+            zip_file.write(maple_library_path, arcname=PACKAGED_MAPLE_LIBRARY_ARCNAME)
+        for media_file in media_files:
+            zip_file.write(
+                os.path.join(media_path, media_file),
+                arcname=os.path.join("web_folders", f"{sheet_info['name']}", media_file),
+            )
 
-        if output_dir:
+    if output_dir:
+        scripts_output_dir = os.path.join(output_dir, "web_folders", "Scripts")
+        os.makedirs(scripts_output_dir, exist_ok=True)
+        if include_packaged_script and os.path.exists(script_path):
+            shutil.copy(script_path, os.path.join(scripts_output_dir, PACKAGED_SCRIPT_NAME))
+        if include_packaged_maple_library:
+            shutil.copy(maple_library_path, os.path.join(output_dir, "web_folders", PACKAGED_MAPLE_LIBRARY_NAME))
+        if media_files:
             output_media_path = os.path.join(output_dir, "web_folders", f"{sheet_info['name']}")
             if os.path.exists(output_media_path):
                 shutil.rmtree(output_media_path)

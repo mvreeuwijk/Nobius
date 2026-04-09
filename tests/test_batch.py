@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 
 from generateAll import get_question_timings, get_timings_summary
 
@@ -119,6 +120,10 @@ def test_generate_all_cli_can_initialize_missing_uids_and_merge_output(tmp_path)
     assert (output_root / "all_sheets.xml").exists()
     assert (output_root / "all_media.zip").exists()
     assert (output_root / "question_timings.txt").exists()
+    merged_root = ET.parse(output_root / "all_sheets.xml").getroot()
+    assert merged_root.find("assignmentUnits") is not None
+    assert merged_root.find("questions/question") is not None
+    assert merged_root.find("assignments") is not None
 
 
 def test_generate_all_cli_continue_on_error_preserves_successful_sheet_output(tmp_path):

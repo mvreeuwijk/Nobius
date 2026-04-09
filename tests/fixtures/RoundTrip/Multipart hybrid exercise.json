@@ -1,0 +1,37 @@
+{
+    "title": "Multipart hybrid exercise",
+    "algorithm": "  $a = range(10, 20);\n$b = range(0, 10);\n$c = $a + $b;\n$v = range(10, 30);  ",
+    "uid": "d1268aac-623d-44c8-a2fd-8d4f164a0acf",
+    "master_statement": "If a=$a m/s and b=$b m/s, what is c?",
+    "parts": [
+        {
+            "statement": "",
+            "response": {
+                "mode": "Numeric",
+                "name": "responseNaN",
+                "answer": {
+                    "num": "$c",
+                    "units": "m/s"
+                },
+                "grading": "exact_value",
+                "showUnits": true,
+                "negStyle": "minus",
+                "numStyle": "thousands scientific  arithmetic",
+                "comment": ""
+            }
+        },
+        {
+            "statement": "If v=$c is the velocity of a car and x0 is the initial position, give an equation for the position of the car as a function of time t",
+            "response": {
+                "mode": "Maple",
+                "name": "responseNaN",
+                "mapleAnswer": "x0+$c*t",
+                "maple": "evalb(($ANSWER)-($RESPONSE)=0);",
+                "type": "maple",
+                "allow2d": 0,
+                "mathConversionMode": 0,
+                "comment": ""
+            }
+        }
+    ]
+}

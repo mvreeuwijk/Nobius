@@ -115,11 +115,13 @@ def make_render_settings(config=None, exam=False):
         return {
             "theme_location": config["render"]["exam_theme_location"],
             "scripts_location": config["render"]["exam_scripts_location"],
+            "layout_profile": "exam",
         }
 
     return {
         "theme_location": config["render"]["theme_location"],
         "scripts_location": config["render"]["scripts_location"],
+        "layout_profile": "default",
     }
 
 
@@ -174,6 +176,11 @@ def template_questions_sheet(tmp_path):
 
 
 @pytest.fixture
+def roundtrip_sheet(tmp_path):
+    return copy_sheet_fixture("RoundTrip", tmp_path)
+
+
+@pytest.fixture
 def example_sheet(tmp_path):
     return copy_directory_fixture(REPO_ROOT / "example", tmp_path / "example")
 
@@ -186,6 +193,16 @@ def experimental_xml_path():
 @pytest.fixture
 def question_types_demo_zip():
     return MOBIUS_EXPORTS_ROOT / "QuestionTypesDemo.zip"
+
+
+@pytest.fixture
+def moodle_demo_roundtrip_zip():
+    return MOBIUS_EXPORTS_ROOT / "Moodledemo20260408220141.zip"
+
+
+@pytest.fixture
+def roundtrip_demo_zip():
+    return MOBIUS_EXPORTS_ROOT / "RoundTripDemo.zip"
 
 
 @pytest.fixture

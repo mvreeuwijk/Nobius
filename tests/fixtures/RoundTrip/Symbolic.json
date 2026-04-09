@@ -1,0 +1,20 @@
+{
+    "title": "Symbolic",
+    "uid": "f4de05e1-7b98-4f60-baf3-68a25a52a869",
+    "master_statement": "Give the equation for the area of a Circle in terms of its diameter D?",
+    "parts": [
+        {
+            "statement": "",
+            "response": {
+                "mode": "Maple",
+                "name": "responseNaN",
+                "mapleAnswer": "Pi/4*D^2",
+                "maple": "evalb(($ANSWER)-($RESPONSE)=0);",
+                "type": "maple",
+                "allow2d": 0,
+                "mathConversionMode": 0,
+                "comment": ""
+            }
+        }
+    ]
+}

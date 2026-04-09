@@ -1,0 +1,192 @@
+{% from 'questions/field_macros.xml' import addListParameter, addDisplayParameter %}
+
+{% macro render_common_part_fields_standard(response_area) -%}
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ {{ response_area.name if response_area.name else "sro_id_1" }} ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+{%- endmacro %}
+
+{% macro render_numeric_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>Numeric</mode>
+  {{ render_common_part_fields_standard(response_area) }}
+  <answer>
+    <num><![CDATA[ {{ response_area.answer.num }} ]]></num>
+    {% if response_area.answer.units %}
+    <units><![CDATA[ {{ response_area.answer.units }} ]]></units>
+    {% endif %}
+  </answer>
+  <width>0.0</width>
+  <grading>{{ response_area.grading }}</grading>
+  {% if response_area.grading == "toler_perc" %}
+  <perc>{{ response_area.perc }}</perc>
+  {% elif response_area.grading == "toler_abs" %}
+  <err>{{ response_area.err }}</err>
+  {% elif response_area.grading == "exact_sigd" %}
+  <digit><![CDATA[ {{ response_area.digit }} ]]></digit>
+  {% endif %}
+  <showUnits>{{ "true" if response_area.showUnits else "false" }}</showUnits>
+  <negStyle>{{ response_area.negStyle }}</negStyle>
+  <numStyle>{{ response_area.numStyle if "arithmetic" in response_area.numStyle else response_area.numStyle ~ "  arithmetic" }}</numStyle>
+</part>
+{%- endmacro %}
+
+{% macro render_list_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>List</mode>
+  {{ render_common_part_fields_standard(response_area) }}
+  {{ addDisplayParameter(response_area.display) }}
+  <width>0.0</width>
+  <grader>{{ response_area.grader }}</grader>
+  {{ addListParameter("answers", response_area.answers) }}
+  {{ addListParameter("credits", response_area.credits) }}
+</part>
+{%- endmacro %}
+
+{% macro render_multiple_choice_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>Non Permuting Multiple Choice</mode>
+  {{ render_common_part_fields_standard(response_area) }}
+  <answer><![CDATA[ {{ response_area.answer }} ]]></answer>
+  <display>{{ response_area.display }}</display>
+  <fixed><![CDATA[    ]]></fixed>
+  {{ addListParameter("choices", response_area.choices) }}
+  <width>0.0</width>
+</part>
+{%- endmacro %}
+
+{% macro render_true_false_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>Non Permuting Multiple Choice</mode>
+  {{ render_common_part_fields_standard(response_area) }}
+  <answer><![CDATA[ {{ response_area.answer }} ]]></answer>
+  <display>vertical</display>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices>
+    <choice><![CDATA[  <div>true</div>  ]]></choice>
+    <choice><![CDATA[  <div>false</div>  ]]></choice>
+  </choices>
+  <width>0.0</width>
+</part>
+{%- endmacro %}
+
+{% macro render_multiple_response_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>Non Permuting Multiple Selection</mode>
+  {{ render_common_part_fields_standard(response_area) }}
+  <display>{{ response_area.display }}</display>
+  {% if response_area.answer is defined %}
+  <answer><![CDATA[ {{ response_area.answer }} ]]></answer>
+  {% endif %}
+  <fixed><![CDATA[    ]]></fixed>
+  {% if response_area.answers is defined %}
+  {{ addListParameter("answers", response_area.answers) }}
+  {% endif %}
+  {% if response_area.credits is defined %}
+  {{ addListParameter("credits", response_area.credits) }}
+  {% endif %}
+  {{ addListParameter("choices", response_area.choices) }}
+  <width>0.0</width>
+</part>
+{%- endmacro %}
+
+{% macro render_essay_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>Essay</mode>
+  {{ render_common_part_fields_standard(response_area) }}
+  <width>0.0</width>
+  <keywords>{% for keyword in response_area.keywords %}<keyword><![CDATA[ {{ keyword }} ]]></keyword>{% endfor %}</keywords>
+  <maxWordcount>{{ response_area.maxWordcount }}</maxWordcount>
+</part>
+{%- endmacro %}
+
+{% macro render_matching_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>Matching</mode>
+  {{ render_common_part_fields_standard(response_area) }}
+  <matchings>
+    {% for matching in response_area.matchings %}
+    <match>
+      <term><![CDATA[ {{ matching.term }} ]]></term>
+      <defs>
+        {% for definition in matching.defs %}
+        <def><![CDATA[ {{ definition }} ]]></def>
+        {% endfor %}
+      </defs>
+    </match>
+    {% endfor %}
+  </matchings>
+  <format>
+    <columns>{{ response_area.format[0] if response_area.format is sequence and response_area.format is not string else response_area.format }}</columns>
+  </format>
+  <width>0.0</width>
+</part>
+{%- endmacro %}
+
+{% macro render_maple_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>Maple</mode>
+  {{ render_common_part_fields_standard(response_area) }}
+  <width>0.0</width>
+  <mapleAnswer><![CDATA[ {{ response_area.mapleAnswer }} ]]></mapleAnswer>
+  <maple>{{ response_area.maple }}</maple>
+  <type>{{ response_area.type }}</type>
+  <allow2d>{{ response_area.allow2d }}</allow2d>
+  <mathConversionMode>{{ response_area.mathConversionMode }}</mathConversionMode>
+</part>
+{%- endmacro %}
+
+{% macro render_legacy_part(response_area) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  {% for key, value in response_area.items() %}
+    {% if key in ["uid", "language"] %}
+    {% elif key in["choices", "credits", "answers", "fileExtensions", "keywords"] %}
+      {{ addListParameter(key, value) }}
+    {% elif key == "display" %}
+      {{ addDisplayParameter(value) }}
+    {% else %}
+      <{{ key }}>
+        {%- if value is mapping -%}
+          {%- for k, v in value.items() -%}
+            <{{ k }}>{{ v }}</{{ k }}>
+          {%- endfor -%}
+        {%- else -%}
+          {{ value }}
+        {%- endif -%}
+      </{{ key }}>
+    {% endif %}
+  {% endfor %}
+</part>
+{%- endmacro %}
+
+{% macro render_part_standard(response_area) -%}
+  {% if response_area.mode == "Numeric" %}
+    {{ render_numeric_part(response_area) }}
+  {% elif response_area.mode == "List" %}
+    {{ render_list_part(response_area) }}
+  {% elif response_area.mode == "Maple" %}
+    {{ render_maple_part(response_area) }}
+  {% elif response_area.mode in ["Non Permuting Multiple Choice", "Multiple Choice"] %}
+    {{ render_multiple_choice_part(response_area) }}
+  {% elif response_area.mode == "True False" %}
+    {{ render_true_false_part(response_area) }}
+  {% elif response_area.mode in ["Non Permuting Multiple Selection", "Multiple Selection"] %}
+    {{ render_multiple_response_part(response_area) }}
+  {% elif response_area.mode == "Essay" %}
+    {{ render_essay_part(response_area) }}
+  {% elif response_area.mode == "Matching" %}
+    {{ render_matching_part(response_area) }}
+  {% else %}
+    {{ render_legacy_part(response_area) }}
+  {% endif %}
+{%- endmacro %}

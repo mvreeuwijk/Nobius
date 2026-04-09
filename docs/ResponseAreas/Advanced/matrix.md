@@ -55,4 +55,4 @@ Example __`Matrix Numeric`__ Response Area:
 In this case, the default parameters for `err` and `grading` were changed. This will be reflected in all the response areas which eventually make up this matrix for the student.
 
 
-*Note: The relevant template for this response area can be found in `templates/matrixResponse.html`*
+*Note: The relevant template for this response area can be found in `templates/partials/matrixResponse.html`*

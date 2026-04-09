@@ -63,7 +63,7 @@ def test_html_response_renders_and_round_trips(tmp_path):
         [build_html_question()],
     )
 
-    render_result = render_sheet(sheet, "master.xml", make_render_settings())
+    render_result = render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "html_imported"
 
     generate_json_file(render_result["xml_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
@@ -90,11 +90,11 @@ def test_html_response_round_trip_with_preserved_uids_can_be_rendered_again(tmp_
         [build_html_question()],
     )
 
-    render_result = render_sheet(sheet, "master.xml", make_render_settings())
+    render_result = render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "html_roundtrip_imported"
 
     generate_json_file(render_result["xml_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
-    rerender_result = render_sheet(imported, "master.xml", make_render_settings())
+    rerender_result = render_sheet(imported, "manifests/assignment.xml", make_render_settings())
     response = load_question_by_title(imported, "HTML Widget")["parts"][0]["response"]
 
     assert (imported / "SheetInfo.json").exists()
@@ -118,7 +118,7 @@ def test_document_upload_response_normalizes_and_round_trips(tmp_path):
         [build_document_upload_question()],
     )
 
-    render_result = render_sheet(sheet, "master.xml", make_render_settings())
+    render_result = render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "upload_imported"
 
     generate_json_file(render_result["xml_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
@@ -132,7 +132,7 @@ def test_document_upload_response_normalizes_and_round_trips(tmp_path):
 
 
 def test_authored_uploads_sheet_round_trips_document_upload_and_media(uploads_sheet, tmp_path):
-    render_result = render_sheet(uploads_sheet, "master.xml", make_render_settings())
+    render_result = render_sheet(uploads_sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "uploads_imported"
 
     generate_json_file(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
@@ -165,7 +165,7 @@ def test_adaptive_questions_reject_document_upload_components(tmp_path):
     )
 
     with pytest.raises(ValueError, match="Adaptive questions cannot contain manually graded"):
-        render_sheet(sheet, "master.xml", make_render_settings())
+        render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
 
 
 def test_normalize_response_reports_lossy_list_conversion():

@@ -1,0 +1,38 @@
+{
+    "title": "Matching-20260408_220141",
+    "uid": "5a828fe0-43aa-4da4-a555-3d6b1567dd3f",
+    "master_statement": "Match each quantity to its SI unit.",
+    "parts": [
+        {
+            "statement": "",
+            "response": {
+                "mode": "Matching",
+                "name": "sro_id_1",
+                "matchings": [
+                    {
+                        "term": "Pressure",
+                        "defs": [
+                            "Pa"
+                        ]
+                    },
+                    {
+                        "term": "Density",
+                        "defs": [
+                            "kg/m^3"
+                        ]
+                    },
+                    {
+                        "term": "Force",
+                        "defs": [
+                            "N"
+                        ]
+                    }
+                ],
+                "format": [
+                    3
+                ],
+                "comment": ""
+            }
+        }
+    ]
+}

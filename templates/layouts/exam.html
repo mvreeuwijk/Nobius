@@ -1,14 +1,14 @@
-{% from 'addMedia.html' import addMedia %}
-{% from 'commentsBar.html' import commentsBar %}
-{% from 'questionIcons.html' import questionIcons %}
-{% from 'responseWrapper.html' import responseWrapper %}
-{% from 'answerHelp.html' import answerHelp %}
-{% from 'answerHelpButton.html' import answerHelpButton %}
-{% from 'inputSymbols.html' import inputSymbols %}
+{% from 'partials/addMedia.html' import addMedia %}
+{% from 'partials/commentsBar.html' import commentsBar %}
+{% from 'partials/questionIcons.html' import questionIcons %}
+{% from 'partials/responseWrapper.html' import responseWrapper %}
+{% from 'partials/answerHelp.html' import answerHelp %}
+{% from 'partials/answerHelpButton.html' import answerHelpButton %}
+{% from 'partials/inputSymbols.html' import inputSymbols %}
 
 {# Generate the actual question html to be displayed #}
 {% macro questionText(question) %}
-<link rel="stylesheet" href="{{ consts.THEME_LOCATION }}">
+<link href="{{ consts.THEME_LOCATION }}" rel="stylesheet">
 
 <div class="wrapper">
   <header>
@@ -115,10 +115,20 @@
 
 </div>
 
-<!-- <hr id="question-feedback-separator"> -->
-
-<!-- {{ commentsBar(question.number) }} -->
-
-<script src="{{ consts.SCRIPTS_LOCATION }}" type="application/javascript">
+<hr id="question-feedback-separator">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><script src="{{ packaged_scripts_location }}" type="application/javascript">
   /* Import Custom Javascript Code from the server */
-</script>{% endmacro %}
+</script></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>{% endmacro %}

@@ -57,6 +57,12 @@
         "weighting": 1,
         "comment": ""
     },
+    "Matching": {
+        "name": "responseNan",
+        "format": 1,
+        "weighting": 1,
+        "comment": ""
+    },
     "HTML": {
         "name": "responseNan",
         "gradingType": "auto",

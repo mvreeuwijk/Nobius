@@ -1,0 +1,390 @@
+/* GLOBAL JAVASCRIPT FILE - SHOULD BE INCLUDED IN EVERY TABULAR QUESTION
+GENERAL NOTES:
+  - Don't use normal js "//" comments - breaks everything when question is "compiled"
+  - To work in mobius full screen - navigate to imperial.mobius.cloud once logged in through blackboard
+
+INFO:
+  - This script deals with
+    - Tab behaviour
+    - Fixing all response area marking when "how did I do?"
+    - Rename bottom navigation links' names
+    - Move "How did I Do?" button to individual pages
+    - Inject comment thread HTML
+
+USAGE:
+  - Edit script at https://imperial.mobius.cloud/third-party/ckfinder/ckfinder.html?type=files
+  - Import into question with a script tag, with the following attributes:
+      src: "/web/Pjohnso000/Public_Html/QuestionJavaScript.txt"
+      type: "application/javascript"
+*/
+
+console.log("Main QuestionJavaScript.js is Running! 🚀");
+
+/* Flag global - turns false when document.ready() function is executed (fixes issue when creating lessons) */
+var flag = true;
+
+/* #####################################
+   Global functions for comment handling
+   ##################################### */
+
+/*function to enable pausing within an async function using the await keyword*/
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function showNumberOfComments() {
+  let commentNum = comments.length.toString();
+  if (commentNum === "10") {
+    commentNum = "10+"
+  }
+  jQuery("#comment-btn div").append(` (${commentNum})`);
+}
+
+function formatComments() {
+  jQuery("#hcb_form_name, .commentbox").addClass("blankenabled form-control comment-forms");
+  jQuery(".btn").addClass("btn-default");
+  jQuery(".btn:contains('add image')").text("Add Image");
+  /*Hide weird button at bottom*/
+  jQuery("[src='https://www.htmlcommentbox.com/static/images/feed.png']").hide();
+  jQuery(".submit").val("🚀 Send 🚀");
+}
+
+function formatNameField() {
+  jQuery("#hcb_form_name").attr("placeholder", "Name (Optional)")
+}
+
+/* Function enables submit button functionality*/
+let modSubmitBtn_Different = function () {
+  jQuery("#hcb_submit").click(function () {
+    /* Hide all the reply buttons*/
+    setTimeout(() => {
+      jQuery(".hcb-reply").css("display", "none");
+      jQuery("#hcb_msg").append(" Please refresh the page to leave another comment.");
+    }, 1000);
+  })
+}
+
+/* Enables correct formatting on next/prev page button click */
+function modHcbIcons() {
+  jQuery(".hcb-icon").click(() => {
+    setTimeout(() => {
+      formatComments();
+      formatNameField();
+      modSubmitBtn_Different();
+      /* Function calls its self */
+      modHcbIcons();
+    }, 1000);
+  })
+}
+
+/* ########################################
+   Function manipulates the "rendered" page
+   ######################################## */
+jQuery(document).ready(function () {
+  console.log("Window Loaded");
+
+  if (flag) {
+    /* Copy "Move How did I Do?" button to response areas*/
+    // console.log("Attemting to move How Did I Do Button on First Tab");
+    /* Removing doInPreview or doInSession removes mobius' margin rule */
+    jQuery(".btn.doInSession, .btn.doInPreview")
+      .detach()
+      .insertAfter(jQuery(".parts-container .part")
+        .map((ind, cur) => {
+          let resWrapper = jQuery(cur).find(".response-wrapper").last();
+          if (resWrapper.find(".check-help-container").length) {
+            return resWrapper.find(".check-help-container").prev();
+          } else {
+            return resWrapper.children().last();
+          }
+        }))
+      .addClass("check-help-button")
+      .text("Check");
+
+    /* Select all response areas in the parts that are not active */
+    var inactiveFields = jQuery(".parts-container .part:not(.active) .response-wrapper .response, #mark-as-done-container .response");
+
+    /* Soft hide them so that they're not taken into account when "how did I do?"
+    This is done by preceding the input's id with "hidden-" so it isn't seen during the check*/
+    inactiveFields.each(function () {
+      jQuery(this).attr("data-original-id", jQuery(this).attr("id"));
+      jQuery(this).attr("id", "hidden-" + jQuery(this).attr("id"));
+    });
+
+    /* Still need to add original-id attr to the active part's response areas */
+    var activeFields = jQuery(".parts-container .part.active .response-wrapper .response");
+    activeFields.each(function () {
+      jQuery(this).attr("data-original-id", jQuery(this).attr("id"));
+    });
+
+    /* NAV BAR EDITS: */
+    /* Remove mention of "Page" in navigation bar links */
+    jQuery("#assignmentButtons .container .btn").each(function () {
+      jQuery(this).text(jQuery(this).text().replace("Page", ""));
+    });
+
+    /* Select quit and save button, and move to "safe ul" */
+    jQuery("#assignmentButtons .container a[id='MenuItem.actions.assignment.quit_save']").prependTo("#assignmentButtons .container ul:eq(1)");
+
+    /* Select quit and save button, and move to "safe ul" */
+    jQuery("#assignmentButtons .container a[id='MenuItem.actions.lesson.grade']").prependTo("#assignmentButtons .container ul:eq(1)").text("Submit");
+
+    /* Delete first ul (contains useless buttons) */
+    jQuery("#assignmentButtons .container ul").first().remove();
+
+    /* PAGE STYLE CHANGES */
+    /* Remove hover border from question container */
+    jQuery("div.questionWrapper").removeClass("questionWrapper");
+
+    /* Remove questionButtons */
+    jQuery("div.questionButtons").css("display", "none");
+
+    /* Remove Number/Unit help buttons */
+    jQuery(".helpLink").css("display", "none");
+
+    /* COMMENT THREAD */
+    /* Insert Comment thread code after the question form generated by Mobius */
+    async function installComments() {
+      const commentThreadSnippet = await (await fetch("/web/Pjohnso000/Public_Html/Scripts/CommentThread.html")).text();
+      // console.log("Fetched thread HTML from Mobius server");
+      jQuery(commentThreadSnippet).insertAfter("form[name='edu_form']");
+
+      while (!window["comments"]) {
+        /*allow event loop to run other scripts while waiting for comments to exist*/
+        await sleep(100);
+      }
+      console.log("Comments are live!");
+
+      showNumberOfComments();
+      formatComments();
+      formatNameField();
+      modSubmitBtn_Different();
+      modHcbIcons();
+    }
+
+    installComments();
+  }
+
+  flag = false;
+});
+
+/* ###################################################
+   Function enables show comments button functionality
+   ################################################### */
+jQuery("#comment-btn").click(function () {
+  // console.log("Toggling HTML comment Box comments");
+  jQuery("#comments-bar-container .title").toggleClass("active");
+  jQuery("#comments-bar-container .description").toggleClass("active");
+  jQuery("#HTML-comment-box").toggle("slow");
+})
+
+/* ###############################
+   Function handles tab behaviours
+   ############################### */
+jQuery(".tabs-container .tab").on("click", function () {
+  /* Use regex to find selected tab's number */
+  let number = jQuery(this).attr("id").match(/\d+/)[0];
+  // console.log("Clicked on tab number " + number);
+
+  if (!jQuery(this).hasClass("active")) {
+    /* Disable response areas from previously active part */
+    jQuery(".parts-container .part.active .response-wrapper .response").each(function () {
+      jQuery(this).attr("id", "hidden-" + jQuery(this).attr("data-original-id"));
+      /* Need to trigger the click event handler as that's how we can make the "how did I do?" button to come back */
+      jQuery(this).trigger("click");
+    });
+
+    /* Remove active class from previously active part and tab */
+    jQuery(".parts-container .part.active").toggleClass("active");
+    jQuery(".tabs-container .tab.active").toggleClass("active");
+
+    /* Toggle active class on tab and corresponding part */
+    jQuery(this).toggleClass("active");
+    var activePart = jQuery(".parts-container #part" + number);
+    activePart.toggleClass("active");
+
+    /* Move "How did I Do?" button to the active part's container */
+    // console.log("Attemting to move How Did I Do Button");
+    // jQuery(".btn.doInSession, .btn.doInPreview").appendTo(".parts-container .part.active .response-wrapper").text("🌊 How Did I Do? 🌊");
+
+    /* Un-hide response areas in the newly active part */
+    activePart.find(".response-wrapper .response").each(function () {
+      jQuery(this).attr("id", jQuery(this).attr("data-original-id"));
+    });
+  }
+});
+
+/* ###########################################
+   Functions handle solution "tabs" behaviours
+   ########################################### */
+/* Help Button */
+jQuery(".check-help-button").on("click", function () {
+  /* Use regex to find which tab the button was clicked in */
+  let number = jQuery(this).attr("id").match(/\d+/)[0];
+  // console.log("Clicked answer help on tab number " + number);
+  jQuery("#part" + number + " .answers-container").toggleClass("active");
+  jQuery("#part" + number + " .answers-nav-container").toggleClass("active");
+});
+
+/* Equation Help */
+jQuery(".equation-help-button").on("click", function () {
+  /* Use regex to find which tab the button was clicked in */
+  let number = jQuery(this).attr("id").match(/\d+/)[0];
+  // console.log("Clicked final answer on tab number " + number);
+
+  /* Collapse previously open panel */
+  if (!jQuery(this).hasClass("open")) {
+    jQuery("#part" + number + " .answers-container > .active").removeClass("active");
+    jQuery("#part" + number + " .answers-nav-container > .open").removeClass("open");
+  }
+
+  /* Toggle active class on the final answer container in this tab */
+  jQuery("#part" + number + " .equation-help").toggleClass("active");
+  jQuery(this).toggleClass("open");
+});
+
+/* Final Answer */
+jQuery(".final-answer-button").on("click", function () {
+  /* Use regex to find which tab the button was clicked in */
+  let number = jQuery(this).attr("id").match(/\d+/)[0];
+  // console.log("Clicked final answer on tab number " + number);
+
+  /* Collapse previously open panel */
+  if (!jQuery(this).hasClass("open")) {
+    jQuery("#part" + number + " .answers-container > .active").removeClass("active");
+    jQuery("#part" + number + " .answers-nav-container > .open").removeClass("open");
+    jQuery(".awt-show-answer").removeClass("active");
+  }
+
+  /* Toggle active class on the final answer container in this tab */
+  jQuery("#part" + number + " .final-answer").toggleClass("active");
+  jQuery(this).toggleClass("open");
+});
+
+/* Worked Solutions */
+jQuery(".worked-solutions-button").on("click", function () {
+  /* Use regex to find which tab the button was clicked in */
+  let number = jQuery(this).attr("id").match(/\d+/)[0];
+  // console.log("Clicked worked solutions on tab number " + number);
+
+  /* Collapse previously open panel */
+  if (!jQuery(this).hasClass("open")) {
+    jQuery("#part" + number + " .answers-container > .active").removeClass("active");
+    jQuery("#part" + number + " .answers-nav-container > .open").removeClass("open");
+    jQuery(".awt-worked-solutions").removeClass("active");
+  }
+
+  /* Toggle active class on the worked solutions container in this tab*/
+  jQuery("#part" + number + " .worked-solutions").toggleClass("active");
+  jQuery(this).toggleClass("open");
+});
+
+/* Structured Tutorial */
+jQuery(".structured-tutorial-button").on("click", function () {
+  /* Use regex to find which tab the button was clicked in */
+  let number = jQuery(this).attr("id").match(/\d+/)[0];
+  // console.log("Clicked structured tutorial on tab number " + number);
+
+  /* Collapse previously open panel */
+  if (!jQuery(this).hasClass("open")) {
+    jQuery("#part" + number + " .answers-container > .active").removeClass("active");
+    jQuery("#part" + number + " .answers-nav-container > .open").removeClass("open");
+    jQuery(".awt-structured-tutorial").removeClass("active");
+  }
+
+  /* Toggle active class on the structured tutorial container in this tab*/
+  jQuery("#part" + number + " .structured-tutorial").toggleClass("active");
+  jQuery(this).toggleClass("open");
+
+  /* Trigger resize event to cause H5P player to load (loading while hidden causes loading to fail as it is not given a size) */
+  window.dispatchEvent(new Event('resize'));
+});
+
+/* #########################################################
+   Functions handle Step by Step Module Navigation
+   ######################################################### */
+/* Step down logic */
+jQuery(".sbs-step-down").on("click", function () {
+  var navContainer = jQuery(this).parent();
+  var nextEl = navContainer.next();
+  nextEl.toggleClass("active").insertBefore(navContainer);
+  if (nextEl.hasClass("last")) {
+    /* Disable buttons */
+    jQuery(this).addClass("disabled");
+    navContainer.children(".sbs-reveal-all").addClass("disabled");
+  }
+  /* If this button is pressed, we can always use the other one */
+  navContainer.children(".sbs-step-up").removeClass("disabled");
+});
+/* Step up logic */
+jQuery(".sbs-step-up").on("click", function () {
+  var navContainer = jQuery(this).parent();
+  var prevEl = navContainer.prev();
+  prevEl.toggleClass("active").insertAfter(navContainer);
+  if (prevEl.hasClass("second")) {
+    /* Disable the button */
+    jQuery(this).addClass("disabled");
+  }
+  /* If this button is pressed, we can always use the other one */
+  navContainer.children(".sbs-step-down, .sbs-reveal-all").removeClass("disabled");
+});
+/* Reveal all logic */
+jQuery(".sbs-reveal-all").on("click", function () {
+  var navContainer = jQuery(this).parent();
+  /* Insert nav bar after last worked soln part */
+  navContainer.insertAfter(navContainer.parent().children(".last"));
+  /* Allow all parts to be active */
+  navContainer.parent().children(".sbs-step").addClass("active");
+  /* Update state of other nav buttons */
+  navContainer.children(".sbs-step-up").removeClass("disabled");
+  navContainer.children(".sbs-step-down").addClass("disabled");
+  jQuery(this).addClass("disabled");
+});
+
+/* ################################
+   Pressing "enter" checks response
+   ################################ */
+jQuery(".response-wrapper input").keypress(function (event) {
+  /* "Enter" key pressed */
+  if (event.keyCode == 13) {
+    /* Click on the "How did I do?" button on the active part */
+    jQuery(".part.active .btn.doInSession, .part.active .btn.doInPreview").click();
+    /* 'Unfocus' the input field, as to force user to click back in, resetting the res area */
+    jQuery(this).blur();
+  }
+});
+
+/* ################################
+   Insert new preview button for maple questions
+   ################################ */
+jQuery('.response-wrapper a[title="Preview"]').append('<svg class="maple-preview-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><circle cx="13" cy="13" r="10"></circle><text x="13" y="13">Ω</text></svg>');
+
+/* ################################
+   Show warning tooltips for answer help buttons
+   ################################ */
+jQuery(".structured-tutorial-button").hover(
+  function () {
+    if (!jQuery(this).hasClass("open")) jQuery(".awt-structured-tutorial").addClass("active");
+  },
+  function () {
+    if (!jQuery(this).hasClass("open")) jQuery(".awt-structured-tutorial").removeClass("active");
+  }
+);
+
+jQuery(".final-answer-button").hover(
+  function () {
+    if (!jQuery(this).hasClass("open")) jQuery(".awt-show-answer").addClass("active");
+  },
+  function () {
+    if (!jQuery(this).hasClass("open")) jQuery(".awt-show-answer").removeClass("active");
+  }
+);
+
+jQuery(".worked-solutions-button").hover(
+  function () {
+    if (!jQuery(this).hasClass("open")) jQuery(".awt-worked-solutions").addClass("active");
+  },
+  function () {
+    if (!jQuery(this).hasClass("open")) jQuery(".awt-worked-solutions").removeClass("active");
+  }
+);

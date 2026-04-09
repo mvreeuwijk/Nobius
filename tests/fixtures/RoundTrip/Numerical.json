@@ -1,0 +1,24 @@
+{
+    "title": "Numerical",
+    "algorithm": "  $a = range(10,20);\n$b = range(0, 10);\n$c = $a + $b  ",
+    "uid": "7c3b4542-978a-4202-abeb-b0aff3bf3abe",
+    "master_statement": "If a=$a and b=$b, what is c?",
+    "parts": [
+        {
+            "statement": "",
+            "response": {
+                "mode": "Numeric",
+                "name": "responseNaN",
+                "answer": {
+                    "num": "$c",
+                    "units": ""
+                },
+                "grading": "exact_value",
+                "showUnits": false,
+                "negStyle": "minus",
+                "numStyle": "thousands scientific  arithmetic",
+                "comment": ""
+            }
+        }
+    ]
+}

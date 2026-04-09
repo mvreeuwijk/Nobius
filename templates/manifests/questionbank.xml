@@ -1,0 +1,61 @@
+{% from 'questions/question_template.xml' import makeQuestion with context %}
+
+<courseModule>
+
+  <module>
+    <name><![CDATA[ {{ CourseModule.module.name }} ]]></name>
+    <description><![CDATA[ {{ CourseModule.module.description }} ]]></description>
+    <uri><![CDATA[ {{ CourseModule.module.uri }} ]]></uri>
+    <privacy>{{ CourseModule.module.privacy }}</privacy>
+    <autoModule>{{ "true" if CourseModule.module.autoModule else "false" }}</autoModule>
+    <exportedFrom>{{ CourseModule.module.exportedFrom }}</exportedFrom>
+  </module>
+
+  <questionGroups>
+    {% for group in CourseModule.question_groups %}
+    <group uid="{{ group.uid }}" weight="{{ group.weight }}">
+      <name><![CDATA[ {{ group.name }} ]]></name>
+      <description><![CDATA[ {{ SheetInfo.description if SheetInfo.description else "" }} ]]></description>
+      <privacy>10</privacy>
+      <questions>
+        {% for question in group.questions %}
+        <qRef uid="{{ question.uid }}" weight="{{ question.weight }}"/>
+        {% endfor %}
+      </questions>
+    </group>
+    {% endfor %}
+  </questionGroups>
+
+  <questions>
+    {% for question in questions %}
+      {{ makeQuestion(question) }}
+    {% endfor %}
+  </questions>
+
+  <authors>
+    {% for author in CourseModule.authors %}
+    <author defaultSchool="{{ author.defaultSchool }}" instanceUid="{{ author.instanceUid }}" uid="{{ author.uid }}">
+      <displayName>{{ author.displayName }}</displayName>
+    </author>
+    {% endfor %}
+  </authors>
+
+  <schools>
+    {% for school in CourseModule.schools %}
+    <school uid="{{ school.uid }}">
+      <name>{{ school.name }}</name>
+    </school>
+    {% endfor %}
+  </schools>
+
+  <webResources>
+    {% for folder in CourseModule.web_resource_folders %}
+    <folder id="0">
+      <name>{{ folder.name }}</name>
+      <description></description>
+      <uri>{{ folder.uri }}</uri>
+    </folder>
+    {% endfor %}
+  </webResources>
+
+</courseModule>

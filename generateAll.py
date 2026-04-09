@@ -8,63 +8,17 @@ directory, then merging their generated XML and media into one import bundle.
 import argparse
 import json
 import os
-import re
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from zipfile import ZipFile
 
+BASE_DIR = Path(__file__).resolve().parent
 
-SKELETON_XML = """
-<courseModule>
-    <module>
-    <autoModule>true</autoModule>
-    </module>
 
-    <questionGroups>
-    </questionGroups>
-
-    <questions>
-    </questions>
-
-    <webResources>
-    <folder id="0">
-      <name>
-        <![CDATA[  web_folders  ]]>
-      </name>
-      <description>
-        <![CDATA[    ]]>
-      </description>
-      <uri>
-        <![CDATA[  web_folders  ]]>
-      </uri>
-    </folder>
-    </webResources>
-</courseModule>
-"""
-
-MEDIA_MANIFEST_XML = """
-<courseModule>
-  <module>
-    <autoModule>true</autoModule>
-  </module>
-
-  <webResources>
-    <folder id="0">
-      <name>
-        <![CDATA[  web_folders  ]]>
-      </name>
-      <description>
-        <![CDATA[    ]]>
-      </description>
-      <uri>
-        <![CDATA[  web_folders  ]]>
-      </uri>
-    </folder>
-  </webResources>
-</courseModule>
-"""
+def load_template_xml(template_name):
+    return (BASE_DIR / "templates" / template_name).read_text(encoding="utf-8")
 
 
 def get_question_timings(sheet_directory):
@@ -138,22 +92,79 @@ def render_sheet_directory(sheet_path, output_dir, reset_uids, write_missing_uid
     )
 
 
+def make_empty_manifest_like(root):
+    manifest = ET.fromstring(ET.tostring(root))
+    for tag in ["questionGroups", "questions", "assignmentUnits", "assignments", "authors", "schools", "webResources"]:
+        node = manifest.find(f"./{tag}")
+        if node is not None:
+            for child in list(node):
+                node.remove(child)
+    return manifest
+
+
 def merge_xml(output_dir):
-    manifest = ET.fromstring(SKELETON_XML)
+    manifest = None
     xml_dir = output_dir / "xml"
+    author_ids = set()
+    school_ids = set()
+    question_group_ids = set()
+    assignment_unit_ids = set()
+    assignment_ids = set()
+    web_resource_uris = set()
 
     for sheet_xml in sorted(xml_dir.glob("*.xml")):
         print(f"[MERGING] {sheet_xml.name}")
         root = ET.parse(sheet_xml).getroot()
+        if manifest is None:
+            manifest = make_empty_manifest_like(root)
 
-        group = root.find("./questionGroups/group")
-        match = re.search(r"#(\d+)", group.find("name").text or "")
-        if match:
-            group.set("weight", f"{match[1]}.0")
-        manifest.find("./questionGroups").append(group)
+        manifest_question_groups = manifest.find("./questionGroups")
+        if manifest_question_groups is not None:
+            for group in root.findall("./questionGroups/group"):
+                group_uid = group.get("uid")
+                if group_uid not in question_group_ids:
+                    manifest_question_groups.append(group)
+                    question_group_ids.add(group_uid)
 
+        manifest_questions = manifest.find("./questions")
         for question in root.findall("./questions/question"):
-            manifest.find("./questions").append(question)
+            manifest_questions.append(question)
+
+        manifest_assignment_units = manifest.find("./assignmentUnits")
+        if manifest_assignment_units is not None:
+            for unit in root.findall("./assignmentUnits/unit"):
+                unit_uid = unit.get("uid")
+                if unit_uid not in assignment_unit_ids:
+                    manifest_assignment_units.append(unit)
+                    assignment_unit_ids.add(unit_uid)
+
+        manifest_assignments = manifest.find("./assignments")
+        if manifest_assignments is not None:
+            for assignment in root.findall("./assignments/assignment"):
+                assignment_uid = assignment.get("uid")
+                if assignment_uid not in assignment_ids:
+                    manifest_assignments.append(assignment)
+                    assignment_ids.add(assignment_uid)
+
+        for author in root.findall("./authors/author"):
+            author_uid = author.get("uid")
+            if author_uid not in author_ids:
+                manifest.find("./authors").append(author)
+                author_ids.add(author_uid)
+
+        for school in root.findall("./schools/school"):
+            school_uid = school.get("uid")
+            if school_uid not in school_ids:
+                manifest.find("./schools").append(school)
+                school_ids.add(school_uid)
+
+        manifest_web_resources = manifest.find("./webResources")
+        if manifest_web_resources is not None:
+            for folder in root.findall("./webResources/folder"):
+                uri = folder.findtext("uri")
+                if uri not in web_resource_uris:
+                    manifest_web_resources.append(folder)
+                    web_resource_uris.add(uri)
 
     all_sheets_path = output_dir / "all_sheets.xml"
     with open(all_sheets_path, "wb") as file:
@@ -166,7 +177,7 @@ def merge_xml(output_dir):
 def bundle_media(output_dir):
     zip_path = output_dir / "all_media.zip"
     with ZipFile(zip_path, "w") as zip_file:
-        zip_file.writestr("manifest.xml", MEDIA_MANIFEST_XML)
+        zip_file.writestr("manifest.xml", load_template_xml("manifests/media_manifest.xml"))
         for media_folder in sorted((output_dir / "web_folders").iterdir()):
             if not media_folder.is_dir():
                 continue

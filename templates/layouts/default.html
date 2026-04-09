@@ -1,13 +1,59 @@
-{% from 'addMedia.html' import addMedia %}
-{% from 'commentsBar.html' import commentsBar %}
-{% from 'questionIcons.html' import questionIcons %}
-{% from 'responseWrapper.html' import responseWrapper %}
-{% from 'answerHelp.html' import answerHelp %}
-{% from 'answerHelpButton.html' import answerHelpButton %}
-{% from 'inputSymbols.html' import inputSymbols %}
+{% from 'partials/addMedia.html' import addMedia %}
+{% from 'partials/commentsBar.html' import commentsBar %}
+{% from 'partials/questionIcons.html' import questionIcons %}
+{% from 'partials/responseWrapper.html' import responseWrapper %}
+{% from 'partials/answerHelp.html' import answerHelp %}
+{% from 'partials/answerHelpButton.html' import answerHelpButton %}
+{% from 'partials/inputSymbols.html' import inputSymbols %}
 
 {# Generate the actual question html to be displayed #}
 {% macro questionText(question) %}
+{% set simple_response_modes = ["List", "Non Permuting Multiple Choice", "Multiple Choice", "Non Permuting Multiple Selection", "Multiple Selection", "Numeric", "True False", "Essay", "Maple", "Matching"] %}
+{% set plain = namespace(simple_part_count=0) %}
+{% for part in question.parts %}
+{% if part.response_mode is defined and part.response_mode in simple_response_modes %}
+{% set plain.simple_part_count = plain.simple_part_count + 1 %}
+{% endif %}
+{% endfor %}
+{% set is_plain_repository_question = (
+  question.parts
+  and (question.media is not defined or not question.media)
+  and (question.icon_data is not defined or not question.icon_data)
+  and (
+    question.parts
+    | selectattr("responses", "undefined")
+    | selectattr("custom_response", "undefined")
+    | selectattr("structured_tutorial", "undefined")
+    | list
+    | length
+  ) == (question.parts | length)
+  and plain.simple_part_count == (question.parts | length)
+) %}
+
+{% if is_plain_repository_question %}
+{% set use_paragraph_prompt = (
+  ("algorithm" in question)
+  or plain.simple_part_count > 0 and (
+    question.parts
+    | selectattr("response_mode", "defined")
+    | selectattr("response_mode", "in", ["Numeric", "Maple"])
+    | list
+    | length
+  ) > 0
+) %}
+{% set prompt_tag = "p" if use_paragraph_prompt else "div" %}
+{% if question.master_statement %}
+<{{ prompt_tag }}>{{ question.master_statement }}</{{ prompt_tag }}>
+{% endif %}
+{% for part in question.parts %}
+{% if part.statement %}
+<{{ prompt_tag }}>{{ part.statement }}</{{ prompt_tag }}>
+{% endif %}
+{% if part.response %}
+<p><{{ part.response }}><span>&nbsp;</span></p>
+{% endif %}
+{% endfor %}
+{% else %}
 <link rel="stylesheet" href="{{ consts.THEME_LOCATION }}">
 
 <div class="wrapper">
@@ -118,6 +164,8 @@
 
 {{ commentsBar(question.number) }}
 
-<script src="{{ consts.SCRIPTS_LOCATION }}" type="application/javascript">
+<script src="{{ packaged_scripts_location }}" type="application/javascript">
   /* Import Custom Javascript Code from the server */
-</script>{% endmacro %}
+</script>
+{% endif %}
+{% endmacro %}

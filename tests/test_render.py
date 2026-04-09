@@ -4,6 +4,7 @@ import subprocess
 import sys
 import zipfile
 
+import bs4
 import pytest
 
 from render_common import NobiusRenderError, load_json_file, make_matrix, process_custom_response, render_sheet
@@ -27,26 +28,39 @@ def canonicalize_export_xml(xml_text):
 
 
 def test_render_sheet_standard_creates_xml_and_zip_for_tutorial_fixture(t01_sheet):
-    result = render_sheet(t01_sheet, "master.xml", make_render_settings())
+    result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
 
     assert result["xml_path"].endswith("Fundamentals.xml")
     assert result["zip_path"].endswith("Fundamentals.zip")
 
 
 def test_render_sheet_exam_creates_xml_and_zip_for_tutorial_fixture(t01_sheet):
-    result = render_sheet(t01_sheet, "master_exam.xml", make_render_settings(exam=True))
+    result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
 
     assert result["xml_path"].endswith("Fundamentals.xml")
     assert result["zip_path"].endswith("Fundamentals.zip")
 
 
+def test_exam_render_includes_feedback_separator_and_script_spacing(t01_sheet):
+    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
+    soup = bs4.BeautifulSoup(rendered_xml, "lxml-xml")
+    first_question_text = soup.find("courseModule", recursive=False).find("questions", recursive=False).find("question", recursive=False).find("text").string
+
+    assert '<hr id="question-feedback-separator">' in first_question_text
+    assert "<p>&nbsp;</p>" in first_question_text
+    assert '<p><script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">' in first_question_text
+
+
 def test_render_sheet_zip_contains_manifest_and_media(t01_sheet):
-    result = render_sheet(t01_sheet, "master.xml", make_render_settings())
+    result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
 
     with zipfile.ZipFile(result["zip_path"], "r") as zip_file:
         members = set(zip_file.namelist())
 
     assert "manifest.xml" in members
+    assert "web_folders/Scripts/QuestionJavaScript.txt" in members
+    assert "web_folders/Nobius4.mla" in members
     assert "web_folders/Fundamentals/TruncatedCone.png" in members
 
 
@@ -68,7 +82,7 @@ def test_generate_group_cli_uses_config_values_in_standard_template(t01_sheet, t
     rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
 
     assert "/themes/unit-test-standard" in rendered_xml
-    assert "/web/unit-test/standard.js" in rendered_xml
+    assert "__BASE_URI__Scripts/QuestionJavaScript.txt" in rendered_xml
 
 
 def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tmp_path):
@@ -97,21 +111,57 @@ def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tm
     rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
 
     assert "/themes/unit-test-exam" in rendered_xml
-    assert "/web/unit-test/exam.js" in rendered_xml
+    assert "__BASE_URI__Scripts/QuestionJavaScript.txt" in rendered_xml
 
 
-def test_example_export_matches_historical_6e6882e_baseline(example_sheet, experimental_sheet_v2_baseline_xml):
+def test_example_export_uses_question_bank_manifest_shape(example_sheet):
     legacy_settings = {
         "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
         "scripts_location": "/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt",
     }
 
-    result = render_sheet(example_sheet, "master.xml", legacy_settings)
-    current_xml = canonicalize_export_xml((example_sheet / "renders" / "Experimental Sheet V2.xml").read_text(encoding="utf-8"))
-    baseline_xml = canonicalize_export_xml(experimental_sheet_v2_baseline_xml.read_text(encoding="utf-8"))
+    result = render_sheet(example_sheet, "manifests/questionbank.xml", legacy_settings)
+    current_xml = (example_sheet / "renders" / "Experimental Sheet V2.xml").read_text(encoding="utf-8")
+    soup = bs4.BeautifulSoup(current_xml, "lxml-xml")
+    root = soup.find_all(recursive=False)[0]
 
     assert result["xml_path"].endswith("Experimental Sheet V2.xml")
-    assert current_xml == baseline_xml
+    assert root.name == "courseModule"
+    assert soup.find("module") is not None
+    assert soup.find("module").find("uri") is not None
+    root_question_groups = soup.find("courseModule", recursive=False).find("questionGroups", recursive=False)
+    assert root_question_groups is not None
+    assert root_question_groups.find("group") is not None
+    assert root_question_groups.find("qRef") is not None
+    assert soup.find("authors") is not None
+    assert soup.find("schools") is not None
+    assert soup.find("assignmentUnits") is None
+    assert soup.find("assignments") is None
+    assert soup.find("webResources") is None
+    questions = soup.find("courseModule", recursive=False).find("questions", recursive=False)
+    assert questions is not None
+    first_question = questions.find("question", recursive=False)
+    assert first_question.get("language") == "en"
+    assert first_question.find("chainId") is not None
+    assert first_question.find("numberOfAttempts") is not None
+    assert first_question.find("numberOfAttemptsLeft") is not None
+    assert first_question.find("numberOfTryAnother") is not None
+    assert first_question.find("numberOfTryAnotherLeft") is not None
+    assert first_question.find("width") is not None
+
+
+def test_default_export_uses_assignment_manifest_shape(example_sheet):
+    result = render_sheet(example_sheet, "manifests/assignment.xml", make_render_settings())
+    current_xml = (example_sheet / "renders" / "Experimental Sheet V2.xml").read_text(encoding="utf-8")
+    soup = bs4.BeautifulSoup(current_xml, "lxml-xml")
+    root = soup.find_all(recursive=False)[0]
+
+    assert result["xml_path"].endswith("Experimental Sheet V2.xml")
+    assert root.name == "courseModule"
+    assert soup.find("assignmentUnits") is not None
+    assert soup.find("assignments") is not None
+    assert soup.find("webResources") is not None
+    assert soup.find("questionGroups", recursive=False) is None
 
 
 def test_make_matrix_numeric_expands_into_scalar_numeric_responses():
@@ -182,7 +232,7 @@ def test_render_refuses_missing_uids_by_default(t01_sheet):
         json.dump(question, file, indent=2)
 
     with pytest.raises(NobiusRenderError, match="--write-missing-uids"):
-        render_sheet(t01_sheet, "master.xml", make_render_settings())
+        render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
 
 
 def test_render_can_persist_missing_uids_when_explicitly_requested(t01_sheet):
@@ -199,7 +249,7 @@ def test_render_can_persist_missing_uids_when_explicitly_requested(t01_sheet):
     with open(question_path, "w", encoding="utf-8") as file:
         json.dump(question, file, indent=2)
 
-    render_sheet(t01_sheet, "master.xml", make_render_settings(), write_missing_uids=True)
+    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(), write_missing_uids=True)
 
     assert load_json_file(sheet_info_path)["uid"]
     assert load_json_file(question_path)["uid"]
@@ -269,7 +319,7 @@ def test_render_sheet_raises_for_missing_sheetinfo(tmp_path):
     missing_dir.mkdir()
 
     with pytest.raises(NobiusRenderError, match="SheetInfo.json"):
-        render_sheet(missing_dir, "master.xml", make_render_settings())
+        render_sheet(missing_dir, "manifests/assignment.xml", make_render_settings())
 
 
 def test_process_custom_response_raises_when_layout_label_is_missing():

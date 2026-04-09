@@ -1,0 +1,26 @@
+{
+    "title": "Text Entry-20260408_220141",
+    "uid": "cda431cd-bd13-4636-a32f-d6db251a755b",
+    "master_statement": "Define a fluid.",
+    "parts": [
+        {
+            "statement": "",
+            "response": {
+                "mode": "List",
+                "name": "sro_id_1",
+                "display": {
+                    "display": "text",
+                    "permute": false
+                },
+                "grader": "exact",
+                "answers": [
+                    "A fluid is a substance that deforms continuously under shear stress."
+                ],
+                "credits": [
+                    1.0
+                ],
+                "comment": ""
+            }
+        }
+    ]
+}

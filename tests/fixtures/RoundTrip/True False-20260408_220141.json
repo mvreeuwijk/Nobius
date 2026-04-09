@@ -1,0 +1,21 @@
+{
+    "title": "True False-20260408_220141",
+    "uid": "a92d27ef-eff4-4c97-96bc-4a292d4afbf9",
+    "master_statement": "Hydrostatic pressure increases with depth in a stationary fluid.",
+    "parts": [
+        {
+            "statement": "",
+            "response": {
+                "mode": "Non Permuting Multiple Choice",
+                "name": "sro_id_1",
+                "answer": 1,
+                "display": "vertical",
+                "choices": [
+                    "<div>true</div>",
+                    "<div>false</div>"
+                ],
+                "comment": ""
+            }
+        }
+    ]
+}

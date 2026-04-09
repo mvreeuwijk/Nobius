@@ -1,0 +1,20 @@
+<courseModule>
+  <module>
+    <name>CourseModule</name>
+    <description>Course Module</description>
+    <privacy>0</privacy>
+    <autoModule>true</autoModule>
+  </module>
+
+  <questionGroups>
+  </questionGroups>
+
+  <questions>
+  </questions>
+
+  <authors>
+  </authors>
+
+  <schools>
+  </schools>
+</courseModule>
