@@ -22,7 +22,6 @@ nav:
       - import_mobius.py: "Usage/import_mobius.md"
       - export_mobius_batch.py: "Usage/export_mobius_batch.md"
       - Testing: "Usage/testing.md"
-      - Notes: "Usage/notes.md"
   - Sheet Files:
       - Sheet File Structure: "SheetFiles/SheetFileStructure.md"
       - SheetInfo.json: "SheetFiles/SheetInfo.md"
