@@ -8,9 +8,11 @@ The current workflow is built around three ideas:
 - render that content into Möbius-ready XML and ZIP packages
 - import Möbius exports back into Nobius when edits are made in the platform
 
-Nobius also supports a first-class `HTML` response mode for custom interactive widgets, in addition to standard response areas and custom response layouts.
+Nobius also supports a first-class `HTML` response mode for custom interactive widgets, in addition to standard response areas and custom response layouts.[^fork]
 
 Make sure to visit the [Quickstart Guide](quickstart.md) to get started.
+
+[^fork]: This documentation is published from the fork at [github.com/mvreeuwijk/Nobius](https://github.com/mvreeuwijk/Nobius), based on the original Nobius project.
 
 ## Recommended entry points
 

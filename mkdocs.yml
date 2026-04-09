@@ -6,8 +6,8 @@ site_description: >-
   Mobius content.
 
 # Git repo information
-repo_url: https://github.com/Loumstar/Nobius
-repo_name: Nobius (private)
+repo_url: https://github.com/mvreeuwijk/Nobius
+repo_name: Nobius
 
 # Page Tree
 nav:
@@ -20,6 +20,7 @@ nav:
       - generateJSON.py: "Usage/generateJSON.md"
       - generateAll.py: "Usage/generateAll.md"
       - Testing: "Usage/testing.md"
+      - Notes: "Usage/notes.md"
   - Sheet Files:
       - Sheet File Structure: "SheetFiles/SheetFileStructure.md"
       - SheetInfo.json: "SheetFiles/SheetInfo.md"
