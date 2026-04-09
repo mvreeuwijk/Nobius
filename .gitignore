@@ -5,3 +5,5 @@ tests_work
 
 *.zip
 *.log
+
+!tests/fixtures/mobius_exports/*.zip
