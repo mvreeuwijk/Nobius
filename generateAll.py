@@ -166,6 +166,9 @@ def merge_xml(output_dir):
                     manifest_web_resources.append(folder)
                     web_resource_uris.add(uri)
 
+    if manifest is None:
+        raise ValueError("No rendered sheet XML files were produced. Nothing to merge.")
+
     all_sheets_path = output_dir / "all_sheets.xml"
     with open(all_sheets_path, "wb") as file:
         file.write(ET.tostring(manifest))
@@ -264,8 +267,12 @@ def main():
     with open(output_dir / "question_timings.txt", "w", encoding="utf-8") as file:
         file.write(get_timings_summary(sheet_timings))
 
-    merge_xml(output_dir)
-    bundle_media(output_dir)
+    try:
+        merge_xml(output_dir)
+        bundle_media(output_dir)
+    except ValueError as error:
+        print(f"[ERROR] {error}")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

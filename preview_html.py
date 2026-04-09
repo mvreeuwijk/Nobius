@@ -179,8 +179,18 @@ def extract_assets(zip_path, destination):
     assets_dir = destination / "assets"
     assets_dir.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as archive:
-        archive.extractall(assets_dir)
+        safe_extract_archive(archive, assets_dir)
     return assets_dir
+
+
+def safe_extract_archive(archive, destination):
+    destination = destination.resolve()
+    for member in archive.infolist():
+        member_path = destination / member.filename
+        resolved_path = member_path.resolve()
+        if destination not in resolved_path.parents and resolved_path != destination:
+            raise ValueError(f"Refusing to extract unsafe zip member: {member.filename}")
+        archive.extract(member, destination)
 
 
 def fragment_to_html(fragment):

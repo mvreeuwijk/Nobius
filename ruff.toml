@@ -1,7 +1,7 @@
 target-version = "py311"
 
 [lint]
-select = ["E9", "F"]
+select = ["E9", "E71", "E72", "E73", "E74", "F"]
 
 [lint.per-file-ignores]
 "tests/*" = ["F401"]

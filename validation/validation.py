@@ -1,3 +1,4 @@
+import copy
 import jsonschema
 import pprint
 import sys
@@ -151,8 +152,8 @@ def recursively_add_defaults(instance, defaults):
     """
     for key, value in defaults.items():
         if key not in instance:
-            instance[key] = value
-        elif type(instance[key]) == dict and type(value) == dict:
+            instance[key] = copy.deepcopy(value)
+        elif isinstance(instance[key], dict) and isinstance(value, dict):
             recursively_add_defaults(instance[key], value)
 
 """
@@ -203,7 +204,7 @@ def json_traceback(path, msg, *args):
     
     for i in args:
         item_string = pprint.pformat(i, width=len(msg)) \
-            if type(i) in [list, dict] else str(i)
+            if isinstance(i, (list, dict)) else str(i)
         
         main_string += f"{item_string}\n"
 
@@ -230,14 +231,14 @@ def get_path_string(path):
     for i, item in enumerate(path):
         tabs = "  " * i
         ending = ":" if i == len(path) - 1 else ","
-        name = f"index {item}" if type(item) == int \
+        name = f"index {item}" if isinstance(item, int) \
             else f"'{item}'"
 
         if i == 0:
             prep = "From" if len(path) != 1 else "In"
         elif i == len(path) - 1:
             prep = "the value at"
-        elif type(item) == int:
+        elif isinstance(item, int):
             prep = "at"
         else:
             prep = "in"
@@ -268,7 +269,7 @@ def check_unused_props(instance, schema, ignores=None):
     ignores = ignores or []
     defined_props = get_all_defined_properties(instance, schema)
     
-    if type(instance) != dict:
+    if not isinstance(instance, dict):
         return {}
 
     unused_props = {}
@@ -278,13 +279,13 @@ def check_unused_props(instance, schema, ignores=None):
         if prop not in defined_props:
             unused_props[prop] = value
 
-        elif type(value) == dict and prop not in ignores:
+        elif isinstance(value, dict) and prop not in ignores:
             unused_subprops = check_unused_props(value, prop_schema, ignores)
             
             if unused_subprops:
                 unused_props[prop] = unused_subprops
         
-        elif type(value) == list and prop not in ignores:
+        elif isinstance(value, list) and prop not in ignores:
             items_schema = prop_schema.get("items", {})
             unused_subprops = []
             

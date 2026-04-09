@@ -166,7 +166,24 @@ def link_response_answers(p, parts, report=None):
         for r in p["responses"]:
             link_response_answers(r, parts, report)
     elif "response" in p and p["response"] is not None:
-        p["response"] = normalize_response(parts[p["response"] - 1], report)
+        linked_response = get_part_by_placeholder(parts, p["response"], report)
+        if linked_response is not None:
+            p["response"] = normalize_response(linked_response, report)
+        else:
+            p["response"] = None
+
+
+def get_part_by_placeholder(parts, placeholder, report=None):
+    if not isinstance(placeholder, int):
+        report_warning(report, "Response placeholder was not an integer during import.", placeholder)
+        return None
+
+    index = placeholder - 1
+    if index < 0 or index >= len(parts):
+        report_warning(report, "Response placeholder was out of range during import.", placeholder)
+        return None
+
+    return parts[index]
 
 def normalize_response(response, report=None):
     normalized = response.copy()
@@ -283,7 +300,7 @@ def link_matrix_answers(matrix_response, parts, report=None):
         report_warning(report, "Encountered an empty matrix response during import.")
         return None
 
-    properties = get_all_same_properties(tags, parts)
+    properties = get_all_same_properties(tags, parts, report)
 
     if "mode" in properties:
         if properties["mode"] == "Numeric":
@@ -302,10 +319,14 @@ def link_matrix_answers(matrix_response, parts, report=None):
         answer_row = []
 
         for tag in tags_row:
+            linked_part = get_part_by_placeholder(parts, tag, report)
+            if linked_part is None:
+                report_warning(report, "Matrix response could not be reconstructed because a placeholder was invalid.", tag)
+                return None
             if properties["mode"] == "Numeric":
-                answer_row.append(parts[tag - 1]["answer"]["num"])
+                answer_row.append(linked_part["answer"]["num"])
             elif properties["mode"] == "Maple":
-                answer_row.append(parts[tag - 1]["mapleAnswer"])
+                answer_row.append(linked_part["mapleAnswer"])
         
         answers.append(answer_row)
 
@@ -331,12 +352,19 @@ def is_empty_matrix(m):
             return False
     return True
 
-def get_all_same_properties(tags, parts):
-    properties = parts[tags[0][0] - 1].copy()
+def get_all_same_properties(tags, parts, report=None):
+    first_part = get_part_by_placeholder(parts, tags[0][0], report)
+    if first_part is None:
+        return {}
+
+    properties = first_part.copy()
 
     for tags_row in tags:
         for tag in tags_row:
-            compare_properties(properties, parts[tag - 1])
+            linked_part = get_part_by_placeholder(parts, tag, report)
+            if linked_part is None:
+                return {}
+            compare_properties(properties, linked_part)
         
     return properties
 

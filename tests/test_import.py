@@ -1,6 +1,7 @@
 import zipfile
 
 import bs4
+import pytest
 
 from import_mobius import (
     gather_media_references,
@@ -9,8 +10,11 @@ from import_mobius import (
     safe_question_basename,
     write_group_json,
 )
+from preview_html import safe_extract_archive
 from render_common import render_sheet
+from validation.validation import add_response_area_defaults
 from xml_scraper.get_xml_data import normalize_response
+from xml_scraper.get_xml_data import link_response_answers
 
 from .conftest import (
     REPO_ROOT,
@@ -445,3 +449,45 @@ def test_safe_question_basename_handles_case_insensitive_windows_collisions():
     assert first == "Question"
     assert second == "question (2)"
     assert third == "QUESTION (3)"
+
+
+def test_link_response_answers_reports_out_of_range_placeholder_instead_of_crashing():
+    part = {"response": 3}
+    linked_parts = [{"mode": "Numeric", "answer": {"num": 1, "units": ""}, "comment": "", "name": "r1"}]
+    warnings = []
+
+    class StubReport:
+        def warn(self, message, context=None):
+            warnings.append((message, context))
+
+    link_response_answers(part, linked_parts, StubReport())
+
+    assert part["response"] is None
+    assert any("out of range" in message for message, _ in warnings)
+
+
+def test_safe_extract_archive_rejects_parent_relative_members(tmp_path):
+    archive_path = tmp_path / "unsafe.zip"
+    with zipfile.ZipFile(archive_path, "w") as archive:
+        archive.writestr("../escape.txt", "bad")
+
+    with zipfile.ZipFile(archive_path, "r") as archive:
+        with pytest.raises(ValueError, match="unsafe zip member"):
+            safe_extract_archive(archive, tmp_path / "assets")
+
+
+def test_add_response_area_defaults_deep_copies_nested_defaults():
+    defaults = {
+        "Numeric": {
+            "meta": {"tags": ["alpha"]},
+        }
+    }
+    first = {"mode": "Numeric"}
+    second = {"mode": "Numeric"}
+
+    add_response_area_defaults(first, defaults, [])
+    add_response_area_defaults(second, defaults, [])
+    first["meta"]["tags"].append("beta")
+
+    assert defaults["Numeric"]["meta"]["tags"] == ["alpha"]
+    assert second["meta"]["tags"] == ["alpha"]

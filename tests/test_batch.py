@@ -274,3 +274,95 @@ def test_generate_all_cli_supports_exam_render_profile(tmp_path):
     assert "<![CDATA[ Exam Demo ]]>" in rendered_xml
     assert (output_root / "all_sheets.xml").exists()
     assert (output_root / "all_media.zip").exists()
+
+
+def test_generate_all_cli_fails_cleanly_when_no_sheet_xmls_are_produced(tmp_path):
+    sheets_root = tmp_path / "empty_sheets"
+    output_root = tmp_path / "output"
+    sheets_root.mkdir()
+    output_root.mkdir()
+
+    config_path = tmp_path / "nobius.json"
+    write_json(config_path, make_config_payload())
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "generateAll.py",
+            str(sheets_root),
+            str(output_root),
+            "--config",
+            str(config_path),
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert "No rendered sheet XML files were produced" in result.stdout
+    assert not (output_root / "all_sheets.xml").exists()
+    assert not (output_root / "all_media.zip").exists()
+
+
+def test_generate_all_cli_all_failed_continue_on_error_exits_cleanly(tmp_path):
+    sheets_root = tmp_path / "sheets"
+    output_root = tmp_path / "output"
+    sheets_root.mkdir()
+    output_root.mkdir()
+
+    create_sheet_fixture(
+        sheets_root,
+        "bad_sheet",
+        {
+            "name": "Sheet #1 - Bad Sheet",
+            "description": "Invalid batch fixture",
+            "questions": ["Bad Question"],
+            "number": 1,
+        },
+        [
+            {
+                "title": "Bad Question",
+                "master_statement": "Invalid content.",
+                "icon_data": {"difficulty": 1, "par_time": [1, 1], "statement": ""},
+                "parts": [
+                    {
+                        "statement": "Broken custom response.",
+                        "custom_response": {
+                            "layout": "<missing>",
+                            "responses": {
+                                "x": {
+                                    "mode": "List",
+                                    "choices": ["A"],
+                                    "display": {"display": "text", "permute": False},
+                                }
+                            },
+                        },
+                    }
+                ],
+            }
+        ],
+    )
+
+    config_path = tmp_path / "nobius.json"
+    write_json(config_path, make_config_payload())
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "generateAll.py",
+            str(sheets_root),
+            str(output_root),
+            "--config",
+            str(config_path),
+            "--continue-on-error",
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert "[ERROR] Sheet bad_sheet aborted" in result.stdout
+    assert "No rendered sheet XML files were produced" in result.stdout
+    assert not (output_root / "all_sheets.xml").exists()
