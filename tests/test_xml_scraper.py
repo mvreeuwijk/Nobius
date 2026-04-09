@@ -3,7 +3,7 @@ import re
 import zipfile
 
 from import_report import ImportReport
-from generateJSON import generate_json_file
+from import_mobius import import_mobius_package
 from xml_scraper import get_sheet_data_from_xml
 from xml_scraper.get_xml_data import get_prop_value
 
@@ -111,7 +111,7 @@ def test_generate_json_imports_assignment_unit_zip_exports(experimental_xml_path
     with zipfile.ZipFile(zip_path, "w") as zip_file:
         zip_file.writestr("manifest.xml", xml_text)
 
-    report = generate_json_file(str(zip_path), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
+    report = import_mobius_package(str(zip_path), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
     sheet_info = load_json(destination / "SheetInfo.json")
 
     assert report.source_type == "zip"

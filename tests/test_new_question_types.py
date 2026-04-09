@@ -1,6 +1,6 @@
 import pytest
 
-from generateJSON import generate_json_file
+from import_mobius import import_mobius_package
 from import_report import ImportReport
 from render_common import normalize_response_area_for_render, render_sheet
 from xml_scraper.get_xml_data import normalize_response
@@ -66,7 +66,7 @@ def test_html_response_renders_and_round_trips(tmp_path):
     render_result = render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "html_imported"
 
-    generate_json_file(render_result["xml_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["xml_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
     question = load_question_by_title(imported, "HTML Widget")
     response = question["parts"][0]["response"]
 
@@ -93,7 +93,7 @@ def test_html_response_round_trip_with_preserved_uids_can_be_rendered_again(tmp_
     render_result = render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "html_roundtrip_imported"
 
-    generate_json_file(render_result["xml_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["xml_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
     rerender_result = render_sheet(imported, "manifests/assignment.xml", make_render_settings())
     response = load_question_by_title(imported, "HTML Widget")["parts"][0]["response"]
 
@@ -121,7 +121,7 @@ def test_document_upload_response_normalizes_and_round_trips(tmp_path):
     render_result = render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "upload_imported"
 
-    generate_json_file(render_result["xml_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["xml_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
     response = load_question_by_title(imported, "Upload Work")["parts"][0]["response"]
 
     assert response["mode"] == "Document Upload"
@@ -135,7 +135,7 @@ def test_authored_uploads_sheet_round_trips_document_upload_and_media(uploads_sh
     render_result = render_sheet(uploads_sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "uploads_imported"
 
-    generate_json_file(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
     question = load_question_by_title(imported, "Hydrostatic Forces on a Curved Plate")
     response = question["parts"][2]["response"]
 

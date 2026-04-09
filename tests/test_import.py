@@ -2,7 +2,13 @@ import zipfile
 
 import bs4
 
-from generateJSON import gather_media_references, generate_json_file, resolve_manifest_path, safe_question_basename
+from import_mobius import (
+    gather_media_references,
+    import_mobius_package,
+    resolve_manifest_path,
+    safe_question_basename,
+    write_group_json,
+)
 from render_common import render_sheet
 from xml_scraper.get_xml_data import normalize_response
 
@@ -51,7 +57,7 @@ def test_generate_json_from_standard_zip_writes_expected_outputs(t01_sheet, tmp_
     render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
     destination = tmp_path / "imported-standard"
 
-    report = generate_json_file(render_result["zip_path"], str(destination), True, load_json(REPO_ROOT / "nobius.json"))
+    report = import_mobius_package(render_result["zip_path"], str(destination), True, load_json(REPO_ROOT / "nobius.json"))
 
     assert (destination / "SheetInfo.json").exists()
     assert (destination / "import_report.json").exists()
@@ -65,7 +71,7 @@ def test_generate_json_strip_uids_removes_sheet_and_question_uids(t01_sheet, tmp
     render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
     destination = tmp_path / "imported-no-uid"
 
-    generate_json_file(render_result["zip_path"], str(destination), True, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["zip_path"], str(destination), True, load_json(REPO_ROOT / "nobius.json"))
 
     sheet_info = load_json(destination / "SheetInfo.json")
     question = load_json(destination / "Fluids.json")
@@ -78,7 +84,7 @@ def test_standard_zip_round_trip_can_be_rendered_again(t01_sheet, tmp_path):
     render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "roundtrip-standard"
 
-    generate_json_file(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
     rerender_result = render_sheet(imported, "manifests/assignment.xml", make_render_settings())
     imported_sheet_info = load_json(imported / "SheetInfo.json")
 
@@ -92,7 +98,7 @@ def test_exam_zip_round_trip_can_be_rendered_again(t01_sheet, tmp_path):
     render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
     imported = tmp_path / "roundtrip-exam"
 
-    generate_json_file(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
     rerender_result = render_sheet(imported, "manifests/assignment.xml", make_render_settings(exam=True))
     imported_sheet_info = load_json(imported / "SheetInfo.json")
 
@@ -105,7 +111,7 @@ def test_t01_round_trip_preserves_custom_response_shape(t01_sheet, tmp_path):
     render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "roundtrip-custom"
 
-    generate_json_file(render_result["zip_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["zip_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
     question = load_question_by_title(imported, "Volume and Mass of Truncated Cone")
     custom_response = question["parts"][0]["custom_response"]
 
@@ -118,7 +124,7 @@ def test_t02_round_trip_preserves_algorithmic_question_content(t02_sheet, tmp_pa
     render_result = render_sheet(t02_sheet, "manifests/assignment.xml", make_render_settings())
     imported = tmp_path / "roundtrip-t02"
 
-    generate_json_file(render_result["zip_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
+    import_mobius_package(render_result["zip_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
     question = load_question_by_title(imported, "Hydraulic Press")
 
     assert "algorithm" in question
@@ -130,7 +136,7 @@ def test_import_report_for_exam_style_round_trip_records_warning_for_nonstandard
     render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
     imported = tmp_path / "roundtrip-report"
 
-    report = generate_json_file(render_result["zip_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
+    report = import_mobius_package(render_result["zip_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
 
     assert any("Sheet name did not match" in warning["message"] for warning in report.warnings)
 
@@ -138,7 +144,7 @@ def test_import_report_for_exam_style_round_trip_records_warning_for_nonstandard
 def test_generate_json_imports_real_question_types_demo_zip(question_types_demo_zip, tmp_path):
     destination = tmp_path / "question-types-demo"
 
-    report = generate_json_file(str(question_types_demo_zip), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
+    report = import_mobius_package(str(question_types_demo_zip), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
     sheet_info = load_json(destination / "SheetInfo.json")
 
     assert report.source_type == "zip"
@@ -158,7 +164,7 @@ def test_generate_json_imports_real_question_types_demo_zip(question_types_demo_
 def test_real_question_types_demo_zip_surfaces_import_warnings_explicitly(question_types_demo_zip, tmp_path):
     destination = tmp_path / "question-types-demo-report"
 
-    report = generate_json_file(str(question_types_demo_zip), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
+    report = import_mobius_package(str(question_types_demo_zip), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
 
     assert any("Question title could not be recovered" in warning["message"] for warning in report.warnings)
     assert any("Response area tag couldn't be found" in warning["message"] for warning in report.warnings)
@@ -167,7 +173,7 @@ def test_real_question_types_demo_zip_surfaces_import_warnings_explicitly(questi
 def test_generate_json_imports_real_roundtrip_demo_zip_to_expected_json_shape(roundtrip_demo_zip, tmp_path):
     destination = tmp_path / "moodle-roundtrip-imported"
 
-    report = generate_json_file(str(roundtrip_demo_zip), str(destination), False, load_json(REPO_ROOT / "nobius.json"))
+    report = import_mobius_package(str(roundtrip_demo_zip), str(destination), False, load_json(REPO_ROOT / "nobius.json"))
     text_entry = load_question_by_title(destination, "Text Entry-20260408_220141")
     multiple_choice = load_question_by_title(destination, "Multiple Choice-20260408_220141")
     numerical = load_question_by_title(destination, "Numerical-20260408_220141")
@@ -207,7 +213,7 @@ def test_generate_json_imports_real_roundtrip_demo_zip_to_expected_json_shape(ro
 def test_generate_json_imports_real_roundtrip_demo_zip_with_multipart_question(roundtrip_demo_zip, tmp_path):
     destination = tmp_path / "moodle-roundtrip-demo-imported"
 
-    report = generate_json_file(str(roundtrip_demo_zip), str(destination), False, load_json(REPO_ROOT / "nobius.json"))
+    report = import_mobius_package(str(roundtrip_demo_zip), str(destination), False, load_json(REPO_ROOT / "nobius.json"))
     multipart = load_question_by_title(destination, "Multipart hybrid exercise")
     multiple_selection = load_json(destination / "Multiple selection problem.json")
 
@@ -372,7 +378,7 @@ def test_template_questions_zip_round_trip_imports_successfully_and_omits_hidden
     render_result = render_sheet(template_questions_sheet, "manifests/assignment.xml", make_render_settings())
     destination = tmp_path / "template-questions-imported"
 
-    report = generate_json_file(render_result["zip_path"], str(destination), False, load_json(REPO_ROOT / "nobius.json"))
+    report = import_mobius_package(render_result["zip_path"], str(destination), False, load_json(REPO_ROOT / "nobius.json"))
 
     assert report.source_type == "zip"
 
@@ -418,8 +424,6 @@ def test_generate_json_sanitizes_duplicate_or_invalid_question_filenames(tmp_pat
             {"title": '', "parts": [], "uid": "3"},
         ]
     }
-
-    from generateJSON import write_group_json
 
     outputs = write_group_json(group, tmp_path)
     basenames = load_json(tmp_path / "SheetInfo.json")["questions"]
