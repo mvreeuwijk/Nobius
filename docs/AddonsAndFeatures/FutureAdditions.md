@@ -1,34 +1,57 @@
 # Future additions
 
-List of all the features we did not get around to implementing:
+This page lists realistic next steps for Nobius in its current form.
 
-- Move LaTeX rendering from Mobius to the templating engine (this will considerably speed up load times) by rendering the latex to the html directly. This could be done in a number of ways:
-    - Use a command line script to generate MathJax or MathML code
-    - Use a python package to generate math equations as SVGs
-    - Make a call to a MathJax API, similarly to mobius except this will only have to render upon generating the sheets, not in the browser.
+## Workflow and interface
 
-- Storing sheet/question data in CSON or YAML instead of JSON format. This will allow us to:
-    - Make use of multiline-strings
-    - Have a clearer structure and more readable layout
-    - Remove double escpaing backslashes for LaTeX equations.
+- Add a simple user interface over the four main workflows:
+  - `export_mobius.py`
+  - `preview_html.py`
+  - `export_pdf.py`
+  - `import_mobius.py`
+- Return clearer machine-readable output paths from the CLI tools so a future UI can call them more easily.
+- Improve reporting and diagnostics for import/export jobs, especially when a conversion succeeds with warnings rather than failing outright.
 
-- If using JSON, add functionality for author to add notes to question and sheetinfo json files. e.g. author_notes. If using another language which supports comments this wouldn't be necessary. (Could also make compatible with generateJSON scraper by adding it in the author notes box in Mobius)
+## Import and round-trip fidelity
 
-- Bring back submit button and rename it to "Reset" (See where is brings the student when clicked), so that when a sheet needs to be force-graded when changes are made, the students can be asked to "reset" the sheet.
+- Expand the documented import support matrix so it is clear which fields are:
+  - exported by Nobius
+  - recoverable from plain Mobius exports
+  - recoverable only from Nobius-annotated exports
+- Add stronger tests around the round-trip template invariants, especially the HTML markers required for high-fidelity re-import.
+- Continue hardening the importer against malformed or partially-corrupt Mobius exports.
 
-- Current behaviour of response areas in a single part:
-    * Response areas in part and structured tutorial are all marked at once, this means the current standard is to only add response areas in one of those blocks
-    * For the future:
-        - Make custom 'Check' button that calls to the original one once all the hiding has been done properly. Factually we simulate a click on the original check button which is now hidden after all response areas to be hidden are so.
+## PDF and preview output
 
-- Automatically generate the Lessons and Assignments for generated sheets to save time
+- Improve PDF modes further:
+  - exercise PDF
+  - solutions PDF
+  - review/checking PDF with metadata
+- Add optional pre-rendered maths for preview and PDF output where this improves speed or portability.
+- Improve HTML preview fidelity further where it still depends on external Mobius platform styling.
 
-- Give choice of bracket for a matrix response area bracket or square bracket or curly bracket
+## Authoring model
 
-- Give arrow controls for matrix response areas
+- Support author notes in sheet and question source files without affecting rendered output.
+- Add sheet-level defaults that override tool-wide defaults for common settings such as grading behaviour.
+- Consider a move to YAML as an alternative source format if the benefits are worth the migration cost:
+  - multiline strings
+  - easier comments
+  - less escaping noise for LaTeX-heavy content
 
-- Add a custom defaults file for each sheet - like if we want to change the default grading code for a whole sheet we can change it there. This file would override the tool-wide defaults.
+## Response-area improvements
 
-- Fix the "Try Another" button for algorithmic questions. Currently it seems to reload the page without calling QuestionJavascript again, causing our whole custom logic to break down. In the future, we should move that button, and attach an extra event handler which would re-run that script, but it might now be as easy as that idk.
+- Add more matrix response controls, such as:
+  - configurable bracket style
+  - arrow-key or explicit navigation controls
+- Improve behaviour for questions with no response areas, for example with a clearer completion action than a normal check flow.
+- Revisit algorithmic-question `Try Another` behaviour so the custom question logic is re-applied consistently after regeneration.
 
-- Improve and get more accurate data collection. For example if a question didn't have any response areas, we probably want a "Mark as Done" button for those.
+## Packaging and deployment
+
+- Automate more of the package creation process around lessons and assignments where this still saves manual work in Mobius.
+- Keep tightening the contract between:
+  - Mobius-valid templates
+  - Nobius round-trippable templates
+
+This list is intentionally limited to work that still fits the current tool structure and workflows.

@@ -2,7 +2,7 @@
 
 Python package to generate tutorial sheets for the EdTech Mobius platform given a json file (June 2020).
 
-Configuration is now driven by the repo-level `nobius.json` file rather than editing hardcoded URLs in the generator source.
+Configuration is driven by the repo-level `nobius.json` file rather than editing hardcoded URLs in the generator source.
 
 The checked-in `nobius.json` values are placeholders. Replace the `render.*_location` entries with the real Mobius theme/script paths for your deployment before running the render CLIs.
 
@@ -18,7 +18,7 @@ Primary workflows:
 
 Nobius treats `uid` values as stable question identities. That matters when you export/import the same content to Mobius multiple times: if the `uid` changes, Mobius will treat the question as new content rather than an update.
 
-Because of that, rendering now refuses to proceed when a sheet or question is missing a `uid`. For a brand-new sheet, initialize and persist missing identities once:
+Because of that, rendering refuses to proceed when a sheet or question is missing a `uid`. For a brand-new sheet, initialize and persist missing identities once:
 
 ```bash
 python export_mobius.py "C:\path\to\sheet" --write-missing-uids --config nobius.json
@@ -28,7 +28,7 @@ After that, normal renders should be read-only with respect to the source JSON.
 
 ## HTML mode
 
-Nobius now supports a first-class `HTML` response mode for questions that need a custom interactive widget.
+Nobius supports a first-class `HTML` response mode for questions that need a custom interactive widget.
 
 This is intended for cases where `custom_response` is not enough:
 

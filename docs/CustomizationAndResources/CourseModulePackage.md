@@ -26,7 +26,7 @@ The rendered `manifest.xml` now follows a course-module structure with these top
 - `schools`
 - `webResources`
 
-For a single rendered sheet, Nobius currently emits:
+For a single rendered sheet, Nobius emits:
 
 - one assignment unit
 - one assignment of category `LESSON`
@@ -41,7 +41,7 @@ This avoids importing stray files that happen to exist in a sheet `media/` folde
 
 ## Batch merge
 
-`generateAll.py` merges single-sheet manifests into a larger course-module manifest using the same inferred structure.
+`export_mobius_batch.py` merges single-sheet manifests into a larger course-module manifest using the same inferred structure.
 
 The batch skeleton lives in:
 

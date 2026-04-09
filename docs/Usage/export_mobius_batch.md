@@ -1,13 +1,13 @@
-# generateAll.py Documentation
+# export_mobius_batch.py Documentation
 
 ## Introduction
 
-`generateAll.py` is a batch wrapper around `export_mobius.py`. It renders every sheet directory in a parent folder, merges the produced XML manifests into one `all_sheets.xml`, and bundles the copied media into `all_media.zip`.
+`export_mobius_batch.py` is a batch wrapper around `export_mobius.py`. It renders every sheet directory in a parent folder, merges the produced XML manifests into one `all_sheets.xml`, and bundles the copied media into `all_media.zip`.
 
 ## Usage
 
 ```bash
-python generateAll.py SHEETS_DIR OUTPUT_DIR [--reset-uid] [--config CONFIG] [--render-profile {standard,exam}] [--continue-on-error]
+python export_mobius_batch.py SHEETS_DIR OUTPUT_DIR [--reset-uid] [--config CONFIG] [--render-profile {standard,exam}] [--continue-on-error]
 ```
 
 - `SHEETS_DIR`: parent directory containing one subdirectory per sheet
@@ -19,7 +19,7 @@ python generateAll.py SHEETS_DIR OUTPUT_DIR [--reset-uid] [--config CONFIG] [--r
 
 ## Outputs
 
-`generateAll.py` writes:
+`export_mobius_batch.py` writes:
 
 - `all_sheets.xml`
 - `all_media.zip`

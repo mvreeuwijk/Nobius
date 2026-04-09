@@ -1,6 +1,6 @@
 # Testing
 
-Nobius now includes a pytest regression suite covering the shared renderer, the Mobius import path, and XML scraping.
+Nobius includes a pytest regression suite covering the shared renderer, the Mobius import path, and XML scraping.
 
 ## Running the suite
 

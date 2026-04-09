@@ -29,7 +29,7 @@ You can override that on the command line with:
 python export_mobius.py SHEET_DIR --config path/to/config.json
 python export_mobius.py SHEET_DIR --config path/to/config.json --render-profile exam
 python import_mobius.py EXPORT.zip --config path/to/config.json
-python generateAll.py SHEETS_DIR OUTPUT_DIR --config path/to/config.json
+python export_mobius_batch.py SHEETS_DIR OUTPUT_DIR --config path/to/config.json
 ```
 
 ## Supported keys
@@ -69,6 +69,6 @@ If exam and non-exam deployments use the same Mobius resources, you can point bo
 ## Import settings
 
 - `import.strip_uids`: default for whether imported JSON should have `uid` values removed
-- `import.media_strategy`: currently `copy`; referenced media from the Mobius export is copied into the imported sheet folder
+- `import.media_strategy`: `copy`; referenced media from the Mobius export is copied into the imported sheet folder
 
 Command-line flags still override config defaults. For example, `import_mobius.py --no-uid` strips UIDs even if `import.strip_uids` is `false` in the active config JSON.

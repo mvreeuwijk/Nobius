@@ -2,7 +2,7 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
-from generateAll import get_question_timings, get_timings_summary
+from export_mobius_batch import get_question_timings, get_timings_summary
 
 from .conftest import REPO_ROOT, create_sheet_fixture, load_json, make_config_payload, write_json
 
@@ -99,7 +99,7 @@ def test_generate_all_cli_can_initialize_missing_uids_and_merge_output(tmp_path)
     subprocess.run(
         [
             sys.executable,
-            "generateAll.py",
+            "export_mobius_batch.py",
             str(sheets_root),
             str(output_root),
             "--config",
@@ -198,7 +198,7 @@ def test_generate_all_cli_continue_on_error_preserves_successful_sheet_output(tm
     result = subprocess.run(
         [
             sys.executable,
-            "generateAll.py",
+            "export_mobius_batch.py",
             str(sheets_root),
             str(output_root),
             "--config",
@@ -254,7 +254,7 @@ def test_generate_all_cli_supports_exam_render_profile(tmp_path):
     subprocess.run(
         [
             sys.executable,
-            "generateAll.py",
+            "export_mobius_batch.py",
             str(sheets_root),
             str(output_root),
             "--config",
@@ -288,7 +288,7 @@ def test_generate_all_cli_fails_cleanly_when_no_sheet_xmls_are_produced(tmp_path
     result = subprocess.run(
         [
             sys.executable,
-            "generateAll.py",
+            "export_mobius_batch.py",
             str(sheets_root),
             str(output_root),
             "--config",
@@ -350,7 +350,7 @@ def test_generate_all_cli_all_failed_continue_on_error_exits_cleanly(tmp_path):
     result = subprocess.run(
         [
             sys.executable,
-            "generateAll.py",
+            "export_mobius_batch.py",
             str(sheets_root),
             str(output_root),
             "--config",

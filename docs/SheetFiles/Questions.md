@@ -2,7 +2,7 @@
 
 When authoring using Nobius, question files will be the ones you will spend most of your time in. These are the files which hold all information and content to be rendered into Mobius questions and sheets. Since all your work is saved in .json files, it lives separate from its form as Mobius content. This tool focuses on converting data from question files into Mobius-understandable content, however these files could be used anywhere else to generate .pdf, or LaTeX documents for example.
 
-For a concise summary of supported fields, whether they are required, and whether they are currently implemented, see the [Field Reference](FieldReference.md).
+For a concise summary of supported fields, whether they are required, and whether they are implemented, see the [Field Reference](FieldReference.md).
 
 ## Parameters
 

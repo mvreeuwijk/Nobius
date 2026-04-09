@@ -22,12 +22,12 @@ Sheet Folder
 First of all, when generating a sheet, you must make sure that the folder you are selecting contains a [`SheetInfo.json`][2]. The folder should also contain all the JSON files for each of the [questions][1] in that sheet. Finally, if some questions require media, the folder should also contain a `Media` directory in which all media for the sheet can be placed. When you run the script, the output files will be placed in a `renders` folder in your chosen directory.
 
 !!! info
-    All .json files contained in a sheet will be given uids when they are first rendered by [`generateGroup`][3] or [`generateAll`][4]
+    All .json files contained in a sheet will be given uids when they are first rendered by [`export_mobius`][3] or [`export_mobius_batch`][4]
 
 [1]: Questions.md
 [2]: SheetInfo.md
 [3]: ../Usage/export_mobius.md
-[4]: ../Usage/generateAll.md
+[4]: ../Usage/export_mobius_batch.md
 
 ## Question
 These files live in the main sheet directory, and hold the actual content data of each question. This includes any question parts, media references and response areas.

@@ -1,6 +1,6 @@
 # HTML Response
 
-Nobius now supports a first-class `HTML` response mode for questions that need a custom HTML/CSS/JavaScript interaction without overloading `custom_response`.
+Nobius supports a first-class `HTML` response mode for questions that need a custom HTML/CSS/JavaScript interaction without overloading `custom_response`.
 
 This maps to Möbius's HTML response component concept: the student interacts with a custom widget, JavaScript returns a response value, and that value can be automatically or manually graded.
 
@@ -34,4 +34,4 @@ This maps to Möbius's HTML response component concept: the student interacts wi
 
 - Use `HTML` when the student interaction itself is custom.
 - Use `custom_response` when you only want custom layout for standard Möbius response areas.
-- Manual grading is supported by Möbius for HTML components, but Nobius currently only enforces adaptive-question restrictions for essay and document-upload components.
+- Manual grading is supported by Möbius for HTML components, but Nobius only enforces adaptive-question restrictions for essay and document-upload components.

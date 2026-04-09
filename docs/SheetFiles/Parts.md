@@ -8,7 +8,7 @@ This parameter is stored in the [`parts`][1] list in a [question][2] JSON file. 
  - [worked solutions][7]
  - [structured tutorial][8]
 
-For a concise summary of supported part fields, whether they are required, and whether they are currently implemented, see the [Field Reference](FieldReference.md).
+For a concise summary of supported part fields, whether they are required, and whether they are implemented, see the [Field Reference](FieldReference.md).
 
 [1]: Questions.md#parts
 [2]: Questions.md
@@ -56,7 +56,7 @@ All vanilla inputs (as well as the [Matrix][9] response area) can be added to a 
 [9]: ../ResponseAreas/Advanced/matrix.md
 
 ### Importing Multiple response areas
-If multiple response areas are required for a part, these can be included similarly to [single response areas][10], but in a list of dictionaries each containing a `response`. Now that an number of response areas will be displayed to a part, the `pre_response_text` and `post_response_text` will need to be used to indicate to the student which answer to input where. The can be added inside of each item in the `responses` list if required.
+If multiple response areas are required for a part, these can be included similarly to [single response areas][10], but in a list of dictionaries each containing a `response`. When multiple response areas are displayed in a part, `pre_response_text` and `post_response_text` should be used to indicate which answer belongs where. They can be added inside each item in the `responses` list when needed.
 
 ??? abstract "Example"
     ```json

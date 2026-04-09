@@ -20,7 +20,7 @@ nav:
       - preview_html.py: "Usage/preview_html.md"
       - export_pdf.py: "Usage/export_pdf.md"
       - import_mobius.py: "Usage/import_mobius.md"
-      - generateAll.py: "Usage/generateAll.md"
+      - export_mobius_batch.py: "Usage/export_mobius_batch.md"
       - Testing: "Usage/testing.md"
       - Notes: "Usage/notes.md"
   - Sheet Files:

@@ -48,7 +48,7 @@ def build_render_parser(description, path_help):
         "--batch-destination",
         "-d",
         type=str,
-        help="Batch render destination folder used by generateAll.py.",
+        help="Batch render destination folder used by export_mobius_batch.py.",
     )
     parser.add_argument(
         "--config",
