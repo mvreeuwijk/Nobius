@@ -341,6 +341,11 @@ def build_course_module_context(sheet_info, questions, media_files, exam=False):
         "name": "web_folders/Scripts",
         "uri": "web_folders/Scripts",
     }]
+    if media_files:
+        web_resource_folders.insert(0, {
+            "name": f"web_folders/{sheet_info['name']}",
+            "uri": f"web_folders/{sheet_info['name']}",
+        })
 
     return {
         "module": {

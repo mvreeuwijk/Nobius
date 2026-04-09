@@ -70,7 +70,7 @@
         </div>
         <div class="body">
             <p>
-                The equation questions use Maple syntax to evaluate expressions. As with Python, basic operators use the symbols 
+                The equation questions use Maple syntax to evaluate expressions. As with Python, basic operators use the symbols&nbsp;
                     <span class="code">+</span>
                     <span class="code">-</span>
                     <span class="code">*</span>
@@ -78,27 +78,27 @@
                     <span class="code">^</span>
                 and parentheses can be used to structure your expressions.
 
-                Some common functions can also be used such as 
-                    <span class="code">sqrt()</span>, 
-                    <span class="code">sin()</span> and 
+                Some common functions can also be used such as
+                    <span class="code">sqrt()</span>,&nbsp;
+                    <span class="code">sin()</span> and
                     <span class="code">arcsin()</span>.
 
-                To get the natural exponential, use 
-                    <span class="code">exp()</span> as 
-                    <span class="code">e</span> 
+                To get the natural exponential, use
+                    <span class="code">exp()</span> as
+                    <span class="code">e</span>
                 is not intepreted as Euler's number.
             </p>
             <p>
-                For Greek letters, type the full name of the letter. For example 
-                    <span class="code">mu*U</span> 
-                will render \( \mu U \) (there is no need to use a back slash).
+                For Greek letters, type the full name of the letter. For example
+                    <span class="code">mu*U</span>&nbsp;
+                will render \( \mu U \)&nbsp;(there is no need to use a back slash).
             </p>
             {% if add_maple_preview_help %}
             <p>
                 Click the
                     <svg class="maple-preview-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
                         <circle cx="13" cy="13" r="10"></circle>
-                        <text x="13" y="13">Ω</text>
+                        <text x="13" y="13">&Omega;</text>
                     </svg>
                 to preview your expressions.
             </p>
@@ -122,10 +122,18 @@
 
     {% if part.final_answer %}
     <div class="final-answer" id="fa{{ part_index }}">
+        {% if part.final_answer.text %}
         <p data-propname="{{ propname }}.final_answer.text">
         <!-- CHANGE FINAL ANSWER TEXT HERE -->
         {{ part.final_answer.text }}
         </p>
+        {% endif %}
+        {% if part.final_answer.equation %}
+        <p class="sbs-eq" data-propname="{{ propname }}.final_answer.equation">
+        <!-- CHANGE FINAL ANSWER EQUATION HERE -->
+        {{ part.final_answer.equation }}
+        </p>
+        {% endif %}
         {% if part.final_answer.media %}
         {{ addMedia(part.final_answer.media, propname + ".final_answer") }}
         {% endif %}

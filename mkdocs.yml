@@ -26,6 +26,7 @@ nav:
   - Sheet Files:
       - Sheet File Structure: "SheetFiles/SheetFileStructure.md"
       - SheetInfo.json: "SheetFiles/SheetInfo.md"
+      - Field Reference: "SheetFiles/FieldReference.md"
       - Question files: "SheetFiles/Questions.md"
       - Parts: "SheetFiles/Parts.md"
   - Response areas:

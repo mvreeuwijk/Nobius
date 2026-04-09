@@ -8,6 +8,8 @@ This parameter is stored in the [`parts`][1] list in a [question][2] JSON file. 
  - [worked solutions][7]
  - [structured tutorial][8]
 
+For a concise summary of supported part fields, whether they are required, and whether they are currently implemented, see the [Field Reference](FieldReference.md).
+
 [1]: Questions.md#parts
 [2]: Questions.md
 
@@ -102,12 +104,29 @@ Optional, This parameter has the same syntax as the one used at the master state
 
 ## `final_answer`
 Optional, part of the `help` module
-final answer block
+final answer block. Supports:
+
+- `text`
+- `equation`
+- `media`
 
 ## `worked_solutions`
 Optional, part of the `help` module
-block
+step-by-step worked solution content. Each step can contain:
+
+- `text`
+- `equation`
+- `media`
+- `is_final_answer`
 
 ## `structured_tutorial`
 Optional, part of the `help` module
-block
+step-by-step tutorial content. Each step can contain:
+
+- `text`
+- `equation`
+- `h5p_link`
+- `media`
+- `response`
+- `responses`
+- `custom_response`

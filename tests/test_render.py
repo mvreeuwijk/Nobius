@@ -11,6 +11,7 @@ from render_common import NobiusRenderError, load_json_file, make_matrix, proces
 
 from .conftest import (
     REPO_ROOT,
+    create_sheet_fixture,
     load_question_by_title,
     make_config_payload,
     make_render_settings,
@@ -61,6 +62,18 @@ def test_render_sheet_zip_contains_manifest_and_media(t01_sheet):
     assert "manifest.xml" in members
     assert "web_folders/Scripts/QuestionJavaScript.txt" in members
     assert "web_folders/Fundamentals/TruncatedCone.png" in members
+
+
+def test_render_sheet_manifest_uses_packaged_media_paths(t01_sheet):
+    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
+
+    assert "__BASE_URI__Fundamentals/TriangularPrism.png" in rendered_xml
+    assert "__BASE_URI__Fundamentals/TruncatedCone.png" in rendered_xml
+    assert "__BASE_URI__Fundamentals/TruncatedConeAnswer01.png" in rendered_xml
+    assert 'class="media-container"' in rendered_xml
+    assert "<uri><![CDATA[ web_folders/Fundamentals ]]></uri>" in rendered_xml
+    assert "<uri><![CDATA[ web_folders/Scripts ]]></uri>" in rendered_xml
 
 
 def test_generate_group_cli_uses_config_values_in_standard_template(t01_sheet, tmp_path):
@@ -201,6 +214,42 @@ def test_roundtrip_exam_render_replaces_response_nan_names_with_stable_part_name
     assert 'id="ah-btn2"' in rendered_xml
     assert 'class="answers-nav-button equation-help-button" id="eh-btn2"' in rendered_xml
     assert "<2>" in rendered_xml
+
+
+def test_final_answer_equation_renders_into_answer_panel(tmp_path):
+    sheet = create_sheet_fixture(
+        tmp_path,
+        "final_answer_equation_sheet",
+        {
+            "name": "Final Answer Equation Demo",
+            "description": "Synthetic fixture for final answer equation rendering",
+            "questions": ["Equation Final Answer"],
+            "number": 1,
+            "uid": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab",
+        },
+        [
+            {
+                "title": "Equation Final Answer",
+                "master_statement": "Render the final answer equation.",
+                "parts": [
+                    {
+                        "statement": "Give the symbolic result.",
+                        "response": {"mode": "Maple", "mapleAnswer": "x^2", "maple": "evalb(($ANSWER)-($RESPONSE)=0);"},
+                        "final_answer": {
+                            "equation": r"\(x^2\)",
+                        },
+                    }
+                ],
+                "uid": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+            }
+        ],
+    )
+
+    render_sheet(sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    rendered_xml = (sheet / "renders" / "Final Answer Equation Demo.xml").read_text(encoding="utf-8")
+
+    assert 'data-propname="parts.1.final_answer.equation"' in rendered_xml
+    assert r"\(x^2\)" in rendered_xml
 
 
 def test_example_export_uses_question_bank_manifest_shape(example_sheet):
