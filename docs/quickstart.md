@@ -24,10 +24,10 @@ Now, the Nobius rendering scripts need to be setup to correctly reference the fi
 - Opening the Mobius Content Repository in a web browser, select **? Questions** under the *Current Class* tab.
 - You'll then be able to create a Mobius question (you'll be able to delete it later)
     - Click the **Create New** button at the bottom of the page, and select *Question/Text*
-- Now that you're in the native Mobius *Question Designer* tool, within the editor in the *Question Text* section, select the *Image* upload button, as seen in the screenshot below. ![Image upload example from Mobius](Assets\Screenshots\MobiusImageUpload.jpg)
+- Now that you're in the native Mobius *Question Designer* tool, within the editor in the *Question Text* section, select the *Image* upload button, as seen in the screenshot below. ![Image upload example from Mobius](Assets/Screenshots/MobiusImageUpload.jpg)
 - In the *Image Properties* window that pops up, click the **Browser Server** button. This will open a new *CKFinder* window, which allows you to browse through the static files you have stored on mobius.
 - You should be able to see a *Scripts* folder within the file structure, this comes from the `ResourcesBundle` you uploaded earlier. Click on it.
-- Within the folder, will be a `QuestionsJavascript.txt` file. Rightclick it, and select **View**, as in the screenshot below: ![CKFinder screenshot showing QuestionJavascript.txt](Assets\Screenshots\CKFinderQuestionJavascript.png)
+- Within the folder, will be a `QuestionsJavascript.txt` file. Rightclick it, and select **View**, as in the screenshot below: ![CKFinder screenshot showing QuestionJavascript.txt](Assets/Screenshots/CKFinderQuestionJavascript.png)
 - This will open the `QuestionJavaScript.txt` file in a new window. Copy the URL of this page, starting from and including */web/*.
 
 !!! Example
@@ -88,8 +88,8 @@ You are now ready to start making your own sheets! have a look at the different 
 - [Question Files][4]
 - [True-False Response Area][5]
 
-[1]: CustomizationAndResources\QuestionJavascript
-[2]: Usage\generateGroup
-[3]: SheetFiles\SheetFileStructure
-[4]: SheetFiles\Questions
-[5]: ResponseAreas\Vanilla\true_false
+[1]: CustomizationAndResources/QuestionJavascript.md
+[2]: Usage/generateGroup.md
+[3]: SheetFiles/SheetFileStructure.md
+[4]: SheetFiles/Questions.md
+[5]: ResponseAreas/Vanilla/true_false.md

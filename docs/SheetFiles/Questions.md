@@ -72,7 +72,7 @@ This parameter holds information about each part of a question, it is a list of 
     ```
 
 [1]: Questions.md#master_statement
-[2]: Questions.md#statement
+[2]: Parts.md#statement
 [3]: Questions.md#
 [4]: Parts.md
 
