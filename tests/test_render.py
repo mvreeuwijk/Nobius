@@ -71,7 +71,7 @@ def test_generate_group_cli_uses_config_values_in_standard_template(t01_sheet, t
     ))
 
     subprocess.run(
-        [sys.executable, "generateGroup.py", str(t01_sheet), "--config", str(config_path)],
+        [sys.executable, "export_mobius.py", str(t01_sheet), "--config", str(config_path)],
         cwd=REPO_ROOT,
         check=True,
         capture_output=True,
@@ -94,7 +94,7 @@ def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tm
     subprocess.run(
         [
             sys.executable,
-            "generateGroup.py",
+            "export_mobius.py",
             str(t01_sheet),
             "--config",
             str(config_path),
@@ -113,6 +113,39 @@ def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tm
     assert "/web/unit-test/exam.js" in rendered_xml
 
 
+def test_generate_group_cli_supports_packaged_exam_script_uri(t01_sheet, tmp_path):
+    config_path = tmp_path / "nobius.json"
+    write_json(config_path, make_config_payload(
+        exam_theme_location="/themes/unit-test-exam",
+        exam_scripts_location="__BASE_URI__Scripts/QuestionJavaScript.txt",
+    ))
+
+    subprocess.run(
+        [
+            sys.executable,
+            "export_mobius.py",
+            str(t01_sheet),
+            "--config",
+            str(config_path),
+            "--render-profile",
+            "exam",
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
+    zip_path = t01_sheet / "renders" / "Fundamentals.zip"
+
+    assert "/themes/unit-test-exam" in rendered_xml
+    assert "__BASE_URI__Scripts/QuestionJavaScript.txt" in rendered_xml
+    with zipfile.ZipFile(zip_path, "r") as zip_file:
+        members = set(zip_file.namelist())
+    assert "web_folders/Scripts/QuestionJavaScript.txt" in members
+
+
 def test_generate_html_preview_cli_creates_preview_pages(t01_sheet, tmp_path):
     preview_dir = tmp_path / "preview"
     config_path = tmp_path / "nobius.json"
@@ -121,7 +154,7 @@ def test_generate_html_preview_cli_creates_preview_pages(t01_sheet, tmp_path):
     subprocess.run(
         [
             sys.executable,
-            "generateHTMLpreview.py",
+            "preview_html.py",
             str(t01_sheet),
             "--config",
             str(config_path),
@@ -165,15 +198,18 @@ def test_roundtrip_exam_render_replaces_response_nan_names_with_stable_part_name
     assert "responseNaN" not in rendered_xml
     assert "<name><![CDATA[ sro_id_1 ]]></name>" in rendered_xml
     assert "<name><![CDATA[ sro_id_2 ]]></name>" in rendered_xml
+    assert 'id="ah-btn2"' in rendered_xml
+    assert 'class="answers-nav-button equation-help-button" id="eh-btn2"' in rendered_xml
+    assert "<2>" in rendered_xml
 
 
 def test_example_export_uses_question_bank_manifest_shape(example_sheet):
-    legacy_settings = {
+    example_settings = {
         "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
         "scripts_location": "/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt",
     }
 
-    result = render_sheet(example_sheet, "manifests/questionbank.xml", legacy_settings)
+    result = render_sheet(example_sheet, "manifests/questionbank.xml", example_settings)
     current_xml = (example_sheet / "renders" / "Experimental Sheet V2.xml").read_text(encoding="utf-8")
     soup = bs4.BeautifulSoup(current_xml, "lxml-xml")
     root = soup.find_all(recursive=False)[0]
@@ -325,7 +361,7 @@ def test_generate_group_cli_can_write_missing_uids(t01_sheet, tmp_path):
     subprocess.run(
         [
             sys.executable,
-            "generateGroup.py",
+            "export_mobius.py",
             str(t01_sheet),
             "--config",
             str(config_path),
@@ -352,7 +388,7 @@ def test_generate_group_cli_reset_uid_rewrites_existing_source_uids(t01_sheet, t
     subprocess.run(
         [
             sys.executable,
-            "generateGroup.py",
+            "export_mobius.py",
             str(t01_sheet),
             "--config",
             str(config_path),

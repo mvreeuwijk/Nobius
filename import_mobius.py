@@ -186,7 +186,7 @@ def write_group_json(group, destination):
     return outputs
 
 
-def generate_json_file(target, dest, strip_uids, config):
+def import_mobius_package(target, dest, strip_uids, config):
     source_info = resolve_manifest_path(target)
     report = ImportReport(target, source_info["source_type"], dest, strip_uids)
 
@@ -249,4 +249,4 @@ if __name__ == "__main__":
     destination = args.destination if args.destination is not None else os.path.dirname(args.filepath)
     strip_uids = args.no_uid or config["import"]["strip_uids"]
 
-    generate_json_file(args.filepath, destination, strip_uids, config)
+    import_mobius_package(args.filepath, destination, strip_uids, config)

@@ -1,0 +1,62 @@
+{% from 'partials/addMedia.html' import addMedia %}
+{% from 'partials/responseWrapper.html' import responseWrapper %}
+{% from 'partials/answerHelp.html' import answerHelp %}
+{% from 'partials/answerHelpButton.html' import answerHelpButton %}
+{% from 'partials/inputSymbols.html' import inputSymbols %}
+
+{% macro renderPartBody(part, part_index, part_propname) %}
+{% set require_help_button = part.isMaple or (part.structured_tutorial or part.final_answer or part.worked_solutions) %}
+{% set add_maple_preview_help = part.responses is not defined or not part.responses %}
+
+<div class="part {{ 'active' if part_index == 1 }}" id="part{{ part_index }}">
+  <p class="part-statement" data-propname="{{ part_propname }}.statement">
+    <!-- CHANGE PART STATEMENT HERE -->
+    {{ part.statement }}
+  </p>
+
+  {% if part.media %}
+  {{ addMedia(part.media, part_propname) }}
+  {% endif %}
+
+  {#
+    The following implementation for response and responses is very messy, we need to eventually make a
+    better way of laying out the different types of response areas (matrix, normal, responses,... custom)
+  #}
+
+  {% if part.response %}
+  
+  {{ responseWrapper(part, part_index, part_propname, require_help_button) }}
+
+  {% elif part.responses %}
+
+  {% for item in part.responses %}
+  {% set response_propname = part_propname + ".responses." + loop.index|string %}
+  {% set add_help = require_help_button and loop.last %}
+  {{ responseWrapper(item, part_index, response_propname, add_help) }}
+  {% endfor %}
+
+  {% elif part.custom_response %}
+
+  <div class="response-wrapper" data-propname="{{ part_propname }}.custom_response">
+    <p>{{ part.custom_response }}</p>
+    {% if require_help_button %}
+    {{ answerHelpButton(part_index) }}
+    {% endif %}
+  </div>
+
+  {% endif %}
+
+  {% if require_help_button and not (part.response or part.responses or part.custom_response) %}
+  {{ answerHelpButton(part_index) }}
+  {% endif %}
+
+  {% if part.input_symbols %}
+  {{ inputSymbols(part.input_symbols) }}
+  {% endif %}
+
+  {% if require_help_button %}
+  {{ answerHelp(part, part_index, part_propname, add_maple_preview_help) }}
+  {% endif %}
+
+</div>
+{% endmacro %}

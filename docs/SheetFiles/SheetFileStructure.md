@@ -26,7 +26,7 @@ First of all, when generating a sheet, you must make sure that the folder you ar
 
 [1]: Questions.md
 [2]: SheetInfo.md
-[3]: ../Usage/generateGroup.md
+[3]: ../Usage/export_mobius.md
 [4]: ../Usage/generateAll.md
 
 ## Question

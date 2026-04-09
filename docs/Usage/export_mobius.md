@@ -1,7 +1,7 @@
-# generateGroup.py
+# export_mobius.py
 
 ## Introduction
-`generateGroup.py` is the main script from the Nobius toolset. It will convert your sheet folders into .xml and .zip files which can be imported directly into Mobius. Its main function is to populate the different template files with the question and sheet content you've made in JSON format. However is also validates data passed to it using a schema (ensuring the content uploaded to Mobius will be displayed properly), and takes care of adding defaults when no parameters are given.
+`export_mobius.py` is the main export script from the Nobius toolset. It converts sheet folders into `.xml` and `.zip` files which can be imported directly into Mobius. Its main function is to populate the different template files with the question and sheet content you've made in JSON format. It also validates the input using a schema so the rendered content is structurally sound before import.
 
 
 ## Prerequisites
@@ -20,7 +20,7 @@ In order to use this tool, python 3.6 or higher is required. The main modules us
 To use this tool, you should navigate to its location (the `Sheet Generator` folder), and call it using python as so:
 
 ```unix
-python generateGroup.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [--config CONFIG] [--render-profile {standard,exam}] [-h]
+python export_mobius.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [--config CONFIG] [--render-profile {standard,exam}] [-h]
 ```
 
 - `FILEPATH` is a required positional argument corresponding to the absolute or relative path to where you have stored the sheet folder you'd like to render.
@@ -35,11 +35,11 @@ python generateGroup.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [-
     Rendering now requires stable UIDs. If `uid` values are missing, the script will fail unless you explicitly pass `--write-missing-uids`.
 
 !!! tip
-    If you ever forget which arguments are accepted, and what they mean you can run `python generateGroup.py -h` to bring up the help menu for this script!
+    If you ever forget which arguments are accepted, and what they mean, you can run `python export_mobius.py -h` to bring up the help menu for this script.
 
 ### Example command
 ```unix
-python generateGroup.py "C:\Users\bob\Desktop\My new sheet" --write-missing-uids
+python export_mobius.py "C:\Users\bob\Desktop\My new sheet" --write-missing-uids
 ```
 
 ### Exam rendering
@@ -47,11 +47,11 @@ python generateGroup.py "C:\Users\bob\Desktop\My new sheet" --write-missing-uids
 Exam rendering now uses the same workflow with a different render profile:
 
 ```unix
-python generateGroup.py "C:\Users\bob\Desktop\My exam sheet" --render-profile exam --write-missing-uids
+python export_mobius.py "C:\Users\bob\Desktop\My exam sheet" --render-profile exam --write-missing-uids
 ```
 
 ## Configuration
 
-`generateGroup.py` now reads Mobius resource paths from `nobius.json` by default. See [Nobius Configuration][2] for the full configuration structure and override behaviour.
+`export_mobius.py` now reads Mobius resource paths from `nobius.json` by default. See [Nobius Configuration][2] for the full configuration structure and override behaviour.
 
 [2]: ../CustomizationAndResources/Configuration.md

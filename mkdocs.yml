@@ -16,8 +16,10 @@ nav:
   - About:
       - List of Features: "About/features.md"
   - Usage:
-      - generateGroup.py: "Usage/generateGroup.md"
-      - generateJSON.py: "Usage/generateJSON.md"
+      - export_mobius.py: "Usage/export_mobius.md"
+      - preview_html.py: "Usage/preview_html.md"
+      - export_pdf.py: "Usage/export_pdf.md"
+      - import_mobius.py: "Usage/import_mobius.md"
       - generateAll.py: "Usage/generateAll.md"
       - Testing: "Usage/testing.md"
       - Notes: "Usage/notes.md"

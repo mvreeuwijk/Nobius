@@ -1,12 +1,13 @@
 # Welcome to the Nobius docs
 
-Nobius is a set of utilities for authoring, rendering, and re-importing [Möbius](https://www.digitaled.com/products/assessment) content from local JSON source files.
+Nobius is a set of utilities for authoring, exporting, previewing, and re-importing [Mobius](https://www.digitaled.com/products/assessment) content from local JSON source files.
 
-The current workflow is built around three ideas:
+The current workflow is built around four main entry points:
 
-- keep authored content in version-controlled JSON rather than only in the Möbius editor
-- render that content into Möbius-ready XML and ZIP packages
-- import Möbius exports back into Nobius when edits are made in the platform
+- keep authored content in version-controlled JSON rather than only in the Mobius editor
+- export that content into Mobius-ready XML and ZIP packages
+- preview the rendered output locally in HTML
+- import Mobius exports back into Nobius when edits are made in the platform
 
 Nobius also supports a first-class `HTML` response mode for custom interactive widgets, in addition to standard response areas and custom response layouts.[^fork]
 
@@ -17,9 +18,11 @@ Make sure to visit the [Quickstart Guide](quickstart.md) to get started.
 ## Recommended entry points
 
 - [Quickstart Guide](quickstart.md)
-- [generateGroup.py](Usage/generateGroup.md)
+- [export_mobius.py](Usage/export_mobius.md)
   Exam-style rendering uses the same command with `--render-profile exam`.
-- [generateJSON.py](Usage/generateJSON.md)
+- [preview_html.py](Usage/preview_html.md)
+- [export_pdf.py](Usage/export_pdf.md)
+- [import_mobius.py](Usage/import_mobius.md)
 - [HTML response mode](ResponseAreas/Advanced/html.md)
 - [Testing](Usage/testing.md)
 

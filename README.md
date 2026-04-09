@@ -8,8 +8,10 @@ The checked-in `nobius.json` values are placeholders. Replace the `render.*_loca
 
 Primary workflows:
 
-- render sheets with `generateGroup.py`
-- import Mobius XML/ZIP exports with `generateJSON.py`
+- export Mobius packages with `export_mobius.py`
+- create local HTML previews with `preview_html.py`
+- create LaTeX and PDF outputs with `export_pdf.py`
+- import Mobius XML/ZIP exports with `import_mobius.py`
 - run the regression suite with `python -m pytest -q`
 
 ## First render and stable UIDs
@@ -19,7 +21,7 @@ Nobius treats `uid` values as stable question identities. That matters when you 
 Because of that, rendering now refuses to proceed when a sheet or question is missing a `uid`. For a brand-new sheet, initialize and persist missing identities once:
 
 ```bash
-python generateGroup.py "C:\path\to\sheet" --write-missing-uids --config configs/default.json
+python export_mobius.py "C:\path\to\sheet" --write-missing-uids --config nobius.json
 ```
 
 After that, normal renders should be read-only with respect to the source JSON.
@@ -60,7 +62,9 @@ For auto-graded HTML questions, the JavaScript `getResponse()` value becomes `$R
 The active Nobius workflow is centered on:
 
 - standard sheet rendering
-- exam rendering via `generateGroup.py --render-profile exam`
+- exam rendering via `export_mobius.py --render-profile exam`
+- local HTML preview generation
+- LaTeX and PDF generation from Nobius JSON
 - Mobius ZIP/XML import back into Nobius JSON
 - HTML response components
 - document upload components

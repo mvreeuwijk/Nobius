@@ -26,9 +26,9 @@ and pass it explicitly with `--config`.
 You can override that on the command line with:
 
 ```bash
-python generateGroup.py SHEET_DIR --config path/to/config.json
-python generateGroup.py SHEET_DIR --config path/to/config.json --render-profile exam
-python generateJSON.py EXPORT.zip --config path/to/config.json
+python export_mobius.py SHEET_DIR --config path/to/config.json
+python export_mobius.py SHEET_DIR --config path/to/config.json --render-profile exam
+python import_mobius.py EXPORT.zip --config path/to/config.json
 python generateAll.py SHEETS_DIR OUTPUT_DIR --config path/to/config.json
 ```
 
@@ -51,10 +51,10 @@ python generateAll.py SHEETS_DIR OUTPUT_DIR --config path/to/config.json
 
 ## Render settings
 
-- `render.theme_location`: theme used by `generateGroup.py`
-- `render.scripts_location`: shared Mobius JavaScript path used by `generateGroup.py`
-- `render.exam_theme_location`: theme used by `generateGroup.py --render-profile exam`
-- `render.exam_scripts_location`: shared Mobius JavaScript path used by `generateGroup.py --render-profile exam`
+- `render.theme_location`: theme used by `export_mobius.py`
+- `render.scripts_location`: shared Mobius JavaScript path used by `export_mobius.py`
+- `render.exam_theme_location`: theme used by `export_mobius.py --render-profile exam`
+- `render.exam_scripts_location`: shared Mobius JavaScript path used by `export_mobius.py --render-profile exam`
 
 For packaged Mobius exports, `render.exam_scripts_location` can be the packaged resource URI:
 
@@ -71,4 +71,4 @@ If exam and non-exam deployments use the same Mobius resources, you can point bo
 - `import.strip_uids`: default for whether imported JSON should have `uid` values removed
 - `import.media_strategy`: currently `copy`; referenced media from the Mobius export is copied into the imported sheet folder
 
-Command-line flags still override config defaults. For example, `generateJSON.py --no-uid` strips UIDs even if `import.strip_uids` is `false` in the active config JSON.
+Command-line flags still override config defaults. For example, `import_mobius.py --no-uid` strips UIDs even if `import.strip_uids` is `false` in the active config JSON.

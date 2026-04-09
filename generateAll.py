@@ -1,5 +1,5 @@
 """
-Batch wrapper around generateGroup.py.
+Batch wrapper around export_mobius.py.
 
 This preserves the original workflow of rendering all sheet folders in a parent
 directory, then merging their generated XML and media into one import bundle.
@@ -69,7 +69,7 @@ def iter_sheet_directories(work_dir):
 def render_sheet_directory(sheet_path, output_dir, reset_uids, write_missing_uids=False, config_path=None, render_profile="standard"):
     command = [
         sys.executable,
-        "generateGroup.py",
+        "export_mobius.py",
         str(sheet_path),
         "-d",
         str(output_dir),
@@ -191,7 +191,7 @@ def bundle_media(output_dir):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="[wrapper for generateGroup.py] Render sheets in batch, merge XML, and bundle media."
+        description="[wrapper for export_mobius.py] Render sheets in batch, merge XML, and bundle media."
     )
     parser.add_argument(
         "sheets_dir",
@@ -217,13 +217,13 @@ def main():
     parser.add_argument(
         "--config",
         type=str,
-        help="Path to a Nobius JSON config file passed through to generateGroup.py.",
+        help="Path to a Nobius JSON config file passed through to export_mobius.py.",
     )
     parser.add_argument(
         "--render-profile",
         choices=["standard", "exam"],
         default="standard",
-        help="Rendering profile passed through to generateGroup.py.",
+        help="Rendering profile passed through to export_mobius.py.",
     )
     parser.add_argument(
         "--continue-on-error",

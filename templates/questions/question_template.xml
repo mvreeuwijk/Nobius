@@ -1,4 +1,4 @@
-{% from 'layouts/default.html' import questionText as defaultQuestionText %}
+{% from 'layouts/exercise.html' import questionText as exerciseQuestionText %}
 {% from 'layouts/exam.html' import questionText as examQuestionText %}
 {% from 'questions/part_template.xml' import render_part_standard %}
 
@@ -6,7 +6,7 @@
   {% if consts.LAYOUT_PROFILE == "exam" %}
     {{ examQuestionText(question) }}
   {% else %}
-    {{ defaultQuestionText(question) }}
+    {{ exerciseQuestionText(question) }}
   {% endif %}
 {%- endmacro %}
 

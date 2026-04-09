@@ -15,7 +15,7 @@ def test_generate_pdf_from_json_surfaces_json_decode_error_without_nameerror(tmp
     result = subprocess.run(
         [
             sys.executable,
-            "generatePDFfromJSON.py",
+            "export_pdf.py",
             "--sheet-path",
             str(sheet_dir),
             "--no-pdf",

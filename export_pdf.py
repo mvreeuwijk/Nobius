@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Oct 19 12:41:22 2020
+Generate LaTeX and optional PDF output from a Nobius sheet.
 
-@author: mvreeuwijk
-
-This script turns a set of JSON files into LaTeX and optionally compiled PDF output.
-It is experimental in two senses:
-    - Not all JSON content converts properly to LaTeX
-    - Not all valid .tex files compile successfully with Python PDFLaTeX
-
-With further development it could be incorporated into the Sheet Generator, but
-is currently separate.
+The script writes TeX files for exercise, review, or solutions content and can
+optionally run pdflatex to produce PDFs. Some Nobius HTML content does not map
+cleanly to LaTeX, and some valid TeX output may still fail to compile depending
+on the installed LaTeX toolchain.
 """
 
 import argparse
@@ -212,7 +207,7 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
     os.makedirs(os.path.join(sheet_dir, "media"), exist_ok=True)
 
     suffix_map = {
-        "questions": "",
+        "exercise": "",
         "review": "_review",
         "solutions": "_solutions",
     }
@@ -254,7 +249,7 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
             file.write(content["title"])
             file.write("}\n")
 
-            if content_mode in ["questions", "review"]:
+            if content_mode in ["exercise", "review"]:
                 new_master = html_to_tex(content["master_statement"])
                 new_master = apply_algorithm_values(new_master, content)
                 file.write(new_master)
@@ -268,7 +263,7 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
                     file.write("\\item ")
                 part = content["parts"][part_index]
 
-                if content_mode in ["questions", "review"]:
+                if content_mode in ["exercise", "review"]:
                     new_content = html_to_tex(part["statement"])
                     new_content = apply_algorithm_values(new_content, content)
                     file.write(new_content)
@@ -302,18 +297,18 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Problem Set PDF compiler based on JSON files")
+    parser = argparse.ArgumentParser(description="Export PDF-oriented output from a Nobius sheet")
     parser.add_argument("--sheet-path", "-s", help="Path to the Sheet folder (if the -batch flag is set, this is interpreted as a directory containing multiple sheet folders)", required=True)
     parser.add_argument("--no-pdf", help="Set this flag to disable converting the rendered .tex file into a PDF", action="store_true")
     parser.add_argument("--batch-mode", "-b", help="Set this flag to render multiple sheets at once", action="store_true")
-    parser.add_argument("--content-mode", choices=["questions", "review", "solutions"], default="questions", help="Select whether to render normal question sheets, review sheets, or solutions sheets")
+    parser.add_argument("--content-mode", choices=["exercise", "review", "solutions"], default="exercise", help="Select whether to render exercise sheets, review sheets, or solutions sheets")
     args = parser.parse_args()
 
     if not args.batch_mode:
-        print(f"[INIT] Starting generatePDFfromJSON with sheet {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=False) (content_mode={args.content_mode})")
+        print(f"[INIT] Starting export_pdf with sheet {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=False) (content_mode={args.content_mode})")
         generate_tex_output(args.sheet_path, args.no_pdf, args.content_mode)
     elif not args.no_pdf:
-        print(f"[INIT] Starting generatePDFfromJSON with sheets in {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=True) (content_mode={args.content_mode})")
+        print(f"[INIT] Starting export_pdf with sheets in {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=True) (content_mode={args.content_mode})")
         PdfFileMerger, PdfFileReader = import_pypdf2()
         sheets = [item for item in os.listdir(args.sheet_path) if os.path.isfile(os.path.join(args.sheet_path, item, "SheetInfo.json"))]
 
@@ -342,7 +337,7 @@ def main():
             for pdf in rendered_pdfs:
                 merged_file.append(PdfFileReader(pdf, "rb"))
 
-        merged_suffix = "" if args.content_mode == "questions" else f"_{args.content_mode}"
+        merged_suffix = "" if args.content_mode == "exercise" else f"_{args.content_mode}"
         merged_file.write(os.path.join(args.sheet_path, f"MergedSheets{merged_suffix}.pdf"))
         print(f"\033[92m[PDF Merge] Merged all rendered PDFs Successfully! ({len(sheets)} accross {pages_acc} pages)\033[0m")
     else:

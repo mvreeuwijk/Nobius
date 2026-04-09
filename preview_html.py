@@ -1,6 +1,4 @@
-import argparse
 import html
-import os
 import re
 import shutil
 import zipfile

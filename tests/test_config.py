@@ -60,7 +60,7 @@ def test_generate_group_cli_fails_cleanly_when_render_config_is_placeholder(t01_
     write_json(config_path, {"render": {"theme_location": "__SET_ME_THEME_LOCATION__"}})
 
     result = subprocess.run(
-        [sys.executable, "generateGroup.py", str(t01_sheet), "--config", str(config_path)],
+        [sys.executable, "export_mobius.py", str(t01_sheet), "--config", str(config_path)],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
@@ -80,7 +80,7 @@ def test_generate_group_cli_fails_cleanly_when_exam_render_config_is_placeholder
     result = subprocess.run(
         [
             sys.executable,
-            "generateGroup.py",
+            "export_mobius.py",
             str(t01_sheet),
             "--config",
             str(config_path),
