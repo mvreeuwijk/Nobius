@@ -216,6 +216,16 @@ def test_roundtrip_exam_render_replaces_response_nan_names_with_stable_part_name
     assert "<2>" in rendered_xml
 
 
+def test_roundtrip_render_preserves_import_reconstruction_markers(roundtrip_sheet):
+    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    rendered_xml = (roundtrip_sheet / "renders" / "Round Trip Demo.xml").read_text(encoding="utf-8")
+
+    assert 'data-propname="title"' in rendered_xml
+    assert 'data-propname="master_statement"' in rendered_xml
+    assert 'data-propname="parts.1.response"' in rendered_xml
+    assert 'data-propname="parts.2.statement"' in rendered_xml
+
+
 def test_final_answer_equation_renders_into_answer_panel(tmp_path):
     sheet = create_sheet_fixture(
         tmp_path,

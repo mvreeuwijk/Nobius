@@ -46,6 +46,7 @@ nav:
       - Course Module Package: "CustomizationAndResources/CourseModulePackage.md"
       - QuestionJavascript: "CustomizationAndResources/QuestionJavascript.md"
       - Templates and Jinja: "CustomizationAndResources/TemplatesAndJinja.md"
+      - Round-Trip Invariants: "CustomizationAndResources/RoundTripInvariants.md"
   - Addons/Features:
       - Future additions/changes: "AddonsAndFeatures/FutureAdditions.md"
 

@@ -12,6 +12,9 @@ from nobius_config import load_config
 import xml_scraper
 
 
+DEFAULT_IMPORT_MEDIA_STRATEGY = "copy"
+
+
 def remove_group_ids(group):
     if "uid" in group["info"]:
         del group["info"]["uid"]
@@ -186,6 +189,17 @@ def write_group_json(group, destination):
     return outputs
 
 
+def get_import_media_strategy(config):
+    if not isinstance(config, dict):
+        return DEFAULT_IMPORT_MEDIA_STRATEGY
+
+    import_config = config.get("import", {})
+    if not isinstance(import_config, dict):
+        return DEFAULT_IMPORT_MEDIA_STRATEGY
+
+    return import_config.get("media_strategy", DEFAULT_IMPORT_MEDIA_STRATEGY)
+
+
 def import_mobius_package(target, dest, strip_uids, config):
     source_info = resolve_manifest_path(target)
     report = ImportReport(target, source_info["source_type"], dest, strip_uids)
@@ -209,7 +223,7 @@ def import_mobius_package(target, dest, strip_uids, config):
     for output in outputs:
         report.add_output(output)
 
-    copy_media(group, dest, source_info, config["import"]["media_strategy"], report)
+    copy_media(group, dest, source_info, get_import_media_strategy(config), report)
     json_report = os.path.join(dest, "import_report.json")
     text_report = os.path.join(dest, "import_report.txt")
     report.add_output(json_report)

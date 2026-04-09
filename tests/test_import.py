@@ -5,6 +5,7 @@ import pytest
 
 from import_mobius import (
     gather_media_references,
+    get_import_media_strategy,
     import_mobius_package,
     resolve_manifest_path,
     safe_question_basename,
@@ -56,6 +57,12 @@ def test_gather_media_references_walks_nested_question_data():
     assert gather_media_references(node) == {"a.png", "b.png", "c.png"}
 
 
+def test_get_import_media_strategy_defaults_to_copy():
+    assert get_import_media_strategy({}) == "copy"
+    assert get_import_media_strategy({"import": {}}) == "copy"
+    assert get_import_media_strategy({"import": {"media_strategy": "copy"}}) == "copy"
+
+
 def test_generate_json_from_standard_zip_writes_expected_outputs(t01_sheet, tmp_path):
     render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
     destination = tmp_path / "imported-standard"
@@ -68,6 +75,17 @@ def test_generate_json_from_standard_zip_writes_expected_outputs(t01_sheet, tmp_
     assert (destination / "media" / "TruncatedCone.png").exists()
     assert report.source_type == "zip"
     assert len(report.copied_media) >= 1
+
+
+def test_import_mobius_package_defaults_media_strategy_when_config_is_empty(t01_sheet, tmp_path):
+    render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
+    destination = tmp_path / "imported-empty-config"
+
+    report = import_mobius_package(render_result["zip_path"], str(destination), True, {})
+
+    assert (destination / "SheetInfo.json").exists()
+    assert (destination / "media" / "TruncatedCone.png").exists()
+    assert report.source_type == "zip"
 
 
 def test_generate_json_strip_uids_removes_sheet_and_question_uids(t01_sheet, tmp_path):
