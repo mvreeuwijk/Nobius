@@ -1,5 +1,5 @@
 {
-  "source_path": ".\\tmp\\Moodledemo20260408220141.zip",
+  "source_path": ".\\tests\\fixtures\\mobius_exports\\RoundTripDemo.zip",
   "source_type": "zip",
   "destination": ".\\Nobius\\tests\\fixtures\\RoundTrip",
   "strip_uids": false,

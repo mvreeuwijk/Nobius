@@ -196,11 +196,6 @@ def question_types_demo_zip():
 
 
 @pytest.fixture
-def moodle_demo_roundtrip_zip():
-    return MOBIUS_EXPORTS_ROOT / "Moodledemo20260408220141.zip"
-
-
-@pytest.fixture
 def roundtrip_demo_zip():
     return MOBIUS_EXPORTS_ROOT / "RoundTripDemo.zip"
 

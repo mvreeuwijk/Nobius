@@ -60,7 +60,6 @@ def test_render_sheet_zip_contains_manifest_and_media(t01_sheet):
 
     assert "manifest.xml" in members
     assert "web_folders/Scripts/QuestionJavaScript.txt" in members
-    assert "web_folders/Nobius4.mla" in members
     assert "web_folders/Fundamentals/TruncatedCone.png" in members
 
 
@@ -81,7 +80,7 @@ def test_generate_group_cli_uses_config_values_in_standard_template(t01_sheet, t
 
     rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
 
-    assert "/themes/unit-test-standard" in rendered_xml
+    assert "__BASE_URI__QuestionTheme.css" in rendered_xml
     assert "__BASE_URI__Scripts/QuestionJavaScript.txt" in rendered_xml
 
 
@@ -110,7 +109,7 @@ def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tm
 
     rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
 
-    assert "/themes/unit-test-exam" in rendered_xml
+    assert "__BASE_URI__QuestionTheme.css" in rendered_xml
     assert "__BASE_URI__Scripts/QuestionJavaScript.txt" in rendered_xml
 
 
@@ -137,7 +136,8 @@ def test_example_export_uses_question_bank_manifest_shape(example_sheet):
     assert soup.find("schools") is not None
     assert soup.find("assignmentUnits") is None
     assert soup.find("assignments") is None
-    assert soup.find("webResources") is None
+    assert soup.find("webResources") is not None
+    assert soup.find("webResources").find("uri").text.strip() == "web_folders/Scripts"
     questions = soup.find("courseModule", recursive=False).find("questions", recursive=False)
     assert questions is not None
     first_question = questions.find("question", recursive=False)

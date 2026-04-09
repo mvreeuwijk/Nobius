@@ -1,5 +1,5 @@
 Nobius Import Report
-Source: .\tmp\Moodledemo20260408220141.zip
+Source: .\tests\fixtures\mobius_exports\RoundTripDemo.zip
 Source type: zip
 Destination: .\Nobius\tests\fixtures\RoundTrip
 Strip UIDs: False

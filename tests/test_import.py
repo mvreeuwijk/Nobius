@@ -164,10 +164,10 @@ def test_real_question_types_demo_zip_surfaces_import_warnings_explicitly(questi
     assert any("Response area tag couldn't be found" in warning["message"] for warning in report.warnings)
 
 
-def test_generate_json_imports_real_moodle_roundtrip_zip_to_expected_json_shape(moodle_demo_roundtrip_zip, tmp_path):
+def test_generate_json_imports_real_roundtrip_demo_zip_to_expected_json_shape(roundtrip_demo_zip, tmp_path):
     destination = tmp_path / "moodle-roundtrip-imported"
 
-    report = generate_json_file(str(moodle_demo_roundtrip_zip), str(destination), False, load_json(REPO_ROOT / "nobius.json"))
+    report = generate_json_file(str(roundtrip_demo_zip), str(destination), False, load_json(REPO_ROOT / "nobius.json"))
     text_entry = load_question_by_title(destination, "Text Entry-20260408_220141")
     multiple_choice = load_question_by_title(destination, "Multiple Choice-20260408_220141")
     numerical = load_question_by_title(destination, "Numerical-20260408_220141")
@@ -178,7 +178,7 @@ def test_generate_json_imports_real_moodle_roundtrip_zip_to_expected_json_shape(
     matching = load_question_by_title(destination, "Matching-20260408_220141")
 
     assert report.source_type == "zip"
-    assert load_json(destination / "SheetInfo.json")["name"] == "moodle_demo-20260408_220141"
+    assert load_json(destination / "SheetInfo.json")["name"] == "Moodle Round Trip Demo"
     assert text_entry["master_statement"] == "Define a fluid."
     assert text_entry["parts"][0]["response"]["mode"] == "List"
     assert text_entry["parts"][0]["response"]["display"] == {"display": "text", "permute": False}
