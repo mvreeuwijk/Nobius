@@ -1,4 +1,5 @@
 import json
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -15,13 +16,33 @@ class ImportReport:
         self.missing_media = []
         self.outputs = []
         self.metadata = {}
+        self._context_stack = []
 
     def warn(self, message, context=None):
         warning = {"message": message}
+
+        merged_context = {}
+        for frame in self._context_stack:
+            merged_context.update(frame)
+
+        for key in ["manifest_path", "line", "item_type", "item_name"]:
+            value = merged_context.get(key)
+            if value not in (None, ""):
+                warning[key] = value
+
         if context:
             warning["context"] = context
         self.warnings.append(warning)
         return warning
+
+    @contextmanager
+    def scoped_context(self, **context):
+        cleaned = {key: value for key, value in context.items() if value not in (None, "")}
+        self._context_stack.append(cleaned)
+        try:
+            yield
+        finally:
+            self._context_stack.pop()
 
     def add_output(self, path):
         self.outputs.append(path)
@@ -53,6 +74,7 @@ class ImportReport:
             f"Source type: {self.source_type}",
             f"Destination: {self.destination}",
             f"Strip UIDs: {self.strip_uids}",
+            f"Manifest: {self.metadata.get('manifest_path', '(unknown)')}",
             f"Warnings: {len(self.warnings)}",
             f"Copied media: {len(self.copied_media)}",
             f"Missing media: {len(self.missing_media)}",
@@ -62,8 +84,22 @@ class ImportReport:
         if self.warnings:
             lines.append("Warnings:")
             for warning in self.warnings:
+                detail_parts = []
+                if "item_type" in warning and "item_name" in warning:
+                    detail_parts.append(f"{warning['item_type']}: {warning['item_name']}")
+                elif "item_name" in warning:
+                    detail_parts.append(str(warning["item_name"]))
+
+                if "manifest_path" in warning and "line" in warning:
+                    detail_parts.append(f"{warning['manifest_path']}:{warning['line']}")
+                elif "manifest_path" in warning:
+                    detail_parts.append(str(warning["manifest_path"]))
+
                 if "context" in warning:
-                    lines.append(f"- {warning['message']} [{warning['context']}]")
+                    detail_parts.append(str(warning["context"]))
+
+                if detail_parts:
+                    lines.append(f"- {warning['message']} [{' | '.join(detail_parts)}]")
                 else:
                     lines.append(f"- {warning['message']}")
             lines.append("")

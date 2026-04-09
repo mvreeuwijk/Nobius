@@ -6,6 +6,7 @@ import shutil
 import zipfile
 
 import bs4
+from lxml import etree as LET
 
 from import_report import ImportReport
 from nobius_config import load_config
@@ -41,6 +42,32 @@ def safe_question_basename(title, used_names):
     return candidate
 
 
+def safe_directory_basename(title, used_names):
+    return safe_question_basename(title, used_names)
+
+
+def resolve_group_destination(root_dest, group, used_directory_names):
+    path_parts = group.get("_path_parts")
+    if not path_parts:
+        return root_dest
+
+    destination = root_dest
+    parent_key = ()
+    for part in path_parts:
+        parent_state = used_directory_names.setdefault(parent_key, {"used": set(), "resolved": {}})
+        part_key = (part or "").strip().lower()
+
+        safe_part = parent_state["resolved"].get(part_key)
+        if safe_part is None:
+            safe_part = safe_directory_basename(part, parent_state["used"])
+            parent_state["resolved"][part_key] = safe_part
+
+        destination = os.path.join(destination, safe_part)
+        parent_key = (*parent_key, safe_part)
+
+    return destination
+
+
 def resolve_manifest_path(source_path):
     if zipfile.is_zipfile(source_path):
         with zipfile.ZipFile(source_path, "r") as zip_file:
@@ -59,6 +86,28 @@ def resolve_manifest_path(source_path):
         "manifest_path": source_path,
         "media_root": find_web_folders_root(os.path.dirname(source_path)),
     }
+
+
+def build_manifest_line_maps(manifest_xml):
+    parser = LET.XMLParser(recover=True)
+    root = LET.fromstring(manifest_xml.encode("utf-8"), parser=parser)
+
+    line_maps = {
+        "questions": {},
+        "assignments": {},
+        "assignment_units": {},
+    }
+
+    for question in root.xpath(".//question[@uid]"):
+        line_maps["questions"][question.get("uid")] = question.sourceline
+
+    for assignment in root.xpath(".//assignment[@uid]"):
+        line_maps["assignments"][assignment.get("uid")] = assignment.sourceline
+
+    for unit in root.xpath(".//unit[@uid]"):
+        line_maps["assignment_units"][unit.get("uid")] = unit.sourceline
+
+    return line_maps
 
 
 def find_manifest_entry(zip_file):
@@ -214,23 +263,41 @@ def import_mobius_package(target, dest, strip_uids, config):
     xml = bs4.BeautifulSoup(manifest_xml, "lxml-xml")
 
     report.metadata["manifest_path"] = source_info["manifest_path"]
-    group = xml_scraper.get_sheet_data_from_xml(xml, report=report)
+    report.metadata["line_maps"] = build_manifest_line_maps(manifest_xml)
+    groups = getattr(xml_scraper, "get_sheets_data_from_xml", None)
+    if groups is None:
+        groups = [xml_scraper.get_sheet_data_from_xml(xml, report=report)]
+    else:
+        groups = groups(xml, report=report)
 
-    if strip_uids:
-        remove_group_ids(group)
+    use_subdirectories = len(groups) > 1
+    used_directory_names = {}
 
-    outputs = write_group_json(group, dest)
-    for output in outputs:
-        report.add_output(output)
+    for group in groups:
+        if strip_uids:
+            remove_group_ids(group)
 
-    copy_media(group, dest, source_info, get_import_media_strategy(config), report)
+        group_dest = dest
+        if use_subdirectories:
+            group_dest = resolve_group_destination(dest, group, used_directory_names)
+
+        outputs = write_group_json(group, group_dest)
+        for output in outputs:
+            report.add_output(output)
+
+        copy_media(group, group_dest, source_info, get_import_media_strategy(config), report)
+
     json_report = os.path.join(dest, "import_report.json")
     text_report = os.path.join(dest, "import_report.txt")
     report.add_output(json_report)
     report.add_output(text_report)
     report.write(dest)
 
-    print(f"Imported {len(group['questions'])} questions into {dest}")
+    total_questions = sum(len(group["questions"]) for group in groups)
+    if use_subdirectories:
+        print(f"Imported {total_questions} questions across {len(groups)} assessments into {dest}")
+    else:
+        print(f"Imported {total_questions} questions into {dest}")
     print(f"Wrote import reports to {json_report} and {text_report}")
     return report
 

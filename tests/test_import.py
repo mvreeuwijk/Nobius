@@ -2,7 +2,10 @@ import zipfile
 
 import bs4
 import pytest
+import zipfile
+import xml.etree.ElementTree as ET
 
+from export_mobius_batch import ensure_output_structure, merge_xml
 from import_mobius import (
     gather_media_references,
     get_import_media_strategy,
@@ -86,6 +89,70 @@ def test_import_mobius_package_defaults_media_strategy_when_config_is_empty(t01_
     assert (destination / "SheetInfo.json").exists()
     assert (destination / "media" / "TruncatedCone.png").exists()
     assert report.source_type == "zip"
+
+
+def test_generate_json_imports_merged_course_module_into_assessment_folders(t01_sheet, t02_sheet, tmp_path):
+    batch_output = tmp_path / "batch-output"
+    zip_path = tmp_path / "merged-course-module.zip"
+    destination = tmp_path / "merged-imported"
+
+    ensure_output_structure(batch_output)
+    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(), output_dir=batch_output)
+    render_sheet(t02_sheet, "manifests/assignment.xml", make_render_settings(), output_dir=batch_output)
+    merged_xml = merge_xml(batch_output)
+
+    with zipfile.ZipFile(zip_path, "w") as zip_file:
+        zip_file.write(merged_xml, arcname="manifest.xml")
+        for media_file in (batch_output / "web_folders").rglob("*"):
+            if media_file.is_file():
+                zip_file.write(media_file, arcname=str(media_file.relative_to(batch_output)).replace("\\", "/"))
+
+    report = import_mobius_package(str(zip_path), str(destination), False, load_json(REPO_ROOT / "nobius.json"))
+
+    assert report.source_type == "zip"
+    assert (destination / "Fundamentals" / "SheetInfo.json").exists()
+    assert (destination / "Algorithmic Demo" / "SheetInfo.json").exists()
+    assert rendered_question_titles(destination / "Fundamentals") == rendered_question_titles(t01_sheet)
+    assert rendered_question_titles(destination / "Algorithmic Demo") == rendered_question_titles(t02_sheet)
+    assert (destination / "Fundamentals" / "media" / "TruncatedCone.png").exists()
+
+
+def test_generate_json_imports_multi_assignment_unit_into_nested_folders(t01_sheet, t02_sheet, tmp_path):
+    batch_output = tmp_path / "batch-output-nested"
+    zip_path = tmp_path / "merged-course-module-nested.zip"
+    destination = tmp_path / "merged-imported-nested"
+
+    ensure_output_structure(batch_output)
+    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(), output_dir=batch_output)
+    render_sheet(t02_sheet, "manifests/assignment.xml", make_render_settings(), output_dir=batch_output)
+    merged_xml = merge_xml(batch_output)
+
+    tree = ET.parse(merged_xml)
+    root = tree.getroot()
+    units_root = root.find("./assignmentUnits")
+    units = units_root.findall("./unit")
+    first_unit = units[0]
+    first_unit.find("./name").text = "Combined Unit"
+    first_unit.find("./description").text = "Combined unit for nested import test."
+    first_assignments = first_unit.find("./assignments")
+    for extra_ref in units[1].findall("./assignments/aRef"):
+        first_assignments.append(extra_ref)
+    units_root.remove(units[1])
+    tree.write(merged_xml, encoding="utf-8", xml_declaration=True)
+
+    with zipfile.ZipFile(zip_path, "w") as zip_file:
+        zip_file.write(merged_xml, arcname="manifest.xml")
+        for media_file in (batch_output / "web_folders").rglob("*"):
+            if media_file.is_file():
+                zip_file.write(media_file, arcname=str(media_file.relative_to(batch_output)).replace("\\", "/"))
+
+    report = import_mobius_package(str(zip_path), str(destination), False, load_json(REPO_ROOT / "nobius.json"))
+
+    assert report.source_type == "zip"
+    assert (destination / "Combined Unit" / "Fundamentals" / "SheetInfo.json").exists()
+    assert (destination / "Combined Unit" / "Algorithmic Demo" / "SheetInfo.json").exists()
+    assert rendered_question_titles(destination / "Combined Unit" / "Fundamentals") == rendered_question_titles(t01_sheet)
+    assert rendered_question_titles(destination / "Combined Unit" / "Algorithmic Demo") == rendered_question_titles(t02_sheet)
 
 
 def test_generate_json_strip_uids_removes_sheet_and_question_uids(t01_sheet, tmp_path):

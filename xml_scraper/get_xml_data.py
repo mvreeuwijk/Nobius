@@ -41,13 +41,10 @@ def simplify_matching_html(value):
 Main Methods
 """
 
-def get_sheet_data_from_xml(xml, report=None):
-    sheet = get_sheet_info(xml, report)
+def finalize_sheet_payload(sheet, questions_list, report=None):
     sheet["questions"] = []
-    questions_list = []
 
-    for question_xml in get_questions(xml):
-        question = get_question_from_xml(question_xml, report)
+    for question in questions_list:
         sheet["questions"].append(question["title"])
 
         if question.get("number"):
@@ -58,8 +55,6 @@ def get_sheet_data_from_xml(xml, report=None):
                     report_warning(report, "Could not infer sheet number from question numbering.", str(question["number"]))
             del question["number"]
 
-        questions_list.append(question)
-
     if "name" not in sheet:
         sheet["name"] = "Imported Sheet"
         report_warning(report, "Sheet name could not be parsed cleanly; using fallback name.", "Imported Sheet")
@@ -69,6 +64,75 @@ def get_sheet_data_from_xml(xml, report=None):
         report_warning(report, "Sheet number could not be parsed cleanly; using fallback number.", "1")
 
     return {"info": sheet, "questions": questions_list}
+
+
+def get_sheets_data_from_xml(xml, report=None):
+    question_lookup = {}
+    questions_in_document_order = []
+    manifest_path = None
+    line_maps = {}
+    if report is not None:
+        manifest_path = report.metadata.get("manifest_path")
+        line_maps = report.metadata.get("line_maps", {})
+
+    for question_xml in get_questions(xml):
+        question_name_xml = question_xml.find("name", recursive=False)
+        question_name = question_name_xml.text if question_name_xml and question_name_xml.text else "Imported Question"
+        question_uid = question_xml.get("uid")
+        context_kwargs = {
+            "manifest_path": manifest_path,
+            "line": line_maps.get("questions", {}).get(question_uid),
+            "item_type": "question",
+            "item_name": question_name.strip() if isinstance(question_name, str) else "Imported Question",
+        }
+        if report is not None:
+            with report.scoped_context(**context_kwargs):
+                question = get_question_from_xml(question_xml, report)
+        else:
+            question = get_question_from_xml(question_xml, report)
+        question_uid = question.get("uid") or question_uid
+        if question_uid:
+            question_lookup[question_uid] = question
+        questions_in_document_order.append(question)
+
+    assignment_sheets = get_assignment_sheets_from_xml(xml, question_lookup, questions_in_document_order, report)
+    if assignment_sheets:
+        referenced_uids = set()
+        for sheet in assignment_sheets:
+            for question in sheet["questions"]:
+                question_uid = question.get("uid")
+                if question_uid:
+                    referenced_uids.add(question_uid)
+
+        unassigned_questions = [
+            question for question in questions_in_document_order
+            if question.get("uid") not in referenced_uids
+        ]
+        if unassigned_questions:
+            report_warning(
+                report,
+                "Some questions were not linked to an imported assessment; writing them into a fallback sheet.",
+                str(len(unassigned_questions)),
+            )
+            assignment_sheets.append(
+                finalize_sheet_payload(
+                    {
+                        "name": "Unassigned Questions",
+                        "description": "Questions present in the manifest but not linked from assignment units.",
+                    },
+                    unassigned_questions,
+                    report,
+                )
+            )
+        return assignment_sheets
+
+    sheet = get_sheet_info(xml, report)
+    return [finalize_sheet_payload(sheet, questions_in_document_order, report)]
+
+
+def get_sheet_data_from_xml(xml, report=None):
+    sheets = get_sheets_data_from_xml(xml, report)
+    return sheets[0]
 
 def get_question_from_xml(question_xml, report=None):
     question = get_question_html_properties(question_xml, report)
@@ -94,8 +158,176 @@ def get_question_from_xml(question_xml, report=None):
     if "parts" not in question or not question["parts"]:
         question.update(build_minimal_question_structure(question_xml, parts, report))
     add_parts_to_question(question, parts, report)
+    normalize_question_structure(question, report)
     
     return question
+
+
+def normalize_question_structure(question, report=None):
+    icon_data = question.get("icon_data")
+    parts = question.get("parts")
+
+    if (
+        isinstance(icon_data, dict)
+        and isinstance(parts, list)
+        and len(parts) == 1
+        and isinstance(parts[0], dict)
+    ):
+        statement = icon_data.get("statement")
+        part_statement = parts[0].get("statement")
+        if isinstance(statement, str) and statement.strip() and (part_statement is None or not str(part_statement).strip()):
+            parts[0]["statement"] = statement.strip()
+            del icon_data["statement"]
+            report_warning(report, "Moved misplaced icon_data.statement into the first part statement during import.", question.get("title"))
+
+    if isinstance(icon_data, dict) and not icon_data:
+        question.pop("icon_data", None)
+
+
+def get_assignment_sheets_from_xml(xml, question_lookup, questions_in_document_order, report=None):
+    course_module = xml.find("courseModule", recursive=False)
+    if course_module is None:
+        course_module = xml.find("courseModule") or xml
+    manifest_path = None
+    line_maps = {}
+    if report is not None:
+        manifest_path = report.metadata.get("manifest_path")
+        line_maps = report.metadata.get("line_maps", {})
+
+    units_root = course_module.find("assignmentUnits", recursive=False)
+    assignments_root = course_module.find("assignments", recursive=False)
+    if units_root is None or assignments_root is None:
+        return []
+
+    assignments_by_uid = {}
+    for assignment_xml in assignments_root.find_all("assignment", recursive=False):
+        assignment_uid = assignment_xml.get("uid")
+        if assignment_uid:
+            assignments_by_uid[assignment_uid] = assignment_xml
+
+    sheets = []
+    for unit_xml in units_root.find_all("unit", recursive=False):
+        unit_name_xml = unit_xml.find("name", recursive=False)
+        unit_name = unit_name_xml.text if unit_name_xml and unit_name_xml.text else "Imported Unit"
+        unit_uid = unit_xml.get("uid")
+        unit_context = {
+            "manifest_path": manifest_path,
+            "line": line_maps.get("assignment_units", {}).get(unit_uid),
+            "item_type": "assignment unit",
+            "item_name": unit_name.strip() if isinstance(unit_name, str) else "Imported Unit",
+        }
+        assignments_xml = unit_xml.find("assignments", recursive=False)
+        if assignments_xml is None:
+            continue
+
+        if report is not None:
+            with report.scoped_context(**unit_context):
+                unit_info = get_assignment_unit_info(unit_xml, report)
+        else:
+            unit_info = get_assignment_unit_info(unit_xml, report)
+        assignment_entries = []
+        for assignment_ref in assignments_xml.find_all("aRef", recursive=False):
+            assignment_uid = assignment_ref.get("uid")
+            assignment_xml = assignments_by_uid.get(assignment_uid)
+            if assignment_xml is None:
+                report_warning(report, "Assignment unit referenced a missing assignment during import.", assignment_uid)
+                continue
+
+            assignment_entries.append((assignment_uid, assignment_xml))
+
+        if not assignment_entries:
+            continue
+
+        if len(assignment_entries) == 1:
+            referenced_question_uids = set()
+            for _, assignment_xml in assignment_entries:
+                for question_ref in iter_assignment_question_refs(assignment_xml):
+                    question_uid = question_ref.get("uid")
+                    if not question_uid:
+                        continue
+
+                    if question_uid not in question_lookup:
+                        report_warning(report, "Assignment referenced a missing question during import.", question_uid)
+                        continue
+
+                    referenced_question_uids.add(question_uid)
+
+            ordered_questions = [
+                question for question in questions_in_document_order
+                if question.get("uid") in referenced_question_uids
+            ]
+
+            if ordered_questions:
+                sheet = finalize_sheet_payload(unit_info, ordered_questions, report)
+                sheet["_path_parts"] = [unit_info["name"]]
+                sheets.append(sheet)
+            continue
+
+        for assignment_index, (assignment_uid, assignment_xml) in enumerate(assignment_entries, start=1):
+            assignment_name_xml = assignment_xml.find("name", recursive=False)
+            assignment_name = assignment_name_xml.text if assignment_name_xml and assignment_name_xml.text else f"set{assignment_index}"
+            assignment_context = {
+                "manifest_path": manifest_path,
+                "line": line_maps.get("assignments", {}).get(assignment_uid),
+                "item_type": "assignment",
+                "item_name": assignment_name.strip() if isinstance(assignment_name, str) else f"set{assignment_index}",
+            }
+            referenced_question_uids = set()
+            if report is not None:
+                with report.scoped_context(**assignment_context):
+                    for question_ref in iter_assignment_question_refs(assignment_xml):
+                        question_uid = question_ref.get("uid")
+                        if not question_uid:
+                            continue
+
+                        if question_uid not in question_lookup:
+                            report_warning(report, "Assignment referenced a missing question during import.", question_uid)
+                            continue
+
+                        referenced_question_uids.add(question_uid)
+            else:
+                for question_ref in iter_assignment_question_refs(assignment_xml):
+                    question_uid = question_ref.get("uid")
+                    if not question_uid:
+                        continue
+
+                    if question_uid not in question_lookup:
+                        report_warning(report, "Assignment referenced a missing question during import.", question_uid)
+                        continue
+
+                    referenced_question_uids.add(question_uid)
+
+            ordered_questions = [
+                question for question in questions_in_document_order
+                if question.get("uid") in referenced_question_uids
+            ]
+
+            if not ordered_questions:
+                continue
+
+            if report is not None:
+                with report.scoped_context(**assignment_context):
+                    sheet = finalize_sheet_payload(get_assignment_info(assignment_xml, assignment_index, report), ordered_questions, report)
+            else:
+                sheet = finalize_sheet_payload(get_assignment_info(assignment_xml, assignment_index, report), ordered_questions, report)
+            sheet["_path_parts"] = [unit_info["name"], sheet["info"]["name"]]
+            sheet["_parent_unit"] = unit_info["name"]
+            sheet["_parent_unit_uid"] = unit_info.get("uid")
+            sheets.append(sheet)
+
+    return sheets
+
+
+def iter_assignment_question_refs(assignment_xml):
+    regular_refs = assignment_xml.select("questionGroups > aqGroup > questions > qRef")
+    if regular_refs:
+        return regular_refs
+
+    lesson_refs = assignment_xml.select("sections > lessonSection > questionGroups > lsqGroup > questions > qRef")
+    if lesson_refs:
+        return lesson_refs
+
+    return []
 
 def get_question_html_properties(question_xml, report=None):
     html = get_question_html(question_xml)
@@ -107,6 +339,13 @@ def build_minimal_question_structure(question_xml, parts, report=None):
     raw_text = text_xml.text if text_xml and text_xml.text else ""
     split_tokens = re.split(r"<(\d+)\s*\/?\s*>", raw_text)
     placeholder_matches = [int(token) for token in split_tokens[1::2]]
+
+    if placeholder_matches:
+        report_warning(
+            report,
+            "Question structure was reconstructed from raw HTML placeholders rather than explicit Mobius parts; review the imported question carefully.",
+            question_xml.get("uid"),
+        )
 
     prompt_html = split_tokens[0] if split_tokens else ""
     prompt_soup = bs4.BeautifulSoup(prompt_html, features="html.parser")
@@ -149,14 +388,24 @@ def get_list_of_part_properties(question_xml):
 
 def add_parts_to_question(question, parts, report=None):
     for p in question["parts"]:
+        if not isinstance(p, dict):
+            report_warning(report, "Skipped a malformed question part during import.", str(p))
+            continue
         link_response_answers(p, parts, report)
 
         if "structured_tutorial" in p:
             for st in p["structured_tutorial"]:
+                if not isinstance(st, dict):
+                    report_warning(report, "Skipped a malformed structured tutorial part during import.", str(st))
+                    continue
                 link_response_answers(st, parts, report)
 
 
 def link_response_answers(p, parts, report=None):
+    if not isinstance(p, dict):
+        report_warning(report, "Skipped a malformed nested response during import.", str(p))
+        return
+
     if "matrix_response" in p:
         p["response"] = link_matrix_answers(p["matrix_response"], parts, report)
         del p["matrix_response"]
@@ -205,18 +454,25 @@ def normalize_response(response, report=None):
     ]:
         normalized.pop(ignored_key, None)
 
+    response_name = normalized.get("name")
+    if response_name is None or str(response_name).strip() in {"", "responseNan"}:
+        normalized.pop("name", None)
+        response_name = None
+    else:
+        response_name = str(response_name).strip()
+
     if normalized.get("mode") == "Multiple Choice":
         report_warning(
             report,
             "Normalized Möbius Multiple Choice mode into Nobius authoring mode.",
-            normalized.get("name", "responseNan"),
+            response_name,
         )
         normalized["mode"] = "Non Permuting Multiple Choice"
     elif normalized.get("mode") == "Multiple Response":
         report_warning(
             report,
             "Normalized Möbius Multiple Response mode into Nobius authoring mode.",
-            normalized.get("name", "responseNan"),
+            response_name,
         )
         normalized["mode"] = "Non Permuting Multiple Selection"
 
@@ -254,7 +510,7 @@ def normalize_response(response, report=None):
         report_warning(
             report,
             "Normalized Document Upload response into Nobius authoring fields.",
-            normalized.get("name", "responseNan"),
+            response_name,
         )
         normalized["uploadMode"] = "direct" if normalized.get("forceUpload") else "code"
         normalized["notGraded"] = normalized.get("nonGradeable", False)
@@ -267,7 +523,7 @@ def normalize_response(response, report=None):
         report_warning(
             report,
             "Normalized HTML response field names into Nobius authoring fields.",
-            normalized.get("name", "responseNan"),
+            response_name,
         )
         if "questionHTML" in normalized:
             normalized["html"] = normalized.pop("questionHTML")
@@ -394,6 +650,38 @@ def get_sheet_info(xml, report=None):
     
     info.update(get_ids(group_xml))
 
+    return info
+
+
+def get_assignment_unit_info(unit_xml, report=None):
+    name_xml = unit_xml.find("name", recursive=False)
+    description_xml = unit_xml.find("description", recursive=False)
+    weight_xml = unit_xml.find("weight", recursive=False)
+    raw_name = name_xml.text.strip() if name_xml and name_xml.text else "Imported Sheet"
+
+    info = get_sheet_name(raw_name, report)
+    info["description"] = description_xml.text.strip() if description_xml and description_xml.text else ""
+    if weight_xml and weight_xml.text:
+        try:
+            info.setdefault("number", int(float(weight_xml.text.strip())))
+        except ValueError:
+            report_warning(report, "Could not parse assignment unit weight into a sheet number.", weight_xml.text.strip())
+    info.update(get_ids(unit_xml))
+
+    return info
+
+
+def get_assignment_info(assignment_xml, assignment_index=None, report=None):
+    name_xml = assignment_xml.find("name", recursive=False)
+    description_xml = assignment_xml.find("description", recursive=False)
+    fallback_name = f"set{assignment_index}" if assignment_index is not None else "Imported Assignment"
+    assignment_name = name_xml.text.strip() if name_xml and name_xml.text else fallback_name
+
+    info = {
+        "name": assignment_name,
+        "description": description_xml.text.strip() if description_xml and description_xml.text else "",
+    }
+    info.update(get_ids(assignment_xml))
     return info
 
 
