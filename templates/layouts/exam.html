@@ -76,7 +76,7 @@
 
       {% if part.response %}
       
-      {{ responseWrapper(part, loop.index, part_propname) }}
+      {{ responseWrapper(part, loop.index, part_propname, require_help_button) }}
 
       {% elif part.responses %}
 
@@ -106,7 +106,9 @@
         {{ inputSymbols(part.input_symbols) }}
       {% endif %}
 
+      {% if require_help_button %}
       {{ answerHelp(part, loop.index, part_propname, not responses) }}
+      {% endif %}
     </div>
     {% endfor %}
   </div>

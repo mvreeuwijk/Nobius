@@ -145,6 +145,28 @@ def test_generate_html_preview_cli_creates_preview_pages(t01_sheet, tmp_path):
     assert ".answers-help-container" in question_preview
 
 
+def test_roundtrip_simple_response_without_help_content_omits_help_shell(roundtrip_sheet):
+    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    rendered_xml = (roundtrip_sheet / "renders" / "Round Trip Demo.xml").read_text(encoding="utf-8")
+    soup = bs4.BeautifulSoup(rendered_xml, "lxml-xml")
+    first_question_text = soup.find("courseModule", recursive=False).find("questions", recursive=False).find("question", recursive=False).find("text").string
+
+    assert 'Multiple selection problem.' in first_question_text
+    assert 'Which one of these is true?' in first_question_text
+    assert 'id="ah-btn1"' not in first_question_text
+    assert 'class="answers-help-container"' not in first_question_text
+    assert 'class="answers-container"' not in first_question_text
+
+
+def test_roundtrip_exam_render_replaces_response_nan_names_with_stable_part_names(roundtrip_sheet):
+    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    rendered_xml = (roundtrip_sheet / "renders" / "Round Trip Demo.xml").read_text(encoding="utf-8")
+
+    assert "responseNaN" not in rendered_xml
+    assert "<name><![CDATA[ sro_id_1 ]]></name>" in rendered_xml
+    assert "<name><![CDATA[ sro_id_2 ]]></name>" in rendered_xml
+
+
 def test_example_export_uses_question_bank_manifest_shape(example_sheet):
     legacy_settings = {
         "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",

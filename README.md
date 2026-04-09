@@ -19,7 +19,7 @@ Nobius treats `uid` values as stable question identities. That matters when you 
 Because of that, rendering now refuses to proceed when a sheet or question is missing a `uid`. For a brand-new sheet, initialize and persist missing identities once:
 
 ```bash
-python generateGroup.py "C:\path\to\sheet" --write-missing-uids --config nobius.json
+python generateGroup.py "C:\path\to\sheet" --write-missing-uids --config configs/default.json
 ```
 
 After that, normal renders should be read-only with respect to the source JSON.

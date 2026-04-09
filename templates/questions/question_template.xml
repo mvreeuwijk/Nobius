@@ -49,7 +49,7 @@
     {# Data for each of the response areas marked <text> with their identifiers (<1>, <2>, ...) #}
     <parts>
       {% for response_area in question.response_areas %}
-        {{ render_part_standard(response_area) }}
+        {{ render_part_standard(response_area, loop.index) }}
       {% endfor %}
     </parts>
   </question>

@@ -57,5 +57,5 @@ def validate_render_config(config, exam=False):
     if unresolved:
         raise ValueError(
             "Nobius render configuration is incomplete. "
-            f"Set the following values in nobius.json before rendering: {', '.join(unresolved)}"
+            f"Set the following values in the active Nobius config before rendering: {', '.join(unresolved)}"
         )

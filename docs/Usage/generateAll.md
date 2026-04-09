@@ -13,7 +13,7 @@ python generateAll.py SHEETS_DIR OUTPUT_DIR [--reset-uid] [--config CONFIG] [--r
 - `SHEETS_DIR`: parent directory containing one subdirectory per sheet
 - `OUTPUT_DIR`: folder where the merged XML, media bundle, and timing summary should be written
 - `--reset-uid`: regenerate question and sheet UIDs before rendering
-- `--config`: pass a custom `nobius.json` file through to `generateGroup.py`
+- `--config`: pass a custom config JSON file through to `generateGroup.py` (otherwise `nobius.json` is used)
 - `--render-profile`: render all sheet folders using the selected `generateGroup.py` profile
 - `--continue-on-error`: keep processing remaining sheet folders if one render fails
 

@@ -82,56 +82,12 @@
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
           </div>
@@ -156,7 +112,7 @@
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -168,8 +124,8 @@
     <parts>
             <part uid="71e9e417-7c7e-5936-86dc-47a8b81ab627" language="en">
   <mode>Non Permuting Multiple Selection</mode>
-  <chainId><![CDATA[    ]]></chainId>
-  <name><![CDATA[ responseNaN ]]></name>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
   <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
@@ -268,56 +224,12 @@ $v = range(10, 30);   ]]>
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
             
@@ -461,7 +373,7 @@ $v = range(10, 30);   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -473,8 +385,8 @@ $v = range(10, 30);   ]]>
     <parts>
             <part uid="fc52feaf-e3fc-5e05-ac86-cddda29ec4f6" language="en">
   <mode>Numeric</mode>
-  <chainId><![CDATA[    ]]></chainId>
-  <name><![CDATA[ responseNaN ]]></name>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
   <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
@@ -499,8 +411,8 @@ $v = range(10, 30);   ]]>
 
             <part uid="40e24741-63b7-5935-8b8b-ddcff5f8f217" language="en">
   <mode>Maple</mode>
-  <chainId><![CDATA[    ]]></chainId>
-  <name><![CDATA[ responseNaN ]]></name>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_2 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
   <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
@@ -582,56 +494,12 @@ $v = range(10, 30);   ]]>
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
           </div>
@@ -656,7 +524,7 @@ $v = range(10, 30);   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -668,7 +536,7 @@ $v = range(10, 30);   ]]>
     <parts>
             <part uid="e3a095a9-b668-5803-9598-32b63b434106" language="en">
   <mode>Numeric</mode>
-  <chainId><![CDATA[    ]]></chainId>
+    <chainId><![CDATA[    ]]></chainId>
   <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
@@ -754,56 +622,12 @@ $v = range(10, 30);   ]]>
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
           </div>
@@ -828,7 +652,7 @@ $v = range(10, 30);   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -840,7 +664,7 @@ $v = range(10, 30);   ]]>
     <parts>
             <part uid="c047d1c2-64a9-5e78-aa2c-1632246e3562" language="en">
   <mode>Non Permuting Multiple Choice</mode>
-  <chainId><![CDATA[    ]]></chainId>
+    <chainId><![CDATA[    ]]></chainId>
   <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
@@ -922,56 +746,12 @@ $v = range(10, 30);   ]]>
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
           </div>
@@ -996,7 +776,7 @@ $v = range(10, 30);   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -1008,7 +788,7 @@ $v = range(10, 30);   ]]>
     <parts>
             <part uid="ef916c25-615d-5653-a793-51e10d0fccdd" language="en">
   <mode>List</mode>
-  <chainId><![CDATA[    ]]></chainId>
+    <chainId><![CDATA[    ]]></chainId>
   <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
@@ -1215,7 +995,7 @@ $v = range(10, 30);   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -1227,8 +1007,8 @@ $v = range(10, 30);   ]]>
     <parts>
             <part uid="64b9c81e-1720-579a-b51f-79496eef9fb5" language="en">
   <mode>Maple</mode>
-  <chainId><![CDATA[    ]]></chainId>
-  <name><![CDATA[ responseNaN ]]></name>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
   <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
@@ -1315,56 +1095,12 @@ $c = $a + $b   ]]>
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
           </div>
@@ -1389,7 +1125,7 @@ $c = $a + $b   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -1401,8 +1137,8 @@ $c = $a + $b   ]]>
     <parts>
             <part uid="db3a06ff-a61e-5bff-82a9-2d0804d6ecd5" language="en">
   <mode>Numeric</mode>
-  <chainId><![CDATA[    ]]></chainId>
-  <name><![CDATA[ responseNaN ]]></name>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
   <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
@@ -1486,56 +1222,12 @@ $c = $a + $b   ]]>
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
           </div>
@@ -1560,7 +1252,7 @@ $c = $a + $b   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -1572,7 +1264,7 @@ $c = $a + $b   ]]>
     <parts>
             <part uid="e95e8ad7-5200-563c-8fa0-e076f67c7ace" language="en">
   <mode>Essay</mode>
-  <chainId><![CDATA[    ]]></chainId>
+    <chainId><![CDATA[    ]]></chainId>
   <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
@@ -1652,56 +1344,12 @@ $c = $a + $b   ]]>
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
           </div>
@@ -1726,7 +1374,7 @@ $c = $a + $b   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -1738,7 +1386,7 @@ $c = $a + $b   ]]>
     <parts>
             <part uid="2648ad81-abb6-594f-973e-71c61498b5e2" language="en">
   <mode>Non Permuting Multiple Choice</mode>
-  <chainId><![CDATA[    ]]></chainId>
+    <chainId><![CDATA[    ]]></chainId>
   <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
@@ -1820,56 +1468,12 @@ $c = $a + $b   ]]>
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
 
 
 
-
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
-
-            &nbsp;
-        </div>
 
             </div>
           </div>
@@ -1894,7 +1498,7 @@ $c = $a + $b   ]]>
         </div>
 
 
-        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">
           /* Import Custom Javascript Code from the server */
         </script>
          ]]>
@@ -1906,7 +1510,7 @@ $c = $a + $b   ]]>
     <parts>
             <part uid="456f9acc-30a8-5c45-91e3-eba2f861634d" language="en">
   <mode>Matching</mode>
-  <chainId><![CDATA[    ]]></chainId>
+    <chainId><![CDATA[    ]]></chainId>
   <name><![CDATA[ sro_id_1 ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>

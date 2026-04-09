@@ -33,12 +33,14 @@ Now, the Nobius rendering scripts need to be setup to correctly reference the fi
 !!! Example
     An example URL might look like this: `/web/username/Public_Html/Scripts/QuestionJavaScript.txt`
 
-- Once you have grabbed that URL, open the `nobius.json` file from the Nobius toolset in a text editor and paste it into `render.scripts_location`. If your exam rendering profile uses a different script path, also update `render.exam_scripts_location`.
+- Once you have grabbed that URL, open the default Nobius config file `nobius.json` (or your chosen config passed with `--config`) and paste it into `render.scripts_location`. If your exam rendering profile uses a different script path, also update `render.exam_scripts_location`.
 
-- If your Mobius theme URI is different, set `render.theme_location` and optionally `render.exam_theme_location` in the same `nobius.json` file.
+- If your Mobius theme URI is different, set `render.theme_location` and optionally `render.exam_theme_location` in the same config file.
+
+In practice this means the JavaScript is uploaded to Möbius by importing `ResourcesBundle.zip` into the class Content Repository, while the CSS theme is uploaded separately in Möbius via **Content Repository -> Create New -> Theme** and then referenced by its `/themes/...` URI in the Nobius render config. DigitalEd's theme instructions are here: <https://www.digitaled.com/support/help/admin/Content/INST-CONTENT-REPO/Themes.htm>.
 
 !!! warning
-    The default `nobius.json` values are placeholders. Rendering will fail until you replace them with real Mobius paths for your deployment.
+    The default `nobius.json` values are placeholders. Rendering will fail until you replace unresolved values with real Mobius paths for your deployment.
 
 Nobius is now all setup!
 

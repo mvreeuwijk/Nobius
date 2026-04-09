@@ -1,8 +1,11 @@
 {% from 'questions/field_macros.xml' import addListParameter, addDisplayParameter %}
 
-{% macro render_common_part_fields_standard(response_area) -%}
+{% macro render_common_part_fields_standard(response_area, fallback_index=1) -%}
+  {% set raw_name = response_area.name if response_area.name else "" %}
+  {% set normalized_name = raw_name|trim %}
+  {% set emitted_name = normalized_name if normalized_name and normalized_name|lower != "responsenan" else "sro_id_" ~ fallback_index|string %}
   <chainId><![CDATA[    ]]></chainId>
-  <name><![CDATA[ {{ response_area.name if response_area.name else "sro_id_1" }} ]]></name>
+  <name><![CDATA[ {{ emitted_name }} ]]></name>
   <editing>useHTML</editing>
   <numberOfAttempts>1</numberOfAttempts>
   <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
@@ -16,10 +19,10 @@
   <text><![CDATA[    ]]></text>
 {%- endmacro %}
 
-{% macro render_numeric_part(response_area) -%}
+{% macro render_numeric_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>Numeric</mode>
-  {{ render_common_part_fields_standard(response_area) }}
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
   <answer>
     <num><![CDATA[ {{ response_area.answer.num }} ]]></num>
     {% if response_area.answer.units %}
@@ -41,10 +44,10 @@
 </part>
 {%- endmacro %}
 
-{% macro render_list_part(response_area) -%}
+{% macro render_list_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>List</mode>
-  {{ render_common_part_fields_standard(response_area) }}
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
   {{ addDisplayParameter(response_area.display) }}
   <width>0.0</width>
   <grader>{{ response_area.grader }}</grader>
@@ -53,10 +56,10 @@
 </part>
 {%- endmacro %}
 
-{% macro render_multiple_choice_part(response_area) -%}
+{% macro render_multiple_choice_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>Non Permuting Multiple Choice</mode>
-  {{ render_common_part_fields_standard(response_area) }}
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
   <answer><![CDATA[ {{ response_area.answer }} ]]></answer>
   <display>{{ response_area.display }}</display>
   <fixed><![CDATA[    ]]></fixed>
@@ -65,10 +68,10 @@
 </part>
 {%- endmacro %}
 
-{% macro render_true_false_part(response_area) -%}
+{% macro render_true_false_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>Non Permuting Multiple Choice</mode>
-  {{ render_common_part_fields_standard(response_area) }}
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
   <answer><![CDATA[ {{ response_area.answer }} ]]></answer>
   <display>vertical</display>
   <fixed><![CDATA[    ]]></fixed>
@@ -80,10 +83,10 @@
 </part>
 {%- endmacro %}
 
-{% macro render_multiple_response_part(response_area) -%}
+{% macro render_multiple_response_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>Non Permuting Multiple Selection</mode>
-  {{ render_common_part_fields_standard(response_area) }}
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
   <display>{{ response_area.display }}</display>
   {% if response_area.answer is defined %}
   <answer><![CDATA[ {{ response_area.answer }} ]]></answer>
@@ -100,20 +103,20 @@
 </part>
 {%- endmacro %}
 
-{% macro render_essay_part(response_area) -%}
+{% macro render_essay_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>Essay</mode>
-  {{ render_common_part_fields_standard(response_area) }}
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
   <width>0.0</width>
   <keywords>{% for keyword in response_area.keywords %}<keyword><![CDATA[ {{ keyword }} ]]></keyword>{% endfor %}</keywords>
   <maxWordcount>{{ response_area.maxWordcount }}</maxWordcount>
 </part>
 {%- endmacro %}
 
-{% macro render_matching_part(response_area) -%}
+{% macro render_matching_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>Matching</mode>
-  {{ render_common_part_fields_standard(response_area) }}
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
   <matchings>
     {% for matching in response_area.matchings %}
     <match>
@@ -133,10 +136,10 @@
 </part>
 {%- endmacro %}
 
-{% macro render_maple_part(response_area) -%}
+{% macro render_maple_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>Maple</mode>
-  {{ render_common_part_fields_standard(response_area) }}
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
   <width>0.0</width>
   <mapleAnswer><![CDATA[ {{ response_area.mapleAnswer }} ]]></mapleAnswer>
   <maple>{{ response_area.maple }}</maple>
@@ -169,23 +172,23 @@
 </part>
 {%- endmacro %}
 
-{% macro render_part_standard(response_area) -%}
+{% macro render_part_standard(response_area, fallback_index=1) -%}
   {% if response_area.mode == "Numeric" %}
-    {{ render_numeric_part(response_area) }}
+    {{ render_numeric_part(response_area, fallback_index) }}
   {% elif response_area.mode == "List" %}
-    {{ render_list_part(response_area) }}
+    {{ render_list_part(response_area, fallback_index) }}
   {% elif response_area.mode == "Maple" %}
-    {{ render_maple_part(response_area) }}
+    {{ render_maple_part(response_area, fallback_index) }}
   {% elif response_area.mode in ["Non Permuting Multiple Choice", "Multiple Choice"] %}
-    {{ render_multiple_choice_part(response_area) }}
+    {{ render_multiple_choice_part(response_area, fallback_index) }}
   {% elif response_area.mode == "True False" %}
-    {{ render_true_false_part(response_area) }}
+    {{ render_true_false_part(response_area, fallback_index) }}
   {% elif response_area.mode in ["Non Permuting Multiple Selection", "Multiple Selection"] %}
-    {{ render_multiple_response_part(response_area) }}
+    {{ render_multiple_response_part(response_area, fallback_index) }}
   {% elif response_area.mode == "Essay" %}
-    {{ render_essay_part(response_area) }}
+    {{ render_essay_part(response_area, fallback_index) }}
   {% elif response_area.mode == "Matching" %}
-    {{ render_matching_part(response_area) }}
+    {{ render_matching_part(response_area, fallback_index) }}
   {% else %}
     {{ render_legacy_part(response_area) }}
   {% endif %}
