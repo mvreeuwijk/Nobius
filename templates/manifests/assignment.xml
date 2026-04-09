@@ -35,11 +35,12 @@
       <description><![CDATA[ {{ CourseModule.assignment.description }} ]]></description>
       <privacy>{{ CourseModule.assignment.privacy }}</privacy>
       <category>{{ CourseModule.assignment.category }}</category>
+
       <questionGroups>
         {% for group in CourseModule.assignment.question_groups %}
         <aqGroup>
-          <name>{{ group.name }}</name>
-          <shortName></shortName>
+          <name><![CDATA[ {{ group.name }} ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
           <weighting>{{ group.weighting }}</weighting>
           <select>{{ group.select }}</select>
           <type>0</type>
@@ -47,7 +48,9 @@
           <pool>false</pool>
           <ordered>false</ordered>
           <questions>
-            <qRef uid="{{ group.question_uid }}"><name></name></qRef>
+            <qRef uid="{{ group.question_uid }}">
+              <name><![CDATA[    ]]></name>
+            </qRef>
           </questions>
         </aqGroup>
         {% endfor %}
@@ -115,9 +118,9 @@
   <webResources>
     {% for folder in CourseModule.web_resource_folders %}
     <folder id="0">
-      <name>{{ folder.name }}</name>
-      <description></description>
-      <uri>{{ folder.uri }}</uri>
+      <name><![CDATA[ {{ folder.name }} ]]></name>
+      <description><![CDATA[    ]]></description>
+      <uri><![CDATA[ {{ folder.uri }} ]]></uri>
     </folder>
     {% endfor %}
   </webResources>

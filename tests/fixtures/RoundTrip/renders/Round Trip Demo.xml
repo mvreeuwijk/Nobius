@@ -1,0 +1,2162 @@
+
+<courseModule>
+
+  <module>
+    <name><![CDATA[ Round Trip Demo ]]></name>
+    <description><![CDATA[ Course Module ]]></description>
+    <uri><![CDATA[ 16338682-fcc3-4972-8bc1-2f702fdfdbd5 ]]></uri>
+    <privacy>0</privacy>
+    <autoModule>true</autoModule>
+    <exportedFrom>fca843d0-7e6c-52ca-9603-6c684351e681</exportedFrom>
+  </module>
+
+  <assignmentUnits>
+    <unit uid="16338682-fcc3-4972-8bc1-2f702fdfdbd5" modifiedBy="8719b03f-d78b-5358-ac65-529b463385f9">
+      <weight>1.0</weight>
+      <name><![CDATA[ Round Trip Demo ]]></name>
+      <description><![CDATA[  ]]></description>
+      <privacy>10</privacy>
+      <assignments>
+        <aRef uid="9d338c19-778e-50c1-aafb-2bf23fc70bf8" weight="1.0"/>
+      </assignments>
+    </unit>
+  </assignmentUnits>
+
+  <questions>
+        <question uid="6d96d137-7f24-4fad-a362-f32399b72857" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Multiple selection problem. ]]>
+    </name>
+    <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.1</span>
+                <span data-propname="title">Multiple selection problem.</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Which one of these is true?
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q1 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="71e9e417-7c7e-5936-86dc-47a8b81ab627" language="en">
+  <mode>Non Permuting Multiple Selection</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ responseNaN ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display>vertical</display>
+  <answer><![CDATA[ 1,3,5 ]]></answer>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices><choice><![CDATA[ <p>Option A</p> ]]></choice><choice><![CDATA[ <p>Option B</p> ]]></choice><choice><![CDATA[ <p>Option C</p> ]]></choice><choice><![CDATA[ <p>Option D</p> ]]></choice><choice><![CDATA[ <p>Option E</p> ]]></choice></choices>
+  <width>0.0</width>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="d1268aac-623d-44c8-a2fd-8d4f164a0acf" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Multipart hybrid exercise ]]>
+    </name>
+    <editing>useHTML</editing>
+      <algorithm>
+        <![CDATA[   $a = range(10, 20);
+$b = range(0, 10);
+$c = $a + $b;
+$v = range(10, 30);   ]]>
+      </algorithm>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.2</span>
+                <span data-propname="title">Multipart hybrid exercise</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              If a=$a m/s and b=$b m/s, what is c?
+            </p>
+
+
+          </header>
+
+          <ul class="tabs-container">
+
+            <li class="tab active" id="tab1" style="max-width: 15rem;">
+              <p>(a)</p>
+            </li>
+            <li class="tab " id="tab2" style="max-width: 15rem;">
+              <p>(b)</p>
+            </li>
+
+            <li class="tab-end-line"></li>
+
+          </ul>
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+            
+            <div class="part " id="part2">
+              <p class="part-statement" data-propname="parts.2.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                If v=$c is the velocity of a car and x0 is the initial position, give an equation for the position of the car as a function of time t
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.2.response">
+
+
+          <2>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn2">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+                <div class="answers-nav-button equation-help-button" id="eh-btn2">
+                    <p>Equation Help</p>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="equation-help">
+                <div class="header">
+                    <h2>How to input expressions</h2>
+                </div>
+                <div class="body">
+                    <p>
+                        The equation questions use Maple syntax to evaluate expressions. As with Python, basic operators use the symbols 
+                            <span class="code">+</span>
+                            <span class="code">-</span>
+                            <span class="code">*</span>
+                            <span class="code">/</span>
+                            <span class="code">^</span>
+                        and parentheses can be used to structure your expressions.
+
+                        Some common functions can also be used such as 
+                            <span class="code">sqrt()</span>, 
+                            <span class="code">sin()</span> and 
+                            <span class="code">arcsin()</span>.
+
+                        To get the natural exponential, use 
+                            <span class="code">exp()</span> as 
+                            <span class="code">e</span> 
+                        is not intepreted as Euler's number.
+                    </p>
+                    <p>
+                        For Greek letters, type the full name of the letter. For example 
+                            <span class="code">mu*U</span> 
+                        will render \( \mu U \) (there is no need to use a back slash).
+                    </p>
+                    <p>
+                        Click the
+                            <svg class="maple-preview-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+                                <circle cx="13" cy="13" r="10"></circle>
+                                <text x="13" y="13">Ω</text>
+                            </svg>
+                        to preview your expressions.
+                    </p>
+                    <p>
+                        For example, writing 
+                            <span class="code">exp(i*pi) - 1</span> 
+                        will produce:
+                    </p>
+                    <p class="latex">
+                        \( \text{e}^{i \pi} - 1 \)
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q2 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1,1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="fc52feaf-e3fc-5e05-ac86-cddda29ec4f6" language="en">
+  <mode>Numeric</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ responseNaN ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ $c ]]></num>
+    <units><![CDATA[ m/s ]]></units>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_value</grading>
+  <showUnits>true</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="40e24741-63b7-5935-8b8b-ddcff5f8f217" language="en">
+  <mode>Maple</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ responseNaN ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <width>0.0</width>
+  <mapleAnswer><![CDATA[ x0+$c*t ]]></mapleAnswer>
+  <maple>evalb(($ANSWER)-($RESPONSE)=0);</maple>
+  <type>maple</type>
+  <allow2d>0</allow2d>
+  <mathConversionMode>0</mathConversionMode>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="59320b45-5b9d-4768-bd09-8ff784864ac5" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Numerical-20260408_220141 ]]>
+    </name>
+    <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.3</span>
+                <span data-propname="title">Numerical-20260408_220141</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              What is the gravitational acceleration on Earth in m/s^2?
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q3 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="e3a095a9-b668-5803-9598-32b63b434106" language="en">
+  <mode>Numeric</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 9.81 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>toler_abs</grading>
+  <err>0.01</err>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="a4b14fba-9e3a-4cb7-a81b-f55bac70837d" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Multiple Choice-20260408_220141 ]]>
+    </name>
+    <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.4</span>
+                <span data-propname="title">Multiple Choice-20260408_220141</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              What is Newton's Third Law?
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q4 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="c047d1c2-64a9-5e78-aa2c-1632246e3562" language="en">
+  <mode>Non Permuting Multiple Choice</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer><![CDATA[ 3 ]]></answer>
+  <display>vertical</display>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices><choice><![CDATA[ <div>An object at rest stays at rest unless acted on by a net force.</div> ]]></choice><choice><![CDATA[ <div>Force equals mass times acceleration.</div> ]]></choice><choice><![CDATA[ <div>If object A exerts a force on object B, then B exerts an equal and opposite force on A.</div> ]]></choice></choices>
+  <width>0.0</width>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="cda431cd-bd13-4636-a32f-d6db251a755b" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Text Entry-20260408_220141 ]]>
+    </name>
+    <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.5</span>
+                <span data-propname="title">Text Entry-20260408_220141</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Define a fluid.
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q5 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="ef916c25-615d-5653-a793-51e10d0fccdd" language="en">
+  <mode>List</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display >text</display>
+  <width>0.0</width>
+  <grader>exact</grader>
+  <answers><answer><![CDATA[ A fluid is a substance that deforms continuously under shear stress. ]]></answer></answers>
+  <credits><credit>1.0</credit></credits>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="f4de05e1-7b98-4f60-baf3-68a25a52a869" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Symbolic ]]>
+    </name>
+    <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.6</span>
+                <span data-propname="title">Symbolic</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Give the equation for the area of a Circle in terms of its diameter D?
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+                <div class="answers-nav-button equation-help-button" id="eh-btn1">
+                    <p>Equation Help</p>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+            <div class="equation-help">
+                <div class="header">
+                    <h2>How to input expressions</h2>
+                </div>
+                <div class="body">
+                    <p>
+                        The equation questions use Maple syntax to evaluate expressions. As with Python, basic operators use the symbols 
+                            <span class="code">+</span>
+                            <span class="code">-</span>
+                            <span class="code">*</span>
+                            <span class="code">/</span>
+                            <span class="code">^</span>
+                        and parentheses can be used to structure your expressions.
+
+                        Some common functions can also be used such as 
+                            <span class="code">sqrt()</span>, 
+                            <span class="code">sin()</span> and 
+                            <span class="code">arcsin()</span>.
+
+                        To get the natural exponential, use 
+                            <span class="code">exp()</span> as 
+                            <span class="code">e</span> 
+                        is not intepreted as Euler's number.
+                    </p>
+                    <p>
+                        For Greek letters, type the full name of the letter. For example 
+                            <span class="code">mu*U</span> 
+                        will render \( \mu U \) (there is no need to use a back slash).
+                    </p>
+                    <p>
+                        Click the
+                            <svg class="maple-preview-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+                                <circle cx="13" cy="13" r="10"></circle>
+                                <text x="13" y="13">Ω</text>
+                            </svg>
+                        to preview your expressions.
+                    </p>
+                    <p>
+                        For example, writing 
+                            <span class="code">exp(i*pi) - 1</span> 
+                        will produce:
+                    </p>
+                    <p class="latex">
+                        \( \text{e}^{i \pi} - 1 \)
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q6 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="64b9c81e-1720-579a-b51f-79496eef9fb5" language="en">
+  <mode>Maple</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ responseNaN ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <width>0.0</width>
+  <mapleAnswer><![CDATA[ Pi/4*D^2 ]]></mapleAnswer>
+  <maple>evalb(($ANSWER)-($RESPONSE)=0);</maple>
+  <type>maple</type>
+  <allow2d>0</allow2d>
+  <mathConversionMode>0</mathConversionMode>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="7c3b4542-978a-4202-abeb-b0aff3bf3abe" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Numerical ]]>
+    </name>
+    <editing>useHTML</editing>
+      <algorithm>
+        <![CDATA[   $a = range(10,20);
+$b = range(0, 10);
+$c = $a + $b   ]]>
+      </algorithm>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.7</span>
+                <span data-propname="title">Numerical</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              If a=$a and b=$b, what is c?
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q7 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="db3a06ff-a61e-5bff-82a9-2d0804d6ecd5" language="en">
+  <mode>Numeric</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ responseNaN ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ $c ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_value</grading>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="d04703d4-8568-4fcf-a142-78dab6c1679c" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Essay-20260408_220141 ]]>
+    </name>
+    <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.8</span>
+                <span data-propname="title">Essay-20260408_220141</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Briefly explain the difference between pressure and force.
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q8 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="e95e8ad7-5200-563c-8fa0-e076f67c7ace" language="en">
+  <mode>Essay</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <width>0.0</width>
+  <keywords></keywords>
+  <maxWordcount>0</maxWordcount>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="a92d27ef-eff4-4c97-96bc-4a292d4afbf9" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ True False-20260408_220141 ]]>
+    </name>
+    <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.9</span>
+                <span data-propname="title">True False-20260408_220141</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Hydrostatic pressure increases with depth in a stationary fluid.
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q9 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="2648ad81-abb6-594f-973e-71c61498b5e2" language="en">
+  <mode>Non Permuting Multiple Choice</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer><![CDATA[ 1 ]]></answer>
+  <display>vertical</display>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices><choice><![CDATA[ <div>true</div> ]]></choice><choice><![CDATA[ <div>false</div> ]]></choice></choices>
+  <width>0.0</width>
+</part>
+
+    </parts>
+  </question>
+
+        <question uid="5a828fe0-43aa-4da4-a555-3d6b1567dd3f" language="en">
+    <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
+    <name>
+      <![CDATA[ Matching-20260408_220141 ]]>
+    </name>
+    <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+    <privacy>10</privacy>
+    <allowRepublish>false</allowRepublish>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
+    <difficulty>0.0</difficulty>
+    <text>
+                <![CDATA[     <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+
+        <div class="wrapper">
+          <header>
+            <div class="header-top">
+
+              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
+              <h1>
+                <span data-propname="number">1.10</span>
+                <span data-propname="title">Matching-20260408_220141</span>
+              </h1>
+
+
+            </div>
+
+            <p class="master-statement" data-propname="master_statement">
+              <!-- CHANGE MASTER STATEMENT HERE -->
+              Match each quantity to its SI unit.
+            </p>
+
+
+          </header>
+
+
+          <div class="parts-container">
+
+            
+            <div class="part active" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">
+                <!-- CHANGE PART STATEMENT HERE -->
+                
+              </p>
+
+
+
+              
+              <div class="response-wrapper" data-propname="parts.1.response">
+
+
+          <1>
+
+
+          <div class="check-help-container">
+            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
+                <p>Help</p>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+
+
+              <div class="answers-help-container">
+            <div class="answers-nav-container">
+
+
+
+            </div>
+
+            <div class="answers-warning-tippy awt-structured-tutorial">
+                <div class="awt-text">
+                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
+                    Good if you don't know where to start, or are stuck half-way through.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-show-answer">
+                <div class="awt-text">
+                    Check your own answer before revealing the answer.
+                    Revealing the answer takes away the chance to get it right yourself.
+                </div>
+            </div>
+            <div class="answers-warning-tippy awt-worked-solutions">
+                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="awt-text">
+                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
+                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
+                </div>
+            </div>
+        </div>
+
+        <div class="answers-container">
+
+
+            &nbsp;
+        </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <hr id="question-feedback-separator">
+
+        <div id="comments-bar-container">
+            <div class="comments-bar bar">
+                <div id="comment-btn" class="title">
+                    <div>Q10 Comments</div>
+                </div>
+            </div>
+            <div class="comments-bar description">
+                <p>
+                    View/make comments; ask/answer questions.
+                    Give feedback on the questions to help us improve.
+                    Comments are anonymous.
+                </p>
+            </div>
+        </div>
+
+
+        <script src="/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+          /* Import Custom Javascript Code from the server */
+        </script>
+         ]]>
+    </text>
+    <width>0.0</width>
+    <weighting>1</weighting>
+    <numbering>alpha</numbering>
+
+    <parts>
+            <part uid="456f9acc-30a8-5c45-91e3-eba2f861634d" language="en">
+  <mode>Matching</mode>
+  <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <matchings>
+    <match>
+      <term><![CDATA[ Pressure ]]></term>
+      <defs>
+        <def><![CDATA[ Pa ]]></def>
+      </defs>
+    </match>
+    <match>
+      <term><![CDATA[ Density ]]></term>
+      <defs>
+        <def><![CDATA[ kg/m^3 ]]></def>
+      </defs>
+    </match>
+    <match>
+      <term><![CDATA[ Force ]]></term>
+      <defs>
+        <def><![CDATA[ N ]]></def>
+      </defs>
+    </match>
+  </matchings>
+  <format>
+    <columns>3</columns>
+  </format>
+  <width>0.0</width>
+</part>
+
+    </parts>
+  </question>
+
+  </questions>
+
+  <assignments>
+    <assignment uid="9d338c19-778e-50c1-aafb-2bf23fc70bf8">
+      <name><![CDATA[ Round Trip Demo ]]></name>
+      <description><![CDATA[  ]]></description>
+      <privacy>10</privacy>
+      <category>REGULAR</category>
+
+      <questionGroups>
+        <aqGroup>
+          <name><![CDATA[ Multiple selection problem. ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="6d96d137-7f24-4fad-a362-f32399b72857">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Multipart hybrid exercise ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="d1268aac-623d-44c8-a2fd-8d4f164a0acf">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Numerical-20260408_220141 ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="59320b45-5b9d-4768-bd09-8ff784864ac5">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Multiple Choice-20260408_220141 ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="a4b14fba-9e3a-4cb7-a81b-f55bac70837d">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Text Entry-20260408_220141 ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="cda431cd-bd13-4636-a32f-d6db251a755b">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Symbolic ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="f4de05e1-7b98-4f60-baf3-68a25a52a869">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Numerical ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="7c3b4542-978a-4202-abeb-b0aff3bf3abe">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Essay-20260408_220141 ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="d04703d4-8568-4fcf-a142-78dab6c1679c">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ True False-20260408_220141 ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="a92d27ef-eff4-4c97-96bc-4a292d4afbf9">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Matching-20260408_220141 ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="5a828fe0-43aa-4da4-a555-3d6b1567dd3f">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+      </questionGroups>
+      <policies>
+        <mode>1</mode>
+        <reworkable>true</reworkable>
+        <reuseAlgorithmicVariables>false</reuseAlgorithmicVariables>
+        <targeted>false</targeted>
+        <scramble>0</scramble>
+        <printable>false</printable>
+        <preAuthorized>false</preAuthorized>
+        <gradeAuthorizationRequired>false</gradeAuthorizationRequired>
+        <useLockdown>false</useLockdown>
+        <isVisibleAdvancedPolicy>false</isVisibleAdvancedPolicy>
+        <passingScore>-1</passingScore>
+        <showPassFailFeedback>4</showPassFailFeedback>
+        <timeLimit>-1</timeLimit>
+        <quPerPage>1</quPerPage>
+        <presentationMode>0</presentationMode>
+        <completionMode>3</completionMode>
+        <isVisibleTimeRange>false</isVisibleTimeRange>
+        <isVisible>true</isVisible>
+        <forceGrade>false</forceGrade>
+        <allowSubmitLesson>false</allowSubmitLesson>
+        <showLaunchPage>true</showLaunchPage>
+        <showAdaptiveProgress>false</showAdaptiveProgress>
+        <hintsShown>false</hintsShown>
+        <showOneHint>false</showOneHint>
+        <showCurrentGrade>false</showCurrentGrade>
+        <allowResubmitQuestion>true</allowResubmitQuestion>
+        <inSessionGradeReported>false</inSessionGradeReported>
+        <inSessionAnswer>3</inSessionAnswer>
+        <inSessionComment>3</inSessionComment>
+        <gradeReported>true</gradeReported>
+        <showAnswer>2</showAnswer>
+        <showComment>0</showComment>
+        <emailNotified>false</emailNotified>
+        <delayedFeedback>false</delayedFeedback>
+        <maxAttempts>-1</maxAttempts>
+      </policies>
+    </assignment>
+  </assignments>
+
+
+
+  <webResources>
+    <folder id="0">
+      <name><![CDATA[ web_folders/Scripts ]]></name>
+      <description><![CDATA[    ]]></description>
+      <uri><![CDATA[ web_folders/Scripts ]]></uri>
+    </folder>
+  </webResources>
+
+</courseModule>

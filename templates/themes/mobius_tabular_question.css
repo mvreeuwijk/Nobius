@@ -1,0 +1,777 @@
+/* GLOBAL STYLES FOR TABULAR QUESTIONS
+   For now, the tab behaviour of questions is dependant on this theme
+   To use it, simply select it as a theme, in the custom css field in the question editor.
+
+   THEME LINK: /themes/b06b01fb-1810-4bde-bc67-60630d13a866
+
+*/
+*, h1 {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  color: black;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header"
+    "tabs tabs"
+    "parts parts"
+}
+
+.wrapper h1 {
+  font-size: 3rem;
+  display: inline;
+}
+
+.wrapper p {
+  font-size: 1.5rem;
+}
+
+.wrapper header img, .wrapper header video {
+  max-height: 40vh;
+  max-width: 100%;
+  width: auto;
+}
+
+.wrapper header {
+  grid-area: header;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: auto minmax(1fr, 65%);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "top top"
+    "statement media"
+}
+
+.wrapper header .media-container {
+  padding: 1rem;
+  display: grid;
+  place-items: center;
+}
+
+@media screen and (max-width: 991px) {
+  .wrapper header {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "top top"
+      "statement statement"
+      "media media"
+  }
+}
+
+.wrapper header .header-top {
+  width: 100%;
+  grid-area: top;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.wrapper header .header-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.wrapper header p {
+  grid-area: statement;
+  width: 100%;
+}
+
+.parts-container .media-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.tabs-container {
+  grid-area: tabs;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tab {
+  list-style-type: none;
+  height: 3.5rem;
+  min-width: 7rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  user-select: none;
+  background-color: #EEE;
+  margin: 5px 5px 0 0;
+  border-radius: 2px;
+  flex-grow: 100000;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-end-line {
+  background-color: transparent;
+  border-bottom: 3px solid #EEEEEE;
+  align-self: flex-end;
+  flex-grow: 1;
+  list-style-type: none;
+}
+
+.tab:hover {
+  background-color: #d0d0d0;
+}
+
+.tab.active {
+  background-color: white;
+  border-bottom-color: #037393;
+  border-radius: 2px 2px 0 0;
+}
+
+.parts-container {
+  grid-area: parts;
+  padding: 0 2rem;
+}
+
+.part-statement {
+  margin: 2rem 0;
+}
+
+.part .btn.btn-default {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+/*
+.final-answer-button.open, .worked-solutions-button.open, .structured-tutorial-button.open {
+  background-color: #a5d9e8;
+}
+*/
+.part .media-container img:not(.a4-media) {
+  max-height: 40vh;
+  max-width: 80%;
+  width: auto;
+}
+
+.response-wrapper {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  font-size: 0;
+}
+
+.response-wrapper .pre-response-text {
+  margin-right: 0.8rem;
+}
+
+.response-wrapper .post-response-text {
+  margin-left: 0.8rem;
+}
+
+.response-wrapper img {
+  display: none;
+}
+
+.response-wrapper a[title="Preview"] {
+  height: 3rem;
+  margin-left: 0.8rem;
+}
+
+.mathQuestion .blankenabled {
+  font-family: Courier, monospace;
+}
+
+.check-help-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.check-help-button {
+  width: 10rem;
+  margin-left: 2rem;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.answer-help-button {
+  background-color: #EEEEEE;
+}
+
+.check-help-button:hover {
+  border-color: transparent;
+}
+
+.answer-help-button:hover {
+  background-color: #D0D0D0;
+}
+
+.answer-help-button p {
+  margin: 0;
+}
+
+.sbs-eq {
+  text-align: center;
+}
+
+.a4-media {
+  width: 100%;
+  height: auto;
+}
+
+.sbs-nav {
+  margin: 2rem auto 1rem auto;
+}
+
+/* Required CSS for proper tab behaviour */
+.equation-help, .final-answer, .worked-solutions, .structured-tutorial {
+  padding: 1rem 2rem;
+}
+
+.equation-help, .final-answer, .worked-solutions, .structured-tutorial, .part, .sbs-step {
+  display: none;
+}
+
+.equation-help.active, .final-answer.active, .worked-solutions.active, .structured-tutorial.active, .part.active, .sbs-step.active {
+  display: block;
+}
+
+/* Comments styling */
+.btn[href="javascript:hcb.make_comment_form()"] {
+  display: none;
+}
+
+#HTML-comment-box {
+  margin: 0 1rem;
+}
+
+#HCB_comment_box h3 {
+  display: none;
+}
+
+.comment-forms {
+  margin-bottom: 5px !important;
+}
+
+h2 {
+  margin: 15px 0 8px 0;
+}
+
+#hcb_submit {
+  padding: 6px 12px;
+}
+
+#HCB_comment_box .comment blockquote {
+  margin: 5px;
+  padding: 5px 10px;
+  font-size: 15px
+}
+
+span.home-desc {
+  display: none;
+}
+
+a[href="https://www.htmlcommentbox.com"] {
+  display: none;
+}
+
+/* Maple Preview */
+.maple-preview-icon {
+  fill: none;
+  height: 3rem;
+}
+
+.response-wrapper .maple-preview-icon {
+  cursor: pointer;
+}
+
+.equation-help .maple-preview-icon {
+  vertical-align: middle;
+}
+
+.maple-preview-icon text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  stroke: none;
+  font-weight: 500;
+  text-anchor: middle;
+  dominant-baseline: central;
+  fill: white;
+}
+
+.maple-preview-icon circle {
+  stroke: #037393;
+  stroke-width: 1;
+  fill: #037393;
+}
+
+.response-wrapper .maple-preview-icon text {
+  cursor: pointer;
+}
+
+.response-wrapper .maple-preview-icon:hover text {
+  fill: #037393;
+}
+
+.response-wrapper .maple-preview-icon:hover circle {
+  fill: white;
+}
+
+/* Icon styling */
+.icons {
+  display: inline-flex;
+  justify-content: flex-end;
+  position: relative;
+  max-width: 18rem;
+  min-width: 18rem;
+  flex-grow: 1;
+  padding: 1rem;
+  margin-left: auto;
+  transition: max-width 0.2s ease-out;
+}
+
+.icons-flexbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.icons svg {
+  fill: none;
+  stroke: none;
+}
+
+#difficulty-rating-svg {
+  height: 4rem;
+  align-self: center;
+  visibility: visible;
+  z-index: 2;
+}
+
+#par-time-svg {
+  height: 6rem;
+  align-self: center;
+  visibility: visible;
+  z-index: 2;
+}
+
+.icons text {
+  stroke: none;
+  font-weight: 500;
+  font-family: Arial;
+  text-anchor: middle;
+  dominant-baseline: central;
+  fill: #037393;
+}
+
+#difficulty-rating-svg .skill-text {
+  opacity: 0%;
+  font-size: 0.6rem;
+  transition: opacity 0.2s linear 0s;
+}
+
+#difficulty-rating-svg .star {
+  opacity: 20%;
+  stroke: none;
+  fill: #037393;
+  transform: translate(0, 0);
+  transition: transform 0.2s ease-out 0s
+}
+
+#difficulty-rating-svg .star.active {
+  opacity: 100%;
+}
+
+#par-time-svg .clock {
+  opacity: 20%;
+  stroke-width: 2;
+  stroke-linecap: butt;
+  stroke: #037393;
+}
+
+#par-time-svg .lb {
+  opacity: 100%;
+}
+
+#par-time-svg .ub {
+  opacity: 50%;
+}
+
+#par-time-svg .tick {
+  stroke-width: 0.5;
+  stroke-linecap: round;
+  stroke: #037393;
+}
+
+#par-time-svg .number {
+  transform: translate(0, 0);
+  font-size: 0.5rem;
+  transition: transform 0.2s ease-out 0s,
+    font-size 0.2s linear 0s
+}
+
+#par-time-svg .mins {
+  opacity: 0%;
+  font-size: 0.35rem;
+  transition: opacity 0.2s linear 0s;
+}
+
+.icons-info {
+  visibility: hidden;
+  color: white;
+  opacity: 95%;
+  position: absolute;
+  right: 0rem;
+  top: 0rem;
+  z-index: 1;
+  width: 100%;
+  padding: 1rem;
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-areas: "icon_space"
+    "guidance";
+  border-radius: 4rem;
+  background-color: #037393;
+  clip-path: inset(0.75rem 0.75rem calc(100% - 7.25rem) 0.75rem round 4rem);
+  transition: clip-path 0.2s ease-out 0s,
+    visibility 0s linear 0s;
+}
+
+.icons-info .guidance {
+  font-size: 2rem;
+  grid-area: guidance;
+  align-self: center;
+}
+
+.icons-info .icon-space {
+  height: 6rem;
+  grid-area: icon_space
+}
+
+.icons-info .blurb {
+  font-size: 1.2rem;
+  grid-area: blurb;
+}
+
+.icons:hover {
+  max-width: 26rem;
+}
+
+.icons:hover .icons-info {
+  clip-path: inset(0%);
+  visibility: visible;
+  backdrop-filter: blur(2px);
+}
+
+.icons:hover text {
+  fill: white;
+}
+
+.icons:hover #difficulty-rating-svg .star {
+  fill: white;
+  transform: translate(0, -4px);
+}
+
+.icons:hover #difficulty-rating-svg .skill-text {
+  opacity: 100%;
+}
+
+.icons:hover #par-time-svg .number {
+  transform: translate(0, -1.5px);
+  font-size: 0.45rem;
+}
+
+.icons:hover #par-time-svg .mins {
+  opacity: 100%;
+}
+
+.icons:hover #par-time-svg .clock {
+  stroke: white;
+}
+
+.icons:hover #par-time-svg .tick {
+  stroke: white;
+}
+
+/* Styles for comment button and title */
+#question-feedback-separator {
+  border-top: 3px solid #EEEEEE;
+  display: block;
+  margin: 0;
+}
+
+#comments-bar-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#comments-bar-container .comments-bar {
+  margin: 1rem;
+}
+
+#comments-bar-container .bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#comments-bar-container .title {
+  font-size: 2rem;
+  color: #737373;
+  min-width: 16rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: transparent solid 3px;
+  border-bottom: transparent solid 3px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+#comments-bar-container .description {
+  opacity: 0%;
+  transition: opacity 0.4s linear 0s;
+}
+
+#comments-bar-container .description.active {
+  opacity: 100%;
+}
+
+#comments-bar-container .title:hover {
+  color: black;
+  background-color: #EEEEEE;
+}
+
+#comments-bar-container .title.active {
+  color: black;
+  border-bottom-color: #037393;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+/* Answer Help Nav Bar */
+.answers-help-container {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.answers-nav-container {
+  display: none;
+  opacity: 0%;
+  border-radius: 0.5rem;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: -1rem;
+}
+
+.answers-nav-container.active {
+  display: flex;
+  opacity: 100%;
+}
+
+.answers-nav-button {
+  margin: 0 1rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  background-color: hsl(0, 0%, 93%);
+  min-width: 7rem;
+  max-width: 15rem;
+  flex-grow: 1;
+  text-align: center;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.answers-nav-button:hover {
+  background-color: hsl(0, 0%, 82%);
+}
+
+.answers-nav-button.open {
+  border-radius: 0.5rem 0.5rem 0 0;
+  border-bottom-color: hsl(193, 96%, 29%);
+  background-color: transparent;
+}
+
+.study-technical-help-separator {
+  margin: 0 1rem;
+  height: 4rem;
+  border-left: 3px solid hsl(0, 0%, 93%)
+}
+
+.answers-nav-button.structured-tutorial-button {
+  background-color: hsl(145, 50%, 70%);
+}
+
+.answers-nav-button.structured-tutorial-button:hover {
+  background-color: hsl(145, 50%, 50%);
+}
+
+.answers-nav-button.structured-tutorial-button.open {
+  border-bottom-color: hsl(145, 63%, 42%);
+  background-color: transparent;
+}
+
+.answers-nav-button.final-answer-button {
+  background-color: hsl(37, 80%, 90%);
+}
+
+.answers-nav-button.final-answer-button:hover {
+  background-color: hsl(37, 80%, 70%);
+}
+
+.answers-nav-button.final-answer-button.open {
+  border-bottom-color: hsl(37, 90%, 61%);
+  background-color: transparent;
+}
+
+.answers-nav-button.worked-solutions-button {
+  background-color: hsl(3, 70%, 90%);
+}
+
+.answers-nav-button.worked-solutions-button:hover {
+  background-color: hsl(3, 70%, 70%);
+}
+
+.answers-nav-button.worked-solutions-button.open {
+  border-bottom-color: hsl(3, 83%, 63%);
+  background-color: transparent;
+}
+
+/* Answer Help Warning Tooltips */
+.answers-warning-tippy {
+  display: grid;
+  opacity: 0%;
+  align-items: center;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  top: 4.5rem;
+  width: 100%;
+  min-height: 3rem;
+  z-index: -1;
+  transition:
+    opacity 0.2s linear,
+    z-index 0s linear 0.2s;
+}
+
+.answers-warning-tippy.active {
+  opacity: 92%;
+  z-index: 1;
+  backdrop-filter: blur(2px);
+  transition-delay: 0s, 0s, 0s;
+}
+
+.awt-structured-tutorial {
+  background-color: hsl(145, 63%, 42%);
+  grid-template-areas: "text";
+}
+
+.awt-show-answer {
+  background-color: hsl(37, 90%, 61%);
+  grid-template-areas: "text";
+}
+
+.awt-worked-solutions {
+  background-color: hsl(1, 83%, 63%);
+  grid-template-areas: "svg text";
+}
+
+.answers-warning-tippy .awt-text {
+  grid-area: text;
+  font-size: 1.2rem;
+  line-height: normal;
+}
+
+.answers-warning-tippy .awt-svg {
+  grid-area: svg;
+  height: 3rem;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  stroke: white;
+  fill: none;
+  align-self: center;
+  margin-right: 1rem;
+}
+
+.answers-container {
+  display: none;
+  margin: 2rem 0;
+  border-left: 10px solid #EEEEEE;
+}
+
+.answers-container.active {
+  display: block;
+}
+
+.equation-help h2 {
+  font-size: 2.2rem;
+  margin: 0 0 2rem 0;
+}
+
+.equation-help p {
+  margin: 2rem 0;
+}
+
+.equation-help .code {
+  font-family: Courier, monospace;
+  background-color: #EEEEEE;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin: 0 0.1rem;
+}
+
+.equation-help .latex {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+/* Input symbols styling */
+.input-symbols-table td {
+  font-family: monospace;
+}
+
+.input-symbols-table th {
+  font-weight: normal;
+  font-size: 1.4rem;
+  padding: 0.5rem 2rem;
+}
+
+.input-symbols-table {
+  border-radius: 2rem;
+  border: 2px solid #EEEEEE;
+  border-spacing: 0;
+}
+
+.input-symbols-table td {
+  padding: 0.5rem 2rem;
+  text-align: center;
+}
+
+.input-symbols-table .code td, .input-symbols-table .code th {
+  border-bottom: 2px solid #EEEEEE;
+}
+
+.input-symbols-table th {
+  border-right: 2px solid #EEEEEEEE;
+}

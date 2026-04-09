@@ -8,7 +8,7 @@
 
 {# Generate the actual question html to be displayed #}
 {% macro questionText(question) %}
-<link href="{{ consts.THEME_LOCATION }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ consts.THEME_LOCATION }}">
 
 <div class="wrapper">
   <header>
@@ -57,9 +57,7 @@
 
     {% for part in question.parts %}
     {% set part_propname = "parts." + loop.index|string %}
-    <!-- {% set require_help_button = part.isMaple or (part.structured_tutorial or part.final_answer or part.worked_solutions) %} -->
-    <!-- {% set require_help_button = false %} -->
-    {% set require_help_button = part.isMaple %}
+    {% set require_help_button = part.isMaple or (part.structured_tutorial or part.final_answer or part.worked_solutions) %}
     
     <div class="part {{ 'active' if loop.first }}" id="part{{ loop.index }}">
       <p class="part-statement" data-propname="{{ part_propname }}.statement">
@@ -78,7 +76,7 @@
 
       {% if part.response %}
       
-      {{ responseWrapper(part, loop.index, part_propname, require_help_button) }}
+      {{ responseWrapper(part, loop.index, part_propname) }}
 
       {% elif part.responses %}
 
@@ -91,7 +89,7 @@
 
       {% elif part.custom_response %}
 
-      <div class="response-wrapper">
+      <div class="response-wrapper" data-propname="{{ part_propname }}.custom_response">
         <p>{{ part.custom_response }}</p>
         {% if require_help_button %}
         {{ answerHelpButton(loop.index) }}
@@ -116,19 +114,9 @@
 </div>
 
 <hr id="question-feedback-separator">
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><script src="{{ packaged_scripts_location }}" type="application/javascript">
+
+{{ commentsBar(question.number) }}
+
+<script src="{{ consts.SCRIPTS_LOCATION }}" type="application/javascript">
   /* Import Custom Javascript Code from the server */
-</script></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>{% endmacro %}
+</script>{% endmacro %}

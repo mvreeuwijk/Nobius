@@ -493,7 +493,7 @@ def render_sheet(work_dir, template_name, render_settings, reset_uid=False, writ
     env.globals.update(
         consts=RenderConsts(
             render_settings["scripts_location"],
-            PACKAGED_THEME_URI if template_name == "manifests/assignment.xml" else render_settings["theme_location"],
+            render_settings["theme_location"],
             layout_profile=layout_profile,
         ),
         packaged_scripts_location=PACKAGED_SCRIPT_URI,

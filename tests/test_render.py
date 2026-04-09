@@ -48,8 +48,8 @@ def test_exam_render_includes_feedback_separator_and_script_spacing(t01_sheet):
     first_question_text = soup.find("courseModule", recursive=False).find("questions", recursive=False).find("question", recursive=False).find("text").string
 
     assert '<hr id="question-feedback-separator">' in first_question_text
-    assert "<p>&nbsp;</p>" in first_question_text
-    assert '<p><script src="__BASE_URI__Scripts/QuestionJavaScript.txt" type="application/javascript">' in first_question_text
+    assert "{{ commentsBar(question.number) }}" not in first_question_text
+    assert '<script src="/web/test/exam-scripts.js" type="application/javascript">' in first_question_text
 
 
 def test_render_sheet_zip_contains_manifest_and_media(t01_sheet):
@@ -80,8 +80,8 @@ def test_generate_group_cli_uses_config_values_in_standard_template(t01_sheet, t
 
     rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
 
-    assert "__BASE_URI__QuestionTheme.css" in rendered_xml
-    assert "__BASE_URI__Scripts/QuestionJavaScript.txt" in rendered_xml
+    assert "/themes/unit-test-standard" in rendered_xml
+    assert "/web/unit-test/standard.js" in rendered_xml
 
 
 def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tmp_path):
@@ -109,8 +109,40 @@ def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tm
 
     rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
 
-    assert "__BASE_URI__QuestionTheme.css" in rendered_xml
-    assert "__BASE_URI__Scripts/QuestionJavaScript.txt" in rendered_xml
+    assert "/themes/unit-test-exam" in rendered_xml
+    assert "/web/unit-test/exam.js" in rendered_xml
+
+
+def test_generate_html_preview_cli_creates_preview_pages(t01_sheet, tmp_path):
+    preview_dir = tmp_path / "preview"
+    config_path = tmp_path / "nobius.json"
+    write_json(config_path, make_config_payload())
+
+    subprocess.run(
+        [
+            sys.executable,
+            "generateHTMLpreview.py",
+            str(t01_sheet),
+            "--config",
+            str(config_path),
+            "--output-dir",
+            str(preview_dir),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    index_html = (preview_dir / "index.html").read_text(encoding="utf-8")
+    question_preview = (preview_dir / "01-fluids.html").read_text(encoding="utf-8")
+
+    assert "Nobius HTML Preview" in index_html
+    assert 'href="01-fluids.html"' in index_html
+    assert 'type="text"' in question_preview
+    assert "__BASE_URI__" not in question_preview
+    assert "<style>" in question_preview
+    assert ".answers-help-container" in question_preview
 
 
 def test_example_export_uses_question_bank_manifest_shape(example_sheet):
