@@ -161,7 +161,7 @@ def link_response_answers(p, parts, report=None):
         p["response"] = link_matrix_answers(p["matrix_response"], parts, report)
         del p["matrix_response"]
     elif "custom_response" in p:
-        p["custom_response"] = link_custom_answers(p["custom_response"], parts)
+        p["custom_response"] = link_custom_answers(p["custom_response"], parts, report)
     elif "responses" in p and len(p["responses"]) != 0:
         for r in p["responses"]:
             link_response_answers(r, parts, report)
@@ -335,14 +335,23 @@ def link_matrix_answers(matrix_response, parts, report=None):
 
     return properties
 
-def link_custom_answers(custom_response, parts):
+def link_custom_answers(custom_response, parts, report=None):
     properties = {
         "layout": custom_response["layout"],
         "responses": []
     }
 
     for i in range(custom_response["numberof_tags"]):
-        properties["responses"].append(parts[i + custom_response["starting_value"]])
+        placeholder = custom_response["starting_value"] + i + 1
+        linked_part = get_part_by_placeholder(parts, placeholder, report)
+        if linked_part is None:
+            report_warning(
+                report,
+                "Custom response could not be fully reconstructed because a placeholder was invalid.",
+                placeholder,
+            )
+            break
+        properties["responses"].append(linked_part)
 
     return properties
 

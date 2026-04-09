@@ -13,8 +13,7 @@ from import_mobius import (
 from preview_html import safe_extract_archive
 from render_common import render_sheet
 from validation.validation import add_response_area_defaults
-from xml_scraper.get_xml_data import normalize_response
-from xml_scraper.get_xml_data import link_response_answers
+from xml_scraper.get_xml_data import link_custom_answers, link_response_answers, normalize_response
 
 from .conftest import (
     REPO_ROOT,
@@ -464,6 +463,21 @@ def test_link_response_answers_reports_out_of_range_placeholder_instead_of_crash
 
     assert part["response"] is None
     assert any("out of range" in message for message, _ in warnings)
+
+
+def test_link_custom_answers_reports_out_of_range_placeholder_instead_of_crashing():
+    custom_response = {"layout": "<x>", "numberof_tags": 2, "starting_value": 1}
+    linked_parts = [{"mode": "List", "answer": [1], "comment": "", "name": "r1"}]
+    warnings = []
+
+    class StubReport:
+        def warn(self, message, context=None):
+            warnings.append((message, context))
+
+    linked = link_custom_answers(custom_response, linked_parts, StubReport())
+
+    assert linked["responses"] == []
+    assert any("Custom response could not be fully reconstructed" in message for message, _ in warnings)
 
 
 def test_safe_extract_archive_rejects_parent_relative_members(tmp_path):

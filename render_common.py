@@ -41,6 +41,14 @@ def deterministic_uuid(seed):
     return str(uuid5(NAMESPACE_URL, seed))
 
 
+def resolve_media_path(work_dir):
+    for candidate in ("media", "Media"):
+        candidate_path = os.path.join(work_dir, candidate)
+        if os.path.isdir(candidate_path):
+            return candidate_path
+    return os.path.join(work_dir, "media")
+
+
 def load_json_file(filepath):
     with open(filepath, "r", encoding="utf-8") as file:
         try:
@@ -512,7 +520,7 @@ def render_sheet(work_dir, template_name, render_settings, reset_uid=False, writ
     if not os.path.exists(renders_dir):
         os.mkdir(renders_dir)
 
-    media_path = os.path.join(work_dir, "media")
+    media_path = resolve_media_path(work_dir)
     zip_path = None
     referenced_media = set()
     for question in questions:
