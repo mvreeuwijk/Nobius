@@ -2,7 +2,6 @@ import zipfile
 
 import bs4
 import pytest
-import zipfile
 import xml.etree.ElementTree as ET
 
 from export_mobius_batch import ensure_output_structure, merge_xml
