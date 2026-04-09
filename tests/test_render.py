@@ -276,7 +276,9 @@ def test_example_export_uses_question_bank_manifest_shape(example_sheet):
     assert soup.find("assignmentUnits") is None
     assert soup.find("assignments") is None
     assert soup.find("webResources") is not None
-    assert soup.find("webResources").find("uri").text.strip() == "web_folders/Scripts"
+    web_resource_uris = {uri.text.strip() for uri in soup.find("webResources").find_all("uri")}
+    assert "web_folders/Scripts" in web_resource_uris
+    assert "web_folders/Experimental Sheet V2" in web_resource_uris
     questions = soup.find("courseModule", recursive=False).find("questions", recursive=False)
     assert questions is not None
     first_question = questions.find("question", recursive=False)

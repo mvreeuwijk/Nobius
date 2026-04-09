@@ -2,48 +2,45 @@
 <courseModule>
 
   <module>
+    <name><![CDATA[ Question Type Demos ]]></name>
+    <description><![CDATA[ Course Module ]]></description>
+    <uri><![CDATA[ ce750ea8-92dd-44dc-8d0b-05e2b674f161 ]]></uri>
+    <privacy>0</privacy>
     <autoModule>true</autoModule>
+    <exportedFrom>fca843d0-7e6c-52ca-9603-6c684351e681</exportedFrom>
   </module>
 
-    <questionGroups>
-      <group uid="ce750ea8-92dd-44dc-8d0b-05e2b674f161" weight="1.0">
-        <name>
-          <![CDATA[ Sheet #5 - Question Type Demos ]]>
-        </name>
-        <description>
-          <![CDATA[ !!! Empty Description from TexConverter !!! ]]>
-        </description>
-        <privacy>10</privacy>
-
-        <questions>
-            <qRef uid="81c66c25-db01-4f81-8407-29ff6f6d903e" weight="1.0"/>
-            <qRef uid="003e659f-eb4a-4500-ba21-9afef9a2f110" weight="2.0"/>
-            <qRef uid="b6762ba3-fff7-4397-84e3-230024811e18" weight="3.0"/>
-            <qRef uid="482fd4a6-2376-432f-a534-b3489699d1d4" weight="4.0"/>
-            <qRef uid="c566aa5c-7258-4d6b-9976-110b0ab58cb2" weight="5.0"/>
-            <qRef uid="8b322638-ca45-4e51-a271-cb729956cc49" weight="6.0"/>
-            <qRef uid="3b8b78d8-3368-440b-ae47-0b5ba1cd4563" weight="7.0"/>
-            <qRef uid="f88c18b4-f352-4fb6-aacb-d056709abfba" weight="8.0"/>
-            <qRef uid="c29f85bf-b48c-4a41-b4ab-9eae8d3d4490" weight="9.0"/>
-            <qRef uid="973969a2-45f5-44e4-b891-666dd2e455fe" weight="10.0"/>
-        </questions>
-      </group>
-    </questionGroups>
+  <assignmentUnits>
+    <unit uid="ce750ea8-92dd-44dc-8d0b-05e2b674f161" modifiedBy="8719b03f-d78b-5358-ac65-529b463385f9">
+      <weight>5.0</weight>
+      <name><![CDATA[ Question Type Demos ]]></name>
+      <description><![CDATA[ !!! Empty Description from TexConverter !!! ]]></description>
+      <privacy>10</privacy>
+      <assignments>
+        <aRef uid="361537ee-230e-5d2f-9ba8-619f44b26348" weight="1.0"/>
+      </assignments>
+    </unit>
+  </assignmentUnits>
 
   <questions>
-        <question uid="81c66c25-db01-4f81-8407-29ff6f6d903e">
+        <question uid="81c66c25-db01-4f81-8407-29ff6f6d903e" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 1 Text Answer ]]>
+      <![CDATA[ Text Answer ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -140,17 +137,17 @@
 
           <div class="parts-container">
 
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+             Define (unambiguously) a fluid.
+          </p>
 
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                 Define (unambiguously) a fluid.
-              </p>
 
 
-
-              
-              <div class="response-wrapper" data-propname="parts.1.response">
+          
+          <div class="response-wrapper" data-propname="parts.1.response">
 
 
           <1>
@@ -169,7 +166,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -216,18 +213,19 @@
         </div>
 
 
-            </div>
+        </div>
 
-            <div class="part " id="part2">
-              <p class="part-statement" data-propname="parts.2.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                Fluids are all around you in everyday life, give examples.
-              </p>
+            
+        <div class="part " id="part2">
+          <p class="part-statement" data-propname="parts.2.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            Fluids are all around you in everyday life, give examples.
+          </p>
 
 
 
-              
-              <div class="response-wrapper" data-propname="parts.2.response">
+          
+          <div class="response-wrapper" data-propname="parts.2.response">
 
 
           <2>
@@ -246,7 +244,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -293,18 +291,19 @@
         </div>
 
 
-            </div>
+        </div>
 
-            <div class="part " id="part3">
-              <p class="part-statement" data-propname="parts.3.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                How do the fluids identified above differ? Contrast by comparing their physical properties, e.g.viscosity, density. [Give units in each case]
-              </p>
+            
+        <div class="part " id="part3">
+          <p class="part-statement" data-propname="parts.3.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            How do the fluids identified above differ? Contrast by comparing their physical properties, e.g.viscosity, density. [Give units in each case]
+          </p>
 
 
 
-              
-              <div class="response-wrapper" data-propname="parts.3.response">
+          
+          <div class="response-wrapper" data-propname="parts.3.response">
 
 
           <3>
@@ -323,7 +322,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -370,7 +369,8 @@
         </div>
 
 
-            </div>
+        </div>
+
           </div>
 
         </div>
@@ -393,60 +393,103 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1,1,1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <display >text</display>
-              <grader><![CDATA[ regex ]]></grader>
-              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
-              <credits><credit>1</credit><credit>0.9999999</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <display >text</display>
-              <grader><![CDATA[ regex ]]></grader>
-              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
-              <credits><credit>1</credit><credit>0.9999999</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <display >text</display>
-              <grader><![CDATA[ regex ]]></grader>
-              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
-              <credits><credit>1</credit><credit>0.9999999</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="5a679a66-432e-5876-b493-69599d5458da" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display >text</display>
+  <width>0.0</width>
+  <grader>regex</grader>
+  <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+  <credits><credit>1</credit><credit>0.9999999</credit></credits>
+</part>
+
+            <part uid="4de9a67c-c77b-5fdc-867f-a673a46b9dab" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_2 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display >text</display>
+  <width>0.0</width>
+  <grader>regex</grader>
+  <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+  <credits><credit>1</credit><credit>0.9999999</credit></credits>
+</part>
+
+            <part uid="70c8be65-ed37-525a-ac40-dda04163f46f" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_3 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display >text</display>
+  <width>0.0</width>
+  <grader>regex</grader>
+  <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+  <credits><credit>1</credit><credit>0.9999999</credit></credits>
+</part>
+
     </parts>
   </question>
 
-        <question uid="003e659f-eb4a-4500-ba21-9afef9a2f110">
+        <question uid="003e659f-eb4a-4500-ba21-9afef9a2f110" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 2 Multiple Choice (Q2.2) ]]>
+      <![CDATA[ Multiple Choice (Q2.2) ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -531,28 +574,22 @@
 
           <div class="parts-container">
 
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            
+          </p>
 
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                
-              </p>
 
 
-
-              
-              <div class="response-wrapper" data-propname="parts.1.response">
+          
+          <div class="response-wrapper" data-propname="parts.1.response">
 
 
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
@@ -560,45 +597,9 @@
 
 
 
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
 
         </div>
 
-
-            </div>
           </div>
 
         </div>
@@ -621,39 +622,59 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
-              <answer>2</answer>
-              <choices><choice><![CDATA[ i ]]></choice><choice><![CDATA[ ii ]]></choice><choice><![CDATA[ iii ]]></choice><choice><![CDATA[ iv ]]></choice></choices>
-              <name><![CDATA[ responseNan ]]></name>
-              <display>vertical</display>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="139b3ccc-5422-57ce-a0cd-1d654998d50c" language="en">
+  <mode>Non Permuting Multiple Choice</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer><![CDATA[ 2 ]]></answer>
+  <display>vertical</display>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices><choice><![CDATA[ i ]]></choice><choice><![CDATA[ ii ]]></choice><choice><![CDATA[ iii ]]></choice><choice><![CDATA[ iv ]]></choice></choices>
+  <width>0.0</width>
+</part>
+
     </parts>
   </question>
 
-        <question uid="b6762ba3-fff7-4397-84e3-230024811e18">
+        <question uid="c1bf4473-31da-4c01-ad95-db1e17741e59" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 3 Identify The Mistakes (Q4.2) ]]>
+      <![CDATA[ Identify The Mistakes (Q4.2) ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -738,28 +759,22 @@
 
           <div class="parts-container">
 
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            
+          </p>
 
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                
-              </p>
 
 
-
-              
-              <div class="response-wrapper" data-propname="parts.1.response">
+          
+          <div class="response-wrapper" data-propname="parts.1.response">
 
 
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
@@ -767,45 +782,9 @@
 
 
 
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
 
         </div>
 
-
-            </div>
           </div>
 
         </div>
@@ -828,39 +807,59 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
-              <answer>3</answer>
-              <choices><choice><![CDATA[ Streamlines have seperated too far ]]></choice><choice><![CDATA[ The eddies are in the wrong direction ]]></choice><choice><![CDATA[ Streamlines cannot come from a wall ]]></choice><choice><![CDATA[ Streamlines cannot be drawn along walls ]]></choice><choice><![CDATA[ Streamlines cannot cross ]]></choice><choice><![CDATA[ None of the above ]]></choice></choices>
-              <name><![CDATA[ responseNan ]]></name>
-              <display>vertical</display>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="ac39080f-5338-51b8-9a09-8e582d9a1a7e" language="en">
+  <mode>Non Permuting Multiple Choice</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer><![CDATA[ 3 ]]></answer>
+  <display>vertical</display>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices><choice><![CDATA[ Streamlines have seperated too far ]]></choice><choice><![CDATA[ The eddies are in the wrong direction ]]></choice><choice><![CDATA[ Streamlines cannot come from a wall ]]></choice><choice><![CDATA[ Streamlines cannot be drawn along walls ]]></choice><choice><![CDATA[ Streamlines cannot cross ]]></choice><choice><![CDATA[ None of the above ]]></choice></choices>
+  <width>0.0</width>
+</part>
+
     </parts>
   </question>
 
-        <question uid="482fd4a6-2376-432f-a534-b3489699d1d4">
+        <question uid="482fd4a6-2376-432f-a534-b3489699d1d4" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 4 Identify The Mistakes 2 (Q4.2) ]]>
+      <![CDATA[ Identify The Mistakes 2 (Q4.2) ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -945,28 +944,22 @@
 
           <div class="parts-container">
 
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            
+          </p>
 
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                
-              </p>
 
 
-
-              
-              <div class="response-wrapper" data-propname="parts.1.response">
+          
+          <div class="response-wrapper" data-propname="parts.1.response">
 
 
           <1>
 
 
-          <div class="check-help-container">
-            <div class="check-help-button answer-help-button btn btn-default" id="ah-btn1">
-                <p>Help</p>
-            </div>
-        </div>
-
 
         </div>
 
@@ -974,45 +967,9 @@
 
 
 
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
-
-
-
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
-
 
         </div>
 
-
-            </div>
           </div>
 
         </div>
@@ -1035,49 +992,67 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
-              <answer>2</answer>
-              <choices><choice><![CDATA[ Streamlines have seperated too far ]]></choice><choice><![CDATA[ The eddies are in the wrong direction ]]></choice><choice><![CDATA[ Streamlines cannot come from a wall ]]></choice><choice><![CDATA[ Streamlines cannot be drawn along walls ]]></choice><choice><![CDATA[ Streamlines cannot cross ]]></choice><choice><![CDATA[ None of the above ]]></choice></choices>
-              <name><![CDATA[ responseNan ]]></name>
-              <display>vertical</display>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="8354b6ec-55d8-5cd9-8aab-6e3725e84f52" language="en">
+  <mode>Non Permuting Multiple Choice</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer><![CDATA[ 2 ]]></answer>
+  <display>vertical</display>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices><choice><![CDATA[ Streamlines have seperated too far ]]></choice><choice><![CDATA[ The eddies are in the wrong direction ]]></choice><choice><![CDATA[ Streamlines cannot come from a wall ]]></choice><choice><![CDATA[ Streamlines cannot be drawn along walls ]]></choice><choice><![CDATA[ Streamlines cannot cross ]]></choice><choice><![CDATA[ None of the above ]]></choice></choices>
+  <width>0.0</width>
+</part>
+
     </parts>
   </question>
 
-        <question uid="c566aa5c-7258-4d6b-9976-110b0ab58cb2">
+        <question uid="fc61dbfa-08a0-48d0-8ff2-fc16b89b0c3e" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 5 Algorithmic Answer (Q6.2) ]]>
+      <![CDATA[  ]]>
     </name>
     <editing>useHTML</editing>
+      <algorithm>
+        <![CDATA[  ]]>
+      </algorithm>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
             <div class="header-top">
 
-              <!-- CHANGE QUESTION TITLE WITHIN H1 SPAN LABELLED "TITLE" BELOW -->
-              <h1>
-                <span data-propname="number">5.5</span>
-                <span data-propname="title">Algorithmic Answer (Q6.2)</span>
-              </h1>
 
               <div class="icons">
             <div class="icons-flexbox">
@@ -1140,11 +1115,13 @@
 
             <p class="master-statement" data-propname="master_statement">
               <!-- CHANGE MASTER STATEMENT HERE -->
-              A hydraulic jump is in place downstream of a spillway as shown below. Upstream of the jump, the depth of the stream is $d m and the average flow velocity is $u m/s. Just downstream of the jump, the average velocity is $v m/s. Calculate the water depth h just downstream of the jump. Give your answer to 3 significant figures.
+              
             </p>
 
             <div class="media-container" data-propname="media">
-          <img alt="HydraulicJump" src="__BASE_URI__Question%20Type%20Demos/HydraulicJump.png">
+          <div style="background: red;">
+            <p style="color: white;">Tried to load  here</p>
+          </div>
         </div>
 
           </header>
@@ -1152,17 +1129,17 @@
 
           <div class="parts-container">
 
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            
+          </p>
 
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                
-              </p>
 
 
-
-              
-              <div class="response-wrapper" data-propname="parts.1.response">
+          
+          <div class="response-wrapper" data-propname="parts.1.response">
 
 
           <1>
@@ -1181,7 +1158,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -1222,53 +1199,19 @@
         <div class="answers-container">
             <div class="worked-solutions" id="ws1">
                 
-        <div class="sbs-step active">
-          <div class="media-container" data-propname="parts.1.worked_solutions.1.media">
-          <img alt="HydraulicJumpCV" src="__BASE_URI__Question%20Type%20Demos/HydraulicJumpCV.png">
-        </div>
-        </div>
-        <div class="sbs-nav" id="sbs-nav1">
-          <div class="btn btn-default disabled sbs-step-up" id="sbs-step-up1">⬆ Previous Step ⬆</div>
-          <div class="btn btn-default sbs-step-down" id="sbs-step-down1">⬇ Next Step ⬇</div>
-          <div class="btn btn-default sbs-reveal-all" id="sbs-reveal-all1">Show All</div>
-        </div>
-        <div class="sbs-step second">
-          <p data-propname="parts.1.worked_solutions.2.text">
-            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
-            Assume the spillway has width w. Volume conservation in CV:<br> \(\frac{d V}{d t}=Q_{1}-Q_{2}=u_{1} h_{1} w-u_{2} h_{2} w\)
-          </p>
-        </div>
-        <div class="sbs-step">
-          <p data-propname="parts.1.worked_solutions.3.text">
-            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
-            Hydraulic jump is in place so V=constant : <br>\(\therefore Q_{1}=Q_{2} \Rightarrow u_{1} h_{1}=u_{2} h_{2}\)
-          </p>
-        </div>
-        <div class="sbs-step">
-          <p data-propname="parts.1.worked_solutions.4.text">
-            <!-- CHANGE WORKED SOLUTIONS TEXT HERE -->
-            Thus, \(h_{2}=\frac{u_{1}}{u_{2}} h_{1}\)
-          </p>
-        </div>
-        <div class="sbs-step last">
-          <p data-propname="parts.1.worked_solutions.5.is_final_answer">
-            <p>$h m</p>
-          </p>
+        <div class="sbs-step active last">
         </div>
 
             </div>
 
             <div class="final-answer" id="fa1">
-                <p data-propname="parts.1.final_answer.text">
-                <!-- CHANGE FINAL ANSWER TEXT HERE -->
-                $h m
-                </p>
             </div>
 
         </div>
 
 
-            </div>
+        </div>
+
           </div>
 
         </div>
@@ -1291,42 +1234,63 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <showUnits>True</showUnits>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num><![CDATA[ $h ]]></num><units><![CDATA[ m ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="8f89ecf1-8923-5075-b2c1-5051e7476433" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[  ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>toler_perc</grading>
+  <perc>5</perc>
+  <showUnits>true</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
     </parts>
   </question>
 
-        <question uid="8b322638-ca45-4e51-a271-cb729956cc49">
+        <question uid="8b322638-ca45-4e51-a271-cb729956cc49" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 6 Algorithmic Answer 2 (Q7.2) ]]>
+      <![CDATA[ Algorithmic Answer 2 (Q7.2) ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -1423,17 +1387,17 @@
 
           <div class="parts-container">
 
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            Draw a diagram of the flow showing an appropriate control volume and the forces acting on the fluid. Note the pressure distribution is hydrostatic sufficiently far away from the sluice gate (why is the flow near the sluice gate not hydrostatic?)
+          </p>
 
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                Draw a diagram of the flow showing an appropriate control volume and the forces acting on the fluid. Note the pressure distribution is hydrostatic sufficiently far away from the sluice gate (why is the flow near the sluice gate not hydrostatic?)
-              </p>
 
 
-
-              
-              <div class="response-wrapper" data-propname="parts.1.response">
+          
+          <div class="response-wrapper" data-propname="parts.1.response">
 
 
           <1>
@@ -1452,7 +1416,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -1511,18 +1475,19 @@
         </div>
 
 
-            </div>
+        </div>
 
-            <div class="part " id="part2">
-              <p class="part-statement" data-propname="parts.2.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                Using the momentum equation, calculate the force on the gate. Give your answer to 3 significant figures.
-              </p>
+            
+        <div class="part " id="part2">
+          <p class="part-statement" data-propname="parts.2.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            Using the momentum equation, calculate the force on the gate. Give your answer to 3 significant figures.
+          </p>
 
 
 
-              
-              <div class="response-wrapper" data-propname="parts.2.response">
+          
+          <div class="response-wrapper" data-propname="parts.2.response">
 
 
           <2>
@@ -1541,7 +1506,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -1623,7 +1588,8 @@
         </div>
 
 
-            </div>
+        </div>
+
           </div>
 
         </div>
@@ -1646,52 +1612,86 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1,1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <display >text</display>
-              <grader><![CDATA[ regex ]]></grader>
-              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
-              <credits><credit>1</credit><credit>0.9999999</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <showUnits>True</showUnits>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num><![CDATA[ $F ]]></num><units><![CDATA[ N ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="b38cc780-8017-54ae-9360-55c62f0ee85b" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display >text</display>
+  <width>0.0</width>
+  <grader>regex</grader>
+  <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+  <credits><credit>1</credit><credit>0.9999999</credit></credits>
+</part>
+
+            <part uid="a9d9db84-652c-5f0a-9afc-34db1dab5f7c" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_2 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ $F ]]></num>
+    <units><![CDATA[ N ]]></units>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>true</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
     </parts>
   </question>
 
-        <question uid="3b8b78d8-3368-440b-ae47-0b5ba1cd4563">
+        <question uid="3b8b78d8-3368-440b-ae47-0b5ba1cd4563" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 7 Algorithmic Answer 3 (Q9.4) ]]>
+      <![CDATA[ Algorithmic Answer 3 (Q9.4) ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -1773,17 +1773,17 @@
 
           <div class="parts-container">
 
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            
+          </p>
 
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                
-              </p>
 
 
-
-              
-              <div class="response-wrapper" data-propname="parts.1.response">
+          
+          <div class="response-wrapper" data-propname="parts.1.response">
 
 
           <1>
@@ -1802,7 +1802,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -1895,7 +1895,8 @@
         </div>
 
 
-            </div>
+        </div>
+
           </div>
 
         </div>
@@ -1918,42 +1919,64 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <showUnits>True</showUnits>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num><![CDATA[ $d ]]></num><units><![CDATA[ m ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="f867cfbd-c477-5a98-8f22-dd9f09ed4c3b" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ $d ]]></num>
+    <units><![CDATA[ m ]]></units>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>true</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
     </parts>
   </question>
 
-        <question uid="f88c18b4-f352-4fb6-aacb-d056709abfba">
+        <question uid="f88c18b4-f352-4fb6-aacb-d056709abfba" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 8 Symbolic Equations (Q1.6/7) ]]>
+      <![CDATA[ Symbolic Equations (Q1.6/7) ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -2053,17 +2076,17 @@
 
           <div class="parts-container">
 
-
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                The triangular prism:
-              </p>
-
-
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            The triangular prism:
+          </p>
 
 
-              <div class="response-wrapper" data-propname="parts.1.responses.1.response">
+
+
+          <div class="response-wrapper" data-propname="parts.1.responses.1.response">
 
           <div class="pre-response-text">
             <p data-propname="parts.1.responses.1.pre_response_text">
@@ -2087,7 +2110,7 @@
 
 
 
-              <table class="input-symbols-table">
+          <table class="input-symbols-table">
           <tr class="code">
             <th>Code</th>
             <td><p>rho</p></td>
@@ -2111,7 +2134,7 @@
         -->
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
                 <div class="answers-nav-button equation-help-button" id="eh-btn1">
                     <p>Equation Help</p>
@@ -2162,7 +2185,7 @@
                 </div>
                 <div class="body">
                     <p>
-                        The equation questions use Maple syntax to evaluate expressions. As with Python, basic operators use the symbols 
+                        The equation questions use Maple syntax to evaluate expressions. As with Python, basic operators use the symbols&nbsp;
                             <span class="code">+</span>
                             <span class="code">-</span>
                             <span class="code">*</span>
@@ -2170,33 +2193,20 @@
                             <span class="code">^</span>
                         and parentheses can be used to structure your expressions.
 
-                        Some common functions can also be used such as 
-                            <span class="code">sqrt()</span>, 
-                            <span class="code">sin()</span> and 
+                        Some common functions can also be used such as
+                            <span class="code">sqrt()</span>,&nbsp;
+                            <span class="code">sin()</span> and
                             <span class="code">arcsin()</span>.
 
-                        To get the natural exponential, use 
-                            <span class="code">exp()</span> as 
-                            <span class="code">e</span> 
+                        To get the natural exponential, use
+                            <span class="code">exp()</span> as
+                            <span class="code">e</span>
                         is not intepreted as Euler's number.
                     </p>
                     <p>
-                        For Greek letters, type the full name of the letter. For example 
-                            <span class="code">mu*U</span> 
-                        will render \( \mu U \) (there is no need to use a back slash).
-                    </p>
-                    <p>
-                        Click the
-                            <svg class="maple-preview-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
-                                <circle cx="13" cy="13" r="10"></circle>
-                                <text x="13" y="13">Ω</text>
-                            </svg>
-                        to preview your expressions.
-                    </p>
-                    <p>
-                        For example, writing 
-                            <span class="code">exp(i*pi) - 1</span> 
-                        will produce:
+                        For Greek letters, type the full name of the letter. For example
+                            <span class="code">mu*U</span>&nbsp;
+                        will render \( \mu U \)&nbsp;(there is no need to use a back slash).
                     </p>
                     <p class="latex">
                         \( \text{e}^{i \pi} - 1 \)
@@ -2265,31 +2275,32 @@
         </div>
 
 
-            </div>
+        </div>
 
-            <div class="part " id="part2">
-              <p class="part-statement" data-propname="parts.2.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                The truncated cone:
-              </p>
+            
+        <div class="part " id="part2">
+          <p class="part-statement" data-propname="parts.2.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            The truncated cone:
+          </p>
 
 
 
 
-              <div class="response-wrapper">
-                <p><table><tr><td><span>\(m=\)</span></td><td><div class="inline-resp"><2></div></td><td><span>\(\{ \frac{1}{3} \pi \)</span></td><td><div class="inline-resp"><3></div></td><td><span>\(^{2}h+\frac{1}{3} \pi h R_{t} \)</span></td><td><div class="inline-resp"><4></div></td><td><span>\(+\frac{1}{3} \pi \)</span></td><td><div class="inline-resp"><5></div></td><td><span>\(R_{t}^{2}\}\)</span></td><tr></table><style media="screen"> .inline-resp { padding: 2px; width: 50px; } .inline-resp .select2 { width: 50px; height: 25px; } .inline-resp .select2-container--bootstrap .select2-selection--single { padding: 3px 24px 3px 6px; }</style><script type="text/javascript"> /* We need to change the widths of the dropdown lists */ jQuery(document).ready(function() { jQuery(".doInPreview, .doInSession").click(function () { jQuery(".part.active .dropdowns .inline-resp .response").css("width", "52px"); console.log(this); });});</script></p>
-                <div class="check-help-container">
+          <div class="response-wrapper" data-propname="parts.2.custom_response">
+            <p><table><tr><td><span>\(m=\)</span></td><td><div class="inline-resp"><2></div></td><td><span>\(\{ \frac{1}{3} \pi \)</span></td><td><div class="inline-resp"><3></div></td><td><span>\(^{2}h+\frac{1}{3} \pi h R_{t} \)</span></td><td><div class="inline-resp"><4></div></td><td><span>\(+\frac{1}{3} \pi \)</span></td><td><div class="inline-resp"><5></div></td><td><span>\(R_{t}^{2}\}\)</span></td><tr></table><style media="screen"> .inline-resp { padding: 2px; width: 50px; } .inline-resp .select2 { width: 50px; height: 25px; } .inline-resp .select2-container--bootstrap .select2-selection--single { padding: 3px 24px 3px 6px; }</style><script type="text/javascript"> /* We need to change the widths of the dropdown lists */ jQuery(document).ready(function() { jQuery(".doInPreview, .doInSession").click(function () { jQuery(".part.active .dropdowns .inline-resp .response").css("width", "52px"); console.log(this); });});</script></p>
+            <div class="check-help-container">
             <div class="check-help-button answer-help-button btn btn-default" id="ah-btn2">
                 <p>Help</p>
             </div>
         </div>
 
-              </div>
+          </div>
 
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -2390,18 +2401,19 @@
         </div>
 
 
-            </div>
+        </div>
 
-            <div class="part " id="part3">
-              <p class="part-statement" data-propname="parts.3.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                Using the geometries of the previous question, calculate the mass of the fluid if the fluid density varies linearly according to \(\rho(z)=\rho_{0}-a z\)
-              </p>
+            
+        <div class="part " id="part3">
+          <p class="part-statement" data-propname="parts.3.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            Using the geometries of the previous question, calculate the mass of the fluid if the fluid density varies linearly according to \(\rho(z)=\rho_{0}-a z\)
+          </p>
 
 
 
-              
-              <div class="response-wrapper" data-propname="parts.3.response">
+          
+          <div class="response-wrapper" data-propname="parts.3.response">
 
 
           <6>
@@ -2420,7 +2432,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -2502,7 +2514,8 @@
         </div>
 
 
-            </div>
+        </div>
+
           </div>
 
         </div>
@@ -2525,92 +2538,170 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1,1,1,1,1,1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ Maple ]]></mode>
-              <mapleAnswer><![CDATA[ (rho/2)*w*b*h ]]></mapleAnswer>
-              <name><![CDATA[ responseNan ]]></name>
-              <type><![CDATA[ maple ]]></type>
-              <plot><![CDATA[  ]]></plot>
-              <allow2d>0</allow2d>
-              <mathConversionMode>0</mathConversionMode>
-              <maple><![CDATA[ evalb(($ANSWER)-($RESPONSE)=0); ]]></maple>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-              <custompreview><![CDATA[  ]]></custompreview>
-        </part>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
-              <credits><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>1</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <display permute="true">menu</display>
-              <grader><![CDATA[ exact ]]></grader>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
-              <credits><credit>1</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <display permute="true">menu</display>
-              <grader><![CDATA[ exact ]]></grader>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
-              <credits><credit>1</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <display permute="true">menu</display>
-              <grader><![CDATA[ exact ]]></grader>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
-              <credits><credit>0</credit><credit>0</credit><credit>1</credit><credit>0</credit><credit>0</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <display permute="true">menu</display>
-              <grader><![CDATA[ exact ]]></grader>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
-              <answer>3</answer>
-              <choices><choice><![CDATA[ <p>\(W=\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}+\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}+\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)-\left(R_{t}+R_{0}\right)^{2}\right\}-\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}-\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}-\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}-\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}-\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}\)</p> ]]></choice></choices>
-              <name><![CDATA[ responseNan ]]></name>
-              <display>vertical</display>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="b095c406-ef6d-5f7b-96ee-da57484616b8" language="en">
+  <mode>Maple</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <width>0.0</width>
+  <mapleAnswer><![CDATA[ (rho/2)*w*b*h ]]></mapleAnswer>
+  <maple>evalb(simplify(($ANSWER)-($RESPONSE)=0));</maple>
+  <type>maple</type>
+  <allow2d>0</allow2d>
+  <mathConversionMode>0</mathConversionMode>
+</part>
+
+            <part uid="8426efe0-af06-5a47-b0b6-5498ee12a745" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_2 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display permute="true">menu</display>
+  <width>0.0</width>
+  <grader>exact</grader>
+  <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
+  <credits><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>1</credit></credits>
+</part>
+
+            <part uid="b1529a54-71c4-5d7b-aead-87b5857233f5" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_3 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display permute="true">menu</display>
+  <width>0.0</width>
+  <grader>exact</grader>
+  <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
+  <credits><credit>1</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit></credits>
+</part>
+
+            <part uid="4518919e-c033-57a0-86a6-19c444a09af2" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_4 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display permute="true">menu</display>
+  <width>0.0</width>
+  <grader>exact</grader>
+  <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
+  <credits><credit>1</credit><credit>0</credit><credit>0</credit><credit>0</credit><credit>0</credit></credits>
+</part>
+
+            <part uid="156ed31b-ed73-5ad0-9e2e-bace1682a1bf" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_5 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display permute="true">menu</display>
+  <width>0.0</width>
+  <grader>exact</grader>
+  <answers><answer><![CDATA[ \(R_{0}\) ]]></answer><answer><![CDATA[ \(R_{t}\) ]]></answer><answer><![CDATA[ \(h\) ]]></answer><answer><![CDATA[ \(\pi\) ]]></answer><answer><![CDATA[ \(\rho\) ]]></answer></answers>
+  <credits><credit>0</credit><credit>0</credit><credit>1</credit><credit>0</credit><credit>0</credit></credits>
+</part>
+
+            <part uid="8ecbe9e5-d3db-5e68-8889-27ae6a1c6607" language="en">
+  <mode>Non Permuting Multiple Choice</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_6 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer><![CDATA[ 3 ]]></answer>
+  <display>vertical</display>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices><choice><![CDATA[ <p>\(W=\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}+\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}+\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)-\left(R_{t}+R_{0}\right)^{2}\right\}-\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}-\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}-\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}\)</p> ]]></choice><choice><![CDATA[ <p>\(W=\frac{1}{4} \operatorname{ag\pi h}^{2}\left\{\left(R_{t}+R_{0}\right)^{2}-\frac{2}{3}\left(R_{t} R_{0}+R_{0}^{2}\right)\right\}-\frac{1}{3} \rho_{0} g \pi h\left\{\left(R_{t}+R_{0}\right)^{2}-R_{t} R_{0}\right\}\)</p> ]]></choice></choices>
+  <width>0.0</width>
+</part>
+
     </parts>
   </question>
 
-        <question uid="c29f85bf-b48c-4a41-b4ab-9eae8d3d4490">
+        <question uid="c29f85bf-b48c-4a41-b4ab-9eae8d3d4490" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 9 Matrix Response (Q10.2) ]]>
+      <![CDATA[ Matrix Response (Q10.2) ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -2692,62 +2783,26 @@
 
           <div class="parts-container">
 
-
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                Complete the following table:
-              </p>
-
-
-
-
-              <div class="response-wrapper">
-                <p><table><thead> <tr><th>Iteration</th><th>Guess \(\Delta H_{f}[m]\)</th><th>\(Q[m^{3}/s]\)</th><th>\(U[m/s]\)</th><th>Refined Guess</th> </tr></thead><tbody> <tr><td>1</td><td><1></td><td><2></td><td><3></td><td><4></td> </tr> <tr><td>2</td><td><5></td><td><6></td><td><7></td><td><8></td> </tr> <tr><td>3</td><td><9></td><td><10></td><td><11></td><td><12></td> </tr> <tr><td>4</td><td><13></td><td><14></td><td><15></td><td><16></td> </tr> <tr><td>5</td><td><17></td><td><18></td><td><19></td><td><20></td> </tr> <tr><td>6</td><td><21></td><td><22></td><td><23></td><td><24></td> </tr></tbody></table><style media="screen"> .inline-resp { padding: 2px; width: 50px; } .inline-resp .select2 { width: 50px; height: 25px; } .inline-resp .select2-container--bootstrap .select2-selection--single { padding: 3px 24px 3px 6px; } table {border-collapse: collapse; } tr {border: 2px solid black; } th {padding: 3px; } td {padding: 3px; }</style><script type="text/javascript"> /* We need to change the widths of the dropdown lists */ jQuery(document).ready(function() { jQuery(".doInPreview, .doInSession").click(function () { jQuery(".part.active .dropdowns .inline-resp .response").css("width", "52px"); console.log(this); });});</script></p>
-              </div>
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            Complete the following table:
+          </p>
 
 
 
 
-              <div class="answers-help-container">
-            <div class="answers-nav-container">
+          <div class="response-wrapper" data-propname="parts.1.custom_response">
+            <p><table><thead> <tr><th>Iteration</th><th>Guess \(\Delta H_{f}[m]\)</th><th>\(Q[m^{3}/s]\)</th><th>\(U[m/s]\)</th><th>Refined Guess</th> </tr></thead><tbody> <tr><td>1</td><td><1></td><td><2></td><td><3></td><td><4></td> </tr> <tr><td>2</td><td><5></td><td><6></td><td><7></td><td><8></td> </tr> <tr><td>3</td><td><9></td><td><10></td><td><11></td><td><12></td> </tr> <tr><td>4</td><td><13></td><td><14></td><td><15></td><td><16></td> </tr> <tr><td>5</td><td><17></td><td><18></td><td><19></td><td><20></td> </tr> <tr><td>6</td><td><21></td><td><22></td><td><23></td><td><24></td> </tr></tbody></table><style media="screen"> .inline-resp { padding: 2px; width: 50px; } .inline-resp .select2 { width: 50px; height: 25px; } .inline-resp .select2-container--bootstrap .select2-selection--single { padding: 3px 24px 3px 6px; } table {border-collapse: collapse; } tr {border: 2px solid black; } th {padding: 3px; } td {padding: 3px; }</style><script type="text/javascript"> /* We need to change the widths of the dropdown lists */ jQuery(document).ready(function() { jQuery(".doInPreview, .doInSession").click(function () { jQuery(".part.active .dropdowns .inline-resp .response").css("width", "52px"); console.log(this); });});</script></p>
+          </div>
 
 
 
-            </div>
-
-            <div class="answers-warning-tippy awt-structured-tutorial">
-                <div class="awt-text">
-                    An instructor-led video working through the problem, auto-pausing when it's your turn to work.
-                    Good if you don't know where to start, or are stuck half-way through.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-show-answer">
-                <div class="awt-text">
-                    Check your own answer before revealing the answer.
-                    Revealing the answer takes away the chance to get it right yourself.
-                </div>
-            </div>
-            <div class="answers-warning-tippy awt-worked-solutions">
-                <svg class="awt-svg" id="answers-warning-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <div class="awt-text">
-                    Only view worked solutions after making your best independent attempt. Seeing solutions ruins the learning opportunity.
-                    If you are stuck half-way, try (hard!) to only reveal necessary steps before continuing independently.
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-container">
 
 
         </div>
 
-
-            </div>
           </div>
 
         </div>
@@ -2770,318 +2825,661 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>0</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>0.043</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.38</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>2.05</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>2.05</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>0.036</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.15</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.41</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.41</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>0.038</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.21</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.57</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.57</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>0.038</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.19</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.53</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.53</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>0.038</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.20</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.54</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.54</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>0.038</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.20</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ Numeric ]]></mode>
-              <grading><![CDATA[ exact_sigd ]]></grading>
-              <digit>3</digit>
-              <answer><num>1.54</num><units><![CDATA[  ]]></units></answer>
-              <name><![CDATA[ responseNan ]]></name>
-              <negStyle><![CDATA[ minus ]]></negStyle>
-              <numStyle><![CDATA[ thousands scientific ]]></numStyle>
-              <showUnits>False</showUnits>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="31e42e01-b8f3-5247-b3b2-5b0f4ed923d0" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 0 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="2a48cb7c-0003-57ab-b414-85fcb7245420" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_2 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 0.043 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="4772c666-9725-50dc-ab69-8164bd6642a9" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_3 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.38 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="5a9e7bf5-8679-57b4-9371-12dce7f53d50" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_4 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 2.05 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="ebc46032-5b79-520b-8b06-b7b0bce07f32" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_5 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 2.05 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="d487fc6c-2229-5837-9759-6e30cd84845c" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_6 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 0.036 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="c13528a2-d720-5556-8edd-fb380f0a81d6" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_7 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.15 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="9a4cebc1-b802-5efa-8a60-7225b7e8ec76" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_8 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.41 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="f687d442-a2bb-5f4b-8fc2-445a2fa633fa" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_9 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.41 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="04ce8ba0-8feb-5c63-839c-ec3cb009993b" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_10 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 0.038 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="349e5dd6-b48b-5ce2-afa1-6ca536535c90" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_11 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.21 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="af8bddcf-d980-5d93-9209-03fb8eef2137" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_12 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.57 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="f152768a-5ec6-5688-bab7-9972600a3f9e" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_13 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.57 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="d586e200-6f87-53a1-9bfb-9aecd1624cf1" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_14 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 0.038 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="65b3b99c-e4f4-59f3-8de4-bfd9c8388678" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_15 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.19 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="83ec5370-a020-5808-b21f-d6f197403b65" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_16 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.53 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="384d7962-54a9-5914-b73a-54da7a4ebc87" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_17 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.53 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="2f601f60-448d-5a79-9ea4-d8da5a9d778d" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_18 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 0.038 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="5be53744-e98b-502d-8530-4c6f8ae05ddb" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_19 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.20 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="61b88694-3d82-55d5-b688-8b64d44ca4a3" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_20 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.54 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="ce730791-0232-5ef8-acea-705d66fecbc9" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_21 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.54 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="8341232b-1b4d-52a2-9108-1fccb3e7c7d0" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_22 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 0.038 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="45cb445a-a213-59a4-b9be-e716bf1e1a08" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_23 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.20 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
+            <part uid="751b82b3-3d80-5117-8f78-908743af9a38" language="en">
+  <mode>Numeric</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_24 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer>
+    <num><![CDATA[ 1.54 ]]></num>
+  </answer>
+  <width>0.0</width>
+  <grading>exact_sigd</grading>
+  <digit><![CDATA[ 3 ]]></digit>
+  <showUnits>false</showUnits>
+  <negStyle>minus</negStyle>
+  <numStyle>thousands scientific  arithmetic</numStyle>
+</part>
+
     </parts>
   </question>
 
-        <question uid="973969a2-45f5-44e4-b891-666dd2e455fe">
+        <question uid="973969a2-45f5-44e4-b891-666dd2e455fe" language="en">
     <mode>Inline</mode>
+    <chainId><![CDATA[    ]]></chainId>
     <name>
-      <![CDATA[ 10 Combined Question ]]>
+      <![CDATA[ Combined Question ]]>
     </name>
     <editing>useHTML</editing>
+    <numberOfAttempts>1</numberOfAttempts>
+    <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+    <numberOfTryAnother>0</numberOfTryAnother>
+    <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
     <privacy>10</privacy>
     <allowRepublish>false</allowRepublish>
-    <attributeAuthor>true</attributeAuthor>
-    <modifiedIn>15.0</modifiedIn>
+    <attributeAuthor>false</attributeAuthor>
+    <modifiedIn>10.0</modifiedIn>
     <difficulty>0.0</difficulty>
     <text>
-                <![CDATA[ <link rel="stylesheet" href="/themes/b06b01fb-1810-4bde-bc67-60630d13a866">
+                <![CDATA[     <link rel="stylesheet" href="/themes/test-exam-theme">
 
         <div class="wrapper">
           <header>
@@ -3178,17 +3576,17 @@
 
           <div class="parts-container">
 
+            
+        <div class="part active" id="part1">
+          <p class="part-statement" data-propname="parts.1.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            An A-level student states that when a fluid flow experiences friction inside a pipe it must slow down on its way through the pipe. What, if anything, is the wrong with the student's thinking?
+          </p>
 
-            <div class="part active" id="part1">
-              <p class="part-statement" data-propname="parts.1.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                An A-level student states that when a fluid flow experiences friction inside a pipe it must slow down on its way through the pipe. What, if anything, is the wrong with the studentâ€™s thinking?
-              </p>
 
 
-
-              
-              <div class="response-wrapper" data-propname="parts.1.response">
+          
+          <div class="response-wrapper" data-propname="parts.1.response">
 
 
           <1>
@@ -3207,7 +3605,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -3281,18 +3679,19 @@
         </div>
 
 
-            </div>
+        </div>
 
-            <div class="part " id="part2">
-              <p class="part-statement" data-propname="parts.2.statement">
-                <!-- CHANGE PART STATEMENT HERE -->
-                The energy head at section 2 is H2 = 10 m and minor losses may be ignored. Plot the energy grade line, giving the values at appropriate locations. Explain why there is little added value in plotting the hydraulic grade line. 
-              </p>
+            
+        <div class="part " id="part2">
+          <p class="part-statement" data-propname="parts.2.statement">
+            <!-- CHANGE PART STATEMENT HERE -->
+            The energy head at section 2 is H2 = 10 m and minor losses may be ignored. Plot the energy grade line, giving the values at appropriate locations. Explain why there is little added value in plotting the hydraulic grade line. 
+          </p>
 
 
 
-              
-              <div class="response-wrapper" data-propname="parts.2.response">
+          
+          <div class="response-wrapper" data-propname="parts.2.response">
 
 
           <2>
@@ -3311,7 +3710,7 @@
 
 
 
-              <div class="answers-help-container">
+          <div class="answers-help-container">
             <div class="answers-nav-container">
 
 
@@ -3417,7 +3816,8 @@
         </div>
 
 
-            </div>
+        </div>
+
           </div>
 
         </div>
@@ -3440,49 +3840,276 @@
         </div>
 
 
-        <script src="web/Cive4000002/Public_Html/Scripts/QuestionJavaScript.txt" type="application/javascript">
+        <script src="/web/test/exam-scripts.js" type="application/javascript">
           /* Import Custom Javascript Code from the server */
-        </script> ]]>
+        </script>
+         ]]>
     </text>
+    <width>0.0</width>
     <weighting>1,1</weighting>
     <numbering>alpha</numbering>
 
     <parts>
-        <part>
-              <mode><![CDATA[ Non Permuting Multiple Choice ]]></mode>
-              <answer>1</answer>
-              <choices><choice><![CDATA[ The velocity into a pipe must be the same as the velocity out of the pipe ]]></choice><choice><![CDATA[ Frictional forces do not act on fluids ]]></choice><choice><![CDATA[ \(F_{max}\) of the pipeline is negligible ]]></choice><choice><![CDATA[ The student is correct ]]></choice></choices>
-              <name><![CDATA[ responseNan ]]></name>
-              <display>vertical</display>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
-        <part>
-              <mode><![CDATA[ List ]]></mode>
-              <display >text</display>
-              <grader><![CDATA[ regex ]]></grader>
-              <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
-              <credits><credit>1</credit><credit>0.9999999</credit></credits>
-              <name><![CDATA[ responseNan ]]></name>
-              <weighting>1</weighting>
-              <comment><![CDATA[  ]]></comment>
-        </part>
+            <part uid="86f78b56-e501-5ed3-8ee1-9e9fdc8c3c02" language="en">
+  <mode>Non Permuting Multiple Choice</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_1 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <answer><![CDATA[ 1 ]]></answer>
+  <display>vertical</display>
+  <fixed><![CDATA[    ]]></fixed>
+  <choices><choice><![CDATA[ The velocity into a pipe must be the same as the velocity out of the pipe ]]></choice><choice><![CDATA[ Frictional forces do not act on fluids ]]></choice><choice><![CDATA[ \(F_{max}\) of the pipeline is negligible ]]></choice><choice><![CDATA[ The student is correct ]]></choice></choices>
+  <width>0.0</width>
+</part>
+
+            <part uid="b88f4d60-969f-5f8d-9739-bd24e524b009" language="en">
+  <mode>List</mode>
+    <chainId><![CDATA[    ]]></chainId>
+  <name><![CDATA[ sro_id_2 ]]></name>
+  <editing>useHTML</editing>
+  <numberOfAttempts>1</numberOfAttempts>
+  <numberOfAttemptsLeft>1</numberOfAttemptsLeft>
+  <numberOfTryAnother>0</numberOfTryAnother>
+  <numberOfTryAnotherLeft>0</numberOfTryAnotherLeft>
+  <privacy>10</privacy>
+  <allowRepublish>false</allowRepublish>
+  <attributeAuthor>false</attributeAuthor>
+  <modifiedIn>10.0</modifiedIn>
+  <difficulty>0.0</difficulty>
+  <text><![CDATA[    ]]></text>
+  <display >text</display>
+  <width>0.0</width>
+  <grader>regex</grader>
+  <answers><answer><![CDATA[ ~~~~~~~~~~Check the help box to get the answer~~~~~~~~~~ ]]></answer><answer><![CDATA[ .* ]]></answer></answers>
+  <credits><credit>1</credit><credit>0.9999999</credit></credits>
+</part>
+
     </parts>
   </question>
 
   </questions>
 
+  <assignments>
+    <assignment uid="361537ee-230e-5d2f-9ba8-619f44b26348">
+      <name><![CDATA[ Question Type Demos ]]></name>
+      <description><![CDATA[ !!! Empty Description from TexConverter !!! ]]></description>
+      <privacy>10</privacy>
+      <category>REGULAR</category>
+
+      <questionGroups>
+        <aqGroup>
+          <name><![CDATA[ Text Answer ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="81c66c25-db01-4f81-8407-29ff6f6d903e">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Multiple Choice (Q2.2) ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="003e659f-eb4a-4500-ba21-9afef9a2f110">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Identify The Mistakes (Q4.2) ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="c1bf4473-31da-4c01-ad95-db1e17741e59">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Identify The Mistakes 2 (Q4.2) ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="482fd4a6-2376-432f-a534-b3489699d1d4">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[  ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="fc61dbfa-08a0-48d0-8ff2-fc16b89b0c3e">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Algorithmic Answer 2 (Q7.2) ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="8b322638-ca45-4e51-a271-cb729956cc49">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Algorithmic Answer 3 (Q9.4) ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="3b8b78d8-3368-440b-ae47-0b5ba1cd4563">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Symbolic Equations (Q1.6/7) ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="f88c18b4-f352-4fb6-aacb-d056709abfba">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Matrix Response (Q10.2) ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="c29f85bf-b48c-4a41-b4ab-9eae8d3d4490">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+        <aqGroup>
+          <name><![CDATA[ Combined Question ]]></name>
+          <shortName><![CDATA[    ]]></shortName>
+          <weighting>1</weighting>
+          <select>1</select>
+          <type>0</type>
+          <presentationMode>0</presentationMode>
+          <pool>false</pool>
+          <ordered>false</ordered>
+          <questions>
+            <qRef uid="973969a2-45f5-44e4-b891-666dd2e455fe">
+              <name><![CDATA[    ]]></name>
+            </qRef>
+          </questions>
+        </aqGroup>
+      </questionGroups>
+      <policies>
+        <mode>1</mode>
+        <reworkable>true</reworkable>
+        <reuseAlgorithmicVariables>false</reuseAlgorithmicVariables>
+        <targeted>false</targeted>
+        <scramble>0</scramble>
+        <printable>false</printable>
+        <preAuthorized>false</preAuthorized>
+        <gradeAuthorizationRequired>false</gradeAuthorizationRequired>
+        <useLockdown>false</useLockdown>
+        <isVisibleAdvancedPolicy>false</isVisibleAdvancedPolicy>
+        <passingScore>-1</passingScore>
+        <showPassFailFeedback>4</showPassFailFeedback>
+        <timeLimit>-1</timeLimit>
+        <quPerPage>1</quPerPage>
+        <presentationMode>0</presentationMode>
+        <completionMode>3</completionMode>
+        <isVisibleTimeRange>false</isVisibleTimeRange>
+        <isVisible>true</isVisible>
+        <forceGrade>false</forceGrade>
+        <allowSubmitLesson>false</allowSubmitLesson>
+        <showLaunchPage>true</showLaunchPage>
+        <showAdaptiveProgress>false</showAdaptiveProgress>
+        <hintsShown>false</hintsShown>
+        <showOneHint>false</showOneHint>
+        <showCurrentGrade>false</showCurrentGrade>
+        <allowResubmitQuestion>true</allowResubmitQuestion>
+        <inSessionGradeReported>false</inSessionGradeReported>
+        <inSessionAnswer>3</inSessionAnswer>
+        <inSessionComment>3</inSessionComment>
+        <gradeReported>true</gradeReported>
+        <showAnswer>2</showAnswer>
+        <showComment>0</showComment>
+        <emailNotified>false</emailNotified>
+        <delayedFeedback>false</delayedFeedback>
+        <maxAttempts>-1</maxAttempts>
+      </policies>
+    </assignment>
+  </assignments>
+
+
+
   <webResources>
     <folder id="0">
-      <name>
-        <![CDATA[  web_folders  ]]>
-      </name>
-      <description>
-        <![CDATA[    ]]>
-      </description>
-      <uri>
-        <![CDATA[  web_folders  ]]>
-      </uri>
+      <name><![CDATA[ web_folders/Question Type Demos ]]></name>
+      <description><![CDATA[    ]]></description>
+      <uri><![CDATA[ web_folders/Question Type Demos ]]></uri>
+    </folder>
+    <folder id="0">
+      <name><![CDATA[ web_folders/Scripts ]]></name>
+      <description><![CDATA[    ]]></description>
+      <uri><![CDATA[ web_folders/Scripts ]]></uri>
     </folder>
   </webResources>
 
