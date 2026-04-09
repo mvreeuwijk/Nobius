@@ -77,7 +77,7 @@ def get_question_data(html, report=None):
             if error:
                 missed_properties += 1
                 report_warning(report, "A problem occurred trying to nest the following property.", element['data-propname'])
-            elif value == None or type(value) == list and None in value:
+            elif value is None or isinstance(value, list) and None in value:
                 missed_properties += 1
                 report_warning(report, "A problem occured trying to get the value of the following property.", element['data-propname'])
         else:
@@ -361,12 +361,12 @@ def next_nest(data, props, value, report=None):
     The process continues until there is only one name in props left, which becomes the
     variable name. When this happens, the nesting process stops and the value is set.
     """
-    if type(data[props[0]]) == dict and type(props[1]) == str:
+    if isinstance(data[props[0]], dict) and isinstance(props[1], str):
         return nest_dictionary(data[props[0]], props[1:], value, report)
-    elif type(data[props[0]]) == list and type(props[1]) == int:
+    elif isinstance(data[props[0]], list) and isinstance(props[1], int):
         return nest_list(data[props[0]], props[1:], value, report)
     else:
-        expected_type = "list" if type(props[1]) == int else "dict"
+        expected_type = "list" if isinstance(props[1], int) else "dict"
         report_warning(report, f"Expected property '{props[0]}' to be {expected_type} but has type {type(data[props[0]]).__name__}")
         report_warning(report, "Nesting property aborted.")
         return 1
@@ -397,7 +397,7 @@ def add_nest(data, props):
     If the next property is an integer, this is interpreted as an index and a list is
     added. Otherwise a dictionary is added.
     """
-    data[props[0]] = [] if type(props[1]) == int else {}
+    data[props[0]] = [] if isinstance(props[1], int) else {}
 
 def fill_null_list(li, length):
     """
