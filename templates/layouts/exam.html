@@ -1,5 +1,4 @@
 {% from 'partials/addMedia.html' import addMedia %}
-{% from 'partials/commentsBar.html' import commentsBar %}
 {% from 'partials/questionIcons.html' import questionIcons %}
 {% from 'partials/renderPartBody.html' import renderPartBody %}
 
@@ -61,8 +60,6 @@
 </div>
 
 <hr id="question-feedback-separator">
-
-{{ commentsBar(question.number) }}
 
 <script src="{{ consts.SCRIPTS_LOCATION }}" type="application/javascript">
   /* Import Custom Javascript Code from the server */

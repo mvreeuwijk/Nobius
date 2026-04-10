@@ -49,8 +49,9 @@ def test_exam_render_includes_feedback_separator_and_script_spacing(t01_sheet):
     first_question_text = soup.find("courseModule", recursive=False).find("questions", recursive=False).find("question", recursive=False).find("text").string
 
     assert '<hr id="question-feedback-separator">' in first_question_text
-    assert "{{ commentsBar(question.number) }}" not in first_question_text
+    assert 'comments-bar-container' not in first_question_text
     assert '<script src="/web/test/exam-scripts.js" type="application/javascript">' in first_question_text
+    assert 'id="comment-btn"' not in first_question_text
 
 
 def test_render_sheet_zip_contains_manifest_and_media(t01_sheet):
@@ -69,7 +70,7 @@ def test_render_sheet_manifest_uses_packaged_media_paths(t01_sheet):
 
     assert "__BASE_URI__Fundamentals/TriangularPrism.png" in rendered_xml
     assert "__BASE_URI__Fundamentals/TruncatedCone.png" in rendered_xml
-    assert "__BASE_URI__Fundamentals/TruncatedConeAnswer01.png" in rendered_xml
+    assert "__BASE_URI__Fundamentals/TruncatedConeAnswer01.png" not in rendered_xml
     assert 'class="media-container"' in rendered_xml
     assert "<uri><![CDATA[ web_folders/Fundamentals ]]></uri>" in rendered_xml
     assert "<uri><![CDATA[ web_folders/Scripts ]]></uri>" in rendered_xml
@@ -210,8 +211,9 @@ def test_roundtrip_exam_render_replaces_response_nan_names_with_stable_part_name
     assert "responseNaN" not in rendered_xml
     assert "<name><![CDATA[ sro_id_1 ]]></name>" in rendered_xml
     assert "<name><![CDATA[ sro_id_2 ]]></name>" in rendered_xml
-    assert 'id="ah-btn2"' in rendered_xml
-    assert 'class="answers-nav-button equation-help-button" id="eh-btn2"' in rendered_xml
+    assert 'id="ah-btn2"' not in rendered_xml
+    assert 'class="answers-nav-button equation-help-button" id="eh-btn2"' not in rendered_xml
+    assert 'class="answers-help-container"' not in rendered_xml
     assert "<2>" in rendered_xml
 
 
@@ -257,8 +259,8 @@ def test_final_answer_equation_renders_into_answer_panel(tmp_path):
     render_sheet(sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     rendered_xml = (sheet / "renders" / "Final Answer Equation Demo.xml").read_text(encoding="utf-8")
 
-    assert 'data-propname="parts.1.final_answer.equation"' in rendered_xml
-    assert r"\(x^2\)" in rendered_xml
+    assert 'data-propname="parts.1.final_answer.equation"' not in rendered_xml
+    assert 'class="final-answer"' not in rendered_xml
 
 
 def test_example_export_uses_question_bank_manifest_shape(example_sheet):

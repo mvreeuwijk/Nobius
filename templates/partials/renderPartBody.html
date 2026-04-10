@@ -7,6 +7,7 @@
 {% macro renderPartBody(part, part_index, part_propname) %}
 {% set require_help_button = part.isMaple or (part.structured_tutorial or part.final_answer or part.worked_solutions) %}
 {% set add_maple_preview_help = part.responses is not defined or not part.responses %}
+{% set allow_answer_help = consts.LAYOUT_PROFILE != "exam" %}
 
 <div class="part {{ 'active' if part_index == 1 }}" id="part{{ part_index }}">
   <p class="part-statement" data-propname="{{ part_propname }}.statement">
@@ -39,14 +40,14 @@
 
   <div class="response-wrapper" data-propname="{{ part_propname }}.custom_response">
     <p>{{ part.custom_response }}</p>
-    {% if require_help_button %}
+    {% if require_help_button and allow_answer_help %}
     {{ answerHelpButton(part_index) }}
     {% endif %}
   </div>
 
   {% endif %}
 
-  {% if require_help_button and not (part.response or part.responses or part.custom_response) %}
+  {% if require_help_button and allow_answer_help and not (part.response or part.responses or part.custom_response) %}
   {{ answerHelpButton(part_index) }}
   {% endif %}
 
@@ -54,7 +55,7 @@
   {{ inputSymbols(part.input_symbols) }}
   {% endif %}
 
-  {% if require_help_button %}
+  {% if require_help_button and allow_answer_help %}
   {{ answerHelp(part, part_index, part_propname, add_maple_preview_help) }}
   {% endif %}
 

@@ -2,6 +2,7 @@
 {% from 'partials/answerHelpButton.html' import answerHelpButton %}
 
 {% macro responseWrapper(response, part_index, propname, add_help=True) %}
+{% set allow_answer_help = consts.LAYOUT_PROFILE != "exam" %}
 {% if response is iterable and response.response is not iterable %}
 <div class="response-wrapper" data-propname="{{ propname + ".response" }}">
 {% else %}
@@ -33,7 +34,7 @@
   </div>
   {% endif %}
 
-  {% if add_help %}
+  {% if add_help and allow_answer_help %}
   {{ answerHelpButton(part_index) }}
   {% endif %}
 
