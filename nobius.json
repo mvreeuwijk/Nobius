@@ -1,12 +1,53 @@
 {
-  "render": {
-    "theme_location": "__SET_ME_THEME_LOCATION__",
-    "scripts_location": "__SET_ME_SCRIPTS_LOCATION__",
-    "exam_theme_location": "__SET_ME_EXAM_THEME_LOCATION__",
-    "exam_scripts_location": "__SET_ME_EXAM_SCRIPTS_LOCATION__"
+  "default_profile": "exam",
+  "html_preview_profile": "html_preview",
+  "profiles": {
+    "problem_set": {
+      "render": {
+        "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
+        "scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt"
+      },
+      "pdf": {
+        "heading": "problem_sets"
+      }
+    },
+    "exam": {
+      "render": {
+        "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
+        "scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt"
+      },
+      "pdf": {
+        "heading": "exam"
+      }
+    },
+    "html_preview": {
+      "render": {
+        "theme_location": "/themes/test-theme",
+        "scripts_location": "/web/test/scripts.js"
+      },
+      "pdf": {
+        "heading": "generic"
+      }
+    }
   },
   "import": {
     "strip_uids": false,
     "media_strategy": "copy"
+  },
+  "pdf": {
+    "headings": {
+      "problem_sets": {
+        "footer_label": "CIVE40008 Fluid Mechanics I Set \\#",
+        "section_label": "CIVE40008 Problem Set \\#"
+      },
+      "exam": {
+        "footer_label": "CIVE40008 Fluid Mechanics I",
+        "section_label": ""
+      },
+      "generic": {
+        "footer_label": "Sheet \\#",
+        "section_label": "Nobius Sheet \\#"
+      }
+    }
   }
 }

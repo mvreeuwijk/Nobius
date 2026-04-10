@@ -66,16 +66,18 @@ def iter_sheet_directories(work_dir):
             yield child
 
 
-def render_sheet_directory(sheet_path, output_dir, reset_uids, write_missing_uids=False, config_path=None, render_profile="standard"):
+def render_sheet_directory(sheet_path, output_dir, reset_uids, write_missing_uids=False, config_path=None, profile_name=None, render_mode="assignment"):
     command = [
         sys.executable,
         "export_mobius.py",
         str(sheet_path),
         "-d",
         str(output_dir),
-        "--render-profile",
-        render_profile,
+        "--render-mode",
+        render_mode,
     ]
+    if profile_name:
+        command.extend(["--profile", profile_name])
     if reset_uids:
         command.append("--reset-uid")
     if write_missing_uids:
@@ -223,10 +225,14 @@ def main():
         help="Path to a Nobius JSON config file passed through to export_mobius.py.",
     )
     parser.add_argument(
-        "--render-profile",
-        choices=["standard", "exam"],
-        default="standard",
-        help="Rendering profile passed through to export_mobius.py.",
+        "--profile",
+        help="Named Nobius profile passed through to export_mobius.py.",
+    )
+    parser.add_argument(
+        "--render-mode",
+        choices=["assignment", "exercise"],
+        default="assignment",
+        help="Rendering mode passed through to export_mobius.py.",
     )
     parser.add_argument(
         "--continue-on-error",
@@ -247,7 +253,8 @@ def main():
             args.reset_uid,
             args.write_missing_uids,
             args.config,
-            args.render_profile,
+            args.profile,
+            args.render_mode,
         )
         question_timings = get_question_timings(sheet_path)
 

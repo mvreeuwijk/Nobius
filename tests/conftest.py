@@ -15,12 +15,57 @@ QUESTIONS_ROOT = FIXTURES_ROOT if FIXTURES_ROOT.exists() else PROJECT_ROOT / "Qu
 MOBIUS_EXPORTS_ROOT = FIXTURES_ROOT / "mobius_exports"
 BASELINES_ROOT = FIXTURES_ROOT / "baselines"
 TEST_RENDER_CONFIG = {
-    "render": {
-        "theme_location": "/themes/test-theme",
-        "scripts_location": "/web/test/scripts.js",
-        "exam_theme_location": "/themes/test-exam-theme",
-        "exam_scripts_location": "/web/test/exam-scripts.js",
-    }
+    "default_profile": "problem_set",
+    "html_preview_profile": "html_preview",
+    "profiles": {
+        "problem_set": {
+            "render": {
+                "theme_location": "/themes/test-theme",
+                "scripts_location": "/web/test/scripts.js",
+            },
+            "pdf": {
+                "heading": "problem_sets",
+            },
+        },
+        "exam": {
+            "render": {
+                "theme_location": "/themes/test-exam-theme",
+                "scripts_location": "/web/test/exam-scripts.js",
+            },
+            "pdf": {
+                "heading": "problem_sets",
+            },
+        },
+        "html_preview": {
+            "render": {
+                "theme_location": "/themes/test-preview-theme",
+                "scripts_location": "/web/test/preview-scripts.js",
+            },
+            "pdf": {
+                "heading": "generic",
+            },
+        },
+    },
+    "import": {
+        "strip_uids": False,
+        "media_strategy": "copy",
+    },
+    "pdf": {
+        "headings": {
+            "problem_sets": {
+                "footer_label": r"Set \#",
+                "section_label": r"Unit Test Set \#",
+            },
+            "exam": {
+                "footer_label": "",
+                "section_label": r"Unit Test Exam",
+            },
+            "generic": {
+                "footer_label": r"Sheet \#",
+                "section_label": r"Unit Test Sheet \#",
+            },
+        },
+    },
 }
 
 
@@ -127,38 +172,64 @@ def custom_response_placeholders(layout):
     return re.findall(r"<\d+>", layout)
 
 
-def make_render_settings(config=None, exam=False):
+def make_render_settings(config=None, profile_name="problem_set", render_mode="assignment"):
     config = config or TEST_RENDER_CONFIG
-    if exam:
-        return {
-            "theme_location": config["render"]["exam_theme_location"],
-            "scripts_location": config["render"]["exam_scripts_location"],
-            "layout_profile": "exam",
-        }
-
+    layout_profile = "exam" if render_mode == "assignment" else "default"
     return {
-        "theme_location": config["render"]["theme_location"],
-        "scripts_location": config["render"]["scripts_location"],
-        "layout_profile": "default",
+        "theme_location": config["profiles"][profile_name]["render"]["theme_location"],
+        "scripts_location": config["profiles"][profile_name]["render"]["scripts_location"],
+        "layout_profile": layout_profile,
     }
 
 
 def make_config_payload(
-    theme_location="/themes/test-theme",
-    scripts_location="/web/test/scripts.js",
+    problem_set_theme_location="/themes/test-theme",
+    problem_set_scripts_location="/web/test/scripts.js",
     exam_theme_location="/themes/test-exam-theme",
     exam_scripts_location="/web/test/exam-scripts.js",
+    preview_theme_location="/themes/test-preview-theme",
+    preview_scripts_location="/web/test/preview-scripts.js",
+    default_profile="problem_set",
+    html_preview_profile="html_preview",
 ):
     return {
-        "render": {
-            "theme_location": theme_location,
-            "scripts_location": scripts_location,
-            "exam_theme_location": exam_theme_location,
-            "exam_scripts_location": exam_scripts_location,
+        "default_profile": default_profile,
+        "html_preview_profile": html_preview_profile,
+        "profiles": {
+            "problem_set": {
+                "render": {
+                    "theme_location": problem_set_theme_location,
+                    "scripts_location": problem_set_scripts_location,
+                },
+                "pdf": {
+                    "heading": "problem_sets",
+                },
+            },
+            "exam": {
+                "render": {
+                    "theme_location": exam_theme_location,
+                    "scripts_location": exam_scripts_location,
+                },
+                "pdf": {
+                    "heading": "problem_sets",
+                },
+            },
+            "html_preview": {
+                "render": {
+                    "theme_location": preview_theme_location,
+                    "scripts_location": preview_scripts_location,
+                },
+                "pdf": {
+                    "heading": "generic",
+                },
+            },
         },
         "import": {
             "strip_uids": False,
             "media_strategy": "copy",
+        },
+        "pdf": {
+            "headings": TEST_RENDER_CONFIG["pdf"]["headings"],
         },
     }
 

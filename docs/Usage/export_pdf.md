@@ -2,19 +2,14 @@
 
 ## Introduction
 
-`export_pdf.py` converts a Nobius sheet into LaTeX and can optionally compile that LaTeX to PDF with `pdflatex`. This is useful for producing offline exercise, review, or solutions packs from the same JSON source used for Mobius rendering.
-
-## Prerequisites
-
-- Python 3.6 or higher
-- a working `pdflatex` executable on your system `PATH` if you want PDF output
+`export_pdf.py` converts a Nobius sheet into LaTeX and can optionally compile that LaTeX to PDF with `pdflatex`.
 
 ## Usage
 
 Run the script from the `Nobius` directory:
 
 ```bash
-python export_pdf.py --sheet-path SHEET_PATH [--content-mode MODE] [--no-pdf] [--batch-mode]
+python export_pdf.py --sheet-path SHEET_PATH [--content-mode MODE] [--no-pdf] [--batch-mode] [--config CONFIG] [--profile PROFILE]
 ```
 
 Where:
@@ -23,6 +18,8 @@ Where:
 - `--content-mode` chooses one of `exercise`, `review`, or `solutions`.
 - `--no-pdf` writes LaTeX output without running `pdflatex`.
 - `--batch-mode` processes multiple sheets in one run.
+- `--config` points to the Nobius config JSON. If omitted, `Nobius/nobius.json` is used.
+- `--profile` selects the named Nobius profile. If omitted, the config's `default_profile` is used.
 
 ## Output
 
@@ -34,8 +31,61 @@ The script writes generated files into the sheet's `media/` directory:
 
 If PDF generation is enabled and `pdflatex` succeeds, matching PDF files are written alongside the TeX files.
 
+## Heading Profiles
+
+The LaTeX preamble contains configurable heading strings such as the document title, section label, and footer label.
+
+`export_pdf.py` resolves:
+
+1. a named Nobius profile
+2. that profile's `pdf.heading`
+3. the concrete heading strings from the top-level `pdf.headings` section
+
+The concrete heading fields control:
+
+- `document_title`: the document title at the top of the PDF. This is typically where you set the module name and year.
+- `footer_label`: the label used in the footer before the current sheet/section name and page number context.
+- `section_label`: the prefix used in the main section heading, for example `Problem Set #` or `Exam #`.
+
+Example:
+
+```json
+{
+  "default_profile": "exam",
+  "profiles": {
+    "exam": {
+      "pdf": {
+        "heading": "problem_sets"
+      }
+    },
+    "html_preview": {
+      "pdf": {
+        "heading": "generic"
+      }
+    }
+  },
+  "pdf": {
+    "headings": {
+      "problem_sets": {
+        "document_title": "Fluid Mechanics 2\\\\Problem Sets \\\\2021/22",
+        "footer_label": "Set \\#",
+        "section_label": "MECH50010 Problem Set \\#"
+      },
+      "generic": {
+        "document_title": "Nobius\\\\Generated PDF",
+        "footer_label": "Sheet \\#",
+        "section_label": "Nobius Sheet \\#"
+      }
+    }
+  }
+}
+```
+
+This means PDF presentation is fully profile-dependent. There is no separate heading override flag anymore.
+
 ## Notes
 
 - Not all HTML content translates cleanly to LaTeX.
 - Some valid TeX output may still fail to compile depending on the installed LaTeX toolchain.
 - Media files referenced by the sheet are copied into the generated output flow automatically.
+- The review mode is designed as a QA artifact rather than a polished student handout. It intentionally exposes metadata such as filenames, UIDs, response modes, media counts, and solution availability in a compact summary block.

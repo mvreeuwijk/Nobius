@@ -19,7 +19,7 @@ Make sure to visit the [Quickstart Guide](quickstart.md) to get started.
 
 - [Quickstart Guide](quickstart.md)
 - [export_mobius.py](Usage/export_mobius.md)
-  Exam-style rendering uses the same command with `--render-profile exam`.
+  Profile-specific rendering uses the same command with `--profile exam`.
 - [preview_html.py](Usage/preview_html.md)
 - [export_pdf.py](Usage/export_pdf.md)
 - [import_mobius.py](Usage/import_mobius.md)

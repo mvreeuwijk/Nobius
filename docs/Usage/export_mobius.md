@@ -20,7 +20,7 @@ In order to use this tool, Python 3.6 or higher is required. The main modules us
 To use this tool, run it from the Nobius repository root or from inside the `Nobius/` directory:
 
 ```unix
-python export_mobius.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [--config CONFIG] [--render-profile {standard,exam}] [-h]
+python export_mobius.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [--config CONFIG] [--profile PROFILE] [--render-mode {assignment,exercise}] [-h]
 ```
 
 - `FILEPATH` is a required positional argument corresponding to the absolute or relative path to where you have stored the sheet folder you'd like to render.
@@ -29,7 +29,8 @@ python export_mobius.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [-
     * *If you have changed the order or names of some of the questions, it is usually a good idea to set this flag and delete the previous version of that sheet from Mobius.*
 - `--write-missing-uids` is an optional flag that initializes and persists missing UIDs into the source JSON files. This is intended for first-time setup of a sheet.
 - `--config` is an optional path to a Nobius config file. By default the tool looks for `nobius.json` in the repo root.
-- `--render-profile` selects the render template/resource profile. Use `standard` for tutorial-style sheets and `exam` for exam-style rendering.
+- `--profile` selects the named Nobius profile. If omitted, the config's `default_profile` is used.
+- `--render-mode` selects the manifest shape. Use `assignment` for assignment/course-module style output and `exercise` for question-bank style output.
 
 !!! warning
     Rendering now requires stable UIDs. If `uid` values are missing, the script will fail unless you explicitly pass `--write-missing-uids`.
@@ -42,12 +43,12 @@ python export_mobius.py FILEPATH [--reset-uid or -uid] [--write-missing-uids] [-
 python export_mobius.py "C:\Users\bob\Desktop\My new sheet" --write-missing-uids
 ```
 
-### Exam rendering
+### Using a different profile
 
-Exam rendering now uses the same workflow with a different render profile:
+Exam-style rendering now uses the same workflow with a different profile:
 
 ```unix
-python export_mobius.py "C:\Users\bob\Desktop\My exam sheet" --render-profile exam --write-missing-uids
+python export_mobius.py "C:\Users\bob\Desktop\My exam sheet" --profile exam --write-missing-uids
 ```
 
 ## Configuration

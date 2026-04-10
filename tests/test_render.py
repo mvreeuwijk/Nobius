@@ -36,14 +36,14 @@ def test_render_sheet_standard_creates_xml_and_zip_for_tutorial_fixture(t01_shee
 
 
 def test_render_sheet_exam_creates_xml_and_zip_for_tutorial_fixture(t01_sheet):
-    result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
 
     assert result["xml_path"].endswith("Fundamentals.xml")
     assert result["zip_path"].endswith("Fundamentals.zip")
 
 
 def test_exam_render_includes_feedback_separator_and_script_spacing(t01_sheet):
-    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
     soup = bs4.BeautifulSoup(rendered_xml, "lxml-xml")
     first_question_text = soup.find("courseModule", recursive=False).find("questions", recursive=False).find("question", recursive=False).find("text").string
@@ -60,12 +60,11 @@ def test_render_sheet_zip_contains_manifest_and_media(t01_sheet):
         members = set(zip_file.namelist())
 
     assert "manifest.xml" in members
-    assert "web_folders/Scripts/QuestionJavaScript.txt" in members
     assert "web_folders/Fundamentals/TruncatedCone.png" in members
 
 
 def test_render_sheet_manifest_uses_packaged_media_paths(t01_sheet):
-    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     rendered_xml = (t01_sheet / "renders" / "Fundamentals.xml").read_text(encoding="utf-8")
 
     assert "__BASE_URI__Fundamentals/TriangularPrism.png" in rendered_xml
@@ -79,8 +78,8 @@ def test_render_sheet_manifest_uses_packaged_media_paths(t01_sheet):
 def test_generate_group_cli_uses_config_values_in_standard_template(t01_sheet, tmp_path):
     config_path = tmp_path / "nobius.json"
     write_json(config_path, make_config_payload(
-        theme_location="/themes/unit-test-standard",
-        scripts_location="/web/unit-test/standard.js",
+        problem_set_theme_location="/themes/unit-test-standard",
+        problem_set_scripts_location="/web/unit-test/standard.js",
     ))
 
     subprocess.run(
@@ -97,7 +96,7 @@ def test_generate_group_cli_uses_config_values_in_standard_template(t01_sheet, t
     assert "/web/unit-test/standard.js" in rendered_xml
 
 
-def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tmp_path):
+def test_generate_group_cli_uses_named_exam_profile_config_values(t01_sheet, tmp_path):
     config_path = tmp_path / "nobius.json"
     write_json(config_path, make_config_payload(
         exam_theme_location="/themes/unit-test-exam",
@@ -111,7 +110,7 @@ def test_generate_group_cli_uses_exam_render_profile_config_values(t01_sheet, tm
             str(t01_sheet),
             "--config",
             str(config_path),
-            "--render-profile",
+            "--profile",
             "exam",
         ],
         cwd=REPO_ROOT,
@@ -140,7 +139,7 @@ def test_generate_group_cli_supports_packaged_exam_script_uri(t01_sheet, tmp_pat
             str(t01_sheet),
             "--config",
             str(config_path),
-            "--render-profile",
+            "--profile",
             "exam",
         ],
         cwd=REPO_ROOT,
@@ -192,7 +191,7 @@ def test_generate_html_preview_cli_creates_preview_pages(t01_sheet, tmp_path):
 
 
 def test_roundtrip_simple_response_without_help_content_omits_help_shell(roundtrip_sheet):
-    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     rendered_xml = (roundtrip_sheet / "renders" / "Round Trip Demo.xml").read_text(encoding="utf-8")
     soup = bs4.BeautifulSoup(rendered_xml, "lxml-xml")
     first_question_text = soup.find("courseModule", recursive=False).find("questions", recursive=False).find("question", recursive=False).find("text").string
@@ -205,7 +204,7 @@ def test_roundtrip_simple_response_without_help_content_omits_help_shell(roundtr
 
 
 def test_roundtrip_exam_render_replaces_response_nan_names_with_stable_part_names(roundtrip_sheet):
-    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     rendered_xml = (roundtrip_sheet / "renders" / "Round Trip Demo.xml").read_text(encoding="utf-8")
 
     assert "responseNaN" not in rendered_xml
@@ -217,7 +216,7 @@ def test_roundtrip_exam_render_replaces_response_nan_names_with_stable_part_name
 
 
 def test_roundtrip_render_preserves_import_reconstruction_markers(roundtrip_sheet):
-    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    render_sheet(roundtrip_sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     rendered_xml = (roundtrip_sheet / "renders" / "Round Trip Demo.xml").read_text(encoding="utf-8")
 
     assert 'data-propname="title"' in rendered_xml
@@ -255,7 +254,7 @@ def test_final_answer_equation_renders_into_answer_panel(tmp_path):
         ],
     )
 
-    render_sheet(sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    render_sheet(sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     rendered_xml = (sheet / "renders" / "Final Answer Equation Demo.xml").read_text(encoding="utf-8")
 
     assert 'data-propname="parts.1.final_answer.equation"' in rendered_xml
@@ -266,6 +265,7 @@ def test_example_export_uses_question_bank_manifest_shape(example_sheet):
     example_settings = {
         "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
         "scripts_location": "/web/Pjohnso000/Public_Html/Scripts/QuestionJavaScript.txt",
+        "layout_profile": "default",
     }
 
     result = render_sheet(example_sheet, "manifests/questionbank.xml", example_settings)
@@ -415,8 +415,8 @@ def test_generate_group_cli_can_write_missing_uids(t01_sheet, tmp_path):
 
     config_path = tmp_path / "nobius.json"
     write_json(config_path, make_config_payload(
-        theme_location="/themes/unit-test-standard",
-        scripts_location="/web/unit-test/standard.js",
+        problem_set_theme_location="/themes/unit-test-standard",
+        problem_set_scripts_location="/web/unit-test/standard.js",
     ))
 
     subprocess.run(

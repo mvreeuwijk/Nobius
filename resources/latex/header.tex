@@ -1,11 +1,5 @@
 %--------1---------2---------3---------4---------5---------6---------7---------8
 \documentclass[11pt,a4paper]{article}%
-% //////////////////////////////////////////////////////////////////////////////
-\title{Fluid Mechanics 2\\Problem Sets \\2021/22}
-%\author[]{Imperial College London \\ Mechanical Engineering Department}%
-\date{}
-% //////////////////////////////////////////////////////////////////////////////
-
 \usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}%
 \usepackage{lmodern}%                     font style must be sans serif to
 \renewcommand*\familydefault{\sfdefault}% comply with the college's regulations
@@ -15,7 +9,7 @@
     \pagestyle{fancy}
     \fancyhf{}
     \renewcommand{\headrulewidth}{0pt}
-    \lfoot{\ifnum0<\thesection Set \# \leftmark\fi}
+    \lfoot{\ifnum0<\thesection __NOBIUS_FOOTER_LABEL__ \nouppercase{\leftmark}\fi}
     \rfoot{\thepage}
  
 %\usepackage[cmbright]{sfmath}           % This part for the math font, but it causes a lot of errors
@@ -192,11 +186,12 @@
 \usepackage{wrapfig}%
 %-------------------------------------------------------------------------------
 % Section titles
-\newcommand{\secname}{MECH50010-hFMX Problem Set \#}
+\newcommand{\secname}{__NOBIUS_SECTION_DISPLAY_LABEL__}
+\newcommand{\nobiussetmark}[1]{\markboth{#1}{}}
 \usepackage{titlesec}
 \titleformat{\section}
 {\normalfont\bfseries\filcenter\large}
-{MECH50010 Problem Set \#\thesection ~---}{0.5 em}{}
+{__NOBIUS_SECTION_DISPLAY_LABEL__}{__NOBIUS_SECTION_TITLESEP__}{}
 
 
 

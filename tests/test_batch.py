@@ -259,7 +259,7 @@ def test_generate_all_cli_supports_exam_render_profile(tmp_path):
             str(output_root),
             "--config",
             str(config_path),
-            "--render-profile",
+            "--profile",
             "exam",
             "--write-missing-uids",
         ],

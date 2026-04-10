@@ -19,6 +19,7 @@ import tempfile
 from subprocess import PIPE
 
 import validation
+from nobius_config import load_config, resolve_pdf_profile
 
 
 def load_json_file(filepath):
@@ -58,6 +59,25 @@ def html_to_tex(input_text):
     return input_text
 
 
+def tex_escape_text(value):
+    if value is None:
+        return ""
+
+    text = str(value)
+    replacements = [
+        ("\\", r"\textbackslash{}"),
+        ("&", r"\&"),
+        ("%", r"\%"),
+        ("#", r"\#"),
+        ("_", r"\_"),
+        ("{", r"\{"),
+        ("}", r"\}"),
+    ]
+    for old, new in replacements:
+        text = text.replace(old, new)
+    return text
+
+
 def clean_algorithm(input_text, pdf_values):
     # The JSON includes algorithmic variables that need replacing
     for variable_name, variable_value in pdf_values:
@@ -78,10 +98,76 @@ def format_algorithm(input_text):
     return input_text
 
 
+def split_algorithm_commands(input_text):
+    if not input_text:
+        return []
+
+    commands = []
+    for line in str(input_text).splitlines():
+        stripped_line = line.strip()
+        if not stripped_line:
+            continue
+
+        fragments = [fragment.strip() for fragment in stripped_line.split(";")]
+        for fragment in fragments:
+            if fragment:
+                commands.append(fragment + ";")
+
+    return commands
+
+
+def resolve_pdf_heading(config, profile_name=None):
+    _, profile_pdf_config = resolve_pdf_profile(config, profile_name)
+    pdf_config = config.get("pdf", {}) if isinstance(config, dict) else {}
+    headings = pdf_config.get("headings", {}) if isinstance(pdf_config, dict) else {}
+    selected_profile = profile_pdf_config.get("heading", "problem_sets")
+
+    if selected_profile not in headings:
+        available_profiles = ", ".join(sorted(headings)) or "none"
+        raise ValueError(
+            f"Unknown PDF heading profile '{selected_profile}'. "
+            f"Available profiles: {available_profiles}"
+        )
+
+    return selected_profile, headings[selected_profile]
+
+
+def render_header_template(template_text, heading_config):
+    section_label = str(heading_config.get("section_label", r"Nobius Sheet \#"))
+    if section_label.strip():
+        section_display_label = section_label + r"\thesection ~---"
+        section_titlesep = "0.5 em"
+    else:
+        section_display_label = ""
+        section_titlesep = "0 em"
+
+    replacements = {
+        "__NOBIUS_FOOTER_LABEL__": heading_config.get("footer_label", r"Sheet \#"),
+        "__NOBIUS_SECTION_DISPLAY_LABEL__": section_display_label,
+        "__NOBIUS_SECTION_TITLESEP__": section_titlesep,
+    }
+
+    rendered = template_text
+    for placeholder, value in replacements.items():
+        rendered = rendered.replace(placeholder, str(value))
+    return rendered
+
+
 def apply_algorithm_values(text, content):
     if "algorithm" in content and "PDF_values" in content:
         return clean_algorithm(text, content["PDF_values"])
     return text
+
+
+def protect_unresolved_algorithm_tokens(text):
+    if not text:
+        return text
+
+    return re.sub(
+        r"\$([A-Za-z][A-Za-z0-9_]*)",
+        lambda match: r"\texttt{[\$" + match.group(1) + "]}",
+        text,
+    )
 
 
 def write_media_block(file_obj, media):
@@ -99,14 +185,19 @@ def write_choice_block(file_obj, part, content):
     if "response" not in part:
         return
 
-    mode = part["response"]["mode"]
+    response = part.get("response")
+    if not isinstance(response, dict):
+        return
+
+    mode = response["mode"]
     if "Non Permuting Multiple Choice" not in mode and "Non Permuting Multiple Selection" not in mode:
         return
 
     file_obj.write("\\begin{itemize}")
-    for choice in part["response"]["choices"]:
+    for choice in response["choices"]:
         choice_tex = html_to_tex(re.sub("<p>", "", choice))
         choice_tex = apply_algorithm_values(choice_tex, content)
+        choice_tex = protect_unresolved_algorithm_tokens(choice_tex)
         file_obj.write("\\item " + choice_tex)
     file_obj.write("\\end{itemize}")
 
@@ -119,7 +210,9 @@ def write_worked_solutions(file_obj, part):
     for step in part["worked_solutions"]:
         write_media_block(file_obj, step.get("media", []))
         if "text" in step:
-            file_obj.write(html_to_tex(step["text"]) + "\\\\\\\\")
+            step_text = html_to_tex(step["text"])
+            step_text = protect_unresolved_algorithm_tokens(step_text)
+            file_obj.write(step_text + "\\\\\\\\")
 
 
 def write_final_answer(file_obj, part, label):
@@ -129,7 +222,124 @@ def write_final_answer(file_obj, part, label):
     file_obj.write(label)
     write_media_block(file_obj, part["final_answer"].get("media", []))
     if "text" in part["final_answer"]:
-        file_obj.write(html_to_tex(part["final_answer"]["text"]))
+        final_answer_text = html_to_tex(part["final_answer"]["text"])
+        final_answer_text = protect_unresolved_algorithm_tokens(final_answer_text)
+        file_obj.write(final_answer_text)
+
+
+def count_nested_media(items):
+    return sum(len(item.get("media", [])) for item in items)
+
+
+def summarize_response_modes(part):
+    if "response" in part:
+        response = part["response"]
+        if isinstance(response, dict):
+            return tex_escape_text(response.get("mode", "response"))
+        return "response"
+
+    if "responses" in part:
+        responses = [response.get("mode", "response") for response in part["responses"] if isinstance(response, dict)]
+        if responses:
+            return tex_escape_text(", ".join(responses))
+        return f"{len(part['responses'])} responses"
+
+    if "custom_response" in part:
+        custom_response = part["custom_response"]
+        responses = custom_response.get("responses", []) if isinstance(custom_response, dict) else []
+        modes = [response.get("mode", "response") for response in responses if isinstance(response, dict)]
+        if modes:
+            return tex_escape_text("custom: " + ", ".join(modes))
+        return "custom response"
+
+    return "none"
+
+
+def write_review_metadata(file_obj, question_filename, content):
+    parts = content.get("parts", [])
+    icon_data = content.get("icon_data", {})
+    part_media_count = sum(len(part.get("media", [])) for part in parts if isinstance(part, dict))
+    worked_solution_count = sum(len(part.get("worked_solutions", [])) for part in parts if isinstance(part, dict))
+    worked_solution_media_count = sum(
+        count_nested_media(part.get("worked_solutions", [])) for part in parts if isinstance(part, dict)
+    )
+    tutorial_count = sum(len(part.get("structured_tutorial", [])) for part in parts if isinstance(part, dict))
+    tutorial_media_count = sum(
+        count_nested_media(part.get("structured_tutorial", [])) for part in parts if isinstance(part, dict)
+    )
+    final_answer_count = sum(1 for part in parts if isinstance(part, dict) and "final_answer" in part)
+    modes = [summarize_response_modes(part) for part in parts if isinstance(part, dict)]
+    par_time = icon_data.get("par_time")
+    par_time_text = f"{par_time[0]}--{par_time[1]} min" if isinstance(par_time, list) and len(par_time) == 2 else "n/a"
+    difficulty_text = icon_data.get("difficulty", "n/a")
+    algorithm_text = "yes" if "algorithm" in content else "no"
+    pdf_values = content.get("PDF_values", [])
+    algorithm_text = f"{algorithm_text} ({len(pdf_values)} values)" if "algorithm" in content and pdf_values else algorithm_text
+    response_summary = tex_escape_text(" | ".join(modes)) if modes else "none"
+    media_summary = tex_escape_text(
+        f"q={len(content.get('media', []))}, part={part_media_count}, worked={worked_solution_media_count}, tutorial={tutorial_media_count}"
+    )
+
+    file_obj.write(r"\begin{exobox}{Review metadata}")
+    file_obj.write("\n\\small\n")
+    file_obj.write(r"\begin{tabularx}{\linewidth}{@{}lX lX@{}}")
+    file_obj.write("\n")
+    file_obj.write(r"\textbf{File} & " + tex_escape_text(f"{question_filename}.json"))
+    file_obj.write(r" & \textbf{UID} & " + tex_escape_text(content.get("uid", "n/a")) + r"\\")
+    file_obj.write("\n")
+    file_obj.write(r"\textbf{Parts} & " + str(len(parts)))
+    file_obj.write(r" & \textbf{Responses} & " + response_summary + r"\\")
+    file_obj.write("\n")
+    file_obj.write(r"\textbf{Difficulty} & " + tex_escape_text(difficulty_text))
+    file_obj.write(r" & \textbf{Par time} & " + tex_escape_text(par_time_text) + r"\\")
+    file_obj.write("\n")
+    file_obj.write(r"\textbf{Media} & " + media_summary)
+    file_obj.write(r" & \textbf{Final answers} & " + str(final_answer_count) + r"\\")
+    file_obj.write("\n")
+    file_obj.write(r"\textbf{Worked steps} & " + str(worked_solution_count))
+    file_obj.write(r" & \textbf{Tutorial steps} & " + str(tutorial_count) + r"\\")
+    file_obj.write("\n")
+    file_obj.write(r"\textbf{Algorithm} & " + tex_escape_text(algorithm_text))
+    file_obj.write(r" & \textbf{Master statement} & " + ("yes" if content.get("master_statement") else "no"))
+    file_obj.write("\n")
+    file_obj.write(r"\end{tabularx}")
+    file_obj.write("\n\\end{exobox}\n")
+
+
+def write_review_part_metadata(file_obj, part, part_index):
+    part_media_count = len(part.get("media", []))
+    worked_solution_count = len(part.get("worked_solutions", []))
+    tutorial_count = len(part.get("structured_tutorial", []))
+    final_answer_flag = "yes" if "final_answer" in part else "no"
+    statement_flag = "yes" if part.get("statement") else "no"
+    mode_summary = summarize_response_modes(part)
+
+    file_obj.write(r"\begin{cbox}")
+    file_obj.write("\n\\small ")
+    file_obj.write(
+        rf"\textbf{{Part ({chr(97 + part_index)}) metadata}} "
+        + rf"statement={statement_flag}; "
+        + rf"response={mode_summary}; "
+        + rf"media={part_media_count}; "
+        + rf"worked={worked_solution_count}; "
+        + rf"tutorial={tutorial_count}; "
+        + rf"final={final_answer_flag}"
+    )
+    file_obj.write("\n\\end{cbox}\n")
+
+
+def write_review_algorithm_block(file_obj, content):
+    if "algorithm" not in content:
+        return
+
+    file_obj.write(r"\begin{exobox}{Algorithm}")
+    file_obj.write("\n\\small\n\\begin{Verbatim}\n")
+    commands = split_algorithm_commands(content["algorithm"])
+    if commands:
+        file_obj.write("\n".join(commands))
+    else:
+        file_obj.write(str(content["algorithm"]))
+    file_obj.write("\n\\end{Verbatim}\n\\end{exobox}\n")
 
 
 def generate_pdf_output(tex_path, pdf_path):
@@ -145,6 +355,8 @@ def generate_pdf_output(tex_path, pdf_path):
     rendered properly.
     """
     print(f"[PDF] Getting reading to generate {os.path.basename(pdf_path)}")
+    tex_path = os.path.abspath(tex_path)
+    pdf_path = os.path.abspath(pdf_path)
 
     if shutil.which("pdflatex") is None:
         print("\033[91m[ERROR] pdflatex is not an executable on this system (check PATH and install)\033[0m")
@@ -190,8 +402,20 @@ def import_pypdf2():
     return PdfFileMerger, PdfFileReader
 
 
-def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_merge_folder=None):
+def generate_tex_output(
+    sheet_dir,
+    no_pdf,
+    content_mode,
+    pages_acc=None,
+    tmp_merge_folder=None,
+    config=None,
+    profile_name=None,
+):
     header_file = os.path.join(os.path.dirname(__file__), "resources", "latex", "header.tex")
+    active_config = config
+    if active_config is None:
+        active_config, _ = load_config()
+    selected_heading, heading_config = resolve_pdf_heading(active_config, profile_name)
 
     sheet_info = load_json_file(os.path.join(sheet_dir, "SheetInfo.json"))
     print(
@@ -221,19 +445,16 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
 
     with open(outputfile_tex, "w", encoding="utf-8") as file:
         with open(header_file, "r", encoding="utf-8") as header:
-            for line in header:
-                file.write(line)
+            header_text = header.read()
+        file.write(render_header_template(header_text, heading_config))
 
         if pages_acc:
             file.write(r"\setcounter{page}{" + str(pages_acc + 1) + "}")
 
-        if pages_acc == 0:
-            file.write(r"\maketitle")
-            file.write(r"\pagebreak")
-
         file.write("\\ETrule")
         file.write("\\setcounter{section}{" + str(sheet_info["number"] - 1) + "}")
         file.write("\\section{" + sheet_info["name"] + "}")
+        file.write("\\nobiussetmark{" + tex_escape_text(sheet_info["name"]) + "}")
         file.write(
             "\\ETrule Note: this sheet was automatically generated from online Problem Sets. "
             "Not all content translates to the offline version, please visit the online version, "
@@ -241,7 +462,8 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
         )
 
         for question_index in range(len(sheet_info["questions"])):
-            content = load_json_file(os.path.join(sheet_dir, sheet_info["questions"][question_index] + ".json"))
+            question_filename = sheet_info["questions"][question_index]
+            content = load_json_file(os.path.join(sheet_dir, question_filename + ".json"))
 
             file.write("")
             file.write("\\ETrule")
@@ -249,9 +471,13 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
             file.write(content["title"])
             file.write("}\n")
 
+            if content_mode == "review":
+                write_review_metadata(file, question_filename, content)
+
             if content_mode in ["exercise", "review"]:
                 new_master = html_to_tex(content["master_statement"])
                 new_master = apply_algorithm_values(new_master, content)
+                new_master = protect_unresolved_algorithm_tokens(new_master)
                 file.write(new_master)
                 write_media_block(file, content.get("media", []))
 
@@ -263,9 +489,13 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
                     file.write("\\item ")
                 part = content["parts"][part_index]
 
+                if content_mode == "review":
+                    write_review_part_metadata(file, part, part_index)
+
                 if content_mode in ["exercise", "review"]:
                     new_content = html_to_tex(part["statement"])
                     new_content = apply_algorithm_values(new_content, content)
+                    new_content = protect_unresolved_algorithm_tokens(new_content)
                     file.write(new_content)
                     if "latex_only" in part:
                         file.write(part["latex_only"])
@@ -283,12 +513,15 @@ def generate_tex_output(sheet_dir, no_pdf, content_mode, pages_acc=None, tmp_mer
             if num_parts > 1:
                 file.write("\\end{enumerate}")
 
-            if content_mode == "review" and "algorithm" in content:
-                file.write("\\text{" + format_algorithm(content["algorithm"]) + "}\\newline")
+            if content_mode == "review":
+                write_review_algorithm_block(file, content)
 
         file.write("\\ETrule\\end{document}")
 
-    print(f"[TEX] Sheet tex compiled and saved to {sheet_info['name']}.tex")
+    print(
+        f"[TEX] Sheet tex compiled and saved to {sheet_info['name']}{suffix}.tex "
+        f"(heading={selected_heading})"
+    )
 
     if not no_pdf:
         generate_pdf_output(outputfile_tex, outputfile_pdf)
@@ -302,11 +535,20 @@ def main():
     parser.add_argument("--no-pdf", help="Set this flag to disable converting the rendered .tex file into a PDF", action="store_true")
     parser.add_argument("--batch-mode", "-b", help="Set this flag to render multiple sheets at once", action="store_true")
     parser.add_argument("--content-mode", choices=["exercise", "review", "solutions"], default="exercise", help="Select whether to render exercise sheets, review sheets, or solutions sheets")
+    parser.add_argument("--config", help="Path to Nobius config JSON. Defaults to Nobius/nobius.json")
+    parser.add_argument("--profile", help="Named Nobius profile controlling PDF defaults. Defaults to the config's default_profile.")
     args = parser.parse_args()
+    config, _ = load_config(args.config)
 
     if not args.batch_mode:
         print(f"[INIT] Starting export_pdf with sheet {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=False) (content_mode={args.content_mode})")
-        generate_tex_output(args.sheet_path, args.no_pdf, args.content_mode)
+        generate_tex_output(
+            args.sheet_path,
+            args.no_pdf,
+            args.content_mode,
+            config=config,
+            profile_name=args.profile,
+        )
     elif not args.no_pdf:
         print(f"[INIT] Starting export_pdf with sheets in {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=True) (content_mode={args.content_mode})")
         PdfFileMerger, PdfFileReader = import_pypdf2()
@@ -328,6 +570,8 @@ def main():
                     args.content_mode,
                     pages_acc,
                     tmp_merge_folder,
+                    config=config,
+                    profile_name=args.profile,
                 )
                 pages_acc += PdfFileReader(new_pdf).numPages
                 rendered_pdfs.append(new_pdf)
@@ -352,7 +596,13 @@ def main():
             print(f"\n    └─── {sheets[-1]}\n")
 
             for sheet in sheets:
-                generate_tex_output(os.path.join(args.sheet_path, sheet), args.no_pdf, args.content_mode)
+                generate_tex_output(
+                    os.path.join(args.sheet_path, sheet),
+                    args.no_pdf,
+                    args.content_mode,
+                    config=config,
+                    profile_name=args.profile,
+                )
 
 
 if __name__ == "__main__":

@@ -7,7 +7,8 @@ from uuid import uuid4
 
 import bs4
 
-from cli_common import build_render_parser, load_config, resolve_render_profile
+from cli_common import build_render_parser, resolve_render_profile
+from nobius_config import load_config, resolve_profile_name
 from render_common import render_sheet
 
 
@@ -389,7 +390,8 @@ def write_question_previews(xml_path, preview_dir):
 def main():
     args = parse_args()
     config, _ = load_config(args.config)
-    profile = resolve_render_profile(config, args.render_profile)
+    resolved_profile_name = resolve_profile_name(config, args.profile, for_preview=True)
+    profile = resolve_render_profile(config, args.render_mode, resolved_profile_name)
 
     render_result = render_sheet(
         args.filepath,

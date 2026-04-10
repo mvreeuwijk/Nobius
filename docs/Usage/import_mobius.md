@@ -77,7 +77,7 @@ This makes it easier to trace problems back to the exact question, assignment, o
 The intended workflow for supported content is:
 
 1. Render a Nobius sheet to Mobius with `export_mobius.py`.
-   For exam-style output, use `export_mobius.py --render-profile exam`.
+   For a different export profile, use `export_mobius.py --profile exam`.
 2. Export that assessment from Mobius as a ZIP.
 3. Import the ZIP back into Nobius with `import_mobius.py`.
 4. Review `import_report.txt` for warnings.

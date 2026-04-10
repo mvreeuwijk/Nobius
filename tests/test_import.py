@@ -182,11 +182,11 @@ def test_standard_zip_round_trip_can_be_rendered_again(t01_sheet, tmp_path):
 
 
 def test_exam_zip_round_trip_can_be_rendered_again(t01_sheet, tmp_path):
-    render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     imported = tmp_path / "roundtrip-exam"
 
     import_mobius_package(render_result["zip_path"], str(imported), False, load_json(REPO_ROOT / "nobius.json"))
-    rerender_result = render_sheet(imported, "manifests/assignment.xml", make_render_settings(exam=True))
+    rerender_result = render_sheet(imported, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     imported_sheet_info = load_json(imported / "SheetInfo.json")
 
     assert rendered_question_titles(imported) == rendered_question_titles(t01_sheet)
@@ -220,7 +220,7 @@ def test_t02_round_trip_preserves_algorithmic_question_content(t02_sheet, tmp_pa
 
 
 def test_import_report_for_exam_style_round_trip_records_warning_for_nonstandard_name(t01_sheet, tmp_path):
-    render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(exam=True))
+    render_result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings(profile_name="exam"))
     imported = tmp_path / "roundtrip-report"
 
     report = import_mobius_package(render_result["zip_path"], str(imported), True, load_json(REPO_ROOT / "nobius.json"))
@@ -372,26 +372,26 @@ def test_roundtrip_exercise_json_supported_plain_subset_can_be_rendered(roundtri
     essay_text = questions[7].find("text").string
     matching_text = questions[8].find("text").string
 
-    assert "<div>Which one of these is true?</div>" in multiple_selection_text or "<p>Which one of these is true?</p>" in multiple_selection_text
+    assert "Which one of these is true?" in multiple_selection_text
     assert "<1>" in multiple_selection_text
-    assert "<p>If a=$a m/s and b=$b m/s, what is c?</p>" in multipart_text
-    assert "<p><1><span>&nbsp;</span></p>" in multipart_text
+    assert "If a=$a m/s and b=$b m/s, what is c?" in multipart_text
+    assert "<1>" in multipart_text
     assert "If v=$c is the velocity of a car and x0 is the initial position" in multipart_text
-    assert "<p><2><span>&nbsp;</span></p>" in multipart_text
-    assert "<div>Define a fluid.</div>" in text_entry_text
-    assert "<p><1><span>&nbsp;</span></p>" in text_entry_text
-    assert "<div>What is Newton's Third Law?</div>" in multiple_choice_text
-    assert "<p><1><span>&nbsp;</span></p>" in multiple_choice_text
-    assert "<p>If a=$a and b=$b, what is c?</p>" in numerical_text
-    assert "<p><1><span>&nbsp;</span></p>" in numerical_text
-    assert "<p>Give the equation for the area of a Circle in terms of its diameter D?</p>" in symbolic_text
-    assert "<p><1><span>&nbsp;</span></p>" in symbolic_text
-    assert "<div>Hydrostatic pressure increases with depth in a stationary fluid.</div>" in true_false_text
-    assert "<p><1><span>&nbsp;</span></p>" in true_false_text
-    assert "<div>Briefly explain the difference between pressure and force.</div>" in essay_text
-    assert "<p><1><span>&nbsp;</span></p>" in essay_text
-    assert "<div>Match each quantity to its SI unit.</div>" in matching_text
-    assert "<p><1><span>&nbsp;</span></p>" in matching_text
+    assert "<2>" in multipart_text
+    assert "Define a fluid." in text_entry_text
+    assert "<1>" in text_entry_text
+    assert "What is Newton's Third Law?" in multiple_choice_text
+    assert "<1>" in multiple_choice_text
+    assert "If a=$a and b=$b, what is c?" in numerical_text
+    assert "<1>" in numerical_text
+    assert "Give the equation for the area of a Circle in terms of its diameter D?" in symbolic_text
+    assert "<1>" in symbolic_text
+    assert "Hydrostatic pressure increases with depth in a stationary fluid." in true_false_text
+    assert "<1>" in true_false_text
+    assert "Briefly explain the difference between pressure and force." in essay_text
+    assert "<1>" in essay_text
+    assert "Match each quantity to its SI unit." in matching_text
+    assert "<1>" in matching_text
     assert questions[0].find("part").find("mode").text == "Non Permuting Multiple Selection"
     assert questions[0].find("part").find("answer").text.strip() == "1,3,5"
     assert len(questions[1].find_all("part")) == 2

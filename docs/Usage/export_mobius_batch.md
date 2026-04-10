@@ -7,14 +7,15 @@
 ## Usage
 
 ```bash
-python export_mobius_batch.py SHEETS_DIR OUTPUT_DIR [--reset-uid] [--config CONFIG] [--render-profile {standard,exam}] [--continue-on-error]
+python export_mobius_batch.py SHEETS_DIR OUTPUT_DIR [--reset-uid] [--config CONFIG] [--profile PROFILE] [--render-mode {assignment,exercise}] [--continue-on-error]
 ```
 
 - `SHEETS_DIR`: parent directory containing one subdirectory per sheet
 - `OUTPUT_DIR`: folder where the merged XML, media bundle, and timing summary should be written
 - `--reset-uid`: regenerate question and sheet UIDs before rendering
 - `--config`: pass a custom config JSON file through to `export_mobius.py` (otherwise `nobius.json` is used)
-- `--render-profile`: render all sheet folders using the selected `export_mobius.py` profile
+- `--profile`: render all sheet folders using the selected named Nobius profile
+- `--render-mode`: render all sheet folders using the selected manifest mode
 - `--continue-on-error`: keep processing remaining sheet folders if one render fails
 
 ## Outputs

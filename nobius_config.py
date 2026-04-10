@@ -4,15 +4,56 @@ import os
 
 
 DEFAULT_CONFIG = {
-    "render": {
-        "theme_location": "__SET_ME_THEME_LOCATION__",
-        "scripts_location": "__SET_ME_SCRIPTS_LOCATION__",
-        "exam_theme_location": "__SET_ME_EXAM_THEME_LOCATION__",
-        "exam_scripts_location": "__SET_ME_EXAM_SCRIPTS_LOCATION__",
+    "default_profile": "exam",
+    "html_preview_profile": "html_preview",
+    "profiles": {
+        "problem_set": {
+            "render": {
+                "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
+                "scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt",
+            },
+            "pdf": {
+                "heading": "problem_sets",
+            },
+        },
+        "exam": {
+            "render": {
+                "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
+                "scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt",
+            },
+            "pdf": {
+                "heading": "problem_sets",
+            },
+        },
+        "html_preview": {
+            "render": {
+                "theme_location": "/themes/test-theme",
+                "scripts_location": "/web/test/scripts.js",
+            },
+            "pdf": {
+                "heading": "generic",
+            },
+        },
     },
     "import": {
         "strip_uids": False,
         "media_strategy": "copy",
+    },
+    "pdf": {
+        "headings": {
+            "problem_sets": {
+                "footer_label": r"Set \#",
+                "section_label": r"MECH50010 Problem Set \#",
+            },
+            "exam": {
+                "footer_label": "",
+                "section_label": "",
+            },
+            "generic": {
+                "footer_label": r"Sheet \#",
+                "section_label": r"Nobius Sheet \#",
+            },
+        },
     },
 }
 
@@ -42,20 +83,48 @@ def load_config(config_path=None):
     return config, None
 
 
-def validate_render_config(config, exam=False):
-    keys = (
-        ("exam_theme_location", "exam_scripts_location")
-        if exam else
-        ("theme_location", "scripts_location")
-    )
+def resolve_profile_name(config, profile_name=None, *, for_preview=False):
+    if profile_name:
+        resolved_profile = profile_name
+    elif for_preview:
+        resolved_profile = config.get("html_preview_profile", config.get("default_profile"))
+    else:
+        resolved_profile = config.get("default_profile")
+
+    profiles = config.get("profiles", {})
+    if resolved_profile not in profiles:
+        available_profiles = ", ".join(sorted(profiles)) or "none"
+        raise ValueError(
+            f"Unknown Nobius profile '{resolved_profile}'. Available profiles: {available_profiles}"
+        )
+
+    return resolved_profile
+
+
+def resolve_profile(config, profile_name=None, *, for_preview=False):
+    resolved_name = resolve_profile_name(config, profile_name, for_preview=for_preview)
+    return resolved_name, config["profiles"][resolved_name]
+
+
+def validate_render_config(config, profile_name):
+    _, profile = resolve_profile(config, profile_name)
+    render_config = profile.get("render", {})
 
     unresolved = [
-        key for key in keys
-        if str(config["render"].get(key, "")).startswith("__SET_ME_")
+        key
+        for key in ("theme_location", "scripts_location")
+        if str(render_config.get(key, "")).startswith("__SET_ME_")
     ]
 
     if unresolved:
         raise ValueError(
             "Nobius render configuration is incomplete. "
-            f"Set the following values in the active Nobius config before rendering: {', '.join(unresolved)}"
+            f"Set the following values in the active Nobius profile '{profile_name}': {', '.join(unresolved)}"
         )
+
+    return render_config
+
+
+def resolve_pdf_profile(config, profile_name=None):
+    resolved_name, profile = resolve_profile(config, profile_name)
+    return resolved_name, profile.get("pdf", {})

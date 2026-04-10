@@ -21,7 +21,14 @@ You'll also need access to a Mobius account with teacher permissions.
 
 In a web browser, navigate to your **Content Repository** tab in Mobius. Click the **Import** button and upload `ResourcesBundle.zip`.
 
-Now configure Nobius so the render scripts can reference the uploaded resources correctly:
+Now configure Nobius so the render scripts can reference the uploaded resources correctly.
+
+There are 2 ways to discover the needed paths:
+
+- directly from Möbius while authoring, by browsing to the uploaded JavaScript file
+- from a real exported Möbius package by inspecting `manifest.xml`
+
+The second method is often the most reliable because it shows the exact resource URIs Möbius actually wrote into an exported assignment or Course Module.
 
 - In the Mobius Content Repository, select **Questions** under the current class.
 - Create a temporary Mobius question with **Create New -> Question/Text**.
@@ -33,13 +40,22 @@ Now configure Nobius so the render scripts can reference the uploaded resources 
 !!! Example
     An example URL might look like this: `/web/username/Public_Html/Scripts/QuestionJavaScript.txt`
 
-- Paste that URL into `render.scripts_location` in `nobius.json`. If the exam profile uses a different script path, also update `render.exam_scripts_location`.
-- If your Mobius theme URI is different, set `render.theme_location` and optionally `render.exam_theme_location` in the same config file.
+- Paste that URL into the appropriate profile under `profiles.<name>.render.scripts_location` in `nobius.json`.
+- Set the corresponding `profiles.<name>.render.theme_location` value to the `/themes/...` URI used by that profile.
+
+Alternatively, if you already have a rendered question or assignment in Möbius:
+
+- Export the question, assignment, or Course Module as a `.zip` package.
+- Open the package and inspect `manifest.xml`.
+- Search for:
+  - `/themes/...`
+  - `/web/.../QuestionJavaScript.txt`
+  - or `__BASE_URI__Scripts/QuestionJavaScript.txt`
+- Copy those exact values into the appropriate `profiles.<name>.render` block in `nobius.json`.
 
 In practice this means the JavaScript is uploaded to Mobius by importing `ResourcesBundle.zip` into the class Content Repository, while the CSS theme is uploaded separately in Mobius via **Content Repository -> Create New -> Theme** and then referenced by its `/themes/...` URI in the Nobius render config. DigitalEd's theme instructions are here: <https://www.digitaled.com/support/help/admin/Content/INST-CONTENT-REPO/Themes.htm>.
 
-!!! warning
-    The default `nobius.json` values are placeholders. Rendering will fail until you replace unresolved values with real Mobius paths for your deployment.
+DigitalEd documents theme creation and content export, but does not explicitly document where these internal URIs appear in exported XML. The `manifest.xml` inspection step above is therefore an inference from exported Möbius packages, and is the workflow verified against the real exported ZIPs used in this repo.
 
 Nobius is now set up.
 
@@ -72,10 +88,10 @@ For first-time setup of a new sheet, initialize and persist missing UIDs explici
 python export_mobius.py "C:\path\to\sheet" --write-missing-uids
 ```
 
-For exam-style rendering, use the same command with the exam render profile:
+For a different deployment/profile, use the same command with `--profile`:
 
 ```bash
-python export_mobius.py "C:\path\to\sheet" --render-profile exam --write-missing-uids
+python export_mobius.py "C:\path\to\sheet" --profile exam --write-missing-uids
 ```
 
 After that, normal renders should be read-only with respect to the source JSON files.

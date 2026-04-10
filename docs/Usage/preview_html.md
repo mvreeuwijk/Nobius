@@ -9,13 +9,14 @@
 Run the script from the `Nobius` directory:
 
 ```bash
-python preview_html.py SHEET_PATH [--render-profile PROFILE] [--config CONFIG] [--output-dir OUTPUT_DIR]
+python preview_html.py SHEET_PATH [--profile PROFILE] [--render-mode {assignment,exercise}] [--config CONFIG] [--output-dir OUTPUT_DIR]
 ```
 
 Where:
 
 - `SHEET_PATH` is the path to the Nobius sheet directory.
-- `--render-profile` selects the render layout. Use `exam` to preview the exam layout and `exercise` to preview the exercise layout.
+- `--profile` selects the named Nobius profile. If omitted, the config's `html_preview_profile` is used.
+- `--render-mode` selects the manifest/layout shape. Use `assignment` for assignment-style output and `exercise` for question-bank style output.
 - `--config` points to the Nobius config JSON file. By default the tool uses `nobius.json` from the repo root.
 - `--output-dir` overrides the preview destination. By default the preview is written under the sheet's `renders/` folder.
 

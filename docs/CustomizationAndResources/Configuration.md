@@ -1,74 +1,136 @@
 # Nobius Configuration
 
-Nobius now reads deployment-specific settings from a JSON config file. This keeps Mobius paths out of the Python source and makes it practical to test different render targets.
+Nobius uses a single JSON config file with named profiles. The checked-in [`nobius.json`](../../nobius.json) is the default config for this repo.
 
 ## Location
 
-By default, the tools look for:
+By default, the tools load:
 
-```json
+```text
 nobius.json
 ```
 
-in the root of the Nobius repository.
+from the root of the Nobius repository.
 
-The checked-in defaults are placeholders and must be replaced with deployment-specific Mobius paths before rendering.
+You can override that with `--config`.
 
-If you need more than one deployment profile, keep additional JSON files alongside the default config. For example:
-
-```json
-nobius.json
-local_preview.json
-```
-
-and pass it explicitly with `--config`.
-
-You can override that on the command line with:
-
-```bash
-python export_mobius.py SHEET_DIR --config path/to/config.json
-python export_mobius.py SHEET_DIR --config path/to/config.json --render-profile exam
-python import_mobius.py EXPORT.zip --config path/to/config.json
-python export_mobius_batch.py SHEETS_DIR OUTPUT_DIR --config path/to/config.json
-```
-
-## Supported keys
+## Structure
 
 ```json
 {
-  "render": {
-    "theme_location": "/themes/...",
-    "scripts_location": "/web/.../QuestionJavaScript.txt",
-    "exam_theme_location": "/themes/...",
-    "exam_scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt"
+  "default_profile": "exam",
+  "html_preview_profile": "html_preview",
+  "profiles": {
+    "problem_set": {
+      "render": {
+        "theme_location": "/themes/...",
+        "scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt"
+      },
+      "pdf": {
+        "heading": "problem_sets"
+      }
+    },
+    "exam": {
+      "render": {
+        "theme_location": "/themes/...",
+        "scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt"
+      },
+      "pdf": {
+        "heading": "problem_sets"
+      }
+    },
+    "html_preview": {
+      "render": {
+        "theme_location": "/themes/test-theme",
+        "scripts_location": "/web/test/scripts.js"
+      },
+      "pdf": {
+        "heading": "generic"
+      }
+    }
   },
   "import": {
     "strip_uids": false,
     "media_strategy": "copy"
+  },
+  "pdf": {
+    "headings": {
+      "problem_sets": {
+        "document_title": "Fluid Mechanics 2\\\\Problem Sets \\\\2021/22",
+        "footer_label": "Set \\#",
+        "section_label": "MECH50010 Problem Set \\#"
+      }
+    }
   }
 }
 ```
 
-## Render settings
+## Key Ideas
 
-- `render.theme_location`: theme used by `export_mobius.py`
-- `render.scripts_location`: shared Mobius JavaScript path used by `export_mobius.py`
-- `render.exam_theme_location`: theme used by `export_mobius.py --render-profile exam`
-- `render.exam_scripts_location`: shared Mobius JavaScript path used by `export_mobius.py --render-profile exam`
+- `default_profile`: profile used by default for `export_mobius.py` and `export_pdf.py`
+- `html_preview_profile`: profile used by default for `preview_html.py`
+- `profiles.<name>.render`: Mobius theme and shared script URIs
+- `profiles.<name>.pdf.heading`: PDF heading scheme for that profile
+- `pdf.headings`: reusable heading definitions shared across profiles
+- `import`: importer defaults shared across profiles
 
-For packaged Mobius exports, `render.exam_scripts_location` can be the packaged resource URI:
+Within each `pdf.headings.<name>` block:
 
-```json
-"__BASE_URI__Scripts/QuestionJavaScript.txt"
+- `document_title` controls the main title text at the top of the PDF, including the year if you include it there
+- `footer_label` controls the footer label text
+- `section_label` controls the numbered section heading prefix
+
+## CLI usage
+
+Examples:
+
+```bash
+python export_mobius.py SHEET_DIR
+python export_mobius.py SHEET_DIR --profile problem_set
+python export_mobius.py SHEET_DIR --render-mode exercise
+python preview_html.py SHEET_DIR
+python preview_html.py SHEET_DIR --profile exam
+python export_pdf.py --sheet-path SHEET_DIR --profile exam
+python import_mobius.py EXPORT.zip
 ```
 
-This matches exports that rely on the script bundled into `web_folders/Scripts/QuestionJavaScript.txt` inside the zip rather than an external `/web/...` URL.
+`export_mobius.py` and `preview_html.py` separate:
 
-If exam and non-exam deployments use the same Mobius resources, you can point both sets of keys at the same values.
+- `--profile`: which resource/deployment profile to use
+- `--render-mode`: which manifest shape to render (`assignment` or `exercise`)
 
-## Import settings
+`export_pdf.py` uses the selected profile's `pdf.heading`. There is no second heading selector.
 
-- `import.strip_uids`: default for whether imported JSON should have `uid` values removed
-- `import.media_strategy`: `copy`; referenced media from the Mobius export is copied into the imported sheet folder
+## Discovering render paths
 
-Command-line flags still override config defaults. For example, `import_mobius.py --no-uid` strips UIDs even if `import.strip_uids` is `false` in the active config JSON.
+These values are usually only obvious after the resources already exist in Mobius.
+
+DigitalEd documents:
+
+- theme creation and application in the Content Repository:
+  <https://www.digitaled.com/support/help/admin/Content/INST-CONTENT-REPO/Themes.htm>
+- content export as a `.zip` package:
+  <https://www.digitaled.com/support/help/admin/Content/INST-CONTENT-REPO/ACTIONS/Export-content.htm>
+
+Those docs do not explicitly document the internal `/themes/...` and `QuestionJavaScript.txt` URIs written into exported XML. The workflow below is therefore based on inspecting real exported Mobius packages.
+
+Use this workflow:
+
+1. Upload or create the shared resources in Mobius.
+2. Apply the theme to at least one question or assignment.
+3. Export that content as a ZIP package.
+4. Open the ZIP and inspect `manifest.xml`.
+5. Search for:
+   - `/themes/...`
+   - `/web/.../QuestionJavaScript.txt`
+   - or `__BASE_URI__Scripts/QuestionJavaScript.txt`
+6. Copy those values into the relevant `profiles.<name>.render` block.
+
+In this repository, the real exported ZIPs in `tmp/` all used:
+
+```json
+{
+  "theme_location": "/themes/b06b01fb-1810-4bde-bc67-60630d13a866",
+  "scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt"
+}
+```

@@ -4,7 +4,7 @@ Python package to generate tutorial sheets for the EdTech Mobius platform from l
 
 Configuration is driven by the repo-level `nobius.json` file rather than editing hardcoded URLs in the generator source.
 
-The checked-in `nobius.json` values are placeholders. Replace the `render.*_location` entries with the real Mobius theme/script paths for your deployment before running the render CLIs.
+The checked-in `nobius.json` contains named profiles. `default_profile` drives normal export/PDF workflows, while `html_preview_profile` drives `preview_html.py`.
 
 Primary workflows:
 
@@ -63,7 +63,7 @@ For auto-graded HTML questions, the JavaScript `getResponse()` value becomes `$R
 The active Nobius workflow is centered on:
 
 - standard sheet rendering
-- exam rendering via `export_mobius.py --render-profile exam`
+- profile-specific rendering via `export_mobius.py --profile exam`
 - local HTML preview generation
 - LaTeX and PDF generation from Nobius JSON
 - Mobius ZIP/XML import back into Nobius JSON
