@@ -1,4 +1,4 @@
-# Quickstart Guide
+﻿# Quickstart Guide
 
 ## Download
 
@@ -120,3 +120,4 @@ You are now ready to start making your own sheets. A few useful starting points 
 [6]: Usage/preview_html.md
 [7]: Usage/export_pdf.md
 [8]: Usage/import_mobius.md
+

@@ -159,12 +159,116 @@ def apply_algorithm_values(text, content):
     return text
 
 
-def protect_unresolved_algorithm_tokens(text):
+def normalize_inline_tex_math(text):
     if not text:
         return text
 
     return re.sub(
-        r"\$([A-Za-z][A-Za-z0-9_]*)",
+        r"(?:(?<=^)|(?<=[\s(\[{]))\$(?!\$)(.+?)(?<!\$)\$(?=(?:[\s\\\.,;:!?\)\]}]|$))",
+        lambda match: r"\(" + match.group(1).strip() + r"\)",
+        text,
+        flags=re.S,
+    )
+
+
+def preprocess_tex_like_text(text):
+    if not text:
+        return text
+
+    lines = []
+    for line in str(text).splitlines():
+        if line.lstrip().startswith("%"):
+            continue
+        lines.append(line)
+
+    text = "\n".join(lines)
+    text = re.sub(r"\\d(?=\s*[A-Za-z({])", r"\\mathrm{d}", text)
+    text = re.sub(r"([A-Za-z])\$\^(\{[^}]+\}|[^$]+)\$", r"\1\\(^\2\\)", text)
+    return text
+
+
+def tex_graphics_path(path):
+    if not path:
+        return path
+
+    normalized = str(path).replace("\\", "/")
+    if "/" in normalized or normalized.startswith("."):
+        return normalized
+    return "../media/" + normalized
+
+
+def prefix_includegraphics_paths(text):
+    if not text:
+        return text
+
+    pattern = re.compile(r"(\\includegraphics(?:\[[^\]]*\])?\{)([^}]+)(\})")
+
+    def replace(match):
+        return match.group(1) + tex_graphics_path(match.group(2)) + match.group(3)
+
+    return pattern.sub(replace, text)
+
+
+def inline_worked_solution_figures(text):
+    if not text:
+        return text
+
+    figure_pattern = re.compile(r"\\begin\{figure\}(?:\[[^\]]*\])?(.*?)\\end\{figure\}", re.S)
+
+    def replace(match):
+        body = match.group(1)
+        images = re.findall(r"(\\includegraphics(?:\[[^\]]*\])?\{[^}]+\})", body)
+        images = [prefix_includegraphics_paths(image) for image in images]
+        caption_match = re.search(r"\\caption(?:\[[^\]]*\])?\{(.*?)\}", body, re.S)
+        labels = re.findall(r"\\label\{([^}]+)\}", body)
+
+        lines = [r"\par\begin{center}", r"\refstepcounter{figure}"]
+        lines.extend(images)
+
+        caption_text = caption_match.group(1).strip() if caption_match else ""
+        if caption_text:
+            lines.append(r"\par\small\textit{Figure \thefigure: " + caption_text + "}")
+
+        for label in labels:
+            lines.append(r"\label{" + label + "}")
+
+        lines.append(r"\end{center}\par")
+        return "\n".join(lines)
+
+    return figure_pattern.sub(replace, text)
+
+
+def make_tex_label_namespace(value):
+    if value is None:
+        return "nobius"
+
+    namespace = re.sub(r"[^A-Za-z0-9]+", "-", str(value)).strip("-").lower()
+    return namespace or "nobius"
+
+
+def namespace_tex_labels(text, namespace):
+    if not text or not namespace:
+        return text
+
+    commands = ("label", "ref", "eqref", "pageref", "autoref", "nameref")
+
+    def replace(match):
+        command = match.group(1)
+        label = match.group(2)
+        return "\\" + command + "{" + namespace + ":" + label + "}"
+
+    pattern = r"\\(" + "|".join(commands) + r")\{([^}]+)\}"
+    return re.sub(pattern, replace, text)
+
+
+def protect_unresolved_algorithm_tokens(text):
+    if not text:
+        return text
+
+    text = normalize_inline_tex_math(text)
+
+    return re.sub(
+        r"(?<!\\)\$([A-Za-z][A-Za-z0-9_]*)",
         lambda match: r"\texttt{[\$" + match.group(1) + "]}",
         text,
     )
@@ -177,7 +281,7 @@ def write_media_block(file_obj, media):
     file_obj.write(r"\begin{center}")
     for pic in media:
         if pic[-3:] in ["jpg", "png", "pdf"]:
-            file_obj.write("\\includegraphics[clip=true,height=0.5\\textwidth]{" + pic + "}\\\\")
+            file_obj.write("\\includegraphics[clip=true,height=0.5\\textwidth]{" + tex_graphics_path(pic) + "}\\\\")
     file_obj.write(r"\end{center}")
 
 
@@ -202,27 +306,32 @@ def write_choice_block(file_obj, part, content):
     file_obj.write("\\end{itemize}")
 
 
-def write_worked_solutions(file_obj, part):
+def write_worked_solutions(file_obj, part, label_namespace=None):
     if "worked_solutions" not in part:
         return
 
-    file_obj.write(r"Worked Solution:\\")
+    file_obj.write("\n\\par\\noindent Worked Solution:\\par\n")
     for step in part["worked_solutions"]:
         write_media_block(file_obj, step.get("media", []))
         if "text" in step:
-            step_text = html_to_tex(step["text"])
+            step_text = preprocess_tex_like_text(step["text"])
+            step_text = namespace_tex_labels(step_text, label_namespace)
+            step_text = prefix_includegraphics_paths(step_text)
+            step_text = inline_worked_solution_figures(step_text)
+            step_text = html_to_tex(step_text)
             step_text = protect_unresolved_algorithm_tokens(step_text)
-            file_obj.write(step_text + "\\\\\\\\")
+            file_obj.write(step_text + "\n\\par\n")
 
 
 def write_final_answer(file_obj, part, label):
     if "final_answer" not in part:
         return
 
-    file_obj.write(label)
+    file_obj.write("\n\\par\\noindent " + label + "\\par\n")
     write_media_block(file_obj, part["final_answer"].get("media", []))
     if "text" in part["final_answer"]:
-        final_answer_text = html_to_tex(part["final_answer"]["text"])
+        final_answer_text = preprocess_tex_like_text(part["final_answer"]["text"])
+        final_answer_text = html_to_tex(final_answer_text)
         final_answer_text = protect_unresolved_algorithm_tokens(final_answer_text)
         file_obj.write(final_answer_text)
 
@@ -374,7 +483,9 @@ def generate_pdf_output(tex_path, pdf_path):
             os.path.basename(tex_path),
         ]
 
-        completed = subprocess.run(args, timeout=15, stdout=PIPE, stderr=PIPE)
+        completed = None
+        for _ in range(2):
+            completed = subprocess.run(args, timeout=60, stdout=PIPE, stderr=PIPE)
 
         temp_pdf_path = os.path.join(temp_dir, "temp_pdf.pdf")
         if os.path.isfile(temp_pdf_path):
@@ -437,11 +548,14 @@ def generate_tex_output(
     }
     suffix = suffix_map[content_mode]
 
-    outputfile_tex = os.path.join(sheet_dir, "media", sheet_info["name"] + suffix + ".tex")
+    render_dir = os.path.join(sheet_dir, "renders")
+    os.makedirs(render_dir, exist_ok=True)
+
+    outputfile_tex = os.path.join(render_dir, sheet_info["name"] + suffix + ".tex")
     if tmp_merge_folder:
         outputfile_pdf = os.path.join(tmp_merge_folder, sheet_info["name"] + suffix + ".pdf")
     else:
-        outputfile_pdf = os.path.join(sheet_dir, "media", sheet_info["name"] + suffix + ".pdf")
+        outputfile_pdf = os.path.join(render_dir, sheet_info["name"] + suffix + ".pdf")
 
     with open(outputfile_tex, "w", encoding="utf-8") as file:
         with open(header_file, "r", encoding="utf-8") as header:
@@ -464,6 +578,7 @@ def generate_tex_output(
         for question_index in range(len(sheet_info["questions"])):
             question_filename = sheet_info["questions"][question_index]
             content = load_json_file(os.path.join(sheet_dir, question_filename + ".json"))
+            label_namespace = make_tex_label_namespace(question_filename)
 
             file.write("")
             file.write("\\ETrule")
@@ -502,12 +617,10 @@ def generate_tex_output(
                     write_choice_block(file, part, content)
 
                 if content_mode == "review":
-                    file.write(r"\\\\")
-                    write_worked_solutions(file, part)
-                    file.write(r"\\\\")
+                    write_worked_solutions(file, part, label_namespace)
                     write_final_answer(file, part, r"Final Answer:\\")
                 elif content_mode == "solutions":
-                    write_worked_solutions(file, part)
+                    write_worked_solutions(file, part, label_namespace)
                     write_final_answer(file, part, r"Solution:\\")
 
             if num_parts > 1:

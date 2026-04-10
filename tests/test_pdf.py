@@ -4,6 +4,8 @@ import sys
 
 from export_pdf import (
     generate_tex_output,
+    inline_worked_solution_figures,
+    namespace_tex_labels,
     protect_unresolved_algorithm_tokens,
     resolve_pdf_heading,
     split_algorithm_commands,
@@ -43,7 +45,7 @@ def test_generate_pdf_from_json_surfaces_json_decode_error_without_nameerror(tmp
 def test_generate_review_tex_includes_compact_metadata_blocks(t01_sheet):
     generate_tex_output(str(t01_sheet), True, "review")
 
-    tex_path = t01_sheet / "media" / "Fundamentals_review.tex"
+    tex_path = t01_sheet / "renders" / "Fundamentals_review.tex"
     tex_content = tex_path.read_text(encoding="utf-8")
 
     assert r"\begin{exobox}{Review metadata}" in tex_content
@@ -97,7 +99,7 @@ def test_generate_tex_uses_heading_profile_from_config(t01_sheet, tmp_path):
 
     assert result.returncode == 0
 
-    tex_path = t01_sheet / "media" / "Fundamentals.tex"
+    tex_path = t01_sheet / "renders" / "Fundamentals.tex"
     tex_content = tex_path.read_text(encoding="utf-8")
 
     assert r"\lfoot{\ifnum0<\thesection QA Sheet \# \nouppercase{\leftmark}\fi}" in tex_content
@@ -148,7 +150,7 @@ def test_generate_tex_omits_section_prefix_when_section_label_is_blank(t01_sheet
 
     assert result.returncode == 0
 
-    tex_path = t01_sheet / "media" / "Fundamentals.tex"
+    tex_path = t01_sheet / "renders" / "Fundamentals.tex"
     tex_content = tex_path.read_text(encoding="utf-8")
 
     assert r"{QA Pack \#\thesection ~---}{0.5 em}{}" not in tex_content
@@ -161,6 +163,52 @@ def test_protect_unresolved_algorithm_tokens_escapes_placeholder_like_text():
 
     assert r"\texttt{[\$F]}" in protected
     assert r"\texttt{[\$a]}" in protected
+
+
+def test_protect_unresolved_algorithm_tokens_preserves_inline_tex_math():
+    protected = protect_unresolved_algorithm_tokens(
+        r"if the wetted perimeter is $P$, the area $A = 0.5\times(P/2)^2$ and force is $F kN"
+    )
+
+    assert r"\(P\)" in protected
+    assert r"\(A = 0.5\times(P/2)^2\)" in protected
+    assert r"\texttt{[\$F]}" in protected
+
+
+def test_preprocess_tex_like_text_normalizes_tex_style_unit_exponents():
+    from export_pdf import preprocess_tex_like_text
+
+    processed = preprocess_tex_like_text(r"Q = 7.5 \times 10^{-4} m$^3$s$^{-1}$")
+
+    assert r"m\(^3\)s\(^{-1}\)" in processed
+
+
+def test_namespace_tex_labels_rewrites_labels_and_refs_consistently():
+    namespaced = namespace_tex_labels(
+        r"see \ref{fig:test}. \begin{figure}\caption{x}\label{fig:test}\end{figure} and \eqref{eq:1}",
+        "question-1",
+    )
+
+    assert r"\ref{question-1:fig:test}" in namespaced
+    assert r"\label{question-1:fig:test}" in namespaced
+    assert r"\eqref{question-1:eq:1}" in namespaced
+
+
+def test_inline_worked_solution_figures_flattens_floats_but_keeps_labels():
+    flattened = inline_worked_solution_figures(
+        r"see figure \ref{question-4:fig:test}"
+        "\n\\begin{figure}[h!]\n\\centering\n"
+        r"\includegraphics[width=10cm]{fig.png}"
+        "\n\\caption{Energy and hydraulic grade lines}\n"
+        r"\label{question-4:fig:test}"
+        "\n\\end{figure}"
+    )
+
+    assert r"\begin{figure}" not in flattened
+    assert r"\refstepcounter{figure}" in flattened
+    assert r"\includegraphics[width=10cm]{../media/fig.png}" in flattened
+    assert r"\textit{Figure \thefigure: Energy and hydraulic grade lines}" in flattened
+    assert r"\label{question-4:fig:test}" in flattened
 
 
 def test_split_algorithm_commands_breaks_maple_commands_onto_separate_lines():

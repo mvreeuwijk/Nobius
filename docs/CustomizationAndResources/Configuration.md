@@ -1,6 +1,6 @@
 # Nobius Configuration
 
-Nobius uses a single JSON config file with named profiles. The checked-in [`nobius.json`](../../nobius.json) is the default config for this repo.
+Nobius uses a single JSON config file with named profiles. The checked-in `nobius.json` at the repo root is the default config for this repo.
 
 ## Location
 
@@ -56,7 +56,6 @@ You can override that with `--config`.
   "pdf": {
     "headings": {
       "problem_sets": {
-        "document_title": "Fluid Mechanics 2\\\\Problem Sets \\\\2021/22",
         "footer_label": "Set \\#",
         "section_label": "MECH50010 Problem Set \\#"
       }
@@ -76,7 +75,6 @@ You can override that with `--config`.
 
 Within each `pdf.headings.<name>` block:
 
-- `document_title` controls the main title text at the top of the PDF, including the year if you include it there
 - `footer_label` controls the footer label text
 - `section_label` controls the numbered section heading prefix
 

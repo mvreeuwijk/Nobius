@@ -23,17 +23,17 @@ Where:
 
 ## Output
 
-The script writes generated files into the sheet's `media/` directory:
+The script writes generated files into the sheet's `renders/` directory:
 
 - `<sheet_name>.tex` for exercise content
 - `<sheet_name>_review.tex` for review content
 - `<sheet_name>_solutions.tex` for solutions content
 
-If PDF generation is enabled and `pdflatex` succeeds, matching PDF files are written alongside the TeX files.
+If PDF generation is enabled and `pdflatex` succeeds, matching PDF files are written alongside the TeX files in `renders/`. Source figures and other sheet assets continue to be read from the sheet's `media/` directory.
 
 ## Heading Profiles
 
-The LaTeX preamble contains configurable heading strings such as the document title, section label, and footer label.
+The LaTeX preamble contains configurable heading strings such as the section label and footer label.
 
 `export_pdf.py` resolves:
 
@@ -43,7 +43,6 @@ The LaTeX preamble contains configurable heading strings such as the document ti
 
 The concrete heading fields control:
 
-- `document_title`: the document title at the top of the PDF. This is typically where you set the module name and year.
 - `footer_label`: the label used in the footer before the current sheet/section name and page number context.
 - `section_label`: the prefix used in the main section heading, for example `Problem Set #` or `Exam #`.
 
@@ -67,12 +66,10 @@ Example:
   "pdf": {
     "headings": {
       "problem_sets": {
-        "document_title": "Fluid Mechanics 2\\\\Problem Sets \\\\2021/22",
         "footer_label": "Set \\#",
         "section_label": "MECH50010 Problem Set \\#"
       },
       "generic": {
-        "document_title": "Nobius\\\\Generated PDF",
         "footer_label": "Sheet \\#",
         "section_label": "Nobius Sheet \\#"
       }
