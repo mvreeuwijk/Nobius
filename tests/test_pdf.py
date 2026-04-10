@@ -4,6 +4,7 @@ import sys
 
 from export_pdf import (
     generate_tex_output,
+    get_batch_sheet_directories,
     inline_worked_solution_figures,
     namespace_tex_labels,
     protect_unresolved_algorithm_tokens,
@@ -40,6 +41,27 @@ def test_generate_pdf_from_json_surfaces_json_decode_error_without_nameerror(tmp
     assert result.returncode != 0
     assert "JSONDecodeError" in combined_output
     assert "NameError" not in combined_output
+
+
+def test_get_batch_sheet_directories_uses_sheetinfo_number_order(tmp_path):
+    batch_dir = tmp_path / "batch"
+    batch_dir.mkdir()
+
+    for folder_name, sheet_number, sheet_name in [
+        ("z_sheet", 3, "Later Sheet"),
+        ("a_sheet", 2, "Middle Sheet"),
+        ("m_sheet", 1, "First Sheet"),
+    ]:
+        sheet_dir = batch_dir / folder_name
+        sheet_dir.mkdir()
+        (sheet_dir / "SheetInfo.json").write_text(
+            json.dumps({"number": sheet_number, "name": sheet_name, "questions": []}),
+            encoding="utf-8",
+        )
+
+    ordered = get_batch_sheet_directories(str(batch_dir))
+
+    assert ordered == ["m_sheet", "a_sheet", "z_sheet"]
 
 
 def test_generate_review_tex_includes_compact_metadata_blocks(t01_sheet):
@@ -155,7 +177,59 @@ def test_generate_tex_omits_section_prefix_when_section_label_is_blank(t01_sheet
 
     assert r"{QA Pack \#\thesection ~---}{0.5 em}{}" not in tex_content
     assert r"{}{0 em}{}" in tex_content
-    assert r"\section{Fundamentals}" in tex_content
+    assert r"\section*{Fundamentals}" in tex_content
+
+
+def test_generate_exam_tex_uses_section_headings_for_questions(t01_sheet, tmp_path):
+    config_path = tmp_path / "nobius.json"
+    config_path.write_text(
+        json.dumps(
+            {
+                "default_profile": "exam",
+                "profiles": {
+                    "exam": {
+                        "pdf": {
+                            "heading": "exam",
+                        }
+                    }
+                },
+                "pdf": {
+                    "headings": {
+                        "exam": {
+                            "footer_label": "",
+                            "section_label": "",
+                        }
+                    },
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "export_pdf.py",
+            "--sheet-path",
+            str(t01_sheet),
+            "--no-pdf",
+            "--config",
+            str(config_path),
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0
+
+    tex_path = t01_sheet / "renders" / "Fundamentals.tex"
+    tex_content = tex_path.read_text(encoding="utf-8")
+
+    assert r"\section*{Fundamentals}" in tex_content
+    assert r"\subsection{Fluids}" not in tex_content
+    assert r"\section{Fluids}" in tex_content
 
 
 def test_protect_unresolved_algorithm_tokens_escapes_placeholder_like_text():

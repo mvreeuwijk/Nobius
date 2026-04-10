@@ -31,6 +31,8 @@ The script writes generated files into the sheet's `renders/` directory:
 
 If PDF generation is enabled and `pdflatex` succeeds, matching PDF files are written alongside the TeX files in `renders/`. Source figures and other sheet assets continue to be read from the sheet's `media/` directory.
 
+In batch mode, sheets are rendered and merged in `SheetInfo.json` number order so section numbering stays consistent even if folder names sort differently.
+
 ## Heading Profiles
 
 The LaTeX preamble contains configurable heading strings such as the section label and footer label.

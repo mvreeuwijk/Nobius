@@ -19,7 +19,7 @@ import tempfile
 from subprocess import PIPE
 
 import validation
-from nobius_config import load_config, resolve_pdf_profile
+from nobius_config import load_config, resolve_pdf_profile, resolve_profile_name
 
 
 def load_json_file(filepath):
@@ -33,6 +33,26 @@ def load_json_file(filepath):
             raise error
 
     return json_dictionary
+
+
+def get_batch_sheet_directories(parent_dir):
+    sheets = []
+    for item in os.listdir(parent_dir):
+        sheet_dir = os.path.join(parent_dir, item)
+        sheet_info_path = os.path.join(sheet_dir, "SheetInfo.json")
+        if not os.path.isfile(sheet_info_path):
+            continue
+
+        sheet_info = load_json_file(sheet_info_path)
+        sheet_number = sheet_info.get("number")
+        if not isinstance(sheet_number, int):
+            sheet_number = float("inf")
+
+        sheet_name = str(sheet_info.get("name", item))
+        sheets.append((sheet_number, sheet_name.lower(), item.lower(), item))
+
+    sheets.sort()
+    return [item for _, _, _, item in sheets]
 
 
 def html_to_tex(input_text):
@@ -312,6 +332,8 @@ def write_worked_solutions(file_obj, part, label_namespace=None):
 
     file_obj.write("\n\\par\\noindent Worked Solution:\\par\n")
     for step in part["worked_solutions"]:
+        if not isinstance(step, dict):
+            continue
         write_media_block(file_obj, step.get("media", []))
         if "text" in step:
             step_text = preprocess_tex_like_text(step["text"])
@@ -337,7 +359,7 @@ def write_final_answer(file_obj, part, label):
 
 
 def count_nested_media(items):
-    return sum(len(item.get("media", [])) for item in items)
+    return sum(len(item.get("media", [])) for item in items if isinstance(item, dict))
 
 
 def summarize_response_modes(part):
@@ -527,6 +549,8 @@ def generate_tex_output(
     if active_config is None:
         active_config, _ = load_config()
     selected_heading, heading_config = resolve_pdf_heading(active_config, profile_name)
+    resolved_profile_name = resolve_profile_name(active_config, profile_name)
+    is_exam_profile = resolved_profile_name == "exam"
 
     sheet_info = load_json_file(os.path.join(sheet_dir, "SheetInfo.json"))
     print(
@@ -566,11 +590,15 @@ def generate_tex_output(
             file.write(r"\setcounter{page}{" + str(pages_acc + 1) + "}")
 
         file.write("\\ETrule")
-        file.write("\\setcounter{section}{" + str(sheet_info["number"] - 1) + "}")
-        file.write("\\section{" + sheet_info["name"] + "}")
+        if is_exam_profile:
+            file.write("\\section*{" + sheet_info["name"] + "}")
+            file.write("\\setcounter{section}{0}")
+        else:
+            file.write("\\setcounter{section}{" + str(sheet_info["number"] - 1) + "}")
+            file.write("\\section{" + sheet_info["name"] + "}")
         file.write("\\nobiussetmark{" + tex_escape_text(sheet_info["name"]) + "}")
         file.write(
-            "\\ETrule Note: this sheet was automatically generated from online Problem Sets. "
+            "\\ETrule Note: this sheet was automatically generated from the online version. "
             "Not all content translates to the offline version, please visit the online version, "
             "accessible via BB, for full content."
         )
@@ -582,7 +610,8 @@ def generate_tex_output(
 
             file.write("")
             file.write("\\ETrule")
-            file.write(r"\subsection{")
+            heading_command = r"\section{" if is_exam_profile else r"\subsection{"
+            file.write(heading_command)
             file.write(content["title"])
             file.write("}\n")
 
@@ -665,7 +694,7 @@ def main():
     elif not args.no_pdf:
         print(f"[INIT] Starting export_pdf with sheets in {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=True) (content_mode={args.content_mode})")
         PdfFileMerger, PdfFileReader = import_pypdf2()
-        sheets = [item for item in os.listdir(args.sheet_path) if os.path.isfile(os.path.join(args.sheet_path, item, "SheetInfo.json"))]
+        sheets = get_batch_sheet_directories(args.sheet_path)
 
         print("[INIT] Going to render the following sheets in a temporary directory before merging.")
         print(f"└───{os.path.basename(args.sheet_path)}", end="")
@@ -701,9 +730,9 @@ def main():
         print("[ERROR] Both Batchmode and No_PDF were set - currently batchmode merging requires individual pdfs to be created")
         print("[ERROR] Render .tex files for each sheet instead (no merging or pdf) (Y/N)? ", end="")
         if str(input()).lower() == "y":
-            sheets = [item for item in os.listdir(args.sheet_path) if os.path.isfile(os.path.join(args.sheet_path, item, "SheetInfo.json"))]
+            sheets = get_batch_sheet_directories(args.sheet_path)
 
-            print("[INIT] Going to render the following sheets to their respective 'media' folder.")
+            print("[INIT] Going to render the following sheets to their respective 'renders' folder.")
             print(f"└───{os.path.basename(args.sheet_path)}", end="")
             print("\n    ├─── " + "\n    ├─── ".join(sheets[:-1]), end="")
             print(f"\n    └─── {sheets[-1]}\n")

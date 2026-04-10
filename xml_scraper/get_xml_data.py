@@ -6,6 +6,9 @@ import re
 from html import unescape
 
 
+EXAM_SHEET_PATTERN = re.compile(r"^\s*(?:[A-Za-z]+\d+\s+)*(exam|examination|practice exam|re-?exam)", re.IGNORECASE)
+
+
 def serialize_html_payload(value):
     if value is None:
         return ""
@@ -43,11 +46,12 @@ Main Methods
 
 def finalize_sheet_payload(sheet, questions_list, report=None):
     sheet["questions"] = []
+    is_exam_sheet = EXAM_SHEET_PATTERN.match(str(sheet.get("name", "")).strip() or "")
 
     for question in questions_list:
         sheet["questions"].append(question["title"])
 
-        if question.get("number"):
+        if question.get("number") and not is_exam_sheet:
             if "number" not in sheet:
                 try:
                     sheet["number"] = int(str(question["number"]).split(".")[0])
@@ -239,23 +243,17 @@ def get_assignment_sheets_from_xml(xml, question_lookup, questions_in_document_o
             continue
 
         if len(assignment_entries) == 1:
-            referenced_question_uids = set()
+            ordered_questions = []
+            seen_question_uids = set()
             for _, assignment_xml in assignment_entries:
-                for question_ref in iter_assignment_question_refs(assignment_xml):
-                    question_uid = question_ref.get("uid")
-                    if not question_uid:
-                        continue
-
-                    if question_uid not in question_lookup:
-                        report_warning(report, "Assignment referenced a missing question during import.", question_uid)
-                        continue
-
-                    referenced_question_uids.add(question_uid)
-
-            ordered_questions = [
-                question for question in questions_in_document_order
-                if question.get("uid") in referenced_question_uids
-            ]
+                ordered_questions.extend(
+                    get_questions_for_assignment(
+                        assignment_xml,
+                        question_lookup,
+                        report,
+                        seen_question_uids,
+                    )
+                )
 
             if ordered_questions:
                 sheet = finalize_sheet_payload(unit_info, ordered_questions, report)
@@ -272,35 +270,11 @@ def get_assignment_sheets_from_xml(xml, question_lookup, questions_in_document_o
                 "item_type": "assignment",
                 "item_name": assignment_name.strip() if isinstance(assignment_name, str) else f"set{assignment_index}",
             }
-            referenced_question_uids = set()
             if report is not None:
                 with report.scoped_context(**assignment_context):
-                    for question_ref in iter_assignment_question_refs(assignment_xml):
-                        question_uid = question_ref.get("uid")
-                        if not question_uid:
-                            continue
-
-                        if question_uid not in question_lookup:
-                            report_warning(report, "Assignment referenced a missing question during import.", question_uid)
-                            continue
-
-                        referenced_question_uids.add(question_uid)
+                    ordered_questions = get_questions_for_assignment(assignment_xml, question_lookup, report)
             else:
-                for question_ref in iter_assignment_question_refs(assignment_xml):
-                    question_uid = question_ref.get("uid")
-                    if not question_uid:
-                        continue
-
-                    if question_uid not in question_lookup:
-                        report_warning(report, "Assignment referenced a missing question during import.", question_uid)
-                        continue
-
-                    referenced_question_uids.add(question_uid)
-
-            ordered_questions = [
-                question for question in questions_in_document_order
-                if question.get("uid") in referenced_question_uids
-            ]
+                ordered_questions = get_questions_for_assignment(assignment_xml, question_lookup, report)
 
             if not ordered_questions:
                 continue
@@ -328,6 +302,26 @@ def iter_assignment_question_refs(assignment_xml):
         return lesson_refs
 
     return []
+
+
+def get_questions_for_assignment(assignment_xml, question_lookup, report=None, seen_question_uids=None):
+    ordered_questions = []
+    local_seen = set() if seen_question_uids is None else seen_question_uids
+
+    for question_ref in iter_assignment_question_refs(assignment_xml):
+        question_uid = question_ref.get("uid")
+        if not question_uid or question_uid in local_seen:
+            continue
+
+        question = question_lookup.get(question_uid)
+        if question is None:
+            report_warning(report, "Assignment referenced a missing question during import.", question_uid)
+            continue
+
+        local_seen.add(question_uid)
+        ordered_questions.append(question)
+
+    return ordered_questions
 
 def get_question_html_properties(question_xml, report=None):
     html = get_question_html(question_xml)
@@ -661,7 +655,7 @@ def get_assignment_unit_info(unit_xml, report=None):
 
     info = get_sheet_name(raw_name, report)
     info["description"] = description_xml.text.strip() if description_xml and description_xml.text else ""
-    if weight_xml and weight_xml.text:
+    if weight_xml and weight_xml.text and not EXAM_SHEET_PATTERN.match(raw_name):
         try:
             info.setdefault("number", int(float(weight_xml.text.strip())))
         except ValueError:

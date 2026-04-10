@@ -1,3 +1,4 @@
+import os
 import zipfile
 
 import bs4
@@ -237,15 +238,93 @@ def test_generate_json_imports_real_question_types_demo_zip(question_types_demo_
     assert report.source_type == "zip"
     assert sheet_info["name"] == "Question types demo"
     assert sheet_info["questions"] == [
-        "Units",
         "Text Entry",
-        "Symbolic",
         "Multiple Choice",
-        "Numeric Answer",
+        "Units",
+        "Symbolic",
         "Symbolic 2",
+        "Numeric Answer",
     ]
     assert load_question_by_title(destination, "Text Entry")["parts"][0]["response"]["mode"] == "List"
     assert load_question_by_title(destination, "Units")["parts"][0]["response"]["mode"] == "Numeric"
+
+
+def test_finalize_sheet_payload_does_not_infer_exam_sheet_number_from_question_numbers():
+    from xml_scraper.get_xml_data import finalize_sheet_payload
+
+    result = finalize_sheet_payload(
+        {"name": "Practice exam 2", "description": ""},
+        [
+            {"title": "Question 1", "number": "10.1"},
+            {"title": "Question 2", "number": "10.2"},
+        ],
+    )
+
+    assert result["info"]["number"] == 1
+
+
+def test_get_assignment_unit_info_does_not_use_weight_for_exam_like_names():
+    from bs4 import BeautifulSoup
+    from xml_scraper.get_xml_data import get_assignment_unit_info
+
+    unit_xml = BeautifulSoup(
+        """
+        <unit uid="u1">
+            <name>Practice exam 2</name>
+            <description></description>
+            <weight>10</weight>
+        </unit>
+        """,
+        "xml",
+    ).find("unit")
+
+    info = get_assignment_unit_info(unit_xml)
+
+    assert "number" not in info
+
+
+def test_import_preserves_assignment_question_ref_order(question_types_demo_zip, tmp_path):
+    destination = tmp_path / "imported-reordered"
+    zip_path = tmp_path / "question-types-reordered.zip"
+
+    with zipfile.ZipFile(question_types_demo_zip, "r") as original_zip:
+        manifest_xml = original_zip.read("manifest.xml")
+        zip_entries = {
+            name: original_zip.read(name)
+            for name in original_zip.namelist()
+            if name != "manifest.xml"
+        }
+
+    manifest_path = tmp_path / "manifest.xml"
+    manifest_path.write_bytes(manifest_xml)
+
+    tree = ET.parse(manifest_path)
+    root = tree.getroot()
+    group_nodes = root.findall(".//lessonSection/questionGroups/lsqGroup")
+    reordered = [group_nodes[2], group_nodes[0], group_nodes[5], group_nodes[3], group_nodes[1], group_nodes[4]]
+    question_groups_node = root.find(".//lessonSection/questionGroups")
+    for child in list(question_groups_node):
+        question_groups_node.remove(child)
+    for group in reordered:
+        question_groups_node.append(group)
+    tree.write(manifest_path, encoding="utf-8", xml_declaration=True)
+
+    with zipfile.ZipFile(zip_path, "w") as zip_file:
+        zip_file.write(manifest_path, arcname="manifest.xml")
+        for name, data in zip_entries.items():
+            zip_file.writestr(name, data)
+
+    import_mobius_package(str(zip_path), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
+    sheet_info = load_json(destination / "SheetInfo.json")
+
+    assert sheet_info["questions"] == [
+        "Units",
+        "Text Entry",
+        "Numeric Answer",
+        "Symbolic",
+        "Multiple Choice",
+        "Symbolic 2",
+    ]
 
 
 def test_real_question_types_demo_zip_surfaces_import_warnings_explicitly(question_types_demo_zip, tmp_path):
