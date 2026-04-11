@@ -4,42 +4,80 @@ pdflatex invocation for Nobius PDF export.
 
 Provides a single public function, :func:`generate_pdf_output`, that
 compiles a ``.tex`` file to PDF using ``pdflatex``.  All intermediate
-artefacts (aux, log, …) are written to a temporary directory and discarded
+artefacts (aux, log, …) are written to a scratch directory and discarded
 unless compilation fails, in which case the log is copied next to the
 intended PDF path for inspection.
 """
 
 from __future__ import annotations
 
+import logging
 import os
 import shutil
 import subprocess
 import tempfile
+from contextlib import contextmanager
 from subprocess import PIPE
 
+logger = logging.getLogger(__name__)
 
-def generate_pdf_output(tex_path: str | os.PathLike, pdf_path: str | os.PathLike) -> None:
+
+@contextmanager
+def _working_temp(work_dir: str | os.PathLike | None):
+    """Yield a writable scratch directory for intermediate pdflatex artefacts.
+
+    When *work_dir* is ``None`` (the default), a temporary directory is created
+    and removed automatically on exit.  When a path is supplied it is yielded
+    as-is so the caller controls the lifetime — useful in CI environments where
+    the OS temp directory may not be writable, or in tests that need to inspect
+    intermediate files afterwards.
+    """
+    if work_dir is None:
+        with tempfile.TemporaryDirectory() as tmp:
+            yield tmp
+    else:
+        yield os.fspath(work_dir)
+
+
+def generate_pdf_output(
+    tex_path: str | os.PathLike,
+    pdf_path: str | os.PathLike,
+    work_dir: str | os.PathLike | None = None,
+) -> bool:
     """Compile *tex_path* with pdflatex and write the result to *pdf_path*.
 
-    - All intermediate files are written to a temporary directory so that
-      only the final ``.pdf`` ends up next to the source.
-    - ``pdflatex`` is run twice so that cross-references (page numbers, TOC
-      entries) resolve correctly on the second pass.
-    - ``cwd`` is set to the directory containing the ``.tex`` file so that
-      relative ``\\includegraphics`` paths resolve correctly.
-    - Errors are reported to stdout; the LaTeX log is copied to
-      ``<pdf_path_stem>.log`` when compilation fails.
+    Returns ``True`` if the PDF was produced successfully, ``False`` otherwise.
+
+    Parameters
+    ----------
+    tex_path:
+        Source ``.tex`` file to compile.
+    pdf_path:
+        Destination path for the produced PDF.
+    work_dir:
+        Directory for intermediate pdflatex artefacts (aux, log, …).  When
+        ``None`` (default) an OS temporary directory is used and cleaned up
+        automatically.  Supply an explicit caller-controlled path to avoid
+        writing to OS temp — e.g. in tests (pass ``tmp_path``) or in restricted
+        CI environments where ``/tmp`` is not writable.
+
+    Notes
+    -----
+    - ``pdflatex`` is run twice so that cross-references resolve correctly.
+    - ``cwd`` is set to the ``.tex`` file's directory for relative
+      ``\\includegraphics`` paths.
+    - On failure the LaTeX log is copied to ``<pdf_path_stem>.log``.
     """
-    print(f"[PDF] Getting reading to generate {os.path.basename(pdf_path)}")
+    logger.info("Generating %s", os.path.basename(pdf_path))
     tex_path = os.path.abspath(tex_path)
     pdf_path = os.path.abspath(pdf_path)
     tex_dir = os.path.dirname(tex_path)
 
     if shutil.which("pdflatex") is None:
-        print("\033[91m[ERROR] pdflatex is not an executable on this system (check PATH and install)\033[0m")
-        return
+        logger.error("pdflatex is not on PATH — install it and ensure it is accessible")
+        return False
 
-    with tempfile.TemporaryDirectory() as temp_dir:
+    with _working_temp(work_dir) as temp_dir:
         args = [
             "pdflatex",
             f"-output-directory={temp_dir}",
@@ -56,14 +94,15 @@ def generate_pdf_output(tex_path: str | os.PathLike, pdf_path: str | os.PathLike
         temp_pdf_path = os.path.join(temp_dir, "temp_pdf.pdf")
         if os.path.isfile(temp_pdf_path):
             shutil.move(temp_pdf_path, pdf_path)
-            print(f"\033[92m[PDF] Success! Created {os.path.basename(pdf_path)} \033[0m")
+            logger.info("Created %s", os.path.basename(pdf_path))
+            return True
+
+        logger.error("pdflatex failed to produce a PDF for %s", os.path.basename(tex_path))
+        temp_log_path = os.path.join(temp_dir, "temp_pdf.log")
+        if os.path.isfile(temp_log_path):
+            failure_log_path = os.path.splitext(pdf_path)[0] + ".log"
+            shutil.copyfile(temp_log_path, failure_log_path)
+            logger.warning("Wrote pdflatex log to %s", failure_log_path)
         else:
-            print("\033[91m[ERROR] Something went wrong with running pdflatex\033[0m")
-            temp_log_path = os.path.join(temp_dir, "temp_pdf.log")
-            if os.path.isfile(temp_log_path):
-                failure_log_path = os.path.splitext(pdf_path)[0] + ".log"
-                shutil.copyfile(temp_log_path, failure_log_path)
-                print(f"\033[93m[PDF] Wrote LaTeX log to {failure_log_path}\033[0m")
-            else:
-                print("\tLog file wasn't even created, printing CompletedProcess object")
-                print(completed)
+            logger.error("pdflatex produced no log file; CompletedProcess: %s", completed)
+        return False

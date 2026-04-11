@@ -98,8 +98,15 @@ def main():
                     config=config,
                     profile_name=args.profile,
                 )
+                if new_pdf is None:
+                    print(f"[PDF Merge] Skipping {sheet}: PDF generation failed")
+                    continue
                 pages_acc += len(PdfReader(new_pdf).pages)
                 rendered_pdfs.append(new_pdf)
+
+            if not rendered_pdfs:
+                print(f"[PDF Merge] All {len(sheets)} sheet(s) failed PDF generation; nothing to merge.")
+                return
 
             print(f"[PDF Merge] Merging {len(rendered_pdfs)} rendered PDFs")
             merged_file = PdfWriter()

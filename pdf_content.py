@@ -10,9 +10,13 @@ live in :mod:`pdf_tex` and :mod:`pdf_html`; pdflatex invocation lives in
 
 from __future__ import annotations
 
+import logging
 import os
 import re
+from pathlib import Path
 from typing import TextIO
+
+logger = logging.getLogger(__name__)
 
 from nobius_config import load_config, resolve_pdf_profile, resolve_profile_name
 from pdf_html import html_to_tex
@@ -124,7 +128,7 @@ def write_media_block(file_obj: TextIO, media: list) -> None:
 
     file_obj.write(r"\begin{center}")
     for pic in media:
-        if pic[-3:] in ["jpg", "png", "pdf"]:
+        if Path(pic).suffix.lower() in {".jpg", ".jpeg", ".png", ".pdf"}:
             file_obj.write("\\includegraphics[clip=true,height=0.5\\textwidth]{" + tex_graphics_path(pic) + "}\\\\")
     file_obj.write(r"\end{center}")
 
@@ -583,7 +587,7 @@ def generate_tex_output(
     tmp_merge_folder: str | os.PathLike | None = None,
     config: dict | None = None,
     profile_name: str | None = None,
-) -> str:
+) -> str | None:
     """Generate a ``.tex`` file (and optionally a PDF) for one Nobius sheet.
 
     Parameters
@@ -606,9 +610,17 @@ def generate_tex_output(
 
     Returns
     -------
-    str
-        Path to the generated PDF (or where it would have been if *no_pdf*).
+    str | None
+        Path to the generated PDF, or ``None`` if PDF generation was attempted
+        but failed.  When *no_pdf* is ``True`` the expected output path is
+        returned even though no PDF was written.
     """
+    if (pages_acc is None) != (tmp_merge_folder is None):
+        raise ValueError(
+            "pages_acc and tmp_merge_folder must both be set or both be None; "
+            f"got pages_acc={pages_acc!r}, tmp_merge_folder={tmp_merge_folder!r}"
+        )
+
     header_file = os.path.join(os.path.dirname(__file__), "resources", "latex", "header.tex")
     active_config = config
     if active_config is None:
@@ -618,14 +630,11 @@ def generate_tex_output(
     is_exam_profile = resolved_profile_name == "exam"
 
     sheet_info = load_json_file(os.path.join(sheet_dir, "SheetInfo.json"))
-    print(
-        "[TEX] Generating outputs for "
-        + str(len(sheet_info["questions"]))
-        + " questions in Set "
-        + os.path.basename(sheet_dir)
-        + ' "'
-        + sheet_info["name"]
-        + '"...'
+    logger.info(
+        "Generating outputs for %d questions in Set %s %r",
+        len(sheet_info["questions"]),
+        os.path.basename(sheet_dir),
+        sheet_info["name"],
     )
 
     os.makedirs(os.path.join(sheet_dir, "media"), exist_ok=True)
@@ -739,12 +748,11 @@ def generate_tex_output(
 
         file.write("\\ETrule\\end{document}")
 
-    print(
-        f"[TEX] Sheet tex compiled and saved to {sheet_info['name']}{suffix}.tex "
-        f"(heading={selected_heading})"
-    )
+    logger.info("Sheet tex saved to %s%s.tex (heading=%s)", sheet_info["name"], suffix, selected_heading)
 
     if not no_pdf:
-        generate_pdf_output(outputfile_tex, outputfile_pdf)
+        success = generate_pdf_output(outputfile_tex, outputfile_pdf)
+        if not success:
+            return None
 
     return outputfile_pdf

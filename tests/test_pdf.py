@@ -1,8 +1,9 @@
+import io
 import json
 import subprocess
 import sys
 
-from export_pdf import get_batch_sheet_directories
+from export_pdf import _print_sheet_tree, get_batch_sheet_directories
 from pdf_content import (
     build_footer_mark,
     compute_part_marks,
@@ -11,6 +12,7 @@ from pdf_content import (
     get_part_mark_breakdown,
     resolve_pdf_heading,
 )
+from pdf_content import render_header_template
 from pdf_html import html_to_tex
 from pdf_tex import (
     inline_worked_solution_figures,
@@ -675,3 +677,93 @@ def test_resolve_pdf_heading_rejects_unknown_profile():
         assert "Unknown PDF heading profile" in str(error)
     else:
         raise AssertionError("resolve_pdf_heading should reject missing heading profiles")
+
+
+# ---------------------------------------------------------------------------
+# _print_sheet_tree
+# ---------------------------------------------------------------------------
+
+
+def test_print_sheet_tree_handles_empty_list(capsys):
+    _print_sheet_tree("/parent/sheets", [])
+    out = capsys.readouterr().out
+    assert "no sheets found" in out
+
+
+def test_print_sheet_tree_handles_single_sheet(capsys):
+    _print_sheet_tree("/parent/sheets", ["only_sheet"])
+    out = capsys.readouterr().out
+    assert "only_sheet" in out
+    # Single-sheet tree should use └─── not ├───
+    assert "└───" in out
+    assert "├───" not in out
+
+
+def test_print_sheet_tree_handles_multiple_sheets(capsys):
+    _print_sheet_tree("/parent/sheets", ["sheet_a", "sheet_b", "sheet_c"])
+    out = capsys.readouterr().out
+    assert "sheet_a" in out
+    assert "sheet_b" in out
+    assert "sheet_c" in out
+    # All but last use ├───; last uses └───
+    assert "├─── sheet_a" in out
+    assert "├─── sheet_b" in out
+    assert "└─── sheet_c" in out
+
+
+# ---------------------------------------------------------------------------
+# render_header_template
+# ---------------------------------------------------------------------------
+
+
+def test_render_header_template_inserts_section_label_and_titlesep():
+    template = "sep=__NOBIUS_SECTION_TITLESEP__ label=__NOBIUS_SECTION_DISPLAY_LABEL__"
+    result = render_header_template(template, {"section_label": r"Set \#"})
+    assert "0.5 em" in result
+    assert r"Set \#\thesection ~---" in result
+
+
+def test_render_header_template_blanks_display_label_when_section_label_is_empty():
+    template = "sep=__NOBIUS_SECTION_TITLESEP__ label=__NOBIUS_SECTION_DISPLAY_LABEL__"
+    result = render_header_template(template, {"section_label": ""})
+    assert "0 em" in result
+    # Display label placeholder should be replaced with empty string
+    assert "label=" in result
+    assert "__NOBIUS_SECTION_DISPLAY_LABEL__" not in result
+    assert "__NOBIUS_SECTION_TITLESEP__" not in result
+
+
+def test_render_header_template_falls_back_to_default_section_label():
+    template = "label=__NOBIUS_SECTION_DISPLAY_LABEL__"
+    # No section_label key → defaults to r"Nobius Sheet \#" which is non-empty
+    result = render_header_template(template, {})
+    assert r"Nobius Sheet \#\thesection ~---" in result
+
+
+# ---------------------------------------------------------------------------
+# export_pdf batch-mode edge cases
+# ---------------------------------------------------------------------------
+
+
+def test_batch_pdf_exits_cleanly_when_all_sheets_fail(tmp_path, capsys):
+    """Batch merge must not write an empty PDF when every sheet fails PDF generation."""
+    from unittest.mock import patch
+    from export_pdf import main as export_pdf_main
+
+    sheets_dir = tmp_path / "sheets"
+    sheets_dir.mkdir()
+
+    argv = [
+        "export_pdf.py",
+        "--batch-mode",
+        "--sheet-path", str(sheets_dir),
+    ]
+    with patch("sys.argv", argv), \
+         patch("export_pdf.load_config", return_value=({}, None)), \
+         patch("export_pdf.get_batch_sheet_directories", return_value=["Sheet1", "Sheet2"]), \
+         patch("export_pdf.generate_tex_output", return_value=None):
+        export_pdf_main()
+
+    out = capsys.readouterr().out
+    assert "nothing to merge" in out
+    assert not list(sheets_dir.glob("MergedSheets*.pdf"))

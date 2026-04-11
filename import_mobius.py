@@ -251,7 +251,8 @@ def copy_media(group, destination, source_info, media_strategy, report):
     else:
         media_index = index_media_files(source_info["media_root"])
 
-    report.metadata["referenced_media"] = sorted(media_refs)
+    existing = report.metadata.get("referenced_media", [])
+    report.metadata["referenced_media"] = sorted(set(existing) | set(media_refs))
 
     if media_strategy != "copy":
         report.warn("Unsupported media strategy requested; skipping media copy.", media_strategy)

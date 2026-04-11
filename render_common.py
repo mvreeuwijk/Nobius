@@ -448,22 +448,25 @@ def resolve_template_name_and_layout(template_name, render_settings):
     return template_name, "default"
 
 
-def render_sheet(
-    work_dir: str | os.PathLike,
-    template_name: str,
-    render_settings: dict,
-    reset_uid: bool = False,
-    write_missing_uids: bool = False,
-    output_dir: str | os.PathLike | None = None,
-) -> dict[str, str]:
-    print("[LOADING] Fetching sheet data")
-    template_name, layout_profile = resolve_template_name_and_layout(template_name, render_settings)
-
+def _load_schemas() -> tuple[Any, Any, Any, Any]:
+    """Load and return the four JSON validation schemas bundled with Nobius."""
     si_schema = load_json_file(os.path.join(BASE_DIR, "validation", "schemas", "sheet_info.json"))
     q_schema = load_json_file(os.path.join(BASE_DIR, "validation", "schemas", "question.json"))
     r_schema = load_json_file(os.path.join(BASE_DIR, "validation", "schemas", "response_areas.json"))
     r_defaults = load_json_file(os.path.join(BASE_DIR, "validation", "defaults", "response_areas.json"))
+    return si_schema, q_schema, r_schema, r_defaults
 
+
+def _load_and_validate_sheet(
+    work_dir: str | os.PathLike,
+    si_schema: Any,
+    q_schema: Any,
+    r_schema: Any,
+    r_defaults: Any,
+    reset_uid: bool,
+    write_missing_uids: bool,
+) -> tuple[dict, list]:
+    """Read SheetInfo.json and all question JSON files; validate and return ``(sheet_info, questions)``."""
     try:
         with open(os.path.join(work_dir, "SheetInfo.json"), "r", encoding="utf-8") as file:
             sheet_info = json.load(file)
@@ -476,14 +479,12 @@ def render_sheet(
         clear_uids=reset_uid,
         write_missing_uids=write_missing_uids,
     )
-
     validation.validate_sheet_info(os.path.join(work_dir, "SheetInfo.json"), sheet_info, si_schema)
 
     question_paths = [os.path.join(work_dir, f"{path}.json") for path in sheet_info["questions"]]
     questions = []
-    question_number = 1
-    for question_path in question_paths:
-        questions += [import_question(
+    for question_number, question_path in enumerate(question_paths, start=1):
+        questions.append(import_question(
             question_path,
             sheet_info["number"],
             question_number,
@@ -492,8 +493,81 @@ def render_sheet(
             r_defaults,
             reset_uid,
             write_missing_uids=write_missing_uids,
-        )]
-        question_number += 1
+        ))
+    return sheet_info, questions
+
+
+def _assemble_zip(
+    zip_path: str,
+    xml_path: str,
+    sheet_info: dict,
+    media_path: str,
+    media_files: list,
+    include_packaged_script: bool,
+    include_packaged_maple_library: bool,
+) -> None:
+    """Write the deployment ZIP: manifest XML, optional scripts/Maple library, and media files."""
+    script_path = os.path.join(RESOURCES_DIR, PACKAGED_SCRIPT_NAME)
+    maple_library_path = os.path.join(RESOURCES_DIR, PACKAGED_MAPLE_LIBRARY_NAME)
+    with ZipFile(zip_path, "w") as zip_file:
+        zip_file.write(xml_path, arcname="manifest.xml")
+        if include_packaged_script and os.path.exists(script_path):
+            zip_file.write(script_path, arcname=PACKAGED_SCRIPT_ARCNAME)
+        if include_packaged_maple_library:
+            zip_file.write(maple_library_path, arcname=PACKAGED_MAPLE_LIBRARY_ARCNAME)
+        for media_file in media_files:
+            zip_file.write(
+                os.path.join(media_path, media_file),
+                arcname=os.path.join("web_folders", f"{sheet_info['name']}", media_file),
+            )
+
+
+def _copy_batch_outputs(
+    output_dir: str,
+    sheet_info: dict,
+    rendered_xml: str,
+    media_path: str,
+    media_files: list,
+    include_packaged_script: bool,
+    include_packaged_maple_library: bool,
+) -> None:
+    """Copy rendered assets into the batch output directory structure."""
+    script_path = os.path.join(RESOURCES_DIR, PACKAGED_SCRIPT_NAME)
+    maple_library_path = os.path.join(RESOURCES_DIR, PACKAGED_MAPLE_LIBRARY_NAME)
+
+    with open(os.path.join(output_dir, "xml", f"{sheet_info['name']}.xml"), "w", encoding="utf-8") as file:
+        file.write(rendered_xml)
+
+    scripts_output_dir = os.path.join(output_dir, "web_folders", "Scripts")
+    os.makedirs(scripts_output_dir, exist_ok=True)
+    if include_packaged_script and os.path.exists(script_path):
+        shutil.copy(script_path, os.path.join(scripts_output_dir, PACKAGED_SCRIPT_NAME))
+    if include_packaged_maple_library:
+        shutil.copy(maple_library_path, os.path.join(output_dir, "web_folders", PACKAGED_MAPLE_LIBRARY_NAME))
+    if media_files:
+        output_media_path = os.path.join(output_dir, "web_folders", f"{sheet_info['name']}")
+        if os.path.exists(output_media_path):
+            shutil.rmtree(output_media_path)
+        os.mkdir(output_media_path)
+        for media_file in media_files:
+            shutil.copy(os.path.join(media_path, media_file), output_media_path)
+
+
+def render_sheet(
+    work_dir: str | os.PathLike,
+    template_name: str,
+    render_settings: dict,
+    reset_uid: bool = False,
+    write_missing_uids: bool = False,
+    output_dir: str | os.PathLike | None = None,
+) -> dict[str, str]:
+    print("[LOADING] Fetching sheet data")
+    template_name, layout_profile = resolve_template_name_and_layout(template_name, render_settings)
+
+    si_schema, q_schema, r_schema, r_defaults = _load_schemas()
+    sheet_info, questions = _load_and_validate_sheet(
+        work_dir, si_schema, q_schema, r_schema, r_defaults, reset_uid, write_missing_uids,
+    )
 
     if not output_dir:
         times = [0, 0]
@@ -504,7 +578,6 @@ def render_sheet(
                 qs += [(question["title"], question["icon_data"]["par_time"])]
             except KeyError:
                 pass
-
         print("[TIME ANALYSIS] Estimated student time required summary ([min, max] mins):")
         for title, par_time in qs:
             print(f"\t-- {title}: {par_time}")
@@ -515,7 +588,6 @@ def render_sheet(
         trim_blocks=True,
         lstrip_blocks=True,
     )
-
     env.globals.update(
         consts=RenderConsts(
             render_settings["scripts_location"],
@@ -533,24 +605,16 @@ def render_sheet(
     os.makedirs(renders_dir, exist_ok=True)
 
     media_path = resolve_media_path(work_dir)
-    zip_path = None
     referenced_media = set()
     for question in questions:
         referenced_media.update(collect_question_media_references(question))
-
-    media_files = []
-    if os.path.isdir(media_path):
-        media_files = [
-            media_file
-            for media_file in iter_render_media_files(media_path)
-            if media_file in referenced_media
-        ]
+    media_files = [
+        f for f in iter_render_media_files(media_path)
+        if f in referenced_media
+    ] if os.path.isdir(media_path) else []
 
     course_module = build_course_module_context(
-        sheet_info,
-        questions,
-        media_files,
-        exam=(layout_profile == "exam"),
+        sheet_info, questions, media_files, exam=(layout_profile == "exam"),
     )
 
     master = env.get_template(template_name)
@@ -561,43 +625,19 @@ def render_sheet(
     with open(xml_path, "w", encoding="utf-8") as file:
         file.write(rendered_xml)
 
-    if output_dir:
-        with open(os.path.join(output_dir, "xml", f"{sheet_info['name']}.xml"), "w", encoding="utf-8") as file:
-            file.write(rendered_xml)
-
-    script_path = os.path.join(RESOURCES_DIR, PACKAGED_SCRIPT_NAME)
-    maple_library_path = os.path.join(RESOURCES_DIR, PACKAGED_MAPLE_LIBRARY_NAME)
-    zip_path = os.path.join(renders_dir, f"{sheet_info['name']}.zip")
     include_packaged_script = PACKAGED_SCRIPT_URI in rendered_xml or template_name == "manifests/questionbank.xml"
-    include_packaged_maple_library = template_name == "manifests/questionbank.xml" and os.path.exists(maple_library_path)
+    include_packaged_maple_library = (
+        template_name == "manifests/questionbank.xml"
+        and os.path.exists(os.path.join(RESOURCES_DIR, PACKAGED_MAPLE_LIBRARY_NAME))
+    )
+
     if media_files:
         print("[LOADING] Detected Media folder -> bundling media files and .xml")
-    with ZipFile(zip_path, "w") as zip_file:
-        zip_file.write(xml_path, arcname="manifest.xml")
-        if include_packaged_script and os.path.exists(script_path):
-            zip_file.write(script_path, arcname=PACKAGED_SCRIPT_ARCNAME)
-        if include_packaged_maple_library:
-            zip_file.write(maple_library_path, arcname=PACKAGED_MAPLE_LIBRARY_ARCNAME)
-        for media_file in media_files:
-            zip_file.write(
-                os.path.join(media_path, media_file),
-                arcname=os.path.join("web_folders", f"{sheet_info['name']}", media_file),
-            )
+    zip_path = os.path.join(renders_dir, f"{sheet_info['name']}.zip")
+    _assemble_zip(zip_path, xml_path, sheet_info, media_path, media_files, include_packaged_script, include_packaged_maple_library)
 
     if output_dir:
-        scripts_output_dir = os.path.join(output_dir, "web_folders", "Scripts")
-        os.makedirs(scripts_output_dir, exist_ok=True)
-        if include_packaged_script and os.path.exists(script_path):
-            shutil.copy(script_path, os.path.join(scripts_output_dir, PACKAGED_SCRIPT_NAME))
-        if include_packaged_maple_library:
-            shutil.copy(maple_library_path, os.path.join(output_dir, "web_folders", PACKAGED_MAPLE_LIBRARY_NAME))
-        if media_files:
-            output_media_path = os.path.join(output_dir, "web_folders", f"{sheet_info['name']}")
-            if os.path.exists(output_media_path):
-                shutil.rmtree(output_media_path)
-            os.mkdir(output_media_path)
-            for media_file in media_files:
-                shutil.copy(os.path.join(media_path, media_file), output_media_path)
+        _copy_batch_outputs(output_dir, sheet_info, rendered_xml, media_path, media_files, include_packaged_script, include_packaged_maple_library)
 
     print("[DONE]")
     return {"xml_path": xml_path, "zip_path": zip_path}

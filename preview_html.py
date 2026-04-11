@@ -128,6 +128,8 @@ body {
 }
 """
 
+# NOTE: MathJax is loaded from a CDN. Local previews require network access for
+# maths rendering. For fully offline use, download tex-svg.js and update the src.
 MATHJAX_SCRIPT = """\
 <script>
 window.MathJax = {
