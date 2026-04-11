@@ -37,6 +37,8 @@ def simplify_matching_html(value):
     if value is None:
         return ""
     decoded = unescape(str(value))
+    if "<" not in decoded and "&" not in decoded:
+        return decoded.strip()
     soup = bs4.BeautifulSoup(decoded, "html.parser")
     return soup.get_text(" ", strip=True)
 

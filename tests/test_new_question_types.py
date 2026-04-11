@@ -174,7 +174,7 @@ def test_normalize_response_reports_lossy_list_conversion():
     normalized = normalize_response({"mode": "List", "display": "text"}, report)
 
     assert normalized["display"] == {"display": "text", "permute": False}
-    assert any("Normalized List response display" in warning["message"] for warning in report.warnings)
+    assert any("Normalized List response display" in info["message"] for info in report.infos)
 
 
 def test_normalize_response_reports_document_upload_conversion():
@@ -188,7 +188,7 @@ def test_normalize_response_reports_document_upload_conversion():
     assert normalized["uploadMode"] == "code"
     assert normalized["notGraded"] is True
     assert normalized["codeType"] == "alphanumeric"
-    assert any("Normalized Document Upload response" in warning["message"] for warning in report.warnings)
+    assert any("Normalized Document Upload response" in info["message"] for info in report.infos)
 
 
 def test_render_normalization_preserves_legacy_document_upload_forceupload_semantics():
@@ -226,4 +226,4 @@ def test_normalize_response_reports_html_field_renaming():
     assert normalized["css"] == ""
     assert "getResponse" in normalized["javascript"]
     assert normalized["grading_code"] == "evalb(true);"
-    assert any("Normalized HTML response field names" in warning["message"] for warning in report.warnings)
+    assert any("Normalized HTML response field names" in info["message"] for info in report.infos)
