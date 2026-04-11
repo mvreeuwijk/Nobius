@@ -17,6 +17,7 @@ from import_mobius import (
 from preview_html import safe_extract_archive
 from render_common import render_sheet
 from validation.validation import add_response_area_defaults
+from xml_scraper.get_html_data import get_question_data
 from xml_scraper.get_xml_data import link_custom_answers, link_response_answers, normalize_response
 
 from .conftest import (
@@ -327,6 +328,75 @@ def test_import_preserves_assignment_question_ref_order(question_types_demo_zip,
     ]
 
 
+def test_get_question_data_recovers_placeholder_and_marks_from_duplicate_statement_blocks():
+    html = bs4.BeautifulSoup(
+        """
+        <div class="wrapper">
+          <span data-propname="title">Question 1</span>
+          <div class="parts-container">
+            <div class="part" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">Main statement.</p>
+              <p class="part-statement" data-propname="parts.1.statement"><6><span>&nbsp;</span></p>
+              <p class="part-statement" data-propname="parts.1.statement">[4 MARKS]</p>
+              <div class="response-wrapper" data-propname="parts.1.response">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        """,
+        "html.parser",
+    )
+
+    question = get_question_data(html)
+
+    assert question["parts"][0]["statement"] == "Main statement."
+    assert question["parts"][0]["response"] == 6
+    assert question["parts"][0]["post_response_text"] == "[4 MARKS]"
+
+
+def test_get_question_data_recovers_duplicate_statement_placeholders_without_spurious_response_warning():
+    html = bs4.BeautifulSoup(
+        """
+        <div class="wrapper">
+          <span data-propname="title">Question 1</span>
+          <div class="parts-container">
+            <div class="part" id="part1">
+              <p class="part-statement" data-propname="parts.1.statement">Main statement.</p>
+              <p class="part-statement" data-propname="parts.1.statement"><6><span>&nbsp;</span></p>
+              <p class="part-statement" data-propname="parts.1.statement">[4 MARKS]</p>
+              <div class="response-wrapper" data-propname="parts.1.response">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        """,
+        "html.parser",
+    )
+
+    class StubReport:
+        def __init__(self):
+            self.warnings = []
+
+        def warn(self, message, context=None):
+            self.warnings.append({"message": message, "context": context})
+
+    report = StubReport()
+    question = get_question_data(html, report)
+
+    assert question["parts"][0]["response"] == 6
+    assert not any("Response area tag couldn't be found" in warning["message"] for warning in report.warnings)
+
+
+def test_normalize_response_strips_response_nan_name_variant():
+    response = {
+        "mode": "Essay",
+        "name": "responseNaN",
+        "maxWordcount": 0,
+    }
+
+    normalized = normalize_response(response)
+
+    assert "name" not in normalized
+
+
 def test_real_question_types_demo_zip_surfaces_import_warnings_explicitly(question_types_demo_zip, tmp_path):
     destination = tmp_path / "question-types-demo-report"
 
@@ -401,6 +471,50 @@ def test_generate_json_imports_real_roundtrip_demo_zip_with_multipart_question(r
     )
     assert multipart["parts"][1]["response"]["mode"] == "Maple"
     assert multipart["parts"][1]["response"]["mapleAnswer"] == "x0+$c*t"
+
+
+def test_get_question_from_xml_uses_top_level_question_text_not_hint_text():
+    from xml_scraper.get_xml_data import get_question_from_xml
+
+    question_xml = bs4.BeautifulSoup(
+        """
+        <question uid="q1">
+          <name>1 Lock</name>
+          <hints>
+            <hint>
+              <text><![CDATA[<p>Hint body only.</p>]]></text>
+            </hint>
+          </hints>
+          <text><![CDATA[
+            <div class="wrapper">
+              <span data-propname="title">Lock</span>
+              <p data-propname="master_statement">Actual question statement.</p>
+              <div class="parts-container">
+                <div class="part">
+                  <p data-propname="parts.1.statement">Actual part.</p>
+                  <div class="response-wrapper" data-propname="parts.1.response"><1></div>
+                </div>
+              </div>
+            </div>
+          ]]></text>
+          <parts>
+            <part>
+              <mode>Essay</mode>
+              <name>responseNaN</name>
+              <maxWordcount>0</maxWordcount>
+            </part>
+          </parts>
+        </question>
+        """,
+        "xml",
+    ).find("question")
+
+    question = get_question_from_xml(question_xml)
+
+    assert question["title"] == "Lock"
+    assert question["master_statement"] == "Actual question statement."
+    assert question["parts"][0]["statement"] == "Actual part."
+    assert question["parts"][0]["response"]["mode"] == "Essay"
 
 
 def test_roundtrip_exercise_json_supported_plain_subset_can_be_rendered(roundtrip_sheet):

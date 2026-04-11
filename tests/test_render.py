@@ -28,6 +28,43 @@ def canonicalize_export_xml(xml_text):
     )
 
 
+def build_essay_question():
+    return {
+        "title": "Essay",
+        "master_statement": "Discuss the result.",
+        "parts": [
+            {
+                "statement": "Explain the difference between pressure and force.",
+                "response": {
+                    "mode": "Essay",
+                    "keywords": ["pressure", "force"],
+                    "maxWordcount": 250,
+                },
+            }
+        ],
+        "uid": "99999999-9999-9999-9999-999999999991",
+    }
+
+
+def build_document_upload_question():
+    return {
+        "title": "Upload Work",
+        "parts": [
+            {
+                "statement": "Upload your handwritten derivation.",
+                "response": {
+                    "mode": "Document Upload",
+                    "uploadMode": "code",
+                    "codeType": "alphanumeric",
+                    "fileExtensions": ["pdf", "png"],
+                    "notGraded": True,
+                },
+            }
+        ],
+        "uid": "99999999-9999-9999-9999-999999999992",
+    }
+
+
 def test_render_sheet_standard_creates_xml_and_zip_for_tutorial_fixture(t01_sheet):
     result = render_sheet(t01_sheet, "manifests/assignment.xml", make_render_settings())
 
@@ -225,6 +262,56 @@ def test_roundtrip_render_preserves_import_reconstruction_markers(roundtrip_shee
     assert 'data-propname="master_statement"' in rendered_xml
     assert 'data-propname="parts.1.response"' in rendered_xml
     assert 'data-propname="parts.2.statement"' in rendered_xml
+
+
+def test_render_sheet_emits_explicit_essay_part_fields(tmp_path):
+    sheet = create_sheet_fixture(
+        tmp_path,
+        "essay_sheet",
+        {
+            "name": "Essay Demo",
+            "description": "Synthetic essay fixture",
+            "questions": ["Essay"],
+            "number": 1,
+            "uid": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac",
+        },
+        [build_essay_question()],
+    )
+
+    render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
+    rendered_xml = (sheet / "renders" / "Essay Demo.xml").read_text(encoding="utf-8")
+    soup = bs4.BeautifulSoup(rendered_xml, "lxml-xml")
+    part = soup.find("question").find("part")
+
+    assert part.find("mode").text == "Essay"
+    assert [keyword.text.strip() for keyword in part.find("keywords").find_all("keyword")] == ["pressure", "force"]
+    assert part.find("maxWordcount").text.strip() == "250"
+
+
+def test_render_sheet_emits_explicit_document_upload_part_fields(tmp_path):
+    sheet = create_sheet_fixture(
+        tmp_path,
+        "upload_sheet",
+        {
+            "name": "Upload Demo",
+            "description": "Synthetic upload fixture",
+            "questions": ["Upload Work"],
+            "number": 2,
+            "uid": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaad",
+        },
+        [build_document_upload_question()],
+    )
+
+    render_sheet(sheet, "manifests/assignment.xml", make_render_settings())
+    rendered_xml = (sheet / "renders" / "Upload Demo.xml").read_text(encoding="utf-8")
+    soup = bs4.BeautifulSoup(rendered_xml, "lxml-xml")
+    part = soup.find("question").find("part")
+
+    assert part.find("mode").text == "Document Upload"
+    assert part.find("fileExtensions").text.strip() == "pdf,png"
+    assert part.find("codeType").text.strip() == "2"
+    assert part.find("forceUpload").text.strip() == "false"
+    assert part.find("nonGradeable").text.strip() == "true"
 
 
 def test_final_answer_equation_renders_into_answer_panel(tmp_path):

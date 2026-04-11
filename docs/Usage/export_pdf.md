@@ -15,7 +15,7 @@ python export_pdf.py --sheet-path SHEET_PATH [--content-mode MODE] [--no-pdf] [-
 Where:
 
 - `--sheet-path` or `-s` points to the Nobius sheet directory.
-- `--content-mode` chooses one of `exercise`, `review`, or `solutions`.
+- `--content-mode` chooses one of `questions`, `review`, or `solutions`.
 - `--no-pdf` writes LaTeX output without running `pdflatex`.
 - `--batch-mode` processes multiple sheets in one run.
 - `--config` points to the Nobius config JSON. If omitted, `Nobius/nobius.json` is used.
@@ -25,7 +25,7 @@ Where:
 
 The script writes generated files into the sheet's `renders/` directory:
 
-- `<sheet_name>.tex` for exercise content
+- `<sheet_name>.tex` for question content
 - `<sheet_name>_review.tex` for review content
 - `<sheet_name>_solutions.tex` for solutions content
 

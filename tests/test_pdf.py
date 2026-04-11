@@ -3,8 +3,13 @@ import subprocess
 import sys
 
 from export_pdf import (
+    build_footer_mark,
+    compute_part_marks,
+    extract_marks_from_text,
     generate_tex_output,
+    get_part_mark_breakdown,
     get_batch_sheet_directories,
+    html_to_tex,
     inline_worked_solution_figures,
     namespace_tex_labels,
     protect_unresolved_algorithm_tokens,
@@ -12,7 +17,7 @@ from export_pdf import (
     split_algorithm_commands,
 )
 
-from .conftest import REPO_ROOT
+from .conftest import REPO_ROOT, create_named_sheet_fixture
 
 
 def test_generate_pdf_from_json_surfaces_json_decode_error_without_nameerror(tmp_path):
@@ -73,8 +78,30 @@ def test_generate_review_tex_includes_compact_metadata_blocks(t01_sheet):
     assert r"\begin{exobox}{Review metadata}" in tex_content
     assert r"\textbf{File} & Starter.json" in tex_content
     assert r"\textbf{UID} &" in tex_content
+    assert r"\textbf{Total marks} & 0" in tex_content
     assert r"\textbf{Part (a) metadata}" in tex_content
     assert r"\begin{exobox}{Algorithm}" not in tex_content
+    assert "Note: this sheet was automatically generated from the online version." not in tex_content
+
+
+def test_generate_questions_tex_keeps_online_version_note(t01_sheet):
+    generate_tex_output(str(t01_sheet), True, "questions")
+
+    tex_path = t01_sheet / "renders" / "Fundamentals.tex"
+    tex_content = tex_path.read_text(encoding="utf-8")
+
+    assert "Note: this sheet was automatically generated from the online version." in tex_content
+
+
+def test_generate_solutions_tex_omits_worked_solution_label_but_keeps_content_and_solution_label(t01_sheet):
+    generate_tex_output(str(t01_sheet), True, "solutions")
+
+    tex_path = t01_sheet / "renders" / "Fundamentals_solutions.tex"
+    tex_content = tex_path.read_text(encoding="utf-8")
+
+    assert "Worked Solution:" not in tex_content
+    assert "Again consider a horizontal slice of thickness" in tex_content
+    assert r"Solution:\\" in tex_content
 
 
 def test_generate_tex_uses_heading_profile_from_config(t01_sheet, tmp_path):
@@ -124,7 +151,8 @@ def test_generate_tex_uses_heading_profile_from_config(t01_sheet, tmp_path):
     tex_path = t01_sheet / "renders" / "Fundamentals.tex"
     tex_content = tex_path.read_text(encoding="utf-8")
 
-    assert r"\lfoot{\ifnum0<\thesection QA Sheet \# \nouppercase{\leftmark}\fi}" in tex_content
+    assert r"\lfoot{\nouppercase{\leftmark}}" in tex_content
+    assert r"\nobiussetmark{QA Sheet \#. Fundamentals}" in tex_content
     assert r"{QA Pack \#\thesection ~---}{0.5 em}{}" in tex_content
 
 
@@ -178,6 +206,7 @@ def test_generate_tex_omits_section_prefix_when_section_label_is_blank(t01_sheet
     assert r"{QA Pack \#\thesection ~---}{0.5 em}{}" not in tex_content
     assert r"{}{0 em}{}" in tex_content
     assert r"\section*{Fundamentals}" in tex_content
+    assert r"\nobiussetmark{Exam. Fundamentals}" in tex_content
 
 
 def test_generate_exam_tex_uses_section_headings_for_questions(t01_sheet, tmp_path):
@@ -232,6 +261,252 @@ def test_generate_exam_tex_uses_section_headings_for_questions(t01_sheet, tmp_pa
     assert r"\section{Fluids}" in tex_content
 
 
+def test_build_footer_mark_truncates_sheet_name_to_four_words():
+    assert build_footer_mark("Very Long Problem Sheet Name Here", {"footer_label": ""}) == "Very Long Problem Sheet ..."
+    assert build_footer_mark("Very Long Problem Sheet Name Here", {"footer_label": "CIVE40008"}) == "CIVE40008. Very Long Problem Sheet ..."
+
+
+def test_generate_tex_renders_standard_multiple_selection_choices(tmp_path):
+    sheet_dir = create_named_sheet_fixture(
+        tmp_path,
+        "choices",
+        {
+            "name": "Choice Sheet",
+            "questions": ["Q1"],
+            "number": 1,
+        },
+        {
+            "Q1": {
+                "title": "Choice Question",
+                "master_statement": "Pick all valid statements.",
+                "parts": [
+                    {
+                        "statement": "Select the valid items:",
+                        "response": {
+                            "mode": "Multiple Selection",
+                            "choices": [
+                                "<p>First item</p>",
+                                "<p>Second item</p>",
+                            ],
+                        },
+                    }
+                ],
+            }
+        },
+    )
+
+    generate_tex_output(str(sheet_dir), True, "questions")
+
+    tex_content = (sheet_dir / "renders" / "Choice Sheet.tex").read_text(encoding="utf-8")
+
+    assert r"\begin{itemize}" in tex_content
+    assert r"\item First item" in tex_content
+    assert r"\item Second item" in tex_content
+
+
+def test_generate_tex_renders_custom_response_table_layout(t01_sheet):
+    generate_tex_output(str(t01_sheet), True, "questions")
+
+    tex_content = (t01_sheet / "renders" / "Fundamentals.tex").read_text(encoding="utf-8")
+
+    assert r"\begin{tabularx}{\linewidth}" in tex_content
+    assert r"\fbox{\strut\hspace{1.5em}}" in tex_content
+
+
+def test_generate_review_tex_includes_numeric_and_maple_response_data(tmp_path):
+    sheet_dir = create_named_sheet_fixture(
+        tmp_path,
+        "response_data",
+        {
+            "name": "Response Data Sheet",
+            "questions": ["Q1"],
+            "number": 1,
+        },
+        {
+            "Q1": {
+                "title": "Response Data Question",
+                "master_statement": "Check review response metadata.",
+                "parts": [
+                    {
+                        "statement": "Numeric part",
+                        "response": {
+                            "mode": "Numeric",
+                            "answer": {"num": "12.5", "units": "m"},
+                            "grading": "toler_perc",
+                            "perc": 5.0,
+                            "showUnits": True,
+                            "numStyle": "thousands scientific",
+                        },
+                    },
+                    {
+                        "statement": "Maple part",
+                        "response": {
+                            "mode": "Maple",
+                            "mapleAnswer": "Q^2/(2*g*b0^2*W^2)",
+                            "maple": "Nobius:-GradePat($ANSWER, $RESPONSE);",
+                        },
+                        "input_symbols": [["\\(Q\\)", "Q"], ["\\(g\\)", "g"]],
+                    },
+                ],
+            }
+        },
+    )
+
+    generate_tex_output(str(sheet_dir), True, "review")
+
+    tex_content = (sheet_dir / "renders" / "Response Data Sheet_review.tex").read_text(encoding="utf-8")
+
+    assert r"\begin{exobox}{Response data (Numeric)}" in tex_content
+    assert r"\begin{tabularx}{\linewidth}{@{}lX@{}}" in tex_content
+    assert r"\textbf{Target} & \texttt{12.5}\\" in tex_content
+    assert r"\textbf{Units} & m\\" in tex_content
+    assert r"\textbf{Grading} & toler\_perc, perc=5.0\\" in tex_content
+    assert r"\begin{exobox}{Response data (Maple)}" in tex_content
+    assert r"\textbf{Accepted expr} & \texttt{Q\^{}2/(2*g*b0\^{}2*W\^{}2)}\\" in tex_content
+    assert r"\textbf{Grader} & \texttt{" in tex_content
+    assert r"\textbf{Symbols} & Q, g\\" in tex_content
+
+
+def test_generate_review_tex_renders_multiple_choice_answers_above_data_table(tmp_path):
+    sheet_dir = create_named_sheet_fixture(
+        tmp_path,
+        "mc_review",
+        {
+            "name": "MC Review Sheet",
+            "questions": ["Q1"],
+            "number": 1,
+        },
+        {
+            "Q1": {
+                "title": "MC Review Question",
+                "master_statement": "Inspect review response metadata.",
+                "parts": [
+                    {
+                        "statement": "Choose one option.",
+                        "response": {
+                            "mode": "Multiple Choice",
+                            "answer": "2",
+                            "choices": [
+                                "<p>First option</p>",
+                                "<p>Second option</p>",
+                            ],
+                            "display": "vertical",
+                        },
+                    }
+                ],
+            }
+        },
+    )
+
+    generate_tex_output(str(sheet_dir), True, "review")
+
+    tex_content = (sheet_dir / "renders" / "MC Review Sheet_review.tex").read_text(encoding="utf-8")
+
+    assert r"\textbf{Answers}" in tex_content
+    assert r"\begin{enumerate}" in tex_content
+    assert r"\item First option" in tex_content
+    assert r"\item Second option" in tex_content
+    assert r"\textbf{Choices} & 2\\" in tex_content
+    assert r"\textbf{Options} &" not in tex_content
+
+
+def test_generate_review_tex_formats_numeric_variable_targets_like_placeholders(tmp_path):
+    sheet_dir = create_named_sheet_fixture(
+        tmp_path,
+        "numeric_target",
+        {
+            "name": "Numeric Target Sheet",
+            "questions": ["Q1"],
+            "number": 1,
+        },
+        {
+            "Q1": {
+                "title": "Numeric Target Question",
+                "master_statement": "Check numeric target formatting.",
+                "parts": [
+                    {
+                        "statement": "Numeric variable part",
+                        "response": {
+                            "mode": "Numeric",
+                            "answer": {"num": "$pA", "units": "Pa"},
+                            "grading": "toler_perc",
+                            "perc": 5.0,
+                        },
+                    }
+                ],
+            }
+        },
+    )
+
+    generate_tex_output(str(sheet_dir), True, "review")
+
+    tex_content = (sheet_dir / "renders" / "Numeric Target Sheet_review.tex").read_text(encoding="utf-8")
+
+    assert r"\textbf{Target} & \texttt{[\$pA]}\\" in tex_content
+
+
+def test_generate_review_tex_includes_choice_and_custom_response_data(tmp_path):
+    sheet_dir = create_named_sheet_fixture(
+        tmp_path,
+        "choice_data",
+        {
+            "name": "Choice Data Sheet",
+            "questions": ["Q1"],
+            "number": 1,
+        },
+        {
+            "Q1": {
+                "title": "Choice Data Question",
+                "master_statement": "Check non-numeric response metadata.",
+                "parts": [
+                    {
+                        "statement": "Multiple selection part",
+                        "response": {
+                            "mode": "Multiple Selection",
+                            "answer": "1,3",
+                            "display": "vertical",
+                            "choices": ["<p>A</p>", "<p>B</p>", "<p>C</p>"],
+                        },
+                    },
+                    {
+                        "statement": "Custom response part",
+                        "custom_response": {
+                            "layout": "<table><tr><td><1></td></tr></table>",
+                            "responses": [
+                                {
+                                    "mode": "List",
+                                    "answers": ["A", "B"],
+                                    "display": {"display": "text", "permute": False},
+                                    "grader": "regex",
+                                }
+                            ],
+                        },
+                    },
+                ],
+            }
+        },
+    )
+
+    generate_tex_output(str(sheet_dir), True, "review")
+
+    tex_content = (sheet_dir / "renders" / "Choice Data Sheet_review.tex").read_text(encoding="utf-8")
+
+    assert r"\begin{exobox}{Response data (Multiple Selection)}" in tex_content
+    assert r"\textbf{Answer} & 1,3\\" in tex_content
+    assert r"\textbf{Choices} & 3\\" in tex_content
+    assert r"\textbf{Answers}" in tex_content
+    assert r"\begin{enumerate}[(1)]" in tex_content
+    assert r"\item A" in tex_content
+    assert r"\item B" in tex_content
+    assert r"\item C" in tex_content
+    assert r"\textbf{Options} &" not in tex_content
+    assert r"\textbf{Display} & vertical\\" in tex_content
+    assert r"Multiple selection part\begin{itemize}" not in tex_content
+    assert r"\begin{exobox}{Response data (List)}" in tex_content
+    assert r"\textbf{Answers} & 2\\" in tex_content
+    assert r"\textbf{Grader} & regex\\" in tex_content
+
+
 def test_protect_unresolved_algorithm_tokens_escapes_placeholder_like_text():
     protected = protect_unresolved_algorithm_tokens(r"Force is $F kN and area is $a cm^2")
 
@@ -247,6 +522,63 @@ def test_protect_unresolved_algorithm_tokens_preserves_inline_tex_math():
     assert r"\(P\)" in protected
     assert r"\(A = 0.5\times(P/2)^2\)" in protected
     assert r"\texttt{[\$F]}" in protected
+
+
+def test_html_to_tex_converts_html_lists():
+    converted = html_to_tex("<ol><li>First</li><li>Second</li></ol>")
+
+    assert r"\begin{enumerate}" in converted
+    assert r"\item First" in converted
+    assert r"\item Second" in converted
+    assert r"\end{enumerate}" in converted
+
+
+def test_html_to_tex_converts_basic_tables():
+    converted = html_to_tex(
+        "<table><tr><th>Case</th><th>Value</th></tr><tr><td>A</td><td>1</td></tr></table>"
+    )
+
+    assert r"\begin{tabularx}{\linewidth}" in converted
+    assert "Case & Value" in converted
+    assert "A & 1" in converted
+
+
+def test_html_to_tex_normalizes_latex_enumerate_label_syntax():
+    converted = html_to_tex(r"\begin{enumerate} [label=\alph*)]\item A\end{enumerate}")
+
+    assert r"\begin{enumerate}[(a)]" in converted
+
+
+def test_mark_extraction_counts_statement_and_response_marks():
+    assert extract_marks_from_text("degrees [8 MARKS]") == 8
+    assert extract_marks_from_text("Draw the figure. [9 MARKS]") == 9
+
+    marks = compute_part_marks(
+        {
+            "statement": "Draw carefully. [9 MARKS]",
+            "responses": [
+                {"post_response_text": "[2 MARKS]"},
+                {"post_response_text": "degrees [4 MARKS]"},
+            ],
+        }
+    )
+
+    assert marks == 15
+
+
+def test_part_mark_breakdown_reports_total_and_response_split():
+    total, breakdown = get_part_mark_breakdown(
+        {
+            "statement": "Draw carefully. [9 MARKS]",
+            "responses": [
+                {"post_response_text": "[2 MARKS]"},
+                {"post_response_text": "degrees [4 MARKS]"},
+            ],
+        }
+    )
+
+    assert total == 15
+    assert breakdown == "r1=9, r2=2, r3=4"
 
 
 def test_preprocess_tex_like_text_normalizes_tex_style_unit_exponents():

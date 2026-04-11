@@ -113,6 +113,18 @@
 </part>
 {%- endmacro %}
 
+{% macro render_document_upload_part(response_area, fallback_index=1) -%}
+<part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
+  <mode>Document Upload</mode>
+  {{ render_common_part_fields_standard(response_area, fallback_index) }}
+  <width>0.0</width>
+  <fileExtensions>{{ response_area.fileExtensions | join(",") }}</fileExtensions>
+  <codeType>{{ response_area.codeType }}</codeType>
+  <forceUpload>{{ "true" if response_area.forceUpload else "false" }}</forceUpload>
+  <nonGradeable>{{ "true" if response_area.nonGradeable else "false" }}</nonGradeable>
+</part>
+{%- endmacro %}
+
 {% macro render_matching_part(response_area, fallback_index=1) -%}
 <part uid="{{ response_area.uid }}" language="{{ response_area.language }}">
   <mode>Matching</mode>
@@ -187,6 +199,8 @@
     {{ render_multiple_response_part(response_area, fallback_index) }}
   {% elif response_area.mode == "Essay" %}
     {{ render_essay_part(response_area, fallback_index) }}
+  {% elif response_area.mode == "Document Upload" %}
+    {{ render_document_upload_part(response_area, fallback_index) }}
   {% elif response_area.mode == "Matching" %}
     {{ render_matching_part(response_area, fallback_index) }}
   {% else %}

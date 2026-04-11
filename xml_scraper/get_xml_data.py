@@ -449,7 +449,7 @@ def normalize_response(response, report=None):
         normalized.pop(ignored_key, None)
 
     response_name = normalized.get("name")
-    if response_name is None or str(response_name).strip() in {"", "responseNan"}:
+    if response_name is None or str(response_name).strip() in {"", "responseNan", "responseNaN"}:
         normalized.pop("name", None)
         response_name = None
     else:
@@ -506,6 +506,12 @@ def normalize_response(response, report=None):
             "Normalized Document Upload response into Nobius authoring fields.",
             response_name,
         )
+        if isinstance(normalized.get("fileExtensions"), str):
+            normalized["fileExtensions"] = [
+                extension.strip()
+                for extension in normalized["fileExtensions"].split(",")
+                if extension.strip()
+            ]
         normalized["uploadMode"] = "direct" if normalized.get("forceUpload") else "code"
         normalized["notGraded"] = normalized.get("nonGradeable", False)
         normalized["codeType"] = {
@@ -698,7 +704,10 @@ def get_questions(xml):
     return xml.find_all("question", {"uid": True})
 
 def get_question_html(question_xml):
-    html_string = question_xml.find("text").string
+    text_node = question_xml.find("text", recursive=False)
+    if text_node is None:
+        return bs4.BeautifulSoup("", 'html.parser')
+    html_string = text_node.string
     return bs4.BeautifulSoup(html_string, 'html.parser')
 
 def get_parts(question_xml):

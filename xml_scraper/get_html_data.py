@@ -3,6 +3,8 @@ import json
 import html
 import re
 
+import bs4
+
 
 def report_warning(report, message, context=None):
     if report is not None:
@@ -66,10 +68,14 @@ def get_question_data(html, report=None):
     # Find all elements in html with a data-propname atribute
     data_propname_elements = get_elements_with_data_propname_attribute(html)
     
+    duplicate_statement_propnames = get_duplicate_statement_propnames(html)
+
     for element in data_propname_elements:
         # Get list of all property names from propname string
         properties = get_properties(element['data-propname'])
         if properties:
+            if should_skip_duplicate_statement_element(element, duplicate_statement_propnames):
+                continue
             # Get its value from the html
             value = get_element_value(properties, element, report)
             # Nest the value into the question dictionary
@@ -95,6 +101,7 @@ def get_question_data(html, report=None):
         print(f"'{question_name}' converted successfully.")
     
     add_input_symbols(question, html, report)
+    merge_duplicate_statement_fragments(question, html, report)
     return question
 
 """
@@ -108,6 +115,36 @@ def get_elements_with_data_propname_attribute(html):
     Returns a list of the html elements as BeautifulSoup instances.
     """
     return html.find_all(attrs={"data-propname": True})
+
+
+def get_duplicate_statement_propnames(html):
+    duplicate_propnames = set()
+    statement_counts = {}
+
+    for element in get_elements_with_data_propname_attribute(html):
+        propname = element.get("data-propname")
+        if not isinstance(propname, str) or not propname.endswith(".statement"):
+            continue
+        statement_counts[propname] = statement_counts.get(propname, 0) + 1
+
+    for propname, count in statement_counts.items():
+        if count > 1:
+            duplicate_propnames.add(propname)
+
+    return duplicate_propnames
+
+
+def should_skip_duplicate_statement_element(element, duplicate_statement_propnames):
+    propname = element.get("data-propname")
+    if propname not in duplicate_statement_propnames:
+        return False
+
+    parent_part = element.find_parent("div", class_="part")
+    if parent_part is None:
+        return False
+
+    statement_nodes = parent_part.find_all("p", attrs={"data-propname": propname})
+    return len(statement_nodes) > 1 and element is not statement_nodes[0]
 
 
 def add_input_symbols(question, html, report=None):
@@ -140,6 +177,44 @@ def add_input_symbols(question, html, report=None):
         question["parts"][index]["input_symbols"] = [
             [symbol, code] for symbol, code in zip(symbols, codes)
         ]
+
+
+def merge_duplicate_statement_fragments(question, html, report=None):
+    parts = question.get("parts")
+    if not isinstance(parts, list):
+        return
+
+    part_divs = html.find_all("div", class_="part")
+    for index, part_div in enumerate(part_divs):
+        if index >= len(parts) or not isinstance(parts[index], dict):
+            continue
+
+        statement_nodes = part_div.find_all("p", attrs={"data-propname": f"parts.{index + 1}.statement"})
+        if len(statement_nodes) <= 1:
+            continue
+
+        part = parts[index]
+        for extra_node in statement_nodes[1:]:
+            fragment_html = html_unescape_fragment(extra_node.decode_contents())
+
+            placeholder_match = re.search(r"<(\d+)\s*\/?\s*>", fragment_html)
+            if placeholder_match and part.get("response") is None:
+                part["response"] = int(placeholder_match.group(1))
+
+            fragment_without_placeholder = re.sub(r"<\d+\s*\/?\s*>", "", fragment_html)
+            fragment_text = bs4.BeautifulSoup(fragment_without_placeholder, "html.parser").get_text(" ", strip=True)
+            fragment_text = fragment_text.replace("\xa0", " ").strip()
+
+            if fragment_text:
+                existing_text = str(part.get("post_response_text", "")).strip()
+                if existing_text:
+                    part["post_response_text"] = existing_text + " " + fragment_text
+                else:
+                    part["post_response_text"] = fragment_text
+
+
+def html_unescape_fragment(text):
+    return html.unescape(text) if text is not None else ""
  
 def get_properties(propname):
     """
@@ -202,8 +277,32 @@ def get_response(response_html, report=None):
     if response_tag_match:
         return int(response_tag_match.group(1))
     else:
+        if response_tag_recovered_from_duplicate_statement(response_html):
+            return None
         report_warning(report, "Response area tag couldn't be found in element.", response_html.prettify())
         return None
+
+
+def response_tag_recovered_from_duplicate_statement(response_html):
+    propname = response_html.get("data-propname")
+    if not isinstance(propname, str) or not propname.endswith(".response"):
+        return False
+
+    statement_propname = propname[:-len(".response")] + ".statement"
+    parent_part = response_html.find_parent("div", class_="part")
+    if parent_part is None:
+        return False
+
+    statement_nodes = parent_part.find_all(attrs={"data-propname": statement_propname})
+    if len(statement_nodes) <= 1:
+        return False
+
+    for statement_node in statement_nodes[1:]:
+        fragment_html = html_unescape_fragment(statement_node.decode_contents())
+        if re.search(r"<(\d+)\s*\/?\s*>", fragment_html):
+            return True
+
+    return False
 
 def get_custom_response(custom_response_html, report=None):
     inner_html = custom_response_html.p.decode_contents()
