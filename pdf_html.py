@@ -105,6 +105,15 @@ _HTML_TRANSPARENT_TAGS = {"thead", "tbody", "tr", "td", "th", "div", "span"}
 _html_warned_tags: set[str] = set()
 
 
+def reset_html_warnings() -> None:
+    """Clear the set of already-warned unsupported tags.
+
+    Call this between tests to prevent module-level state from suppressing
+    warnings in later test cases.
+    """
+    _html_warned_tags.clear()
+
+
 def render_html_fragment(node: bs4.element.PageElement | None) -> str:
     """Recursively convert a BS4 node to a LaTeX string fragment."""
     if node is None:
