@@ -12,6 +12,7 @@ from import_mobius import (
     import_mobius_package,
     resolve_manifest_path,
     safe_question_basename,
+    select_media_match,
     write_group_json,
 )
 from preview_html import safe_extract_archive
@@ -328,6 +329,22 @@ def test_import_preserves_assignment_question_ref_order(question_types_demo_zip,
     ]
 
 
+def test_select_media_match_prefers_assignment_specific_folder():
+    matches = [
+        "web_folders/Fluid Statics 2/SluiceGate.png",
+        "web_folders/Fluid Motion 01/SluiceGate.png",
+    ]
+    group = {
+        "_path_parts": ["Fluid Motion", "Fluid Motion 01"],
+        "_parent_unit": "Fluid Motion",
+    }
+
+    selected, matched_by_context = select_media_match(matches, group)
+
+    assert selected == "web_folders/Fluid Motion 01/SluiceGate.png"
+    assert matched_by_context is True
+
+
 def test_get_question_data_recovers_placeholder_and_marks_from_duplicate_statement_blocks():
     html = bs4.BeautifulSoup(
         """
@@ -515,6 +532,7 @@ def test_get_question_from_xml_uses_top_level_question_text_not_hint_text():
     assert question["master_statement"] == "Actual question statement."
     assert question["parts"][0]["statement"] == "Actual part."
     assert question["parts"][0]["response"]["mode"] == "Essay"
+    assert "name" not in question["parts"][0]["response"]
 
 
 def test_roundtrip_exercise_json_supported_plain_subset_can_be_rendered(roundtrip_sheet):

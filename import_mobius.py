@@ -129,6 +129,81 @@ def find_web_folders_root(root_dir):
     return None
 
 
+def _tokenize_media_hint(value):
+    if not isinstance(value, str):
+        return []
+
+    tokens = []
+    for token in re.findall(r"[A-Za-z]+|\d+", value.lower()):
+        if token.isdigit():
+            token = str(int(token))
+        tokens.append(token)
+    return tokens
+
+
+def _candidate_path_segments(candidate):
+    normalized = str(candidate).replace("/", os.sep).replace("\\", os.sep)
+    return [segment for segment in normalized.split(os.sep) if segment]
+
+
+def _media_match_score(candidate, group):
+    path_parts = [part for part in (group.get("_path_parts") or []) if isinstance(part, str) and part.strip()]
+    if not path_parts:
+        return (0, 0, 0)
+
+    candidate_segments = _candidate_path_segments(candidate)
+    if not candidate_segments:
+        return (0, 0, 0)
+
+    score_exact = 0
+    score_overlap = 0
+    score_unit_overlap = 0
+    normalized_parts = [tuple(_tokenize_media_hint(part)) for part in path_parts]
+    normalized_segments = [tuple(_tokenize_media_hint(segment)) for segment in candidate_segments]
+
+    for part_tokens in normalized_parts:
+        if not part_tokens:
+            continue
+        part_set = set(part_tokens)
+        for segment_tokens in normalized_segments:
+            if not segment_tokens:
+                continue
+            segment_set = set(segment_tokens)
+            overlap = len(part_set & segment_set)
+            if overlap == 0:
+                continue
+            score_overlap += overlap
+            if segment_tokens == part_tokens:
+                score_exact += 1
+
+    parent_unit = group.get("_parent_unit")
+    if isinstance(parent_unit, str) and parent_unit.strip():
+        unit_tokens = set(_tokenize_media_hint(parent_unit))
+        for segment_tokens in normalized_segments:
+            score_unit_overlap = max(score_unit_overlap, len(unit_tokens & set(segment_tokens)))
+
+    return (score_exact, score_overlap, score_unit_overlap)
+
+
+def select_media_match(matches, group):
+    if len(matches) <= 1:
+        return matches[0] if matches else None, False
+
+    ranked_matches = sorted(
+        matches,
+        key=lambda candidate: (_media_match_score(candidate, group), str(candidate)),
+        reverse=True,
+    )
+    best_match = ranked_matches[0]
+    best_score = _media_match_score(best_match, group)
+    second_score = _media_match_score(ranked_matches[1], group)
+
+    if best_score > second_score and best_score > (0, 0, 0):
+        return best_match, True
+
+    return matches[0], False
+
+
 def gather_media_references(node, output=None):
     if output is None:
         output = set()
@@ -191,15 +266,16 @@ def copy_media(group, destination, source_info, media_strategy, report):
     for filename in sorted(media_refs):
         matches = media_index.get(filename, [])
 
-        if len(matches) > 1:
-            report.warn("Multiple media files matched the same filename; copying the first match.", filename)
-
         if not matches:
             report.warn("Referenced media could not be found in the Mobius export.", filename)
             report.add_missing_media(filename)
             continue
 
-        src = matches[0]
+        src, matched_by_context = select_media_match(matches, group)
+        if len(matches) > 1 and not matched_by_context:
+            report.warn("Multiple media files matched the same filename; copying the first match.", filename)
+        elif len(matches) > 1 and matched_by_context:
+            report.info("Multiple media files matched the same filename; selected the best assignment-specific match.", filename)
         target_path = os.path.join(media_dest, filename)
 
         if source_info["source_type"] == "zip":

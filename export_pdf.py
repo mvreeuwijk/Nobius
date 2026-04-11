@@ -160,13 +160,23 @@ def render_html_fragment(node):
     return "".join(render_html_fragment(child) for child in node.children)
 
 
+HTML_TAG_PATTERN = re.compile(r"<\s*/?\s*[A-Za-z][^>]*>")
+HTML_ENTITY_PATTERN = re.compile(r"&(?:[A-Za-z][A-Za-z0-9]+|#[0-9]+|#x[0-9A-Fa-f]+);")
+
+
+def looks_like_html_markup(input_text):
+    if not isinstance(input_text, str):
+        return False
+    return bool(HTML_TAG_PATTERN.search(input_text) or HTML_ENTITY_PATTERN.search(input_text))
+
+
 def html_to_tex(input_text):
     if not input_text:
         return ""
 
     input_text = normalize_tex_list_environments(input_text)
 
-    if "<" not in input_text and "&" not in input_text:
+    if not looks_like_html_markup(input_text):
         return input_text
 
     soup = bs4.BeautifulSoup(input_text, "html.parser")
@@ -302,6 +312,15 @@ def build_footer_mark(sheet_name, heading_config):
     return escaped_title
 
 
+def build_exam_question_heading(question_title, heading_config):
+    title = tex_escape_text(str(question_title or "").strip())
+    prefix = str(heading_config.get("footer_label", "") or "").strip()
+    if prefix:
+        suffix = "." if not prefix.endswith((".", "!", "?", ":")) else ""
+        return f"{prefix}{suffix} {title}"
+    return title
+
+
 def apply_algorithm_values(text, content):
     if "algorithm" in content and "PDF_values" in content:
         return clean_algorithm(text, content["PDF_values"])
@@ -318,6 +337,20 @@ def normalize_inline_tex_math(text):
         text,
         flags=re.S,
     )
+
+
+def escape_unmatched_numeric_dollar_signs(text):
+    if not text:
+        return text
+
+    return re.sub(r"(?<!\\)\$(?=\d)", r"\\$", text)
+
+
+def escape_literal_percent_signs(text):
+    if not text:
+        return text
+
+    return re.sub(r"(?<!\\)%", r"\\%", text)
 
 
 def preprocess_tex_like_text(text):
@@ -415,6 +448,8 @@ def protect_unresolved_algorithm_tokens(text):
         return text
 
     text = normalize_inline_tex_math(text)
+    text = escape_unmatched_numeric_dollar_signs(text)
+    text = escape_literal_percent_signs(text)
 
     return re.sub(
         r"(?<!\\)\$([A-Za-z][A-Za-z0-9_]*)",
@@ -875,11 +910,9 @@ def generate_pdf_output(tex_path, pdf_path):
             print("\033[91m[ERROR] Something went wrong with running pdflatex\033[0m")
             temp_log_path = os.path.join(temp_dir, "temp_pdf.log")
             if os.path.isfile(temp_log_path):
-                print("\033[96m[PDF] Log available, print? [Y/N]: \033[0m", end="")
-                if str(input()).lower() == "y":
-                    with open(temp_log_path, "r", encoding="utf-8") as file:
-                        for line in file.readlines():
-                            print("\033[93m" + line.rstrip() + "\033[0m")
+                failure_log_path = os.path.splitext(pdf_path)[0] + ".log"
+                shutil.copyfile(temp_log_path, failure_log_path)
+                print(f"\033[93m[PDF] Wrote LaTeX log to {failure_log_path}\033[0m")
             else:
                 print("\tLog file wasn't even created, printing CompletedProcess object")
                 print(completed)
@@ -957,7 +990,7 @@ def generate_tex_output(
             file.write("\\setcounter{section}{" + str(sheet_info["number"] - 1) + "}")
             file.write("\\section{" + sheet_info["name"] + "}")
             file.write("\\nobiussetmark{" + footer_mark + "}")
-        if content_mode != "review":
+        if content_mode != "review" and not is_exam_profile:
             file.write(
                 "\\ETrule Note: this sheet was automatically generated from the online version. "
                 "Not all content translates to the offline version, please visit the online version, "
@@ -971,10 +1004,14 @@ def generate_tex_output(
 
             file.write("")
             file.write("\\ETrule")
-            heading_command = r"\section{" if is_exam_profile else r"\subsection{"
-            file.write(heading_command)
-            file.write(content["title"])
-            file.write("}\n")
+            if is_exam_profile:
+                file.write(r"\section*{")
+                file.write(build_exam_question_heading(content["title"], heading_config))
+                file.write("}\n")
+            else:
+                file.write(r"\subsection{")
+                file.write(content["title"])
+                file.write("}\n")
 
             if content_mode == "review":
                 write_review_metadata(file, question_filename, content)

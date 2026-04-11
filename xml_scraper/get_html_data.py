@@ -5,10 +5,24 @@ import re
 
 import bs4
 
+RECOVERED_RESPONSE_PLACEHOLDER = object()
+
 
 def report_warning(report, message, context=None):
     if report is not None:
         report.warn(message, context)
+    if context:
+        print(f"{message} [{context}]")
+    else:
+        print(message)
+
+
+def report_info(report, message, context=None):
+    if report is not None:
+        if hasattr(report, "info"):
+            report.info(message, context)
+        else:
+            report.warn(message, context)
     if context:
         print(f"{message} [{context}]")
     else:
@@ -78,6 +92,8 @@ def get_question_data(html, report=None):
                 continue
             # Get its value from the html
             value = get_element_value(properties, element, report)
+            if value is RECOVERED_RESPONSE_PLACEHOLDER:
+                continue
             # Nest the value into the question dictionary
             error = nest_dictionary(question, properties, value, report)
             if error:
@@ -194,12 +210,15 @@ def merge_duplicate_statement_fragments(question, html, report=None):
             continue
 
         part = parts[index]
+        recovered_placeholder = False
+        recovered_post_response_text = False
         for extra_node in statement_nodes[1:]:
             fragment_html = html_unescape_fragment(extra_node.decode_contents())
 
             placeholder_match = re.search(r"<(\d+)\s*\/?\s*>", fragment_html)
             if placeholder_match and part.get("response") is None:
                 part["response"] = int(placeholder_match.group(1))
+                recovered_placeholder = True
 
             fragment_without_placeholder = re.sub(r"<\d+\s*\/?\s*>", "", fragment_html)
             fragment_text = bs4.BeautifulSoup(fragment_without_placeholder, "html.parser").get_text(" ", strip=True)
@@ -211,6 +230,12 @@ def merge_duplicate_statement_fragments(question, html, report=None):
                     part["post_response_text"] = existing_text + " " + fragment_text
                 else:
                     part["post_response_text"] = fragment_text
+                recovered_post_response_text = True
+
+        if recovered_placeholder:
+            report_info(report, "Recovered response placeholder from duplicate statement fragments.", f"parts.{index + 1}.response")
+        if recovered_post_response_text:
+            report_info(report, "Recovered post-response text from duplicate statement fragments.", f"parts.{index + 1}.post_response_text")
 
 
 def html_unescape_fragment(text):
@@ -278,7 +303,7 @@ def get_response(response_html, report=None):
         return int(response_tag_match.group(1))
     else:
         if response_tag_recovered_from_duplicate_statement(response_html):
-            return None
+            return RECOVERED_RESPONSE_PLACEHOLDER
         report_warning(report, "Response area tag couldn't be found in element.", response_html.prettify())
         return None
 

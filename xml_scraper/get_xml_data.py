@@ -1,4 +1,4 @@
-from .get_html_data import get_question_data, report_warning
+from .get_html_data import get_question_data, report_info, report_warning
 
 import json
 import bs4
@@ -162,6 +162,7 @@ def get_question_from_xml(question_xml, report=None):
     if "parts" not in question or not question["parts"]:
         question.update(build_minimal_question_structure(question_xml, parts, report))
     add_parts_to_question(question, parts, report)
+    normalize_embedded_responses(question, report)
     normalize_question_structure(question, report)
     
     return question
@@ -182,10 +183,28 @@ def normalize_question_structure(question, report=None):
         if isinstance(statement, str) and statement.strip() and (part_statement is None or not str(part_statement).strip()):
             parts[0]["statement"] = statement.strip()
             del icon_data["statement"]
-            report_warning(report, "Moved misplaced icon_data.statement into the first part statement during import.", question.get("title"))
+            report_info(report, "Moved misplaced icon_data.statement into the first part statement during import.", question.get("title"))
 
     if isinstance(icon_data, dict) and not icon_data:
         question.pop("icon_data", None)
+
+
+def normalize_embedded_responses(node, report=None):
+    if isinstance(node, list):
+        for item in node:
+            normalize_embedded_responses(item, report)
+        return
+
+    if not isinstance(node, dict):
+        return
+
+    response = node.get("response")
+    if isinstance(response, dict):
+        node["response"] = normalize_response(response, report)
+    for key, value in node.items():
+        if key == "response":
+            continue
+        normalize_embedded_responses(value, report)
 
 
 def get_assignment_sheets_from_xml(xml, question_lookup, questions_in_document_order, report=None):
@@ -388,6 +407,11 @@ def add_parts_to_question(question, parts, report=None):
         link_response_answers(p, parts, report)
 
         if "structured_tutorial" in p:
+            p["structured_tutorial"] = filter_malformed_items(
+                p["structured_tutorial"],
+                report,
+                "Dropped malformed entries from a structured tutorial list during import.",
+            )
             for st in p["structured_tutorial"]:
                 if not isinstance(st, dict):
                     report_warning(report, "Skipped a malformed structured tutorial part during import.", str(st))
@@ -406,6 +430,11 @@ def link_response_answers(p, parts, report=None):
     elif "custom_response" in p:
         p["custom_response"] = link_custom_answers(p["custom_response"], parts, report)
     elif "responses" in p and len(p["responses"]) != 0:
+        p["responses"] = filter_malformed_items(
+            p["responses"],
+            report,
+            "Dropped malformed entries from a response list during import.",
+        )
         for r in p["responses"]:
             link_response_answers(r, parts, report)
     elif "response" in p and p["response"] is not None:
@@ -456,14 +485,14 @@ def normalize_response(response, report=None):
         response_name = str(response_name).strip()
 
     if normalized.get("mode") == "Multiple Choice":
-        report_warning(
+        report_info(
             report,
             "Normalized Möbius Multiple Choice mode into Nobius authoring mode.",
             response_name,
         )
         normalized["mode"] = "Non Permuting Multiple Choice"
     elif normalized.get("mode") == "Multiple Response":
-        report_warning(
+        report_info(
             report,
             "Normalized Möbius Multiple Response mode into Nobius authoring mode.",
             response_name,
@@ -490,7 +519,7 @@ def normalize_response(response, report=None):
             answer_value.setdefault("units", "")
 
     if normalized.get("mode") == "List" and isinstance(normalized.get("display"), str):
-        report_warning(
+        report_info(
             report,
             "Normalized List response display from legacy scalar form to Nobius object form.",
             normalized.get("display"),
@@ -501,7 +530,7 @@ def normalize_response(response, report=None):
         }
     elif normalized.get("mode") == "Document Upload":
         code_type = normalized.get("codeType", 0)
-        report_warning(
+        report_info(
             report,
             "Normalized Document Upload response into Nobius authoring fields.",
             response_name,
@@ -520,7 +549,7 @@ def normalize_response(response, report=None):
             2: "alphanumeric"
         }.get(code_type, code_type)
     elif normalized.get("mode") == "HTML":
-        report_warning(
+        report_info(
             report,
             "Normalized HTML response field names into Nobius authoring fields.",
             response_name,
@@ -793,3 +822,13 @@ def cast_prop_string(prop_string):
         return float(prop_string)
     else:
         return prop_string.strip() # remove whitespace at ends of string from CDATA
+def filter_malformed_items(items, report, message):
+    if not isinstance(items, list):
+        return items
+
+    cleaned = [item for item in items if item is not None]
+    dropped = len(items) - len(cleaned)
+    if dropped:
+        report_info(report, message, str(dropped))
+
+    return cleaned

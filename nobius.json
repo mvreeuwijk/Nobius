@@ -37,7 +37,7 @@
   "pdf": {
     "headings": {
       "problem_sets": {
-        "footer_label": "CIVE40008 Fluid Mechanics I Set \\#",
+        "footer_label": "CIVE40008 Fluid Mechanics I",
         "section_label": "CIVE40008 Problem Set \\#"
       },
       "exam": {
@@ -45,8 +45,8 @@
         "section_label": ""
       },
       "generic": {
-        "footer_label": "Sheet \\#",
-        "section_label": "Nobius Sheet \\#"
+        "footer_label": "Assignment \\#",
+        "section_label": "Nobius Sheet"
       }
     }
   }

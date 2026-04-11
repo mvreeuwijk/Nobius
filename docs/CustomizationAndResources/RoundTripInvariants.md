@@ -22,11 +22,35 @@ These should be treated as generated mechanics, not hand-authored template conte
 These are the structural markers that allow `import_mobius.py` to reconstruct rich Nobius JSON fields rather than only a minimal question.
 
 - `data-propname` attributes on authored content
-- expected question/part wrapper structure around statements, responses, worked solutions, final answers, and tutorials
-- help/solution/tutorial containers used by the HTML scraper
+- response placeholders such as `<1>`, `<2>`, ... appearing in the rendered HTML
+- the top-level question `<text>` node containing the rendered Nobius question HTML
 - media containers carrying `data-propname`-addressable content
+- input-symbol tables for Maple questions
 
 If these markers are removed from a template, the package may still render correctly in Mobius, but import fidelity will drop.
+
+## Intended importer contract
+
+The importer is intentionally coupled to a small set of Nobius-authored HTML annotations. This is by design: Nobius exports extra reconstruction metadata into the Mobius question HTML, and the importer reads that metadata back.
+
+The important point is that the contract should be based on authored metadata, not incidental presentation structure.
+
+### Intended and stable
+
+- `data-propname` values such as `title`, `master_statement`, `parts.1.statement`, `parts.1.response`, `parts.1.pre_response_text`
+- placeholder tags like `<1>` that identify response-area positions
+- `div.part` wrappers, because parts are a semantic authored unit
+- `table.input-symbols-table` with `tr.code` and `tr.symbols` for Maple input-symbol recovery
+- the XML `<parts>` definitions, which are used to recover response definitions even when the HTML wrapper is sparse
+
+### Avoid relying on casually
+
+- purely visual wrapper nesting
+- styling-only class names
+- help-panel layout details
+- exact tab markup or other presentational containers
+
+The importer may still contain a small number of fallbacks for current rendered HTML, but those should be treated as repair paths, not the main compatibility contract.
 
 ## Safe vs unsafe template edits
 
@@ -39,7 +63,9 @@ If these markers are removed from a template, the package may still render corre
 ### Round-trip breaking
 
 - removing `data-propname`
-- flattening or removing worked-solution / final-answer / tutorial containers the importer expects
+- removing response placeholders such as `<1>`
+- moving the actual question HTML out of the question's top-level `<text>` node
+- removing semantic part wrappers entirely
 - hand-editing generated response placeholders
 - changing template structure so authored content is no longer reachable by the HTML scraper
 
@@ -49,6 +75,6 @@ If you want a template to remain round-trippable:
 
 - let Nobius generate response placeholders
 - keep `data-propname` markup intact
-- preserve the authored-content container structure
+- preserve the semantic authored-content structure
 
 If you only need a Mobius-valid export and do not care about high-fidelity re-import, the template can be much freer.

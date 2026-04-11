@@ -85,12 +85,21 @@ def test_generate_review_tex_includes_compact_metadata_blocks(t01_sheet):
 
 
 def test_generate_questions_tex_keeps_online_version_note(t01_sheet):
-    generate_tex_output(str(t01_sheet), True, "questions")
+    generate_tex_output(str(t01_sheet), True, "questions", profile_name="problem_set")
 
     tex_path = t01_sheet / "renders" / "Fundamentals.tex"
     tex_content = tex_path.read_text(encoding="utf-8")
 
     assert "Note: this sheet was automatically generated from the online version." in tex_content
+
+
+def test_generate_exam_questions_tex_omits_online_version_note(t01_sheet):
+    generate_tex_output(str(t01_sheet), True, "questions", profile_name="exam")
+
+    tex_path = t01_sheet / "renders" / "Fundamentals.tex"
+    tex_content = tex_path.read_text(encoding="utf-8")
+
+    assert "Note: this sheet was automatically generated from the online version." not in tex_content
 
 
 def test_generate_solutions_tex_omits_worked_solution_label_but_keeps_content_and_solution_label(t01_sheet):
@@ -209,7 +218,7 @@ def test_generate_tex_omits_section_prefix_when_section_label_is_blank(t01_sheet
     assert r"\nobiussetmark{Exam. Fundamentals}" in tex_content
 
 
-def test_generate_exam_tex_uses_section_headings_for_questions(t01_sheet, tmp_path):
+def test_generate_exam_tex_uses_unnumbered_prefixed_headings_for_questions(t01_sheet, tmp_path):
     config_path = tmp_path / "nobius.json"
     config_path.write_text(
         json.dumps(
@@ -225,7 +234,7 @@ def test_generate_exam_tex_uses_section_headings_for_questions(t01_sheet, tmp_pa
                 "pdf": {
                     "headings": {
                         "exam": {
-                            "footer_label": "",
+                            "footer_label": "CIVE40008 Fluid Mechanics I",
                             "section_label": "",
                         }
                     },
@@ -258,7 +267,8 @@ def test_generate_exam_tex_uses_section_headings_for_questions(t01_sheet, tmp_pa
 
     assert r"\section*{Fundamentals}" in tex_content
     assert r"\subsection{Fluids}" not in tex_content
-    assert r"\section{Fluids}" in tex_content
+    assert r"\section{Fluids}" not in tex_content
+    assert r"\section*{CIVE40008 Fluid Mechanics I. Fluids}" in tex_content
 
 
 def test_build_footer_mark_truncates_sheet_name_to_four_words():
@@ -524,6 +534,22 @@ def test_protect_unresolved_algorithm_tokens_preserves_inline_tex_math():
     assert r"\texttt{[\$F]}" in protected
 
 
+def test_protect_unresolved_algorithm_tokens_escapes_unmatched_currency_dollar_signs():
+    protected = protect_unresolved_algorithm_tokens(
+        "Assume an energy price of $0.12 per kilowatt-hour (kWh)."
+    )
+
+    assert r"\$0.12 per kilowatt-hour (kWh)." in protected
+
+
+def test_protect_unresolved_algorithm_tokens_escapes_literal_percent_signs():
+    protected = protect_unresolved_algorithm_tokens(
+        "Assume that the pump efficiency is 90%."
+    )
+
+    assert r"90\%." in protected
+
+
 def test_html_to_tex_converts_html_lists():
     converted = html_to_tex("<ol><li>First</li><li>Second</li></ol>")
 
@@ -547,6 +573,12 @@ def test_html_to_tex_normalizes_latex_enumerate_label_syntax():
     converted = html_to_tex(r"\begin{enumerate} [label=\alph*)]\item A\end{enumerate}")
 
     assert r"\begin{enumerate}[(a)]" in converted
+
+
+def test_html_to_tex_does_not_parse_plain_text_that_only_looks_like_a_locator():
+    converted = html_to_tex(r"See figure <1> in file lock.png")
+
+    assert converted == r"See figure <1> in file lock.png"
 
 
 def test_mark_extraction_counts_statement_and_response_marks():

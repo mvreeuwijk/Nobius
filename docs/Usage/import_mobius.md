@@ -60,6 +60,7 @@ The script writes `import_report.json` and `import_report.txt` into the destinat
 These reports include:
 
 - warnings raised during HTML/XML reconstruction
+- informational recovery and normalization notes
 - copied media and missing media
 - all written output paths
 - processing context for warnings
@@ -71,6 +72,11 @@ In `import_report.txt`, warnings include the item being processed and, where ava
 ```
 
 This makes it easier to trace problems back to the exact question, assignment, or unit in the exported package.
+
+The text report now separates:
+
+- `Warnings`: unresolved problems or cases that may still need review
+- `Info`: successful recovery or normalization steps, for example when a response placeholder or mark annotation was recovered from split statement fragments
 
 ## Round-trip workflow
 
