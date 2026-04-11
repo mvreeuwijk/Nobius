@@ -9,31 +9,17 @@ on the installed LaTeX toolchain.
 """
 
 import argparse
-import json
 import os
 import re
 import shutil
 import subprocess
-import sys
 import tempfile
 from subprocess import PIPE
 
 import bs4
 import validation
 from nobius_config import load_config, resolve_pdf_profile, resolve_profile_name
-
-
-def load_json_file(filepath):
-    # Copied from Pierre/Louis
-    with open(filepath, "r", encoding="utf-8") as file:
-        try:
-            json_dictionary = json.load(file)
-        except json.JSONDecodeError as error:
-            print(validation.get_path_string([os.path.basename(filepath)]))
-            sys.tracebacklimit = 0
-            raise error
-
-    return json_dictionary
+from render_common import load_json_file
 
 
 def get_batch_sheet_directories(parent_dir):
@@ -889,35 +875,37 @@ def generate_pdf_output(tex_path, pdf_path):
     initial_dir = os.getcwd()
     os.chdir(os.path.split(tex_path)[0])
 
-    with tempfile.TemporaryDirectory() as temp_dir:
-        args = [
-            "pdflatex",
-            f"-output-directory={temp_dir}",
-            "-jobname=temp_pdf",
-            "-interaction=batchmode",
-            os.path.basename(tex_path),
-        ]
+    try:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            args = [
+                "pdflatex",
+                f"-output-directory={temp_dir}",
+                "-jobname=temp_pdf",
+                "-interaction=batchmode",
+                os.path.basename(tex_path),
+            ]
 
-        completed = None
-        for _ in range(2):
+            # Run pdflatex twice: the first pass builds the document, the second
+            # resolves cross-references (page numbers, TOC entries, etc.).
+            completed = subprocess.run(args, timeout=60, stdout=PIPE, stderr=PIPE)
             completed = subprocess.run(args, timeout=60, stdout=PIPE, stderr=PIPE)
 
-        temp_pdf_path = os.path.join(temp_dir, "temp_pdf.pdf")
-        if os.path.isfile(temp_pdf_path):
-            shutil.move(temp_pdf_path, pdf_path)
-            print(f"\033[92m[PDF] Success! Created {os.path.basename(pdf_path)} \033[0m")
-        else:
-            print("\033[91m[ERROR] Something went wrong with running pdflatex\033[0m")
-            temp_log_path = os.path.join(temp_dir, "temp_pdf.log")
-            if os.path.isfile(temp_log_path):
-                failure_log_path = os.path.splitext(pdf_path)[0] + ".log"
-                shutil.copyfile(temp_log_path, failure_log_path)
-                print(f"\033[93m[PDF] Wrote LaTeX log to {failure_log_path}\033[0m")
+            temp_pdf_path = os.path.join(temp_dir, "temp_pdf.pdf")
+            if os.path.isfile(temp_pdf_path):
+                shutil.move(temp_pdf_path, pdf_path)
+                print(f"\033[92m[PDF] Success! Created {os.path.basename(pdf_path)} \033[0m")
             else:
-                print("\tLog file wasn't even created, printing CompletedProcess object")
-                print(completed)
-
-    os.chdir(initial_dir)
+                print("\033[91m[ERROR] Something went wrong with running pdflatex\033[0m")
+                temp_log_path = os.path.join(temp_dir, "temp_pdf.log")
+                if os.path.isfile(temp_log_path):
+                    failure_log_path = os.path.splitext(pdf_path)[0] + ".log"
+                    shutil.copyfile(temp_log_path, failure_log_path)
+                    print(f"\033[93m[PDF] Wrote LaTeX log to {failure_log_path}\033[0m")
+                else:
+                    print("\tLog file wasn't even created, printing CompletedProcess object")
+                    print(completed)
+    finally:
+        os.chdir(initial_dir)
 
 
 def import_pypdf2():
@@ -1107,7 +1095,6 @@ def main():
         print(f"\n    └─── {sheets[-1]}\n")
 
         with tempfile.TemporaryDirectory() as tmp_merge_folder:
-            print(f"[DEBUG] Temp dir is in {tmp_merge_folder}")
             rendered_pdfs = []
             pages_acc = 0
             for sheet in sheets:

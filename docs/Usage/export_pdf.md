@@ -56,7 +56,7 @@ Example:
   "profiles": {
     "exam": {
       "pdf": {
-        "heading": "problem_sets"
+        "heading": "exam"
       }
     },
     "html_preview": {

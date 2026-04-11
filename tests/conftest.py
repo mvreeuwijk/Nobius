@@ -33,7 +33,7 @@ TEST_RENDER_CONFIG = {
                 "scripts_location": "/web/test/exam-scripts.js",
             },
             "pdf": {
-                "heading": "problem_sets",
+                "heading": "exam",
             },
         },
         "html_preview": {
@@ -174,11 +174,10 @@ def custom_response_placeholders(layout):
 
 def make_render_settings(config=None, profile_name="problem_set", render_mode="assignment"):
     config = config or TEST_RENDER_CONFIG
-    layout_profile = "exam" if render_mode == "assignment" else "default"
     return {
         "theme_location": config["profiles"][profile_name]["render"]["theme_location"],
         "scripts_location": config["profiles"][profile_name]["render"]["scripts_location"],
-        "layout_profile": layout_profile,
+        "layout_profile": profile_name,
     }
 
 
@@ -211,7 +210,7 @@ def make_config_payload(
                     "scripts_location": exam_scripts_location,
                 },
                 "pdf": {
-                    "heading": "problem_sets",
+                    "heading": "exam",
                 },
             },
             "html_preview": {

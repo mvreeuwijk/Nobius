@@ -22,7 +22,7 @@ DEFAULT_CONFIG = {
                 "scripts_location": "__BASE_URI__Scripts/QuestionJavaScript.txt",
             },
             "pdf": {
-                "heading": "problem_sets",
+                "heading": "exam",
             },
         },
         "html_preview": {

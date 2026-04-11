@@ -434,6 +434,46 @@ def test_make_matrix_maple_expands_into_scalar_maple_responses():
     assert [response["mapleAnswer"] for response in responses] == ["a", "b", "c", "d"]
 
 
+def test_make_matrix_numeric_responses_are_independent_copies():
+    params = {
+        "mode": "Matrix Numeric",
+        "answer": [[1, 2], [3, 4]],
+        "showUnits": True,
+        "nested": {"key": "shared"},
+    }
+
+    _, responses = make_matrix(params, 1)
+
+    # Mutating one response's nested dict must not affect the others.
+    responses[0]["nested"]["key"] = "mutated"
+    assert responses[1]["nested"]["key"] == "shared"
+    assert responses[2]["nested"]["key"] == "shared"
+
+
+def test_make_matrix_maple_responses_are_independent_copies():
+    params = {
+        "mode": "Matrix Maple",
+        "mapleAnswer": [["a", "b"], ["c", "d"]],
+        "nested": {"key": "shared"},
+    }
+
+    _, responses = make_matrix(params, 1)
+
+    responses[0]["nested"]["key"] = "mutated"
+    assert responses[1]["nested"]["key"] == "shared"
+    assert responses[2]["nested"]["key"] == "shared"
+
+
+def test_make_matrix_raises_for_empty_numeric_answer():
+    with pytest.raises(NobiusRenderError, match="non-empty"):
+        make_matrix({"mode": "Matrix Numeric", "answer": []}, 1)
+
+
+def test_make_matrix_raises_for_empty_maple_answer():
+    with pytest.raises(NobiusRenderError, match="non-empty"):
+        make_matrix({"mode": "Matrix Maple", "mapleAnswer": []}, 1)
+
+
 def test_process_custom_response_rewrites_list_placeholders(t01_sheet):
     question = load_question_by_title(t01_sheet, "Volume02")
     part = question["parts"][0]

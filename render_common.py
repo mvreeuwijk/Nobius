@@ -1,10 +1,10 @@
 from jinja2 import Environment, FileSystemLoader
 from uuid import NAMESPACE_URL, uuid4, uuid5
+import copy
 import json
 import os
 import re
 import shutil
-import sys
 from zipfile import ZipFile
 
 import templates.filters as filters
@@ -53,10 +53,9 @@ def load_json_file(filepath):
     with open(filepath, "r", encoding="utf-8") as file:
         try:
             return json.load(file)
-        except json.JSONDecodeError as error:
+        except json.JSONDecodeError:
             print(validation.get_path_string([os.path.basename(filepath)]))
-            sys.tracebacklimit = 0
-            raise error
+            raise
 
 
 def ensure_stable_uid(payload, filepath, clear_uids=False, write_missing_uids=False):
@@ -65,7 +64,7 @@ def ensure_stable_uid(payload, filepath, clear_uids=False, write_missing_uids=Fa
     if clear_uids:
         payload["uid"] = str(uuid4())
         with open(filepath, "w", encoding="utf-8") as file:
-            json.dump(payload, file, indent=3)
+            json.dump(payload, file, indent=4)
         return payload["uid"]
 
     if has_uid:
@@ -74,7 +73,7 @@ def ensure_stable_uid(payload, filepath, clear_uids=False, write_missing_uids=Fa
     if write_missing_uids:
         payload["uid"] = str(uuid4())
         with open(filepath, "w", encoding="utf-8") as file:
-            json.dump(payload, file, indent=3)
+            json.dump(payload, file, indent=4)
         return payload["uid"]
 
     raise NobiusRenderError(
@@ -231,6 +230,8 @@ def make_matrix(params, identifier):
 
     if params["mode"] == "Matrix Numeric":
         rows = len(params["answer"])
+        if rows == 0 or len(params["answer"][0]) == 0:
+            raise NobiusRenderError("Matrix Numeric response requires a non-empty answer array")
         cols = len(params["answer"][0])
         data = [[identifier + j + cols * i for j in range(cols)] for i in range(rows)]
         params["mode"] = "Numeric"
@@ -238,19 +239,21 @@ def make_matrix(params, identifier):
 
         for row in params["answer"]:
             for answer in row:
-                curr = params.copy()
+                curr = copy.deepcopy(params)
                 curr["answer"] = {"num": answer}
                 res_areas += [curr]
 
     elif params["mode"] == "Matrix Maple":
         rows = len(params["mapleAnswer"])
+        if rows == 0 or len(params["mapleAnswer"][0]) == 0:
+            raise NobiusRenderError("Matrix Maple response requires a non-empty mapleAnswer array")
         cols = len(params["mapleAnswer"][0])
         data = [[identifier + j + cols * i for j in range(cols)] for i in range(rows)]
         params["mode"] = "Maple"
 
         for row in params["mapleAnswer"]:
             for answer in row:
-                curr = params.copy()
+                curr = copy.deepcopy(params)
                 curr["mapleAnswer"] = answer
                 res_areas += [curr]
     else:
@@ -303,7 +306,7 @@ def normalize_response_area_for_render(response):
 
 
 def iter_render_media_files(media_path):
-    for media_file in os.listdir(media_path):
+    for media_file in sorted(os.listdir(media_path)):
         if media_file.startswith("."):
             continue
         yield media_file
@@ -517,8 +520,7 @@ def render_sheet(work_dir, template_name, render_settings, reset_uid=False, writ
     )
 
     renders_dir = os.path.join(work_dir, "renders")
-    if not os.path.exists(renders_dir):
-        os.mkdir(renders_dir)
+    os.makedirs(renders_dir, exist_ok=True)
 
     media_path = resolve_media_path(work_dir)
     zip_path = None
