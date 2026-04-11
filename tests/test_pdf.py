@@ -2,18 +2,20 @@ import json
 import subprocess
 import sys
 
-from export_pdf import (
+from export_pdf import get_batch_sheet_directories
+from pdf_content import (
     build_footer_mark,
     compute_part_marks,
     extract_marks_from_text,
     generate_tex_output,
     get_part_mark_breakdown,
-    get_batch_sheet_directories,
-    html_to_tex,
+    resolve_pdf_heading,
+)
+from pdf_html import html_to_tex
+from pdf_tex import (
     inline_worked_solution_figures,
     namespace_tex_labels,
     protect_unresolved_algorithm_tokens,
-    resolve_pdf_heading,
     split_algorithm_commands,
 )
 
@@ -614,7 +616,7 @@ def test_part_mark_breakdown_reports_total_and_response_split():
 
 
 def test_preprocess_tex_like_text_normalizes_tex_style_unit_exponents():
-    from export_pdf import preprocess_tex_like_text
+    from pdf_tex import preprocess_tex_like_text
 
     processed = preprocess_tex_like_text(r"Q = 7.5 \times 10^{-4} m$^3$s$^{-1}$")
 

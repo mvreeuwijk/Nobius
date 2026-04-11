@@ -7,6 +7,8 @@ from uuid import uuid4
 
 import pytest
 
+import pdf_html
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = REPO_ROOT.parent
@@ -418,3 +420,16 @@ def roundtrip_demo_zip():
 @pytest.fixture
 def experimental_sheet_v2_baseline_xml():
     return BASELINES_ROOT / "Experimental Sheet V2__6e6882e.xml"
+
+
+@pytest.fixture(autouse=True)
+def reset_html_warned_tags():
+    """Reset the html_to_tex unsupported-tag warning set before each test.
+
+    ``pdf_html._html_warned_tags`` is module-level mutable state; without this
+    fixture a tag warned in an early test would be silently skipped in every
+    later test that exercises the same path.
+    """
+    pdf_html.reset_html_warnings()
+    yield
+    pdf_html.reset_html_warnings()
