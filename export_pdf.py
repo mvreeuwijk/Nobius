@@ -17,8 +17,8 @@ import tempfile
 from subprocess import PIPE
 
 import bs4
-import validation
 from nobius_config import load_config, resolve_pdf_profile, resolve_profile_name
+from pypdf import PdfReader, PdfWriter
 from render_common import load_json_file
 
 
@@ -140,11 +140,23 @@ def render_html_fragment(node):
         return "\n\\begin{enumerate}\n" + "\n".join(items) + "\n\\end{enumerate}\n"
     if name == "table":
         return "\n" + render_html_table(node) + "\n"
-    if name in {"thead", "tbody", "tr", "td", "th", "div", "span"}:
+    if name in _HTML_TRANSPARENT_TAGS:
         return "".join(render_html_fragment(child) for child in node.children)
 
+    if name not in _html_warned_tags:
+        print(f"[WARNING] html_to_tex: unsupported HTML tag <{name}> — children rendered as plain text")
+        _html_warned_tags.add(name)
     return "".join(render_html_fragment(child) for child in node.children)
 
+
+# Tags that html_to_tex actively converts to LaTeX equivalents.
+_HTML_SUPPORTED_TAGS = {"br", "i", "em", "b", "strong", "p", "ul", "ol", "li", "table"}
+
+# Tags whose children are rendered transparently (no LaTeX wrapper emitted).
+_HTML_TRANSPARENT_TAGS = {"thead", "tbody", "tr", "td", "th", "div", "span"}
+
+# Tracks unsupported tags already warned about this process to avoid log spam.
+_html_warned_tags: set[str] = set()
 
 HTML_TAG_PATTERN = re.compile(r"<\s*/?\s*[A-Za-z][^>]*>")
 HTML_ENTITY_PATTERN = re.compile(r"&(?:[A-Za-z][A-Za-z0-9]+|#[0-9]+|#x[0-9A-Fa-f]+);")
@@ -861,57 +873,46 @@ def generate_pdf_output(tex_path, pdf_path):
     - interaction: batchmode will essentially suppress all the errors
       (not very nice for debugging)
 
-    We have to move to the directory the tex_path is in so that images can be
-    rendered properly.
+    pdflatex is run with cwd set to the tex file's directory so that relative
+    image paths resolve correctly.
     """
     print(f"[PDF] Getting reading to generate {os.path.basename(pdf_path)}")
     tex_path = os.path.abspath(tex_path)
     pdf_path = os.path.abspath(pdf_path)
+    tex_dir = os.path.dirname(tex_path)
 
     if shutil.which("pdflatex") is None:
         print("\033[91m[ERROR] pdflatex is not an executable on this system (check PATH and install)\033[0m")
         return
 
-    initial_dir = os.getcwd()
-    os.chdir(os.path.split(tex_path)[0])
+    with tempfile.TemporaryDirectory() as temp_dir:
+        args = [
+            "pdflatex",
+            f"-output-directory={temp_dir}",
+            "-jobname=temp_pdf",
+            "-interaction=batchmode",
+            os.path.basename(tex_path),
+        ]
 
-    try:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            args = [
-                "pdflatex",
-                f"-output-directory={temp_dir}",
-                "-jobname=temp_pdf",
-                "-interaction=batchmode",
-                os.path.basename(tex_path),
-            ]
+        # Run pdflatex twice: the first pass builds the document, the second
+        # resolves cross-references (page numbers, TOC entries, etc.).
+        completed = subprocess.run(args, timeout=60, stdout=PIPE, stderr=PIPE, cwd=tex_dir)
+        completed = subprocess.run(args, timeout=60, stdout=PIPE, stderr=PIPE, cwd=tex_dir)
 
-            # Run pdflatex twice: the first pass builds the document, the second
-            # resolves cross-references (page numbers, TOC entries, etc.).
-            completed = subprocess.run(args, timeout=60, stdout=PIPE, stderr=PIPE)
-            completed = subprocess.run(args, timeout=60, stdout=PIPE, stderr=PIPE)
-
-            temp_pdf_path = os.path.join(temp_dir, "temp_pdf.pdf")
-            if os.path.isfile(temp_pdf_path):
-                shutil.move(temp_pdf_path, pdf_path)
-                print(f"\033[92m[PDF] Success! Created {os.path.basename(pdf_path)} \033[0m")
+        temp_pdf_path = os.path.join(temp_dir, "temp_pdf.pdf")
+        if os.path.isfile(temp_pdf_path):
+            shutil.move(temp_pdf_path, pdf_path)
+            print(f"\033[92m[PDF] Success! Created {os.path.basename(pdf_path)} \033[0m")
+        else:
+            print("\033[91m[ERROR] Something went wrong with running pdflatex\033[0m")
+            temp_log_path = os.path.join(temp_dir, "temp_pdf.log")
+            if os.path.isfile(temp_log_path):
+                failure_log_path = os.path.splitext(pdf_path)[0] + ".log"
+                shutil.copyfile(temp_log_path, failure_log_path)
+                print(f"\033[93m[PDF] Wrote LaTeX log to {failure_log_path}\033[0m")
             else:
-                print("\033[91m[ERROR] Something went wrong with running pdflatex\033[0m")
-                temp_log_path = os.path.join(temp_dir, "temp_pdf.log")
-                if os.path.isfile(temp_log_path):
-                    failure_log_path = os.path.splitext(pdf_path)[0] + ".log"
-                    shutil.copyfile(temp_log_path, failure_log_path)
-                    print(f"\033[93m[PDF] Wrote LaTeX log to {failure_log_path}\033[0m")
-                else:
-                    print("\tLog file wasn't even created, printing CompletedProcess object")
-                    print(completed)
-    finally:
-        os.chdir(initial_dir)
-
-
-def import_pypdf2():
-    from PyPDF2 import PdfFileMerger, PdfFileReader
-
-    return PdfFileMerger, PdfFileReader
+                print("\tLog file wasn't even created, printing CompletedProcess object")
+                print(completed)
 
 
 def generate_tex_output(
@@ -1086,7 +1087,6 @@ def main():
         )
     elif not args.no_pdf:
         print(f"[INIT] Starting export_pdf with sheets in {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=True) (content_mode={args.content_mode})")
-        PdfFileMerger, PdfFileReader = import_pypdf2()
         sheets = get_batch_sheet_directories(args.sheet_path)
 
         print("[INIT] Going to render the following sheets in a temporary directory before merging.")
@@ -1107,16 +1107,16 @@ def main():
                     config=config,
                     profile_name=args.profile,
                 )
-                pages_acc += PdfFileReader(new_pdf).numPages
+                pages_acc += len(PdfReader(new_pdf).pages)
                 rendered_pdfs.append(new_pdf)
 
             print(f"[PDF Merge] Merging {len(rendered_pdfs)} rendered PDFs")
-            merged_file = PdfFileMerger()
+            merged_file = PdfWriter()
             for pdf in rendered_pdfs:
-                merged_file.append(PdfFileReader(pdf, "rb"))
+                merged_file.append(pdf)
 
-        merged_suffix = "" if args.content_mode == "questions" else f"_{args.content_mode}"
-        merged_file.write(os.path.join(args.sheet_path, f"MergedSheets{merged_suffix}.pdf"))
+            merged_suffix = "" if args.content_mode == "questions" else f"_{args.content_mode}"
+            merged_file.write(os.path.join(args.sheet_path, f"MergedSheets{merged_suffix}.pdf"))
         print(f"\033[92m[PDF Merge] Merged all rendered PDFs Successfully! ({len(sheets)} accross {pages_acc} pages)\033[0m")
     else:
         print("[ERROR] Both Batchmode and No_PDF were set - currently batchmode merging requires individual pdfs to be created")

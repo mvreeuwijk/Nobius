@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import copy
 import json
 import os
@@ -70,7 +72,7 @@ def _default_config_path():
     return os.path.join(os.path.dirname(__file__), "nobius.json")
 
 
-def load_config(config_path=None):
+def load_config(config_path: str | None = None) -> tuple[dict, str | None]:
     config = copy.deepcopy(DEFAULT_CONFIG)
     resolved_path = config_path or _default_config_path()
 

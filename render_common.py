@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from jinja2 import Environment, FileSystemLoader
 from uuid import NAMESPACE_URL, uuid4, uuid5
 import copy
@@ -5,6 +7,7 @@ import json
 import os
 import re
 import shutil
+from typing import Any
 from zipfile import ZipFile
 
 import templates.filters as filters
@@ -49,7 +52,7 @@ def resolve_media_path(work_dir):
     return os.path.join(work_dir, "media")
 
 
-def load_json_file(filepath):
+def load_json_file(filepath: str | os.PathLike) -> Any:
     with open(filepath, "r", encoding="utf-8") as file:
         try:
             return json.load(file)
@@ -225,8 +228,8 @@ def process_custom_response(identifier, part, q_title, i, r_schema, r_defaults):
     return responses, identifier, is_maple
 
 
-def make_matrix(params, identifier):
-    res_areas = []
+def make_matrix(params: dict, identifier: int) -> tuple[list[list[int]], list[dict]]:
+    res_areas: list[dict] = []
 
     if params["mode"] == "Matrix Numeric":
         rows = len(params["answer"])
@@ -445,7 +448,14 @@ def resolve_template_name_and_layout(template_name, render_settings):
     return template_name, "default"
 
 
-def render_sheet(work_dir, template_name, render_settings, reset_uid=False, write_missing_uids=False, output_dir=None):
+def render_sheet(
+    work_dir: str | os.PathLike,
+    template_name: str,
+    render_settings: dict,
+    reset_uid: bool = False,
+    write_missing_uids: bool = False,
+    output_dir: str | os.PathLike | None = None,
+) -> dict[str, str]:
     print("[LOADING] Fetching sheet data")
     template_name, layout_profile = resolve_template_name_and_layout(template_name, render_settings)
 
