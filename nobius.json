@@ -37,16 +37,18 @@
   "pdf": {
     "headings": {
       "problem_sets": {
-        "footer_label": "CIVE40008 Fluid Mechanics I",
-        "section_label": "CIVE40008 Problem Set \\#"
+        "section_label": "CIVE40008 Problem Set \\#",
+        "footer_label": "CIVE40008 Fluid Mechanics I"
       },
       "exam": {
-        "footer_label": "CIVE40008 Fluid Mechanics I",
-        "section_label": ""
+        "section_label": "",
+        "footer_label": "CIVE40008 Fluid Mechanics I"
+
       },
       "generic": {
-        "footer_label": "Assignment \\#",
-        "section_label": "Nobius Sheet"
+        "section_label": "Mobius assignment/lesson \\#",
+        "footer_label": "Assignment/Lesson \\#"
+
       }
     }
   }

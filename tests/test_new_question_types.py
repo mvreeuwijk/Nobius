@@ -3,7 +3,7 @@ import pytest
 from import_mobius import import_mobius_package
 from import_report import ImportReport
 from render_common import normalize_response_area_for_render, render_sheet
-from xml_scraper.get_xml_data import normalize_response
+from xml_scraper.get_xml_data import normalize_question_structure, normalize_response
 
 from .conftest import REPO_ROOT, create_sheet_fixture, load_json, load_question_by_title, make_render_settings
 
@@ -227,3 +227,55 @@ def test_normalize_response_reports_html_field_renaming():
     assert "getResponse" in normalized["javascript"]
     assert normalized["grading_code"] == "evalb(true);"
     assert any("Normalized HTML response field names" in info["message"] for info in report.infos)
+
+
+def test_render_normalization_coerces_essay_keywords_string_to_list():
+    # Mobius exports Essay keywords as a CDATA string '[]' rather than a JSON
+    # array. normalize_response_area_for_render must coerce any non-list value
+    # (not just None) to an empty list so schema validation passes.
+    response = {"mode": "Essay", "keywords": "[]", "maxWordcount": 250}
+
+    normalize_response_area_for_render(response)
+
+    assert response["keywords"] == []
+
+
+def test_normalize_response_clears_nonempty_maple_plot_field():
+    # Mobius sometimes exports a Maple grading expression in the plot field.
+    # The Nobius schema requires plot == "" (const), so the importer must
+    # reset it; the grading expression belongs in the maple field instead.
+    response = {
+        "mode": "Maple",
+        "mapleAnswer": "g*m",
+        "maple": "evalb(simplify(student - correct) = 0);",
+        "plot": "evalb(simplify(student - correct) < 0.01);",
+    }
+
+    normalized = normalize_response(response)
+
+    assert normalized["plot"] == ""
+    assert normalized["maple"] == "evalb(simplify(student - correct) = 0);"
+
+
+def test_normalize_question_structure_filters_none_from_worked_solutions():
+    # Mobius sometimes emits null entries in worked_solutions lists. The
+    # importer must drop them so the schema's "items: {type: object}" check
+    # does not reject the question at render time.
+    question = {
+        "title": "Flow in a Pipe",
+        "parts": [
+            {
+                "statement": "Calculate the flow rate.",
+                "worked_solutions": [
+                    {"text": "Step 1: apply continuity."},
+                    None,
+                    {"text": "Step 2: solve for Q."},
+                ],
+            }
+        ],
+    }
+
+    normalize_question_structure(question)
+
+    assert None not in question["parts"][0]["worked_solutions"]
+    assert len(question["parts"][0]["worked_solutions"]) == 2
