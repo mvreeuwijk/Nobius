@@ -109,7 +109,7 @@ def build_footer_mark(sheet_name: str, heading_config: dict) -> str:
 def build_exam_question_heading(question_title: object, heading_config: dict) -> str:
     """Build the section heading for an exam-mode question."""
     title = tex_escape_text(str(question_title or "").strip())
-    prefix = str(heading_config.get("footer_label", "") or "").strip()
+    prefix = str(heading_config.get("section_label", "") or "").strip()
     if prefix:
         suffix = "." if not prefix.endswith((".", "!", "?", ":")) else ""
         return f"{prefix}{suffix} {title}"

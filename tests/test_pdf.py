@@ -272,7 +272,8 @@ def test_generate_exam_tex_uses_unnumbered_prefixed_headings_for_questions(t01_s
     assert r"\section*{Fundamentals}" in tex_content
     assert r"\subsection{Fluids}" not in tex_content
     assert r"\section{Fluids}" not in tex_content
-    assert r"\section*{CIVE40008 Fluid Mechanics I. Fluids}" in tex_content
+    # Exam profile has empty section_label, so question headings have no prefix.
+    assert r"\section*{Fluids}" in tex_content
 
 
 def test_build_footer_mark_truncates_sheet_name_to_four_words():

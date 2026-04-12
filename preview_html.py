@@ -2,15 +2,38 @@ import html
 import os
 import re
 import shutil
+import subprocess
 import zipfile
 from pathlib import Path
-from uuid import uuid4
 
 import bs4
 
 from cli_common import build_render_parser, resolve_render_profile
 from nobius_config import load_config, resolve_profile_name
 from render_common import render_sheet
+
+
+def _rmtree_long_path(path):
+    """Remove a directory tree, handling Windows long paths via robocopy."""
+    if not path.exists():
+        return
+    try:
+        shutil.rmtree(path)
+    except OSError:
+        if os.name != "nt":
+            raise
+        # On Windows, shutil.rmtree fails when internal paths exceed MAX_PATH.
+        # Use robocopy to purge by syncing from an empty temp dir, then rmdir.
+        import tempfile
+        with tempfile.TemporaryDirectory() as empty:
+            subprocess.run(
+                ["robocopy", empty, str(path), "/purge", "/e", "/njh", "/njs", "/nfl", "/ndl"],
+                capture_output=True,
+            )
+        try:
+            os.rmdir(str(path))
+        except OSError:
+            pass
 
 
 PLACEHOLDER_RE = re.compile(r"<(\d+)\s*/?>")
@@ -437,16 +460,10 @@ def main():
     preview_dir = (
         Path(args.output_dir).resolve()
         if args.output_dir
-        else sheet_path / "renders" / f"{sheet_name}_preview"
+        else sheet_path / "renders" / "html"
     )
 
-    if preview_dir.exists():
-        try:
-            shutil.rmtree(preview_dir)
-        except OSError:
-            # Can't remove existing directory (locked, or long internal paths on
-            # Windows that the regular API can't reach). Fall back to a fresh dir.
-            preview_dir = preview_dir.parent / f"{preview_dir.name}_{uuid4().hex[:8]}"
+    _rmtree_long_path(preview_dir)
     preview_dir_str = str(preview_dir.resolve())
     if os.name == "nt":
         os.makedirs("\\\\?\\" + preview_dir_str, exist_ok=True)

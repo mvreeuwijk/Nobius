@@ -244,6 +244,29 @@ def index_media_entries(zip_path):
     return media_index
 
 
+def _detect_media_folder(source_paths):
+    """Extract the original web_folders subfolder name from copied media source paths.
+
+    Returns the folder name if all copied files came from the same subfolder,
+    or ``None`` if no media was copied or the sources were ambiguous.
+    """
+    folders = set()
+    for src in source_paths:
+        # Paths look like "web_folders/FolderName/file.png" (ZIP) or
+        # ".../web_folders/FolderName/file.png" (filesystem).
+        normalised = src.replace("\\", "/")
+        idx = normalised.find("web_folders/")
+        if idx == -1:
+            continue
+        after = normalised[idx + len("web_folders/"):]
+        parts = after.split("/")
+        if len(parts) >= 2 and parts[0] not in ("Scripts",):
+            folders.add(parts[0])
+    if len(folders) == 1:
+        return folders.pop()
+    return None
+
+
 def copy_media(group, destination, source_info, media_strategy, report):
     media_refs = gather_media_references(group)
     if source_info["source_type"] == "zip":
@@ -264,6 +287,7 @@ def copy_media(group, destination, source_info, media_strategy, report):
     media_dest = os.path.join(destination, "media")
     os.makedirs(media_dest, exist_ok=True)
 
+    copied_sources = []
     for filename in sorted(media_refs):
         matches = media_index.get(filename, [])
 
@@ -287,6 +311,11 @@ def copy_media(group, destination, source_info, media_strategy, report):
             shutil.copy(src, target_path)
 
         report.add_copied_media(filename, src)
+        copied_sources.append(src)
+
+    media_folder = _detect_media_folder(copied_sources)
+    if media_folder and media_folder != group["info"].get("name"):
+        group["info"]["media_folder"] = media_folder
 
 
 def write_group_json(group, destination):
@@ -358,11 +387,11 @@ def import_mobius_package(target, dest, strip_uids, config):
         if use_subdirectories:
             group_dest = resolve_group_destination(dest, group, used_directory_names)
 
+        copy_media(group, group_dest, source_info, get_import_media_strategy(config), report)
+
         outputs = write_group_json(group, group_dest)
         for output in outputs:
             report.add_output(output)
-
-        copy_media(group, group_dest, source_info, get_import_media_strategy(config), report)
 
     json_report = os.path.join(dest, "import_report.json")
     text_report = os.path.join(dest, "import_report.txt")

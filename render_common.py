@@ -44,6 +44,16 @@ def deterministic_uuid(seed):
     return str(uuid5(NAMESPACE_URL, seed))
 
 
+def resolve_media_folder_name(sheet_info):
+    """Return the web_folders subfolder name for media assets.
+
+    Uses the optional ``media_folder`` field when present, falling back to
+    the sheet name.  This preserves the original Mobius web resource folder
+    name through the import→render round-trip.
+    """
+    return sheet_info.get("media_folder") or sheet_info["name"]
+
+
 def resolve_media_path(work_dir):
     for candidate in ("media", "Media"):
         candidate_path = os.path.join(work_dir, candidate)
@@ -332,6 +342,7 @@ def collect_question_media_references(node):
 
 
 def build_course_module_context(sheet_info, questions, media_files, exam=False):
+    media_folder_name = resolve_media_folder_name(sheet_info)
     assignment_uid = deterministic_uuid(f"{sheet_info['uid']}:assignment")
     instance_uid = deterministic_uuid("nobius:instance")
     author_uid = deterministic_uuid("nobius:author")
@@ -357,8 +368,8 @@ def build_course_module_context(sheet_info, questions, media_files, exam=False):
     }]
     if media_files:
         web_resource_folders.insert(0, {
-            "name": f"web_folders/{sheet_info['name']}",
-            "uri": f"web_folders/{sheet_info['name']}",
+            "name": f"web_folders/{media_folder_name}",
+            "uri": f"web_folders/{media_folder_name}",
         })
 
     return {
@@ -515,10 +526,11 @@ def _assemble_zip(
             zip_file.write(script_path, arcname=PACKAGED_SCRIPT_ARCNAME)
         if include_packaged_maple_library:
             zip_file.write(maple_library_path, arcname=PACKAGED_MAPLE_LIBRARY_ARCNAME)
+        media_folder_name = resolve_media_folder_name(sheet_info)
         for media_file in media_files:
             zip_file.write(
                 os.path.join(media_path, media_file),
-                arcname=os.path.join("web_folders", f"{sheet_info['name']}", media_file),
+                arcname=os.path.join("web_folders", media_folder_name, media_file),
             )
 
 
@@ -545,7 +557,8 @@ def _copy_batch_outputs(
     if include_packaged_maple_library:
         shutil.copy(maple_library_path, os.path.join(output_dir, "web_folders", PACKAGED_MAPLE_LIBRARY_NAME))
     if media_files:
-        output_media_path = os.path.join(output_dir, "web_folders", f"{sheet_info['name']}")
+        media_folder_name = resolve_media_folder_name(sheet_info)
+        output_media_path = os.path.join(output_dir, "web_folders", media_folder_name)
         if os.path.exists(output_media_path):
             shutil.rmtree(output_media_path)
         os.mkdir(output_media_path)
@@ -600,7 +613,7 @@ def render_sheet(
             layout_profile=layout_profile,
         ),
         packaged_scripts_location=PACKAGED_SCRIPT_URI,
-        sheetName=sheet_info["name"],
+        sheetName=resolve_media_folder_name(sheet_info),
         alphabet="abcdefghijklmnopqrstuvwxyz",
         arc=filters.get_arc_path,
         ticks=filters.get_ticks,
