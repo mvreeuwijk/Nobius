@@ -152,7 +152,7 @@ def get_question_from_xml(question_xml, report=None):
                 question.setdefault("number", number_match.group("number"))
             else:
                 question["title"] = question_name
-            report_warning(
+            report_info(
                 report,
                 "Question title could not be recovered from data-propname markup; using Mobius question name.",
                 question_name,
@@ -189,6 +189,14 @@ def normalize_question_structure(question, report=None):
 
     if isinstance(icon_data, dict) and not icon_data:
         question.pop("icon_data", None)
+
+    for part in (question.get("parts") or []):
+        if isinstance(part, dict) and isinstance(part.get("worked_solutions"), list):
+            part["worked_solutions"] = filter_malformed_items(
+                part["worked_solutions"],
+                report,
+                "Dropped null entry from worked_solutions list during import.",
+            )
 
 
 def normalize_embedded_responses(node, report=None):
@@ -500,6 +508,13 @@ def normalize_response(response, report=None):
             response_name,
         )
         normalized["mode"] = "Non Permuting Multiple Selection"
+
+    if normalized.get("mode") == "Maple":
+        # Nobius schema requires plot to be an empty string; Mobius sometimes
+        # exports a non-empty Maple grading expression there. Strip it so that
+        # validation passes (the grading expression is already in `maple`).
+        if normalized.get("plot", "") != "":
+            normalized["plot"] = ""
 
     if normalized.get("mode") in {"Non Permuting Multiple Choice", "True False"}:
         answer_value = normalized.get("answer")

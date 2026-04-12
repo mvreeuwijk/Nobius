@@ -419,7 +419,7 @@ def test_real_question_types_demo_zip_surfaces_import_warnings_explicitly(questi
 
     report = import_mobius_package(str(question_types_demo_zip), str(destination), True, load_json(REPO_ROOT / "nobius.json"))
 
-    assert any("Question title could not be recovered" in warning["message"] for warning in report.warnings)
+    assert any("Question title could not be recovered" in info["message"] for info in report.infos)
     assert any("Response area tag couldn't be found" in warning["message"] for warning in report.warnings)
 
 

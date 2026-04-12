@@ -304,7 +304,7 @@ def normalize_response_area_for_render(response):
         if "grading_code" in response and "gradingCode" not in response:
             response["gradingCode"] = response.pop("grading_code")
     elif mode == "Essay":
-        if response.get("keywords") is None:
+        if not isinstance(response.get("keywords"), list):
             response["keywords"] = []
 
 
@@ -561,6 +561,11 @@ def render_sheet(
     write_missing_uids: bool = False,
     output_dir: str | os.PathLike | None = None,
 ) -> dict[str, str]:
+    # Resolve to an absolute path so that file operations (open, makedirs, ZipFile)
+    # work correctly on Windows when called with a relative path containing "..".
+    # Windows CRT resolves relative paths differently from os.path.abspath when the
+    # path includes ".." and the CWD itself is long.
+    work_dir = os.path.abspath(work_dir)
     print("[LOADING] Fetching sheet data")
     template_name, layout_profile = resolve_template_name_and_layout(template_name, render_settings)
 

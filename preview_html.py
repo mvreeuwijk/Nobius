@@ -1,4 +1,5 @@
 import html
+import os
 import re
 import shutil
 import zipfile
@@ -180,7 +181,11 @@ def slugify(value):
 
 def extract_assets(zip_path, destination):
     assets_dir = destination / "assets"
-    assets_dir.mkdir(parents=True, exist_ok=True)
+    assets_resolved = str(assets_dir.resolve())
+    if os.name == "nt":
+        os.makedirs("\\\\?\\" + assets_resolved, exist_ok=True)
+    else:
+        assets_dir.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as archive:
         safe_extract_archive(archive, assets_dir)
     return assets_dir
@@ -193,7 +198,21 @@ def safe_extract_archive(archive, destination):
         resolved_path = member_path.resolve()
         if destination not in resolved_path.parents and resolved_path != destination:
             raise ValueError(f"Refusing to extract unsafe zip member: {member.filename}")
-        archive.extract(member, destination)
+        # Use extended-length path prefix on Windows so that os.makedirs and
+        # open() work correctly when paths exceed the MAX_PATH (260-char) limit.
+        resolved_str = str(resolved_path)
+        if os.name == "nt":
+            target = "\\\\?\\" + resolved_str
+            parent = "\\\\?\\" + str(resolved_path.parent)
+        else:
+            target = resolved_str
+            parent = str(resolved_path.parent)
+        if member.is_dir():
+            os.makedirs(target, exist_ok=True)
+            continue
+        os.makedirs(parent, exist_ok=True)
+        with archive.open(member) as src, open(target, "wb") as dst:
+            shutil.copyfileobj(src, dst)
 
 
 def fragment_to_html(fragment):
@@ -341,8 +360,17 @@ def build_preview_page(question_name, body_html):
 """
 
 
+def _write_preview_file(path: Path, content: str) -> None:
+    """Write *content* to *path*, using the Windows extended-length prefix when needed."""
+    target = ("\\\\?\\" + str(path.resolve())) if os.name == "nt" else str(path)
+    with open(target, "w", encoding="utf-8") as fh:
+        fh.write(content)
+
+
 def write_question_previews(xml_path, preview_dir):
-    soup = bs4.BeautifulSoup(Path(xml_path).read_text(encoding="utf-8"), "lxml-xml")
+    # Read the XML using the extended-length prefix on Windows to handle long paths.
+    xml_read_path = ("\\\\?\\" + str(Path(xml_path).resolve())) if os.name == "nt" else xml_path
+    soup = bs4.BeautifulSoup(Path(xml_read_path).read_text(encoding="utf-8"), "lxml-xml")
     questions = soup.find_all("question")
     index_entries = []
     preview_css = load_preview_css()
@@ -356,7 +384,7 @@ def write_question_previews(xml_path, preview_dir):
         text_html = normalize_preview_html(text_html)
 
         filename = f"{question_index:02d}-{slugify(name)}.html"
-        (preview_dir / filename).write_text(build_preview_page(name, text_html), encoding="utf-8")
+        _write_preview_file(preview_dir / filename, build_preview_page(name, text_html))
         index_entries.append((name, filename))
 
     index_html = """<!doctype html>
@@ -386,7 +414,7 @@ def write_question_previews(xml_path, preview_dir):
             for name, filename in index_entries
         )
     )
-    (preview_dir / "index.html").write_text(index_html, encoding="utf-8")
+    _write_preview_file(preview_dir / "index.html", index_html)
 
 
 def main():
@@ -404,10 +432,10 @@ def main():
         output_dir=args.batch_destination,
     )
 
-    sheet_path = Path(args.filepath)
+    sheet_path = Path(args.filepath).resolve()
     sheet_name = Path(render_result["xml_path"]).stem
     preview_dir = (
-        Path(args.output_dir)
+        Path(args.output_dir).resolve()
         if args.output_dir
         else sheet_path / "renders" / f"{sheet_name}_preview"
     )
@@ -415,9 +443,15 @@ def main():
     if preview_dir.exists():
         try:
             shutil.rmtree(preview_dir)
-        except PermissionError:
+        except OSError:
+            # Can't remove existing directory (locked, or long internal paths on
+            # Windows that the regular API can't reach). Fall back to a fresh dir.
             preview_dir = preview_dir.parent / f"{preview_dir.name}_{uuid4().hex[:8]}"
-    preview_dir.mkdir(parents=True, exist_ok=True)
+    preview_dir_str = str(preview_dir.resolve())
+    if os.name == "nt":
+        os.makedirs("\\\\?\\" + preview_dir_str, exist_ok=True)
+    else:
+        preview_dir.mkdir(parents=True, exist_ok=True)
 
     extract_assets(render_result["zip_path"], preview_dir)
     write_question_previews(render_result["xml_path"], preview_dir)

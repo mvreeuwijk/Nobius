@@ -72,6 +72,15 @@ def generate_pdf_output(
     tex_path = os.path.abspath(tex_path)
     pdf_path = os.path.abspath(pdf_path)
     tex_dir = os.path.dirname(tex_path)
+    # On Windows, apply the extended-length path prefix to file-I/O destinations
+    # so that paths longer than MAX_PATH (260 chars) are handled correctly.
+    # tex_dir / tex_path basename are kept unprefixed for subprocess cwd/arg use.
+    if os.name == "nt":
+        pdf_write_path = "\\\\?\\" + pdf_path
+        log_write_path = "\\\\?\\" + os.path.splitext(pdf_path)[0] + ".log"
+    else:
+        pdf_write_path = pdf_path
+        log_write_path = os.path.splitext(pdf_path)[0] + ".log"
 
     if shutil.which("pdflatex") is None:
         logger.error("pdflatex is not on PATH — install it and ensure it is accessible")
@@ -93,14 +102,14 @@ def generate_pdf_output(
 
         temp_pdf_path = os.path.join(temp_dir, "temp_pdf.pdf")
         if os.path.isfile(temp_pdf_path):
-            shutil.move(temp_pdf_path, pdf_path)
+            shutil.move(temp_pdf_path, pdf_write_path)
             logger.info("Created %s", os.path.basename(pdf_path))
             return True
 
         logger.error("pdflatex failed to produce a PDF for %s", os.path.basename(tex_path))
         temp_log_path = os.path.join(temp_dir, "temp_pdf.log")
         if os.path.isfile(temp_log_path):
-            failure_log_path = os.path.splitext(pdf_path)[0] + ".log"
+            failure_log_path = log_write_path
             shutil.copyfile(temp_log_path, failure_log_path)
             logger.warning("Wrote pdflatex log to %s", failure_log_path)
         else:

@@ -621,6 +621,10 @@ def generate_tex_output(
             f"got pages_acc={pages_acc!r}, tmp_merge_folder={tmp_merge_folder!r}"
         )
 
+    # Resolve to an absolute path so that file operations work correctly on
+    # Windows when called with a relative path containing "..".
+    sheet_dir = os.path.abspath(sheet_dir)
+
     header_file = os.path.join(os.path.dirname(__file__), "resources", "latex", "header.tex")
     active_config = config
     if active_config is None:
@@ -655,7 +659,14 @@ def generate_tex_output(
     else:
         outputfile_pdf = os.path.join(render_dir, sheet_info["name"] + suffix + ".pdf")
 
-    with open(outputfile_tex, "w", encoding="utf-8") as file:
+    # Use the extended-length path prefix on Windows to bypass the MAX_PATH
+    # (260-char) limit when the sheet name produces a long .tex filename.
+    tex_write_path = (
+        "\\\\?\\" + os.path.abspath(outputfile_tex)
+        if os.name == "nt"
+        else outputfile_tex
+    )
+    with open(tex_write_path, "w", encoding="utf-8") as file:
         with open(header_file, "r", encoding="utf-8") as header:
             header_text = header.read()
         file.write(render_header_template(header_text, heading_config))
