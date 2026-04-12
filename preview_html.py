@@ -456,7 +456,6 @@ def main():
     )
 
     sheet_path = Path(args.filepath).resolve()
-    sheet_name = Path(render_result["xml_path"]).stem
     preview_dir = (
         Path(args.output_dir).resolve()
         if args.output_dir
