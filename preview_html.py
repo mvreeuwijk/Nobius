@@ -347,7 +347,11 @@ def normalize_preview_html(text_html):
     for media_tag in soup.find_all(src=True):
         src = media_tag["src"]
         if src.startswith("__BASE_URI__"):
-            media_tag["src"] = "assets/" + src.replace("__BASE_URI__", "web_folders/")
+            # Strip the media-folder prefix and keep just the filename.
+            # HTML files are always at <sheet>/renders/html/*.html and
+            # media lives at <sheet>/media/, so ../../media/<file> always resolves correctly.
+            filename = src.split("/")[-1]
+            media_tag["src"] = f"../../media/{filename}"
 
     for element in soup.find_all(string=True):
         if "\u00c2\u00a0" in element:
