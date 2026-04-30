@@ -16,6 +16,7 @@ nav:
   - About:
       - List of Features: "About/features.md"
   - Usage:
+      - precheck.py: "Usage/precheck.md"
       - export_mobius.py: "Usage/export_mobius.md"
       - preview_html.py: "Usage/preview_html.md"
       - export_pdf.py: "Usage/export_pdf.md"
@@ -46,6 +47,7 @@ nav:
       - QuestionJavascript: "CustomizationAndResources/QuestionJavascript.md"
       - Templates and Jinja: "CustomizationAndResources/TemplatesAndJinja.md"
       - Round-Trip Invariants: "CustomizationAndResources/RoundTripInvariants.md"
+      - Agent Guidance and Claude Skills: "CustomizationAndResources/AgentGuidance.md"
   - Addons/Features:
       - Future additions/changes: "AddonsAndFeatures/FutureAdditions.md"
 

@@ -1,6 +1,8 @@
 import argparse
+import sys
 
 from nobius_config import load_config, resolve_profile, validate_render_config
+from precheck import run as run_precheck
 from render_common import render_sheet
 
 
@@ -79,6 +81,10 @@ def run_render_cli(description, path_help):
     args = parser.parse_args()
     config, _ = load_config(args.config)
     render_profile = resolve_render_profile(config, args.render_mode, args.profile)
+
+    if run_precheck(args.filepath):
+        sys.stderr.write("\nprecheck failed; aborting render.\n")
+        sys.exit(1)
 
     render_sheet(
         args.filepath,

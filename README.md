@@ -8,12 +8,18 @@ The checked-in `nobius.json` contains named profiles. `default_profile` drives n
 
 Primary workflows:
 
+- lint a sheet before export with `precheck.py` (auto-runs ahead of every export/preview command, but surface its messages directly while authoring)
 - export Mobius packages with `export_mobius.py`
 - create local HTML previews with `preview_html.py`
 - create LaTeX and PDF outputs with `export_pdf.py`
 - import Mobius XML/ZIP exports with `import_mobius.py`
 - run the regression suite with `pytest -q tests`
 - run lint checks with `python -m ruff check Nobius`
+
+Agent and authoring guidance lives in [`AGENTS.md`](AGENTS.md) and the
+`authoring-nobius-sheets` skill in
+[`.claude/skills/`](.claude/skills/authoring-nobius-sheets/). New failure
+modes should be captured as test cases in `tests/test_precheck.py`.
 
 ## First render and stable UIDs
 

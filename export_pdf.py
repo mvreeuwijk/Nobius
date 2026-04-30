@@ -17,12 +17,14 @@ Implementation is split across focused modules:
 
 import argparse
 import os
+import sys
 import tempfile
 
 from pypdf import PdfReader, PdfWriter
 
 from nobius_config import load_config
 from pdf_content import generate_tex_output
+from precheck import run as run_precheck
 from render_common import load_json_file
 
 
@@ -71,6 +73,9 @@ def main():
 
     if not args.batch_mode:
         print(f"[INIT] Starting export_pdf with sheet {os.path.basename(args.sheet_path)} (pdf_write={bool(args.no_pdf)}) (batchmode=False) (content_mode={args.content_mode})")
+        if run_precheck(args.sheet_path):
+            sys.stderr.write("\nprecheck failed; aborting export_pdf.\n")
+            sys.exit(1)
         generate_tex_output(
             args.sheet_path,
             args.no_pdf,
@@ -89,8 +94,12 @@ def main():
             rendered_pdfs = []
             pages_acc = 0
             for sheet in sheets:
+                sheet_path = os.path.join(args.sheet_path, sheet)
+                if run_precheck(sheet_path):
+                    sys.stderr.write(f"\nprecheck failed for {sheet}; skipping.\n")
+                    continue
                 new_pdf = generate_tex_output(
-                    os.path.join(args.sheet_path, sheet),
+                    sheet_path,
                     args.no_pdf,
                     args.content_mode,
                     pages_acc,
@@ -124,8 +133,12 @@ def main():
         _print_sheet_tree(args.sheet_path, sheets)
 
         for sheet in sheets:
+            sheet_path = os.path.join(args.sheet_path, sheet)
+            if run_precheck(sheet_path):
+                sys.stderr.write(f"\nprecheck failed for {sheet}; skipping.\n")
+                continue
             generate_tex_output(
-                os.path.join(args.sheet_path, sheet),
+                sheet_path,
                 args.no_pdf,
                 args.content_mode,
                 config=config,

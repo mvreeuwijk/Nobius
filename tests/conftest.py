@@ -104,6 +104,14 @@ def copy_directory_fixture(source, destination):
 def create_sheet_fixture(target_root, folder_name, sheet_info, questions, media_files=None):
     destination = target_root / folder_name
     destination.mkdir(parents=True, exist_ok=True)
+    if media_files and "media_folder" not in sheet_info:
+        # Precheck requires media_folder when the sheet has media. Default to the
+        # sheet name when it is whitespace-free, otherwise fall back to the folder
+        # name so the test keeps using a no-space identifier.
+        default_media_folder = sheet_info.get("name", folder_name)
+        if any(ch.isspace() for ch in default_media_folder):
+            default_media_folder = folder_name
+        sheet_info = {**sheet_info, "media_folder": default_media_folder}
     write_json(destination / "SheetInfo.json", sheet_info)
 
     for question in questions:
@@ -122,6 +130,14 @@ def create_sheet_fixture(target_root, folder_name, sheet_info, questions, media_
 def create_named_sheet_fixture(target_root, folder_name, sheet_info, questions_by_basename, media_files=None):
     destination = target_root / folder_name
     destination.mkdir(parents=True, exist_ok=True)
+    if media_files and "media_folder" not in sheet_info:
+        # Precheck requires media_folder when the sheet has media. Default to the
+        # sheet name when it is whitespace-free, otherwise fall back to the folder
+        # name so the test keeps using a no-space identifier.
+        default_media_folder = sheet_info.get("name", folder_name)
+        if any(ch.isspace() for ch in default_media_folder):
+            default_media_folder = folder_name
+        sheet_info = {**sheet_info, "media_folder": default_media_folder}
     write_json(destination / "SheetInfo.json", sheet_info)
 
     for basename, question in questions_by_basename.items():

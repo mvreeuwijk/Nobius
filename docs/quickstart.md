@@ -72,11 +72,21 @@ This executes the public regression suite against tutorial fixtures and importer
 
 ## Getting started
 
-Our tools come packaged with public tutorial sheets you can render to test your installation. Once you have completed the setup, simply run the command below. Detailed information for each of the scripts in Nobius is available in the [Usage][2] section of this documentation.
+Our tools come packaged with public tutorial sheets you can render to test your installation. Once you have completed the setup, lint and render with:
 
 ```bash
+python precheck.py "C:\path\to\Nobius\Questions\t01"
 python export_mobius.py "C:\path\to\Nobius\Questions\t01" --write-missing-uids
 ```
+
+`precheck.py` is the pre-export sanity check: it flags whitespace in
+media paths, missing figures, mode-vs-answer mismatches, and other
+patterns that cause Mobius to reject an import. Every export and preview
+script also calls it automatically — running it explicitly while
+authoring just gives you the error messages directly. See
+[precheck.py](Usage/precheck.md) for the full rule set.
+
+Detailed information for each of the scripts in Nobius is available in the [Usage][2] section of this documentation.
 
 ## UIDs and first render
 

@@ -12,7 +12,11 @@
                 "minItems": 1
             },
             "uid": {"type": "string"},
-            "media_folder": {"type": "string"}
+            "media_folder": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "description": "Folder name for bundled media. Must contain no whitespace because Mobius rejects URL-encoded spaces in __BASE_URI__ paths."
+            }
         },
         "required": [
             "name",

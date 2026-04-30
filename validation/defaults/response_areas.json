@@ -75,6 +75,7 @@
     },
     "Multiple Selection": {
         "name": "responseNan",
+        "display": "vertical",
         "weighting": 1,
         "comment": ""
     },

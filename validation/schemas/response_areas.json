@@ -4,7 +4,7 @@
     "type": "object",
     "properties": {
         "name": {"type": "string"},
-        "weighting": {"type": "number"},
+        "weighting": {"type": "number", "minimum": 0},
         "comment": {"type": "string"},
         "mode": {
             "type": "string",
@@ -211,7 +211,7 @@
                             "properties": {"grading": {"enum": ["exact_sigd", "toler_sigd"]}}
                         },
                         "then": {
-                            "properties": {"digit": {"type": "integer"}},
+                            "properties": {"digit": {"type": "integer", "minimum": 1}},
                             "required": ["digit"]
                         }
                     },
@@ -220,7 +220,7 @@
                             "properties": {"grading": {"enum": ["toler_abs", "toler_sigd"]}}
                         },
                         "then": {
-                            "properties": {"err": {"type": "number"}},
+                            "properties": {"err": {"type": "number", "exclusiveMinimum": 0}},
                             "required": ["err"]
                         }
                     },
@@ -229,7 +229,13 @@
                             "properties": {"grading": {"const": "toler_perc"}}
                         },
                         "then": {
-                            "properties": {"perc": {"type": "number"}},
+                            "properties": {
+                                "perc": {
+                                    "type": "number",
+                                    "exclusiveMinimum": 0,
+                                    "maximum": 100
+                                }
+                            },
                             "required": ["perc"]
                         }
                     }
