@@ -61,7 +61,7 @@ Required fields (per `validation/schemas/sheet_info.json`): `name`, `number`, `d
             "pre_response_text": "\\(F_T = \\)",
             "response": {
                 "mode": "Numeric",
-                "weighting": 1,
+                "weighting": 12,
                 "showUnits": true,
                 "grading": "toler_perc",
                 "perc": 5.0,
@@ -80,6 +80,20 @@ Required fields: `title`, `parts`, `uid`. Each part requires `statement`. UIDs a
 A part has either a single `response` object or a list `responses` (for multi-response groups under one shared statement). Never both.
 
 `input_symbols` (used by Maple parts to render the symbol palette) belongs at the **part level**, sibling of `response`/`responses` — not inside an individual response. The renderer silently ignores it in the wrong place. Precheck catches this.
+
+### Marks: `weighting` is the actual Mobius score
+
+`weighting` on each `response` is the **mark value Mobius uses to score that response**. It is *not* cosmetic. The visible `[N MARKS]` text in `post_response_text` is purely for the student — Mobius does not parse it.
+
+When converting a TeX exam, every `\addpoints{N}` must set **both**:
+1. `"weighting": N` on the corresponding `response` (the actual score)
+2. `"post_response_text": "[N MARKS]"` on the part or response (what the student sees)
+
+If you only do (2), every response silently scores as `weighting: 1` (the default in `validation/defaults/response_areas.json`), and a 12-mark Maple part counts the same as a 1-mark MCQ — students see "[12 MARKS]" but the gradebook records 1. This regression hit Exam2026 the first time round.
+
+For multi-response parts, give each `responses[i].response` its own `weighting` matching the `[N MARKS]` shown next to it. Mobius emits `<weighting>` at the question level as a comma-separated list of all part weightings in order, so a per-response value is exactly what's needed.
+
+**Sanity check after conversion:** sum the weightings per question — they should match the per-question total in the TeX (typically equal across questions, e.g. 25 marks each for a 150-mark exam).
 
 ## Response modes — required fields
 
@@ -196,7 +210,7 @@ Inline math: `\\(...\\)`. Display (centred, own line): `\\[...\\]`. Use display 
 LaTeX-only constructs that do not work in MathJax/HTML and must be avoided in JSON strings:
 - `~` between words (TeX non-breaking space) — renders as a literal `~` character. Use a regular space.
 - `\\'e`, `\\\`e` and similar TeX accent escapes — render as literal text. Use Unicode (é, è, …) directly in the JSON string.
-- `\\addpoints{N}` — TeX-only ExSheets command. Mark points via `post_response_text: "[N MARKS]"` instead.
+- `\\addpoints{N}` — TeX-only ExSheets command. Translate to **both** `"weighting": N` on the matching response (actual Mobius score) **and** `"post_response_text": "[N MARKS]"` for the visible label. Setting only the visible label leaves the score at the default `1` — see the "Marks" section above.
 - `\\input{...}`, `\\include{...}` — no file inclusion at the JSON layer.
 - `\\begin{equation}...\\end{equation}`, `\\begin{align}...` — convert to `\\[...\\]` (single-line display).
 

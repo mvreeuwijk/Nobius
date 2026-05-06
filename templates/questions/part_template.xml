@@ -156,8 +156,11 @@
   <mapleAnswer><![CDATA[ {{ response_area.mapleAnswer }} ]]></mapleAnswer>
   <maple>{{ response_area.maple }}</maple>
   <type>{{ response_area.type }}</type>
+  <plot><![CDATA[ {{ response_area.plot }} ]]></plot>
   <allow2d>{{ response_area.allow2d }}</allow2d>
   <mathConversionMode>{{ response_area.mathConversionMode }}</mathConversionMode>
+  <custompreview><![CDATA[ {{ response_area.custompreview }} ]]></custompreview>
+  {% if response_area.libname is defined %}<libname><![CDATA[ {{ response_area.libname }} ]]></libname>{% endif %}
 </part>
 {%- endmacro %}
 
